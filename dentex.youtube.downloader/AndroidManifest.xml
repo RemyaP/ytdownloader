@@ -108,6 +108,7 @@
         </activity>
         <activity
             android:name="dentex.youtube.downloader.TutorialsActivity"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
             android:label="@string/title_activity_tutorials" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -125,11 +126,17 @@
 
         <activity
             android:name="dentex.youtube.downloader.docs.TranslatorsShowActivity"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
             android:label="@string/title_activity_translators_show"
             android:parentActivityName="dentex.youtube.downloader.AboutActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="dentex.youtube.downloader.AboutActivity" />
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.docs.ShowBssActivity"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/title_activity_show_bss" >
         </activity>
     </application>
 

@@ -221,8 +221,7 @@
             android:key="disable_bugsense"
             android:title="@string/disable_bugsense_title"
             android:summary="@string/disable_bugsense_summary"
-            android:defaultValue="false"
-            android:enabled="false"/>
+            android:defaultValue="false"/>
 
     </PreferenceCategory>
 

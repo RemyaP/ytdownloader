@@ -19,4 +19,6 @@ LANGS=`curl --user $ID:$PW https://api.getlocalization.com/ytdownloader/api/tran
 	
 echo $LANGS | sed 's/ /\n/g' | tee $LANG_FILE
 
-for i in `cat $LANG_FILE`; do curl --user $ID:$PW https://api.getlocalization.com/ytdownloader/api/translators/$i/json/ > $ASSETS/$i; done
+for i in `cat $LANG_FILE`; do 
+	curl --user $ID:$PW https://api.getlocalization.com/ytdownloader/api/translators/$i/json/ > $ASSETS/$i; 
+done

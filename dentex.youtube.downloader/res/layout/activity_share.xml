@@ -42,7 +42,7 @@
     
     <ImageView
         android:id="@+id/imgview"
-        android:contentDescription="@string/imgview_descr"
+        android:contentDescription="@string/thumb_preview_descr"
         android:padding="5dp"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"

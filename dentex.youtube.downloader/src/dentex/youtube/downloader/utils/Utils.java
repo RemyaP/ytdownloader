@@ -261,14 +261,27 @@ public class Utils {
 	}
     
     public static void langInit(Context context) {
+    	
+    	if (settings.getString("DEF_LANG", "").isEmpty()) {	
+    		Locale defLocale = Locale.getDefault();
+    		String defLang = defLocale.getLanguage();
+    		settings.edit().putString("DEF_LANG", defLang).commit();
+    	}
+    		
 		String lang  = settings.getString("lang", "default");
-        if (!lang.equals("default")) {
-	        Locale locale = new Locale(lang);
+        Locale locale;
+		if (!lang.equals("default")) {
+	        locale = new Locale(lang);
 	        Locale.setDefault(locale);
 	        Configuration config = new Configuration();
 	        config.locale = locale;
-	        context.getResources().updateConfiguration(config, null);
+        } else {
+        	locale = new Locale(settings.getString("DEF_LANG", ""));
+        	Locale.setDefault(locale);
         }
+        Configuration config = new Configuration();
+        config.locale = locale;
+        context.getResources().updateConfiguration(config, null);
 	}
     
     public static void logger(String type, String msg, String tag) {

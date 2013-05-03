@@ -6,14 +6,22 @@
 		\n[x] audio extraction from 
 		\n    downloaded video with optional 
 		\n    conversion to mp3 (with FFmpeg)
-		\n[x] BugSense integration
 		\n[x] PayPal donation menu
+		\n[x] BugSense integration
 		\n[x] on the fly language switch
+		\n[x] fixed locale change to default
 		\n[x] 3 new option on SSH:
 		\n    - use other ConnectBot forks
 		\n    - use link inside same LAN
 		\n    - SSH-send to long-press menu
 		\n[x] up-navigation for ativities
+		\n[x] nice translators list
+		\n[x] new translations:
+		\n    - German
+		\n    - Hebrew
+		\n    - Polish
+		\n    - Russian
+		\n    - Western Farsi
 		\n 
 		\n v1.9 - Mar 23 2013
 		\n-----------------------------------
@@ -202,7 +210,8 @@
     <string name="tweet_title">Twitter</string>
     <string name="tweet_summary">\@twidentex</string>    
     
-    <string name="imgview_descr">Video thumbnail</string>
+    <string name="thumb_preview_descr">Video thumbnail</string>
+    <string name="bugsense_screenshot_descr">BugSense screenshot</string>
 	
     <string name="app_name">YouTube Downloader</string>
     <string name="title_activity_share">YouTube Downloader</string>
@@ -220,6 +229,25 @@
     </string-array>
     
     <string name="standard_location_default">Downloads</string>
+    
+    <string name="disable_bugsense_report_sample">java.lang.RuntimeException: Unable to create application dentex.youtube.downloader.YTD: java.lang.NullPointerException
+		\nat android.app.ActivityThread.handleBindApplication(ActivityThread.java:4579)
+		\nat android.app.ActivityThread.access$1300(ActivityThread.java:153)
+		\nat android.app.ActivityThread$H.handleMessage(ActivityThread.java:1307)
+		\nat android.os.Handler.dispatchMessage(Handler.java:99)
+		\nat android.os.Looper.loop(Looper.java:137)
+		\nat android.app.ActivityThread.main(ActivityThread.java:5226)
+		\nat java.lang.reflect.Method.invokeNative(Native Method)
+		\nat java.lang.reflect.Method.invoke(Method.java:511)
+		\nat com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:795)
+		\nat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:562)
+		\nat dalvik.system.NativeStart.main(Native Method)
+		\nCaused by: java.lang.NullPointerException
+		\nat dentex.youtube.downloader.utils.Utils.logger(Utils.java:275)
+		\nat dentex.youtube.downloader.YTD.onCreate(YTD.java:25)
+		\nat android.app.Instrumentation.callApplicationOnCreate(Instrumentation.java:1000)
+		\nat android.app.ActivityThread.handleBindApplication(ActivityThread.java:4576)
+		\n&#8230; 10 more</string>
     
     <string-array name="connectbot_flavour_entries">
         <item>ConnectBot</item>
