@@ -1,5 +1,5 @@
 
-    [v] implement the possibility to change, from preferences, audio extraction type during the video download
+    [ ] implement the possibility to change, from preferences, audio extraction type during the video download
     [ ] option to always download video locally [maybe not]
     [ ] downloads log
     [ ] default format/filter selection for video download

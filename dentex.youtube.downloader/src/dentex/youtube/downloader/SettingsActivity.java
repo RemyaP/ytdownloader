@@ -34,8 +34,8 @@ import android.text.format.DateUtils;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
-import dentex.youtube.downloader.docs.ShowBssActivity;
 import dentex.youtube.downloader.ffmpeg.FfmpegController;
 import dentex.youtube.downloader.service.AutoUpgradeApkService;
 import dentex.youtube.downloader.service.FfmpegDownloadService;
@@ -113,6 +113,7 @@ public class SettingsActivity extends Activity {
 		protected int cpuVers;
 		public static String link;
 		public CheckBoxPreference bs;
+		//public WebView webview;
 
 		public static final int YTD_SIG_HASH = -1892118308; // final string
 		//public static final int YTD_SIG_HASH = -118685648; // dev test: desktop
@@ -126,6 +127,8 @@ public class SettingsActivity extends Activity {
             
             final ContextThemeWrapper boxThemeContextWrapper = new ContextThemeWrapper(getActivity(), R.style.BoxTheme);
             mActivity = getActivity();
+            
+            //webview = new WebView(getActivity());
 
             String cf = settings.getString("CHOOSER_FOLDER", "");
             if (cf.isEmpty()) {
@@ -234,25 +237,23 @@ public class SettingsActivity extends Activity {
                         
                         		public void onClick(DialogInterface dialog, int which) {
 	                        		// show sample
-	                        		/*AlertDialog.Builder helpBuilder = new AlertDialog.Builder(boxThemeContextWrapper);
-	                        	    helpBuilder.setTitle(getString(R.string.disable_bugsense_confirm_neutral));
+	                        		AlertDialog.Builder helpBuilder = new AlertDialog.Builder(boxThemeContextWrapper);
+	                        	    helpBuilder.setTitle(getString(R.string.disable_bugsense_confirm_popup_title));
 	                        	    helpBuilder.setMessage(getString(R.string.disable_bugsense_report_sample));
 	                        	    helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
+	                        	    
 	                        	    helpBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 	                        	
 	                        	        public void onClick(DialogInterface dialog, int which) {
 	                        	            // Do nothing but close the dialog
 	                        	        }
 	                        	    });
-	                        	
+	                        	    
 	                        	    AlertDialog helpDialog = helpBuilder.create();
 	                        	    helpDialog.show();
 	                        	    
 	                        	    TextView textView = (TextView) helpDialog.findViewById(android.R.id.message);
-	                        	    textView.setTextSize(12);*/
-                        			
-                        			Intent intent = new Intent(getActivity(),  ShowBssActivity.class);
-                		            startActivity(intent);
+	                        	    textView.setTextSize(12);
                         	}
                         });
                         
@@ -324,7 +325,7 @@ public class SettingsActivity extends Activity {
 	                        
 	                        adb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
 	                        	
-	                            public void onClick(DialogInterface dialog, int which) {
+	                        	public void onClick(DialogInterface dialog, int which) {
 	                            	// cancel
 	                            }
 	                        });

@@ -27,7 +27,7 @@ import dentex.youtube.downloader.R;
 import dentex.youtube.downloader.utils.SectionedAdapter;
 import dentex.youtube.downloader.utils.Utils;
 
-public class TranslatorsShowActivity extends ListActivity {
+public class TranslatorsListActivity extends ListActivity {
 	
 	public static final String DEBUG_TAG = "TranslatorsShowActivity";
 	private String json;
@@ -40,7 +40,7 @@ public class TranslatorsShowActivity extends ListActivity {
 		// Theme init
     	Utils.themeInit(this);
     	
-		setContentView(R.layout.activity_translators_show);
+		setContentView(R.layout.activity_translators_list);
 		
 		setupActionBar();
 		

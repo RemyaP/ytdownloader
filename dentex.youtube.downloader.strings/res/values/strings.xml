@@ -6,9 +6,7 @@
     <string name="title_activity_about">About</string>
     <string name="title_activity_donate">Donations</string>
     <string name="title_activity_tutorials">Tutorials</string>
-    <string name="title_activity_translators_show">Translators</string>
-    <string name="title_activity_show_bss">BugSense Screenshot</string>
-    
+    <string name="title_activity_translators_show">Translators</string>    
 
     <!-- ### ShareActivity ### -->
 
@@ -174,7 +172,7 @@
         \n\nFrom now on, a checkbox will appear in the download confirmation box visible when you click an item 
         in the YTD\'s video list. When checked, the audio extraction job will start upon video download completion 
         (to hide the checkbox, disable the audio extraction option).
-        \n\nChoose from settings if you want to remove the video file after a seccessful audio extraction.</string>
+        \n\nChoose from settings if you want to remove the video file after a successful audio extraction.</string>
     
     <!-- -->
     <string name="settings_cat_folder">Download folder</string>
@@ -258,7 +256,7 @@
     
     <string name="credits_text0">\tMain Licenses
         \n\n
-        This App and is released under the GPL-3.0.
+        This App is released under the GPL-3.0.
         \n(YouTubeDownloader for Android Copyright &#169; 2013 Samuele Rini).
         \n\n
         The FFmpeg binary (<http>http://www.ffmpeg.org/index.html</http>), 

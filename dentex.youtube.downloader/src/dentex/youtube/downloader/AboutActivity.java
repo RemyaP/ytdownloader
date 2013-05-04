@@ -22,7 +22,7 @@ import dentex.youtube.downloader.docs.CreditsShowActivity;
 import dentex.youtube.downloader.docs.GplShowActivity;
 import dentex.youtube.downloader.docs.LgplShowActivity;
 import dentex.youtube.downloader.docs.MitShowActivity;
-import dentex.youtube.downloader.docs.TranslatorsShowActivity;
+import dentex.youtube.downloader.docs.TranslatorsListActivity;
 import dentex.youtube.downloader.utils.PopUps;
 import dentex.youtube.downloader.utils.Utils;
 
@@ -233,7 +233,7 @@ public class AboutActivity extends Activity {
             tr.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 	        	
 	            public boolean onPreferenceClick(Preference preference) {
-	            	Intent intent = new Intent(getActivity(),  TranslatorsShowActivity.class);
+	            	Intent intent = new Intent(getActivity(),  TranslatorsListActivity.class);
 	        		startActivity(intent);
 	                return true;
 	            }

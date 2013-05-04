@@ -230,7 +230,14 @@
     
     <string name="standard_location_default">Downloads</string>
     
-    <string name="disable_bugsense_report_sample">java.lang.RuntimeException: Unable to create application dentex.youtube.downloader.YTD: java.lang.NullPointerException
+    <string name="disable_bugsense_report_sample">
+        \n example based on the developer\'s device:
+        \n -------------------
+        \nOS version: 4.2.2
+        \nDevice: GT-I9100
+        \nCountry: IT
+        \n -------------------
+        \njava.lang.RuntimeException: Unable to create application dentex.youtube.downloader.YTD: java.lang.NullPointerException
 		\nat android.app.ActivityThread.handleBindApplication(ActivityThread.java:4579)
 		\nat android.app.ActivityThread.access$1300(ActivityThread.java:153)
 		\nat android.app.ActivityThread$H.handleMessage(ActivityThread.java:1307)
