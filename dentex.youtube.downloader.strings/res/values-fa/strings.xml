@@ -6,7 +6,7 @@
     <string name="title_activity_about">درباره</string>
     <string name="title_activity_donate">کمکهای مالی</string>
     <string name="title_activity_tutorials">آموختارها</string>
-    <string name="title_activity_translators_show">Translators</string>
+    <string name="title_activity_translators_show">Translators</string>    
 
     <!-- ### ShareActivity ### -->
 
@@ -162,7 +162,7 @@
         \n\nFrom now on, a checkbox will appear in the download confirmation box visible when you click an item 
         in the YTD\'s video list. When checked, the audio extraction job will start upon video download completion 
         (to hide the checkbox, disable the audio extraction option).
-        \n\nChoose from settings if you want to remove the video file after a seccessful audio extraction.</string>
+        \n\nChoose from settings if you want to remove the video file after a successful audio extraction.</string>
     
     <!-- -->
     <string name="settings_cat_folder">پوشه دانلود</string>
@@ -322,5 +322,10 @@ For more details, look for comments in YTD\'s Java code.</string>
 	<string name="enable_logging_summary">فایل ثبت سیستم شامل پیام های YTD باشد.برای ارسال Logcat به توسعه دهنده اجباری است.</string>
 	<string name="disable_bugsense_title">Disable BugSense</string>
 	<string name="disable_bugsense_summary">This will not send Crash Reports to the developer. Not recommended.</string>
+	<string name="disable_bugsense_confirm_title">Are you sure?</string>
+	<string name="disable_bugsense_confirm_msg">Will be harder to fix bugs and improve this app.
+	    \nNo personal data will be collected.</string>
+	<string name="disable_bugsense_confirm_neutral">Review a Crash\nReport sample</string>
+	<string name="disable_bugsense_confirm_popup_title">Crash Report sample</string>
 	
 </resources>

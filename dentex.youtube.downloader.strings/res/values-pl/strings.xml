@@ -6,7 +6,7 @@
     <string name="title_activity_about">O programie</string>
     <string name="title_activity_donate">Darowizna</string>
     <string name="title_activity_tutorials">Poradnik</string>
-    <string name="title_activity_translators_show">Tłumacze</string>
+    <string name="title_activity_translators_show">Tłumacze</string>    
 
     <!-- ### ShareActivity ### -->
 
@@ -38,9 +38,9 @@
     <string name="unable_save">Nie można zapisać filmu!</string>
     <string name="unable_save_dialog_msg">Docelowy folder jest NIEDOSTĘPNY lub nie można w nim nic zapisać.</string>
     <string name="ssh_info_tutorial_title">Wysyłanie za pomocą SSH Jak to zrobić</string>
-    <string name="ssh_info_tutorial_msg">A single long command has been loaded in the clipboard.
-		\n\nChoose a profile in ConnectBot and once in your remote shell, browse to the desired 
-		directory, PASTE the command (use the menu button) and push ENTER.</string>
+    <string name="ssh_info_tutorial_msg">Komenda została skopiowana do schowka.\n\n
+Wybierz profil w ConnectBot i kiedy będziesz na zdalnej maszynie, przejdź do wybranego katalogu,
+ WKLEJ komendę (użyj przycisku menu) i wciśnij ENTER</string>
     <string name="callConnectBot_dialog_title">%1$s nie zainstalowane!</string>
     <string name="callConnectBot_dialog_msg">Potrzebujesz tej darmowej aplikacji, aby wysłać pobrane filmy przez SSH.</string>
     <string name="callConnectBot_dialog_positive">Pobierz</string>
@@ -56,9 +56,9 @@
     <string name="notification_downloading_pt1">Pobieranie</string>
     <string name="notification_downloading_pt2">pliki wideo</string>
     <string name="notification_no_downloads">Nic nie jest pobierane.</string>
-    <string name="long_click_title">Handle selected link:</string>
+    <string name="long_click_title">Co zrobić z zaznaczonym linkiem:</string>
     <string name="extsdcard_info_title">Niestandardowy folder docelowy</string>
-    <string name="extsdcard_info_msg">File is being downloaded initially in the standard Download folder and then will be moved to the selected destination.</string>
+    <string name="extsdcard_info_msg">Plik zostanie najpierw pobrany do standardowego katalogu pobierania a później przeniesiony do wybranego katalogu.</string>
     <string name="ffmpeg_ready">FFmpeg gotowy.</string>
     <string name="confirm_audio_checkbox1">Wyodrębnij dźwięk po pobraniu</string>
     <string name="confirm_audio_checkbox2">\n(zdefiniowane tak samo jak w ustawieniach)</string>
@@ -77,9 +77,9 @@
     <!-- ### SettingsActivity ### -->
 
     <string name="attention">Uwaga!</string>
-    <string name="extsdcard_warning">Unable to write files on the removable sdcard.\nFalling back on standard sdcard.</string>
+    <string name="extsdcard_warning">Noe można zapisać pliku na wymiennej karcie SD.\n Zapisuję na standardowej karcie SD.</string>
     <string name="system_warning_title">To jest folder systemowy</string>
-    <string name="system_warning_msg">Chosen path will fall back on standard sdcard\'s Download folder.</string>
+    <string name="system_warning_msg">Wybrana ścieżka zostanie zamieniona na standardowy folder pobierania na karcie SD</string>
     <string name="sdcard_unmounted_warning">Karta SD nie jest zamontowana</string>
     <string name="update_disabled_summary">Znaleziono inny podpis (F-Droid?)</string>
     <string name="failed_download">Usunięto błędne pobrania.</string>
@@ -153,17 +153,17 @@ Pobrać je teraz?</string>
     <!-- -->
     <string name="quick_start_title">Poradnik</string>
     <string name="quick_start_summ">Otwórz poradnik</string>
-    <string name="quick_start_text">Here are just the preferences for \'YouTube Downloader\'.
-		\n\nThe actual App can be accessed via the share button in the YouTube App, while watching a video.
-		\n\nThen choose \'YouTube Downloader\' and you will have further usage info.
-		\n\nYou can also share any YouTube plain text link via any other App: i.e. your browser.</string>
+    <string name="quick_start_text">Ustawienie dla \"YouTube Downloader\".\n\n
+Aplikacja może zostać wybrana poprzez przycisk udostępnij w aplikacji YouTube podczas oglądania filmu.
+\n\n Wybierz  \"YouTube Downloader\" i zobaczysz dalsze instrukcje.
+\n\n Możesz wtedy również podzielić się tekstowym linkiem do filmu poprzez każdą aplikację np. komunikator. </string>
     <string name="general_info_title">Włącz porady</string>
     <string name="general_info_summary">Pokaż poradnik aplikacji przy starcie</string>
     <string name="show_again_checkbox">Pokaż ponownie następnym razem</string>
     <string name="ssh_info_title">Włącz SSH Jak to zrobić</string>
-    <string name="ssh_info_summary">Show a quick tip about remote downloading via SSH</string>
+    <string name="ssh_info_summary">Pokaż szybką podpowiedź na temat zdalnego pobierania przez SSH</string>
     <string name="audio_tutorial_title">Poradnik wyodrębniania ścieżki audio</string>
-    <string name="audio_tutorial_summary">Open a brief guide about the audio extraction feature</string>
+    <string name="audio_tutorial_summary">Otwórz instrukcję na temat wyciągania dźwięku z plików</string>
     <string name="audio_tutorial_text">To extract or convert to mp3 the audio from a downloaded video:
         \n\n*) Enable the audio preference and download FFmpeg;
         \n\n*) Choose the extraction type: 
@@ -173,12 +173,12 @@ Pobrać je teraz?</string>
         \n\nFrom now on, a checkbox will appear in the download confirmation box visible when you click an item 
         in the YTD\'s video list. When checked, the audio extraction job will start upon video download completion 
         (to hide the checkbox, disable the audio extraction option).
-        \n\nChoose from settings if you want to remove the video file after a seccessful audio extraction.</string>
+        \n\nChoose from settings if you want to remove the video file after a successful audio extraction.</string>
     
     <!-- -->
     <string name="settings_cat_folder">Folder pobierania</string>
     <string name="standard_location_title">Wybierz docelowy folder</string>
-    <string name="chooser_swap_title">Swap chooser</string>
+    <string name="chooser_swap_title">Wybierz miejsce tymczasowe</string>
     <string name="chooser_location_title">Otwórz menadżer plików</string>
     <string name="chooser_location_summary">Długie przytrzymanie w celu wybrania folderu</string>
 	
@@ -189,11 +189,11 @@ Pobrać je teraz?</string>
     <string name="enable_rename_title">Włącz opcję zmiany nazw plików</string>
     <string name="enable_rename_summary">Zmień nazwę pliku filmu przed pobraniem go(tylko dla lokalnych pobrań)</string>
     <string name="show_size_title">Wybierz rozmiar pliku</string>
-    <string name="show_size_summary">Fetch the video file size on download confirmation message (slower)</string>
+    <string name="show_size_summary">Wybierz jakość pliku wideo podczas pobierania (wolniejsze)</string>
     <string name="show_size_list_title">Pokaż wszystkie rozmiary filmów</string>
-    <string name="show_size_list_summary">Fetch the file sizes for every item in the list of available video (much slower)</string>
+    <string name="show_size_list_summary">Pobierz rozmiary plików dla każdego elementu na liście dostępnych filmów (dużo wolniejsze)</string>
     <string name="show_thumb_title">Pokaż podgląd</string>
-    <string name="show_thumb_summary">Download a preview image together with the video list</string>
+    <string name="show_thumb_summary">Pobierz obrazek podglądu razem z listą filmów</string>
     
     <!-- -->
     <string name="settings_cat_audio">Dźwięk</string>
@@ -241,7 +241,7 @@ Pobrać je teraz?</string>
     <string name="settings_cat_updates">Aktualizacje</string>
     <string name="update_title">Sprawdź dostępność aktualizacji</string>
     <string name="autoupdate_title">Włącz auto-aktualizację</string>
-    <string name="autoupdate_summary">Check for updates on first application\'s run of the day (the new package will be auto-downloaded)</string>
+    <string name="autoupdate_summary">Sprawdź uaktualnienia przy pierwszym uruchomieniu aplikacji (nowy pakiet zostanie pobrany automatycznie)</string>
 
     <!-- -->
     <string name="settings_cat_app">Aplikacja					</string>
@@ -257,7 +257,7 @@ Pobrać je teraz?</string>
     
     <string name="credits_text0">\tMain Licenses
         \n\n
-        This App and is released under the GPL-3.0.
+        This App is released under the GPL-3.0.
         \n(YouTubeDownloader for Android Copyright &#169; 2013 Samuele Rini).
         \n\n
         The FFmpeg binary (<http>http://www.ffmpeg.org/index.html</http>), 
@@ -298,8 +298,8 @@ Pobrać je teraz?</string>
 	    \n\n
 	    For more details, look for comments in YTD\'s Java code.
 	    </string>
-    <string name="credits_translators">\n\tTranslations
-        \n\nFurthermore, additional localizations thanks to:</string>
+    <string name="credits_translators">\n\tTłumaczenia
+\n\nPodziękowania za tłumaczenie dla:</string>
     <string name="translators_info">\nWięcej informacji:</string>
         
     <!-- -->
@@ -313,8 +313,8 @@ Pobrać je teraz?</string>
     <string name="share_summary">przez Twitter\'a, Facebook\'a, Gmail, itp&#8230;</string>
     <string name="share_warning">Nie znaleziono odpowiedniej aplikacji.</string>
     <string name="share_message">#YouTubeDownloader
-	 	\nFree and Open-Source Android App to download YouTube video!
-	 	\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
+\nDarmowy i Otwartożródłowy program do pobierania filmów z YouTube dla androida!
+\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
 	<string name="help_translate_title">Pomóż przetłumaczyć tą aplikację</string>
     <string name="help_translate_summary">Przejdź do www.getlocalization.com/ytdownloader</string>
     
@@ -333,5 +333,10 @@ Pobrać je teraz?</string>
 	<string name="enable_logging_summary">Załącz wiadomość YTD\'s do systemowego dziennika zdarzeń. Obowiązkowe, przy wysyłaniu logcat\'u do developera.</string>
 	<string name="disable_bugsense_title">Wyłącz BugSense</string>
 	<string name="disable_bugsense_summary">To nie wyśle raportu błędu do developera. Nie rekomendowane.</string>
+	<string name="disable_bugsense_confirm_title">Are you sure?</string>
+	<string name="disable_bugsense_confirm_msg">Will be harder to fix bugs and improve this app.
+	    \nNo personal data will be collected.</string>
+	<string name="disable_bugsense_confirm_neutral">Review a Crash\nReport sample</string>
+	<string name="disable_bugsense_confirm_popup_title">Crash Report sample</string>
 	
 </resources>

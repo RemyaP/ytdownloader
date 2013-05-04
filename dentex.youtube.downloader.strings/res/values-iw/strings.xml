@@ -6,16 +6,14 @@
     <string name="title_activity_about">אודות</string>
     <string name="title_activity_donate">תרומות</string>
     <string name="title_activity_tutorials">הדרכות</string>
-    <string name="title_activity_translators_show">מתרגמים</string>
+    <string name="title_activity_translators_show">מתרגמים</string>    
 
     <!-- ### ShareActivity ### -->
 
-    <string name="tutorial_title">מדריך מלא לאפליקצייה</string>
-	<string name="tutorial_msg_new">Now you will see a list with all the codecs and qualities available for the selected video. You can:
-		\n\n*) Press an item to download the video locally (on the device) or to send the download via SSH to a remote PC.
-		\nDestination machine requirements: Bash and Wget. Additional SSH info further on;
-		\n\n*) Long-press an item and choose between copy to clipboard or share link as text (i.e. send to another app).
-		\nPlease note that such a link (differently from when you send it via SSH) can be only used from the same device where it has been created OR from the same LAN, if you share it to another machine.\n</string>
+    <string name="tutorial_title">מדריך כללי לאפליקצייה</string>
+	<string name="tutorial_msg_new">עכשיו אתם תראו רשימה עם כל ה קודקים ואיכויות נוכחים לסרטון הנבחר. את/ה יכול/ה:
+ssh ללחוץ על פריט בשביל להוריד את הווידיאו על הטלפון או לשלוח למחשב. דרישות למכונת יעד: באש ו.
+ללחוץ לחיצה ארוכה על פריט ולבחור בין להעתיק למקלדת או להעביר כטקסט(דוגמא לשלוח לאפליקצייה אחרת)נא להבין שקובץ כזה יכול להשמש רק מאותו מכשיר שבו הוא נוצר או ממכונה שעל על אותה רשת של לאן,אם שולחים למכשיר אחר</string>
     <string name="loading">טוען&#8230;</string>
     <string name="error">שגיאה!</string>
     <string name="information">מידע</string>
@@ -174,7 +172,7 @@
         \n\nFrom now on, a checkbox will appear in the download confirmation box visible when you click an item 
         in the YTD\'s video list. When checked, the audio extraction job will start upon video download completion 
         (to hide the checkbox, disable the audio extraction option).
-        \n\nChoose from settings if you want to remove the video file after a seccessful audio extraction.</string>
+        \n\nChoose from settings if you want to remove the video file after a successful audio extraction.</string>
     
     <!-- -->
     <string name="settings_cat_folder">הורד תיקייה</string>
@@ -258,7 +256,7 @@
     
     <string name="credits_text0">\tMain Licenses
         \n\n
-        This App and is released under the GPL-3.0.
+        This App is released under the GPL-3.0.
         \n(YouTubeDownloader for Android Copyright &#169; 2013 Samuele Rini).
         \n\n
         The FFmpeg binary (<http>http://www.ffmpeg.org/index.html</http>), 
@@ -336,5 +334,10 @@ https://sourceforge.net/projects/ytdownloader/files\n
 	<string name="enable_logging_summary">כולל הודעות מתחילת השנה\'s ביומן המערכת. חובה לשליחת יומן למפתחים.</string>
 	<string name="disable_bugsense_title">השבת BugSense</string>
 	<string name="disable_bugsense_summary">לא לשלוח דוחות קריסה למפתחים. לא מומלץ.</string>
+	<string name="disable_bugsense_confirm_title">Are you sure?</string>
+	<string name="disable_bugsense_confirm_msg">Will be harder to fix bugs and improve this app.
+	    \nNo personal data will be collected.</string>
+	<string name="disable_bugsense_confirm_neutral">Review a Crash\nReport sample</string>
+	<string name="disable_bugsense_confirm_popup_title">Crash Report sample</string>
 	
 </resources>

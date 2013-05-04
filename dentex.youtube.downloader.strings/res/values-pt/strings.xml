@@ -6,7 +6,7 @@
     <string name="title_activity_about">Sobre</string>
     <string name="title_activity_donate">Doações</string>
     <string name="title_activity_tutorials">Tutoriais</string>
-    <string name="title_activity_translators_show">Translators</string>
+    <string name="title_activity_translators_show">Translators</string>    
 
     <!-- ### ShareActivity ### -->
 
@@ -60,8 +60,8 @@
     <string name="extsdcard_info_title">Caminho de destino não padrão</string>
     <string name="extsdcard_info_msg">Ficheiro está a ser baixado inicialmente para a pasta de Transferencias padrão e depois será movido para o destino selecionado.</string>
     <string name="ffmpeg_ready">FFmpeg pronto.</string>
-    <string name="confirm_audio_checkbox1">Extract audio after download</string>
-    <string name="confirm_audio_checkbox2">\n(as defined in settings)</string>
+    <string name="confirm_audio_checkbox1">Extrair o áudio depois do download</string>
+    <string name="confirm_audio_checkbox2">\n(tal como definido nas definições</string>
     
     <string-array name="long_click_entries">
         <item>Copiar para o clipboard</item>
@@ -161,8 +161,8 @@
     <string name="show_again_checkbox">Mostrar de novo da proxima vez</string>
     <string name="ssh_info_title">Ligar como utilzar o SSH</string>
     <string name="ssh_info_summary">Mostrar dica rapida sobre como fazer downloads remotos via SSH</string>
-    <string name="audio_tutorial_title">Audio extraction tutorial</string>
-    <string name="audio_tutorial_summary">Open a brief guide about the audio extraction feature</string>
+    <string name="audio_tutorial_title">Como extrair áudio</string>
+    <string name="audio_tutorial_summary">Abrir um pequeno guia sobre a extração de áudio</string>
     <string name="audio_tutorial_text">To extract or convert to mp3 the audio from a downloaded video:
         \n\n*) Enable the audio preference and download FFmpeg;
         \n\n*) Choose the extraction type: 
@@ -172,7 +172,7 @@
         \n\nFrom now on, a checkbox will appear in the download confirmation box visible when you click an item 
         in the YTD\'s video list. When checked, the audio extraction job will start upon video download completion 
         (to hide the checkbox, disable the audio extraction option).
-        \n\nChoose from settings if you want to remove the video file after a seccessful audio extraction.</string>
+        \n\nChoose from settings if you want to remove the video file after a successful audio extraction.</string>
     
     <!-- -->
     <string name="settings_cat_folder">Pasta de download</string>
@@ -197,13 +197,13 @@
     <!-- -->
     <string name="settings_cat_audio">Audio</string>
     <string name="enable_audio_extraction_title">Permitir a extração de audio</string>
-    <string name="enable_audio_extraction_summary">Extract and convert audio from downloaded video (for the local download only)</string>
+    <string name="enable_audio_extraction_summary">Extrair e converter áudio do video transferido (apenas para download local)</string>
     <string name="mp3_bitrate_title">Taxa de bits para a codificação do mp3 (kbps)</string>
     <string name="audio_extraction_type_title">Tipo de extração</string>
     <string name="enable_audio_q_suffix_title">Adicionar sufixo da qualidade de audio</string>
     <string name="enable_audio_q_suffix_summary">Adicionar a qualidade de audio ao fim do nome de ficheiro</string>
-    <string name="remove_video_title">Video removal</string>
-    <string name="remove_video_summary">Enable video file deletion after successful audio extraction (warning: no confirmation)</string>
+    <string name="remove_video_title">Remover vídeos</string>
+    <string name="remove_video_summary">Ativar o apagamento de um vídeo depois de uma extração de áudio bem sucedida (atenção: não há confirmação)</string>
 
     <string-array name="audio_extraction_type_entries">
         <item>Apenas extrair</item>
@@ -223,17 +223,17 @@
         <item>Nunca</item>
     </string-array>
     
-    <string name="notification_defaults_title">Notification defaults</string>
+    <string name="notification_defaults_title">Notificações</string>
     <string name="notification_defaults_dialog_title">YTD\'s own notification defaults</string>
     <string-array name="notification_defaults_entries">
-        <item>Sound and Vibration</item>
-        <item>Sound and Lights</item>
-        <item>Vibration and Lights</item>
-        <item>Sound, Vibration and Lights</item>
-        <item>Sound</item>
-        <item>Vibration</item>
-        <item>Lights</item>
-        <item>Nothing</item>
+        <item>Som e vibração</item>
+        <item>Som e luz</item>
+        <item>Vibração e luzes</item>
+        <item>Som, vibração e luz</item>
+        <item>Som</item>
+        <item>Vibração</item>
+        <item>Luz</item>
+        <item>Nada</item>
     </string-array>   
     
     <!-- -->
@@ -256,7 +256,7 @@
     
     <string name="credits_text0">\tMain Licenses
         \n\n
-        This App and is released under the GPL-3.0.
+        This App is released under the GPL-3.0.
         \n(YouTubeDownloader for Android Copyright &#169; 2013 Samuele Rini).
         \n\n
         The FFmpeg binary (<http>http://www.ffmpeg.org/index.html</http>), 
@@ -333,5 +333,10 @@
 	<string name="enable_logging_summary">Incluir mensagens do YTD no log de sistema. Necessario para enviar um logcat ao desenvolvedor.</string>
 	<string name="disable_bugsense_title">Disable BugSense</string>
 	<string name="disable_bugsense_summary">This will not send Crash Reports to the developer. Not recommended.</string>
+	<string name="disable_bugsense_confirm_title">Are you sure?</string>
+	<string name="disable_bugsense_confirm_msg">Will be harder to fix bugs and improve this app.
+	    \nNo personal data will be collected.</string>
+	<string name="disable_bugsense_confirm_neutral">Review a Crash\nReport sample</string>
+	<string name="disable_bugsense_confirm_popup_title">Crash Report sample</string>
 	
 </resources>

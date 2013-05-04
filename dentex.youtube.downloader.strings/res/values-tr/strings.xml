@@ -6,7 +6,7 @@
     <string name="title_activity_about">Hakkinda</string>
     <string name="title_activity_donate">Bağışlar</string>
     <string name="title_activity_tutorials">Rehberler</string>
-    <string name="title_activity_translators_show">Tercüme Edenler</string>
+    <string name="title_activity_translators_show">Tercüme Edenler</string>    
 
     <!-- ### ShareActivity ### -->
 
@@ -333,5 +333,10 @@ For more details, look for comments in YTD\'s Java code.</string>
 	<string name="enable_logging_summary">YTD\'s mesajlarını sistem günlüğüne ekle. Geliştiriciye sistem günlüğünü göndermek gereklidir.</string>
 	<string name="disable_bugsense_title">Hata algılamayı devre dışı bırak</string>
 	<string name="disable_bugsense_summary">Bu geliştiriciye Hata Raporları göndermez. Tavsiye edilmez.</string>
+	<string name="disable_bugsense_confirm_title">Emin misiniz?</string>
+	<string name="disable_bugsense_confirm_msg">Uygulamadaki hataları düzeltmek ve uygulamayı geliştirme daha zor olacaktır.
+\nKişisel bilgiler toplanmayacak.</string>
+	<string name="disable_bugsense_confirm_neutral">Hata\nRaporu örneği gözden geçir</string>
+	<string name="disable_bugsense_confirm_popup_title">Hata Raporu örneği</string>
 	
 </resources>

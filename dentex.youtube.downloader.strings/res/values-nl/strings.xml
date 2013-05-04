@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_settings">Instellingen</string>
     <string name="title_activity_upgrade_apk">Upgrade</string>
-    <string name="title_activity_about">About</string>
-    <string name="title_activity_donate">Donations</string>
+    <string name="title_activity_about">Over</string>
+    <string name="title_activity_donate">Schenkingen</string>
     <string name="title_activity_tutorials">Tutorials</string>
-    <string name="title_activity_translators_show">Translators</string>
+    <string name="title_activity_translators_show">Translators</string>    
 
     <!-- ### ShareActivity ### -->
 
     <string name="tutorial_title">Algemene App handleiding</string>
-	<string name="tutorial_msg_new">Now you will see a list with all the codecs and qualities available for the selected video. You can:
-		\n\n*) Press an item to download the video locally (on the device) or to send the download via SSH to a remote PC.
-		\nDestination machine requirements: Bash and Wget. Additional SSH info further on;
-		\n\n*) Long-press an item and choose between copy to clipboard or share link as text (i.e. send to another app).
-		\nPlease note that such a link (differently from when you send it via SSH) can be only used from the same device where it has been created OR from the same LAN, if you share it to another machine.\n</string>
+	<string name="tutorial_msg_new">Je zal nu een lijst te zien krijgen met alle codecs en beschikbare beeldkwaliteiten voor de gekozen video. Je kan:
+\n\n*) Klikken op een item om de video naar je toestel te downloaden of om het via SSH (Secure Shell) te versturen naar een PC op afstand.
+\nSysteemvereisten voor bestemming:Bash en Wget. Meer informatie over SSH volgt dadelijk;
+\n\n*) Lang drukken op een item om te kiezen tussen kopiëren naar klembord of link delen als tekst (bv. om naar een andere app te sturen).
+\nLet erop dat het delen van een link (anders dan wanneer je het via SSH verstuurd) enkel kan gebruikt worden op hetzelfde toestel als waar de link werd aangemaakt OF op hetzelfde LAN netwerk wanneer je het naar een ander toestel deelt.\n</string>
     <string name="loading">Laden&#8230;</string>
     <string name="error">Fout!</string>
     <string name="information">Informatie</string>
@@ -49,16 +49,16 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     <string name="download_complete_dialog_positive">Openen</string>
     <string name="downloading">Downloaden&#8230;</string>
     <string name="cancel_download_dialog_title">Download annuleren?</string>
-    <string name="video_list_error_toast">Error in video list.</string>
+    <string name="video_list_error_toast">Fout in videolijst.</string>
     <string name="codec">\n\n\tCodec:</string>
     <string name="quality">\n\tKwaliteit:</string>
     <string name="size">\n\tGroote:</string>
-    <string name="notification_downloading_pt1">Downloaden...</string>
+    <string name="notification_downloading_pt1">Downloaden</string>
     <string name="notification_downloading_pt2">video bestanden</string>
     <string name="notification_no_downloads">Geen downloads in behandeling</string>
     <string name="long_click_title">Hanteer geselecteerde link:</string>
-    <string name="extsdcard_info_title">Non standard destination path</string>
-    <string name="extsdcard_info_msg">File is being downloaded initially in the standard Download folder and then will be moved to the selected destination.</string>
+    <string name="extsdcard_info_title">Geen standaard pad naar bestemmingsmap</string>
+    <string name="extsdcard_info_msg">Bestand wordt gedownload naar de standaard map Downloads, daarna zal het verplaatst worden naar de gekozen bestemming.</string>
     <string name="ffmpeg_ready">FFmpeg ready.</string>
     <string name="confirm_audio_checkbox1">Extract audio after download</string>
     <string name="confirm_audio_checkbox2">\n(as defined in settings)</string>
@@ -85,14 +85,14 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     <string name="failed_download">Mislukte download verwijderd</string>
     <string name="new_v_download">gevonden. Downloaden&#8230;</string>
     <string name="new_v_install">Gedownload. Klik om te instaleren.</string>
-    <string name="ffmpeg_download_dialog_title">An additional file is needed. Download it now?</string>
+    <string name="ffmpeg_download_dialog_title">Een aanvullend bestand is vereist. Nu downloaden?</string>
     <string name="ffmpeg_download_dialog_msg">Web link:</string>
-    <string name="ffmpeg_device_not_supported">Device not supported yet.</string>
-    <string name="ffmpeg_support_mail">Send email to the developer?
-        \nYou will review all information in your email application before sending any data.</string>
-    <string name="ffmpeg_download_notification">Downloading FFmpeg</string>
-    <string name="ffmpeg_install">Installing FFmpeg binary&#8230;</string>
-    <string name="email_via">Send email via:</string>
+    <string name="ffmpeg_device_not_supported">Toestel nog niet ondersteund.</string>
+    <string name="ffmpeg_support_mail">Een email sturen naar de ontwikkelaar?
+\nJe kan alle informatie nog nakijken in je mailapplicatie voordat de gegevens worden verstuurd. </string>
+    <string name="ffmpeg_download_notification">FFmpeg aan het downloaden</string>
+    <string name="ffmpeg_install">FFmpeg binary&#8230; aan het installeren</string>
+    <string name="email_via">Stuur email via;</string>
     
     <!-- ### UpgradeApkActivity ### -->
     
@@ -113,25 +113,25 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     
     <string name="ytd_video">YTD video</string>
     <string name="copy_error">Fout tijdens het kopiëren</string>
-    <string name="copy_progress">File copy in progress&#8230;</string>
-    <string name="copy_ok">Copy completed.</string>
-    <string name="download_remove_failed">Error: temporary downloaded file not removed!</string>
+    <string name="copy_progress">Bezig met kopiëren van bestand&#8230;</string>
+    <string name="copy_ok">Kopiëren voltooid. </string>
+    <string name="download_remove_failed">Fout: tijdelijk gedownload bestand niet verwijderd!</string>
     <string name="download_failed">Download mislukt!</string>
     <string name="audio_extr_progress">Audio extraction in progress&#8230;</string>
     <string name="audio_conv_progress">Audio encoding to mp3 in progress&#8230;</string>
-    <string name="audio_extr_completed">Audio extraction completed.</string>
+    <string name="audio_extr_completed">Uitpakken audio voltooid.</string>
     <string name="audio_conv_completed">Audio encoding to mp3 completed.</string>
     <string name="audio_extr_error">Error during audio extraction.</string>
     <string name="audio_conv_error">Error during audio encoding to mp3.</string>
     
     <!-- ### DonateActivity ### -->
     
-    <string name="paypal_item_name">YTD Donation</string>
+    <string name="paypal_item_name">YTD Schenking</string>
     <string name="paypal_title">PayPal</string>
-	<string name="paypal_summary">Support YTD\'s developer with a donation</string>
+	<string name="paypal_summary">Steun de ontwikkelaar van YTD door een schenking</string>
 	
 	<!-- ### FfmpegDownloadService ### -->
-	<string name="ffmpeg_install_failed">FFmpeg installation failed.</string>
+	<string name="ffmpeg_install_failed">FFmpeg installatie mislukt.</string>
 
     <!-- ### preferences ### -->
 
@@ -140,7 +140,7 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     <string name="dm_summary">Open system\'s Download Manager</string>
 
     <!-- -->
-    <string name="settings_cat_ui">User Interface</string>
+    <string name="settings_cat_ui">Gebruikersinterface</string>
     <string name="lang_title">Taal</string>
     <string name="lang_dialog_title">Taal (applicatie herstart vereist):</string>
     <string name="choose_theme_title">Kies thema</string>
@@ -172,7 +172,7 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
         \n\nFrom now on, a checkbox will appear in the download confirmation box visible when you click an item 
         in the YTD\'s video list. When checked, the audio extraction job will start upon video download completion 
         (to hide the checkbox, disable the audio extraction option).
-        \n\nChoose from settings if you want to remove the video file after a seccessful audio extraction.</string>
+        \n\nChoose from settings if you want to remove the video file after a successful audio extraction.</string>
     
     <!-- -->
     <string name="settings_cat_folder">Download map</string>
@@ -196,7 +196,7 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     
     <!-- -->
     <string name="settings_cat_audio">Audio</string>
-    <string name="enable_audio_extraction_title">Enable audio extraction</string>
+    <string name="enable_audio_extraction_title">Uitpakken audio inschakelen</string>
     <string name="enable_audio_extraction_summary">Extract and convert audio from downloaded video (for the local download only)</string>
     <string name="mp3_bitrate_title">Bitrate for mp3 encoding (kbps)</string>
     <string name="audio_extraction_type_title">Extraction type</string>
@@ -243,7 +243,7 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     <string name="autoupdate_summary">Controleer op updates bij het opstarten van de applicatie (het nieuwste bestand wordt automatisch gedownload)</string>
 
     <!-- -->
-    <string name="settings_cat_app">Application</string>
+    <string name="settings_cat_app">Applicatie</string>
     <string name="settings_cat_about_condensed">Over</string>
     <string name="title_changelog">Lijst met veranderingen</string>
     <string name="screen_licences_code_title">Licenties en Regels</string>
@@ -256,7 +256,7 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     
     <string name="credits_text0">\tMain Licenses
         \n\n
-        This App and is released under the GPL-3.0.
+        This App is released under the GPL-3.0.
         \n(YouTubeDownloader for Android Copyright &#169; 2013 Samuele Rini).
         \n\n
         The FFmpeg binary (<http>http://www.ffmpeg.org/index.html</http>), 
@@ -328,10 +328,15 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
 	<string name="ssh_to_longpress_menu_summary">Move \"Send via SSH\" action into the long-press menu available from the video list</string>
 	
     <!-- -->
-	<string name="settings_cat_advanced">Advanced</string>
-	<string name="enable_logging_title">Enable logging</string>
-	<string name="enable_logging_summary">Include YTD\'s messages into the system log. Mandatory for sending a logcat to the developer.</string>
+	<string name="settings_cat_advanced">Geavanceerd</string>
+	<string name="enable_logging_title">Log bijhouden ingeschakeld</string>
+	<string name="enable_logging_summary">YTD berichten opnemen in de systeemlog. Vereist om een logbestand te versturen naar de ontwikkelaar.</string>
 	<string name="disable_bugsense_title">Disable BugSense</string>
 	<string name="disable_bugsense_summary">This will not send Crash Reports to the developer. Not recommended.</string>
+	<string name="disable_bugsense_confirm_title">Are you sure?</string>
+	<string name="disable_bugsense_confirm_msg">Will be harder to fix bugs and improve this app.
+	    \nNo personal data will be collected.</string>
+	<string name="disable_bugsense_confirm_neutral">Review a Crash\nReport sample</string>
+	<string name="disable_bugsense_confirm_popup_title">Crash Report sample</string>
 	
 </resources>

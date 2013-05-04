@@ -27,4 +27,12 @@
 		<from>pes-IR</from>
 		<to>fa</to>
 	</replaceItem>
+	<replaceItem>
+		<from>he</from>
+		<to>iw</to>
+	</replaceItem>
+	<replaceItem>
+		<from>bg-BG</from>
+		<to>bg</to>
+	</replaceItem>
 </items>
