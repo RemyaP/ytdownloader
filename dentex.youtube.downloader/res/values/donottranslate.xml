@@ -338,10 +338,10 @@
         <item>it</item>
         <item>de</item>
         <item>ko</item>
-        <item>pl</item>
-        <item>pt</item>
+        <item>pl_PL</item>
+        <item>pt_PT</item>
         <item>ru</item>
-        <item>tr</item>
+        <item>tr_TR</item>
         <item>fa</item>
     </string-array>
     

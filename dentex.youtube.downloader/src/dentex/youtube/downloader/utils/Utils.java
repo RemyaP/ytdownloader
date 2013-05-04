@@ -271,7 +271,8 @@ public class Utils {
 		String lang  = settings.getString("lang", "default");
         Locale locale;
 		if (!lang.equals("default")) {
-	        locale = new Locale(lang);
+			String[] fLang = filterLang(lang);
+	        locale = new Locale(fLang[0], fLang[1]);
 	        Locale.setDefault(locale);
 	        Configuration config = new Configuration();
 	        config.locale = locale;
@@ -284,7 +285,19 @@ public class Utils {
         context.getResources().updateConfiguration(config, null);
 	}
     
-    public static void logger(String type, String msg, String tag) {
+    private static String[] filterLang(String lang) {
+		if (lang.equals("bg_BG") || 
+			lang.equals("hu_HU") || 
+			lang.equals("ja_JP") || 
+			lang.equals("pl_PL") || 
+			lang.equals("pt_PT") || 
+			lang.equals("tr_TR") || 
+			lang.equals("zh_TW")) 
+				return lang.split("_");
+		return new String[] { lang, "" };
+	}
+
+	public static void logger(String type, String msg, String tag) {
     	if (settings.getBoolean("enable_logging", false)) {
 	    	if (type.equals("v")) {
 	    		Log.v(tag, msg);

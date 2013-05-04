@@ -1,27 +1,27 @@
 <items>
 	<replaceItem>
 		<from>pt-PT</from>
-		<to>pt</to>
+		<to>pt-rPT</to>
 	</replaceItem>
 	<replaceItem>
 		<from>zh-TW</from>
-		<to>zh</to>
+		<to>zh-rTW</to>
 	</replaceItem>
 	<replaceItem>
 		<from>ja-JP</from>
-		<to>ja</to>
+		<to>ja-rJP</to>
 	</replaceItem>
 	<replaceItem>
 		<from>tr-TR</from>
-		<to>tr</to>
+		<to>tr-rTR</to>
 	</replaceItem>
 	<replaceItem>
 		<from>pl-PL</from>
-		<to>pl</to>
+		<to>pl-rPL</to>
 	</replaceItem>
 	<replaceItem>
 		<from>hu-HU</from>
-		<to>hu</to>
+		<to>hu-rHU</to>
 	</replaceItem>
 	<replaceItem>
 		<from>pes-IR</from>
@@ -33,6 +33,6 @@
 	</replaceItem>
 	<replaceItem>
 		<from>bg-BG</from>
-		<to>bg</to>
+		<to>bg-rBG</to>
 	</replaceItem>
 </items>

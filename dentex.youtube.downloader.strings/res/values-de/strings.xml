@@ -323,8 +323,8 @@ Für weitere Details, siehe die Kommentare in YTD\s Java Code.</string>
 	<string name="enable_connectbot_short_cmd_title">Aktiviere SSH Kurzkommando</string>
 	<string name="enable_connectbot_short_cmd_summary">Verwende ein geringfügig kürzeres, jedoch schnelleres Kommando zum
 Einfügen in die Remote Shell (funktioniert NUR, wenn der Ziel-PC sich im gleichen LAN befindet)</string>
-	<string name="ssh_to_longpress_menu_title">SSH-send to long-press menu</string>
-	<string name="ssh_to_longpress_menu_summary">Verschiebe die \"Senden über SSH\" Aktion in das Langdrück-Menü, verfügbar über die Video Liste</string>
+	<string name="ssh_to_longpress_menu_title">Funktion \"Sende über SSH\" in Lang-Drück-Menü (Longpress-Menü)</string>
+	<string name="ssh_to_longpress_menu_summary">Verschiebe die \"Senden über SSH\" Funktion in das Lang-Drück-Menü (Longpress-Menü), verfügbar über die Video Liste</string>
 	
     <!-- -->
 	<string name="settings_cat_advanced">Erweitert</string>
