@@ -11,10 +11,10 @@
     <string name="afc_lib_name">android-filechooser</string>
     <string name="afc_cmd_advanced_selection_all">Alle</string>
     <string name="afc_cmd_advanced_selection_invert">Auswahl umkehren</string>
-    <string name="afc_cmd_advanced_selection_none">None</string>
-    <string name="afc_cmd_clear">Clear</string>
-    <string name="afc_cmd_grid_view">Grid view</string>
-    <string name="afc_cmd_home">Home</string>
+    <string name="afc_cmd_advanced_selection_none">Keine</string>
+    <string name="afc_cmd_clear">Löschen</string>
+    <string name="afc_cmd_grid_view">Gitteransicht</string>
+    <string name="afc_cmd_home">Startseite</string>
     <string name="afc_cmd_list_view">List view</string>
     <string name="afc_cmd_new_folder">New folder&#8230;</string>
     <string name="afc_cmd_reload">Reload</string>

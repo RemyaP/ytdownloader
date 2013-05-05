@@ -6,7 +6,7 @@
     <string name="title_activity_about">A propos</string>
     <string name="title_activity_donate">Faire un don</string>
     <string name="title_activity_tutorials">Tutoriels</string>
-    <string name="title_activity_translators_show">Translators</string>    
+    <string name="title_activity_translators_show">Traducteurs</string>    
 
     <!-- ### ShareActivity ### -->
 
@@ -163,16 +163,16 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
     <string name="ssh_info_summary">Montrer des explications rapides à propos du téléchargement via SSH</string>
     <string name="audio_tutorial_title">Tutoriel d\'extraction audio</string>
     <string name="audio_tutorial_summary">Ouvrir un guide simple sur la fonction d\'extraction audio</string>
-    <string name="audio_tutorial_text">To extract or convert to mp3 the audio from a downloaded video:
-        \n\n*) Enable the audio preference and download FFmpeg;
-        \n\n*) Choose the extraction type: 
-        \n\n\"extract only\" will conserve the audio stream from the video as is (WebM files contain an \"Ogg Vorbis\" 
-        audio; MP4, 3GPP and large/medium FLV video hold an \"AAC\" audio stream; FLV small holds an \"mp3\");
-        \n\n\"extract and encode to mp3\" will convert the extracted audio in an mp3, encoding it with the selected bitrate.
-        \n\nFrom now on, a checkbox will appear in the download confirmation box visible when you click an item 
-        in the YTD\'s video list. When checked, the audio extraction job will start upon video download completion 
-        (to hide the checkbox, disable the audio extraction option).
-        \n\nChoose from settings if you want to remove the video file after a successful audio extraction.</string>
+    <string name="audio_tutorial_text">Pour extraire ou convertir l\'audio vers mp3 depuis une vidéo téléchargée:
+\n\n*) Enable the audio preference and download FFmpeg;
+\n\n*) Choose the extraction type: 
+\n\n\"extract only\" will conserve the audio stream from the video as is (WebM files contain an \"Ogg Vorbis\" 
+audio; MP4, 3GPP and large/medium FLV video hold an \"AAC\" audio stream; FLV small holds an \"mp3\");
+\n\n\"extract and encode to mp3\" will convert the extracted audio in an mp3, encoding it with the selected bitrate.
+\n\nFrom now on, a checkbox will appear in the download confirmation box visible when you click an item 
+in the YTD\'s video list. When checked, the audio extraction job will start upon video download completion 
+(to hide the checkbox, disable the audio extraction option).
+\n\nChoose from settings if you want to remove the video file after a successful audio extraction.</string>
     
     <!-- -->
     <string name="settings_cat_folder">Dossier des téléchargements</string>
@@ -223,7 +223,7 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
         <item>Jamais</item>
     </string-array>
     
-    <string name="notification_defaults_title">Notification defaults</string>
+    <string name="notification_defaults_title">Notification par défaut de YTD</string>
     <string name="notification_defaults_dialog_title">Notification par défaut de YTD</string>
     <string-array name="notification_defaults_entries">
         <item>Son et vibration</item>
@@ -254,37 +254,36 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
     <string name="credits_title">Autres crédits</string>
     <string name="title_activity_credits_show">Autres licences et traductions</string>
     
-    <string name="credits_text0">\tMain Licenses
-        \n\n
-        This App is released under the GPL-3.0.
-        \n(YouTubeDownloader for Android Copyright &#169; 2013 Samuele Rini).
-        \n\n
-        The FFmpeg binary (<http>http://www.ffmpeg.org/index.html</http>), 
-        used for the audio extraction feature, is released under the GPL-3.0.
-        \n(FFmpeg version 1.2 Copyright &#169; 2000-2013 the FFmpeg developers).
-    	\n\n
-    	The filechooser library is released under the MIT license.
-    	\n(android-filechooser Copyright &#169; 2012 Hai Bison).
-    	\n\n
-    	The liblame library, used to compile FFmpeg, is released under the LGPL.
-    	A GitHub project, <http>https://github.com/intervigilium/liblame</http>, 
-    	has been used to compile the lame libraries for Android.
-    	\n(liblame Copyright &#169; 2010 Ethan Chen)
-    	\n(LAME Copyright &#169; 1999-2007 The LAME Project,
-		\nCopyright &#169; 1999-2001 Mark Taylor,
-		\nCopyright &#169; 1998 Micheal Cheng)
-    	\n(mpglib Copyright &#169; 1995-1997 Michael Hipp).
-    	\n\n
-    	YTD\'s mp3 tags are written with MyID3: a Java ID3 Tag Library
-    	(<http>http://www.fightingquaker.com/myid3</http> and <http>https://sites.google.com/site/eternalsandbox/myid3-for-android</http>) 
-    	released under the LGPL, as its dependency Jakarta Regexp library.
-    	\n(MyID3 Copyright &#169; 2008 Charles M. Chen, adapted for Android by Romulus Urakagi Ts\'ai).
-    	\n\n
-    	For more informations, refer to the dedicated menus and to the license files 
-    	available from this project\'s source code.
-    	\n</string>
+    <string name="credits_text0">\tLicences principales
+\n\n
+Cette app est publiée sous GPL-3.0.
+\n(YouTubeDownloader for Android Copyright &#169; 2013 Samuele Rini).
+\n\n
+Le binaire FFmpeg (<http>http://www.ffmpeg.org/index.html</http>), 
+utilisé pour la fonction d\'extraction audio, est publiée sous GPL-3.0.
+\n(FFmpeg version 1.2 Copyright &#169; 2000-2013 the FFmpeg developers).
+\n\n
+La librairie du sélectionneur est publiée sous la licence MIT.
+\n(android-filechooser Copyright &#169; 2012 Hai Bison).
+\n\n
+La librairie liblame, utilisée pour compiler FFmpeg, est publiée sous LGPL.
+Un projet GitHub, <http>https://github.com/intervigilium/liblame</http>, 
+a été utilisé pour compiler les librairies lame pour Android.
+\n(liblame Copyright &#169; 2010 Ethan Chen)
+\n(LAME Copyright &#169; 1999-2007 The LAME Project,
+\nCopyright &#169; 1999-2001 Mark Taylor,
+\nCopyright &#169; 1998 Micheal Cheng)
+\n(mpglib Copyright &#169; 1995-1997 Michael Hipp).
+\n\n
+Les tags mp3 de YTD\'s mp3 tags sont écrits avec MyID3: a Java ID3 Tag Library
+(<http>http://www.fightingquaker.com/myid3</http> and <http>https://sites.google.com/site/eternalsandbox/myid3-for-android</http>) 
+released under the LGPL, as its dependency Jakarta Regexp library.
+\n(MyID3 Copyright &#169; 2008 Charles M. Chen, adapted for Android by Romulus Urakagi Ts\'ai).
+\n\n
+Pour plus d\'informations, référez-vous aix menus dédiés et aux fichiers de licence disponibles depuis le code source de ce projet.
+\n</string>
     
-    <string name="credits_text1">\t License de certaisn extraits de code
+    <string name="credits_text1">\t License de certains extraits de code
 \n\n
 Cette application utilise des extraits du code de
 \n\n
@@ -319,23 +318,25 @@ Pour plus d\'informations, reportez-vous aux commentaires dans le code Java de Y
     <!-- -->
     <string name="settings_cat_ssh">SSH</string>
     <string name="connectbot_flavour_title">Version de ConnectBot à utiliser</string>
-	<string name="connectbot_flavour_dialog_title">Choose ConnectBot fork to send video via SSH</string>
-	<string name="enable_connectbot_short_cmd_title">Enable SSH short cmd</string>
-	<string name="enable_connectbot_short_cmd_summary">Use a slightly shorter but faster command to 
-	    paste into the remote shell (will ONLY work if the destination PC resides within the same LAN)</string>
-	<string name="ssh_to_longpress_menu_title">SSH-send to long-press menu</string>
-	<string name="ssh_to_longpress_menu_summary">Move \"Send via SSH\" action into the long-press menu available from the video list</string>
+	<string name="connectbot_flavour_dialog_title">Choisir la fourchette ConnectBook pour envoyer la vidéo via SSH</string>
+	<string name="enable_connectbot_short_cmd_title">Activer la commande SSH raccourcie</string>
+	<string name="enable_connectbot_short_cmd_summary">Utilise une  commande légèrement plus courte mais plus rapide
+pour coller dans le terminal distant (fonctionnera SEULEMENT si le PC de destination se trouve dans le même réseau)</string>
+	<string name="ssh_to_longpress_menu_title">Envoyer par SSH vers le menu d\'appui-long</string>
+	<string name="ssh_to_longpress_menu_summary">Déplacer l\'action  \"Envoyer via SSH\" vers le menu (appui long) disponible depuis la liste des vidéos</string>
 	
     <!-- -->
 	<string name="settings_cat_advanced">Paramètres avancés</string>
 	<string name="enable_logging_title">Activer la journalisation (logs)</string>
 	<string name="enable_logging_summary">Ajouter les messages d\'YTD dans le journal système. Obligatoire pour l\'envoi d\'un rapport au développeur.</string>
-	<string name="disable_bugsense_title">Disable BugSense</string>
-	<string name="disable_bugsense_summary">This will not send Crash Reports to the developer. Not recommended.</string>
-	<string name="disable_bugsense_confirm_title">Are you sure?</string>
-	<string name="disable_bugsense_confirm_msg">Will be harder to fix bugs and improve this app.
-	    \nNo personal data will be collected.</string>
-	<string name="disable_bugsense_confirm_neutral">Review a Crash\nReport sample</string>
-	<string name="disable_bugsense_confirm_popup_title">Crash Report sample</string>
+	<string name="disable_bugsense_title">Désactiver BugSense</string>
+	<string name="disable_bugsense_summary">Ceci n\'enverra pas de rapports de crash au développeur. Non recommandé.</string>
+	<string name="disable_bugsense_confirm_title">Etes-vous sûr ?</string>
+	<string name="disable_bugsense_confirm_msg">Plus difficile de corriger les bugs et améliorer cette app.
+\nAucunes données personnelles ne seront collectées.
+
+</string>
+	<string name="disable_bugsense_confirm_neutral">Voir un exemple de Rapport\nde bug</string>
+	<string name="disable_bugsense_confirm_popup_title">Exemple de rapport de crash</string>
 	
 </resources>

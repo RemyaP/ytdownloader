@@ -12,10 +12,10 @@
 
     <string name="tutorial_title">Allgemeines App Tutorial</string>
 	<string name="tutorial_msg_new">Nachfolgend ist eine Liste mit allen Codecs und Auflösungen für das betreffende Video zu sehen. Du kannst:
-\n\n*) Ein Element auswählen, um das Video lokal (auf dem Gerät) herunterzuladn oder es via SSH an einen PC zu senden.
-\nVoraussetzungen des PCs: Bash und Wget. Weitere SSH Informationen weiter unten;
-\n\n*) Lange auf ein Element drücken und zwischen dem in die Zwischenablage kopieren und als Text teilen (z. B. um es zu einer anderen App zu senden) wählen.
-\nBitte beachte, dass ein solcher Link (anders als wenn man es via SSH sendet) nur vom selben Gerät, auf welchem er erstellt wurde, benutzt werden kann ODER vom selben LAN, wenn du ihn mit einem anderen Gerät teilst.\n</string>
+\n\n*) Ein Element auswählen, um das Video lokal (auf das Gerät) herunterzuladen oder es via SSH an einen PC zu senden.
+\ Voraussetzungen an den PC: Bash und Wget. Weitere SSH Informationen weiter unten;
+\n\n*) Lange auf ein Element drücken und zwischen, die Zwischenablage kopieren und als Text teilen (z. B. um es zu einer anderen App zu senden) zu wählen.
+\nBitte beachte, dass ein solcher Link (anders als bei via SSH sendet) nur vom selben Gerät, auf welchem er erstellt wurde, benutzt werden kann ODER im selben Netzwerk, falls du ihn mit einem anderen Gerät teilst.\n</string>
     <string name="loading">Lade&#8230;</string>
     <string name="error">Fehler!</string>
     <string name="information">Information</string>
@@ -38,9 +38,9 @@
     <string name="unable_save">Video kann nicht gespeichert werden!</string>
     <string name="unable_save_dialog_msg">Zielordner ist nicht verfügbar und/oder nicht beschreibbar.</string>
     <string name="ssh_info_tutorial_title">Mit SSH senden - Anleitung</string>
-    <string name="ssh_info_tutorial_msg">A single long command has been loaded in the clipboard.
-		\n\nChoose a profile in ConnectBot and once in your remote shell, browse to the desired 
-		directory, PASTE the command (use the menu button) and push ENTER.</string>
+    <string name="ssh_info_tutorial_msg">Ein einzelnes langes Befehl wurde in den Zwischenspeicher geladen.
+\n\nWähle ein Profil in ConnectBot und in deiner Remote Shell, wechsle zum gewünschten
+Verzeichnis, füge den Befehl ein (verwende den Menü-Knopf) und drücke ENTER.</string>
     <string name="callConnectBot_dialog_title">%1$s nicht installiert!</string>
     <string name="callConnectBot_dialog_msg">Sie benötigen diese kostenlose App um den Video Download mit SSH zu senden.</string>
     <string name="callConnectBot_dialog_positive">Herunterladen</string>
@@ -71,7 +71,7 @@
     <string-array name="long_click_entries2">
         <item>In Zwischenablage kopieren</item>
         <item>Als Text teilen</item>
-        <item>Mit SSH senden</item>
+        <item>Via SSH senden</item>
     </string-array>
     
     <!-- ### SettingsActivity ### -->
@@ -85,11 +85,11 @@
     <string name="failed_download">Fehlgeschlagener Download gelöscht.</string>
     <string name="new_v_download">gefunden. Herunterladen&#8230;</string>
     <string name="new_v_install">heruntergeladen. Drücken, um zu installieren.</string>
-    <string name="ffmpeg_download_dialog_title">Weiter Dateien sind notwendig. Sollen diese heruntergeladen werden?</string>
+    <string name="ffmpeg_download_dialog_title">Weiter Dateien benötigt. Sollen diese nun heruntergeladen werden?</string>
     <string name="ffmpeg_download_dialog_msg">Web link:</string>
     <string name="ffmpeg_device_not_supported">Dieses Gerät wird zurzeit nicht unterstützt.</string>
     <string name="ffmpeg_support_mail">E-mail an den Entwickler schreiben?
-\nDu kannst alle Daten in deiner E-mail App einsehen können, bevor sie gesendet werden.</string>
+\nDu kannst alle Daten in deiner E-mail App einsehen bevor sie gesendet werden.</string>
     <string name="ffmpeg_download_notification">FFmpeg herunterladen</string>
     <string name="ffmpeg_install">Installiere FFmpeg Daten&#8230;</string>
     <string name="email_via">Senden per Mail:</string>
@@ -113,7 +113,7 @@
     
     <string name="ytd_video">YTD-Video</string>
     <string name="copy_error">Fehler beim Kopieren</string>
-    <string name="copy_progress">Dateikopie läuft&#8230;</string>
+    <string name="copy_progress">Dateien werden kopiert&#8230;</string>
     <string name="copy_ok">Kopieren abgeschlossen.</string>
     <string name="download_remove_failed">Fehler: temporäre Download-Datei wurde nicht gelöscht!</string>
     <string name="download_failed">Download fehlgeschlagen!</string>
@@ -161,15 +161,15 @@
     <string name="show_again_checkbox">Nächstes Mal nochmal anzeigen.</string>
     <string name="ssh_info_title">Aktiviere SSH Anleitung</string>
     <string name="ssh_info_summary">Zeige einen Hinweis über Remote Downloads via SSH</string>
-    <string name="audio_tutorial_title">Tonspur Extraktions-Tutorial</string>
+    <string name="audio_tutorial_title">Tonspur Extraktions-Anleitung</string>
     <string name="audio_tutorial_summary">Öffne eine kurze Anleitung über die Tonspur Extraktionsfunktion</string>
     <string name="audio_tutorial_text">Um die Tonspur aus der Videodatei zu extrahieren oder in MP3 zu konvertieren:
 \n\n*) Aktiviere die Tonspur-Einstellungen und lade FFmpeg herunter;
 \n\n*) Wähle den Extraktionstypen:
-\n\n\"nur extrahieren\" wird die Tonspur des Videos erhalten wie sie ist (WebM Dateien beinhalten \"Ogg Vorbis\"
+\n\n\"nur extrahieren\" es wird die Tonspur des Videos erhalten wie sie ist (WebM Dateien beinhalten \"Ogg Vorbis\"
 Kodierung; MP4, 3GPP und große/mittelgroße FLV Videodateien enthalten eine \"AAC\"; kleine FLV Videodateien enthalten \"MP3\");
-\n\n\"Extrahieren und in MP3 kodieren\" wird die extrahierte Tonspur in MP3 kodieren, mit der gewählten Bitrate.
-\n\nVon nun an kann in der Downloadbestätigungs-Benachrichtigung ein Haken gesetzt werden wenn ein Stück
+\n\n\"Extrahieren und in MP3 kodieren\" es wird die extrahierte Tonspur mit der gewählten Bitrate in MP3 kodiert.
+\n\nVon nun an kann in der Downloadbestätigungs-Benachrichtigung ein Haken gesetzt werden wenn ein Eintrag
 in der YTD\'s Video Liste angeklickt wird. Ist der Haken gesetzt, wird die Tonspur-Extraktion starten, sobald der Videodownload abgeschlossen ist
 (zum verstecken der Option, deaktiviere die Audio Extraktions-Option).
 \n\nWähle in den Einstellungen, wenn die Video Datei nach erfolgreicher Tonspur-Extraktion gelöscht werden soll.</string>
@@ -202,7 +202,7 @@ in der YTD\'s Video Liste angeklickt wird. Ist der Haken gesetzt, wird die Tonsp
     <string name="audio_extraction_type_title">Extraktionstyp</string>
     <string name="enable_audio_q_suffix_title">Hänge Qualitätshinweis an</string>
     <string name="enable_audio_q_suffix_summary">Füge die Audioqualität am Ende des Dateinamens an</string>
-    <string name="remove_video_title">Video Entfernung</string>
+    <string name="remove_video_title">Video entfernen</string>
     <string name="remove_video_summary">Aktiviere Videodatei-Löschung nach erfolgreicher Tonspur-Extraktion (Achtung: ohne Bestätigung)</string>
 
     <string-array name="audio_extraction_type_entries">
@@ -240,7 +240,7 @@ in der YTD\'s Video Liste angeklickt wird. Ist der Haken gesetzt, wird die Tonsp
     <string name="settings_cat_updates">Aktualisieren</string>
     <string name="update_title">Nach Update suchen</string>
     <string name="autoupdate_title">Auto-Update aktivieren</string>
-    <string name="autoupdate_summary">Nach Updates beim ersten Start der App suchen (neue Version wird automatisch heruntergeladen)</string>
+    <string name="autoupdate_summary">Beim ersten Start der App nach Updates suchen (neue Version wird automatisch heruntergeladen)</string>
 
     <!-- -->
     <string name="settings_cat_app">Anwendung</string>
@@ -256,17 +256,17 @@ in der YTD\'s Video Liste angeklickt wird. Ist der Haken gesetzt, wird die Tonsp
     
     <string name="credits_text0">\tHauptlizenz
 \n\n
-Diese App und wird veröffentlicht unter der GPL-3.0.
+Diese App wird unter der GPL-3.0 Lizenz veröffentlicht.
 \n(YouTube Downloader für Android Copyright &#169; 2013 Samuele Rini).
 \n\n
 Die FFmpeg Binärdateien (<http>http://www.ffmpeg.org/index.html</http>), 
-verwendet für die Tonspur-Extraktions-Funktion, wird veröffentlicht unter der GPL-3.0.
+verwendet für die Tonspur-Extraktions-Funktion, wird unter der GPL-3.0 Lizenz veröffentlicht.
 \n(FFmpeg Version 1.2 Copyright &#169; 2000-2013 the FFmpeg Entwickler).
 \n\n
-Die Filechooser Library wird veröffentlicht unter der MIT Lizenz.
+Die Filechooser Library wird unter der MIT Lizenz veröffentlicht.
 \n(android-filechooser Copyright &#169; 2012 Hai Bison).
 \n\n
-Die Liblame Library, verwendet um FFmpeg zu kompilieren, wird veröffentlicht unter der LGPL.
+Die Liblame Library, verwendet um FFmpeg zu kompilieren, wird unter der LGPL Lizenz  veröffentlicht.
 Ein GitHub Projekt, <http>https://github.com/intervigilium/liblame</http>,
 wurde verwendet um die Lame Libraries für Android zu kompilieren.
 \n(liblame Copyright &#169; 2010 Ethan Chen)
@@ -277,7 +277,7 @@ wurde verwendet um die Lame Libraries für Android zu kompilieren.
 \n\n
 YTD\'s mp3 Tags wurden geschrieben mit MyID3: a Java ID3 Tag Library
 (<http>http://www.fightingquaker.com/myid3</http> und <http>https://sites.google.com/site/eternalsandbox/myid3-for-android</http>) 
-veröffentlicht unter der LGPL, wie seine Abhängigkeit Jakarta Regexp Library.
+veröffentlicht unter der LGPL Lizenz, wie seine Abhängigkeit Jakarta Regexp Library.
 \n(MyID3 Copyright &#169; 2008 Charles M. Chen, adaptiert für Android von Romulus Urakagi Ts\'ai).
 \n\n
 Für weitere Informationen, siehe die entsprechenden Menüs und die Lizenz Dateien
@@ -290,10 +290,10 @@ Diese App verwendet einige Codeteile von:
 \n\n
 1) CyanogenMod Custom ROM (<http>https://github.com/CyanogenMod/android_packages_apps_CMUpdater</http>)
 \nCopyright &#169; 2012 The CyanogenMod Project, lizensiert unter der GNU GPLv2 Lizenz.
-\nDer Lizenztext kann eingesehen werden in der LICENSE_GPL Datei oder bei <http>https://www.gnu.org/licenses/gpl-3.0.txt</http>
+\nDie Leizenz kann in der LICENSE_GPL Datei oder bei <http>https://www.gnu.org/licenses/gpl-3.0.txt</http>  eingesehen werden
 \n\n
-2) Stack Overflow (<http>http://stackoverflow.com</http>), eine Frage und Antwort Seite für Programmierer, wo der gesamte
-Inhalt unter der CC BY-SA 3.0 lizensiert ist (see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
+2) Stack Overflow (<http>http://stackoverflow.com</http>), eine Frage und Antwort Seite für Programmierer, deren gesamter
+Inhalt unter der CC BY-SA 3.0 lizensiert ist (siehe <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
 \n\n
 Für weitere Details, siehe die Kommentare in YTD\s Java Code.</string>
     <string name="credits_translators">\n\tÜbersetzungen
@@ -322,7 +322,7 @@ Für weitere Details, siehe die Kommentare in YTD\s Java Code.</string>
 	<string name="connectbot_flavour_dialog_title">Wähle ConnectBot Fork um das Video über SSH zu senden</string>
 	<string name="enable_connectbot_short_cmd_title">Aktiviere SSH Kurzkommando</string>
 	<string name="enable_connectbot_short_cmd_summary">Verwende ein geringfügig kürzeres, jedoch schnelleres Kommando zum
-Einfügen in die Remote Shell (funktioniert NUR, wenn der Ziel-PC sich im gleichen LAN befindet)</string>
+Einfügen in die Remote Shell (funktioniert NUR, wenn der Ziel-PC sich im gleichen Netzwerk befindet)</string>
 	<string name="ssh_to_longpress_menu_title">Funktion \"Sende über SSH\" in Lang-Drück-Menü (Longpress-Menü)</string>
 	<string name="ssh_to_longpress_menu_summary">Verschiebe die \"Senden über SSH\" Funktion in das Lang-Drück-Menü (Longpress-Menü), verfügbar über die Video Liste</string>
 	

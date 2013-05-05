@@ -325,6 +325,7 @@
         <item>Polish</item>
         <item>Portuguese</item>
         <item>Russian</item>
+        <item>Spanish</item>
         <item>Turkish</item>
         <item>Western Farsi</item>
     </string-array>
@@ -341,6 +342,7 @@
         <item>pl_PL</item>
         <item>pt_PT</item>
         <item>ru</item>
+        <item>es</item>
         <item>tr_TR</item>
         <item>fa</item>
     </string-array>
