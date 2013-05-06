@@ -1,3 +1,29 @@
+/***
+ 	Copyright (c) 2012-2013 Samuele Rini
+ 	
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program. If not, see <http>http://www.gnu.org/licenses
+	
+	***
+	
+	https://github.com/dentex/ytdownloader/
+    https://sourceforge.net/projects/ytdownloader/
+	
+	***
+	
+	Different Licenses and Credits where noted in code comments.
+*/
+
 package dentex.youtube.downloader;
 
 import java.io.File;
@@ -332,11 +358,10 @@ public class ShareActivity extends Activity {
     }
     
     private String linkValidator(String sharedText) {
-    	String link = sharedText;
-    	Pattern pattern = Pattern.compile("(http|https).*(v=.{11}).*");
-        Matcher matcher = pattern.matcher(link);
+    	Pattern pattern = Pattern.compile("(http://|https://).*(v=.{11}).*");
+        Matcher matcher = pattern.matcher(sharedText);
         if (matcher.find()) {
-            validatedLink = matcher.group(1) + "://www.youtube.com/watch?" + matcher.group(2);
+            validatedLink = matcher.group(1) + "www.youtube.com/watch?" + matcher.group(2);
             videoId = matcher.group(2).replace("v=", "");
             return validatedLink;
         }

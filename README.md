@@ -5,11 +5,11 @@ Android 3+ App to download videos from YouTube
 
 ################################################################
 
-`versionCode="41"`
+`versionCode="42"`
 
-`versionName="1.9"`
+`versionName="2.0"`
 
-MD5 checksum: `8a9292ac9e5def6bb7f694b70de08de1` dentex.youtube.downloader_v1.9.apk
+MD5 checksum: `85acff97685d75b8912ac655dcfc0c04` dentex.youtube.downloader_v2.0.apk
 
 LICENSE
 ================================================================
@@ -29,9 +29,93 @@ Copyright (C) 2012  Samuele Rini
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+OTHER LICENSES
+================================================================
+    Additional licenses informations about code used in this project
+    is available from within the App's "About" menu:
+    
+    
+     This App is released under the GPL-3.0. 
+    (YouTubeDownloader for Android Copyright (C) 2013 Samuele Rini). 
+    
+     The FFmpeg binary (http://www.ffmpeg.org/index.html), 
+     used for the audio extraction feature, is released under the GPL-3.0. 
+    (FFmpeg version 1.2 Copyright (C) 2000-2013 the FFmpeg developers). 
+    
+     The filechooser library is released under the MIT license. 
+    (android-filechooser Copyright (C) 2012 Hai Bison). 
+    
+     The liblame library, used to compile FFmpeg, is released under the LGPL. 
+     A GitHub project, https://github.com/intervigilium/liblame, 
+     has been used to compile the lame libraries for Android. 
+    (liblame Copyright (C) 2010 Ethan Chen) 
+    (LAME Copyright (C) 1999-2007 The LAME Project, 
+    Copyright (C) 1999-2001 Mark Taylor, 
+    Copyright (C) 1998 Micheal Cheng) 
+    (mpglib Copyright (C) 1995-1997 Michael Hipp). 
+    
+     YTD`s mp3 tags are written with MyID3: a Java ID3 Tag Library 
+     (http://www.fightingquaker.com/myid3 and 
+     https://sites.google.com/site/eternalsandbox/myid3-for-android) 
+     released under the LGPL, as its dependency Jakarta Regexp library. 
+    (MyID3 Copyright (C) 2008 Charles M. Chen, 
+    adapted for Android by Romulus Urakagi Ts`ai). 
+    
+     For more informations, refer to the dedicated menus and to the 
+     license files available from this project`s source code.
+    
+    
+     This App uses some code snippets from: 
+    
+     1) CyanogenMod custom ROM (https://github.com/CyanogenMod/android_packages_apps_CMUpdater) 
+    Copyright (C) 2012 The CyanogenMod Project, 
+    licensed under the GNU GPLv2 license. 
+    The text of the license can be found in the LICENSE_GPL file or at 
+    https://www.gnu.org/licenses/gpl-3.0.txt 
+    
+     2) Stack Overflow (http://stackoverflow.com), a question and answer 
+     site for programmers where all the content is CC BY-SA 3.0 licensed 
+     (see http://creativecommons.org/licenses/by-sa/3.0). 
+    
+     For more details, look for comments in YTD`s Java code.
+
+     
+    Furthermore, the device-framed screenshots in the project's directory have been 
+    generated with the "Device Frame Generator" Android App by Prateek 
+    Srivastava, available at 
+    <https://github.com/f2prateek/Device-Frame-Generator/>.
+    The generated artwork is released ander the "Creative Commons 
+    Attribution 3.0 Unported License". 
+    For further details, <http://creativecommons.org/licenses/by/3.0/>.
+
+
 CHANGELOG
 ================================================================
     
+     v2.0 - May 06 2013 
+    ----------------------------------- 
+    [x] audio extraction from 
+     downloaded video with optional 
+     conversion to mp3 (with FFmpeg) 
+    [x] PayPal donation menu 
+    [x] BugSense integration 
+    [x] on the fly language switch 
+    [x] fixed locale change to default 
+    [x] 3 new option on SSH: 
+     - use other ConnectBot forks 
+     - use link inside same LAN 
+     - SSH-send to long-press menu 
+    [x] up-navigation for ativities 
+    [x] nice translators list 
+    [x] new translations: 
+     - German 
+     - Hebrew 
+     - Polish (Poland) 
+     - Portuguese (Brazil) 
+     - Russian 
+     - Spanish 
+     - Western Farsi (Iran) 
+     
      v1.9 - Mar 23 2013 
     ----------------------------------- 
     [x] YT web page parsing improved 
@@ -71,7 +155,7 @@ CHANGELOG
      v1.7 - Mar 03 2012 
     ----------------------------------- 
     [x] Italian translation 
-    [x] Portuguese translation 
+    [x] Portuguese (Portugal) transl. 
     [x] option to force the locale 
      
      v1.6 - Mar 01 2013 
@@ -150,17 +234,15 @@ CHANGELOG
 TO-DO LIST
 ================================================================
 
-    [ ] option to always download video locally
-    [ ] option to "use link inside same LAN" for SSH send
-    [ ] option to choose between other ConnectBot mods
-    [ ] "tutorials" prefs section as menu item
-    [ ] downloads log    
+    [ ] implement the possibility to change, from preferences, 
+        audio extraction type during the video download
+    [ ] option to always download video locally [maybe not]
+    [ ] downloads log
     [ ] default format/filter selection for video download
-    [ ] handle SourceForge servers down; fallback on GitHub for apk (and thumbnail placeholder) download:
+    [ ] handle SourceForge servers down; fallback on GitHub for apk download:
 	    page: https://github.com/dentex/ytdownloader
 	    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v.*.apk?raw=true
     [ ] use icon/logo to identify codecs available
     [ ] make the App tablet friendly
     [ ] new App's ICON [maybe not]
     [ ] handle YT links that require login (hard)
-    [ ] audio extraction (hard too) [w.i.p.: see github code]

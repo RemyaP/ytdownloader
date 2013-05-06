@@ -1,3 +1,29 @@
+/***
+ 	Copyright (c) 2012-2013 Samuele Rini
+ 	
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program. If not, see <http>http://www.gnu.org/licenses
+	
+	***
+	
+	https://github.com/dentex/ytdownloader/
+    https://sourceforge.net/projects/ytdownloader/
+	
+	***
+	
+	Different Licenses and Credits where noted in code comments.
+*/
+
 package dentex.youtube.downloader.utils;
 
 import java.io.BufferedReader;
@@ -42,6 +68,113 @@ public class Utils {
 	InputStream isFromString;
 	static MediaScannerConnection msc;
 	static String onlineVersion;
+    
+    public static void themeInit(Context context) {
+    	settings = context.getSharedPreferences(PREFS_NAME, 0);
+		String theme = settings.getString("choose_theme", "D");
+    	if (theme.equals("D")) {
+    		context.setTheme(R.style.AppThemeDark);
+    	} else {
+    		context.setTheme(R.style.AppThemeLight);
+    	}
+	}
+    
+    public static void langInit(Context context) {
+    	
+    	if (settings.getString("DEF_LANG", "").isEmpty()) {	
+    		Locale defLocale = Locale.getDefault();
+    		String defLang = defLocale.getLanguage();
+    		settings.edit().putString("DEF_LANG", defLang).commit();
+    	}
+    		
+		String lang  = settings.getString("lang", "default");
+        Locale locale;
+		if (!lang.equals("default")) {
+			String[] fLang = filterLang(lang);
+	        locale = new Locale(fLang[0], fLang[1]);
+	        Locale.setDefault(locale);
+	        Configuration config = new Configuration();
+	        config.locale = locale;
+        } else {
+        	locale = new Locale(settings.getString("DEF_LANG", ""));
+        	Locale.setDefault(locale);
+        }
+        Configuration config = new Configuration();
+        config.locale = locale;
+        context.getResources().updateConfiguration(config, null);
+	}
+    
+    private static String[] filterLang(String lang) {
+		if (lang.equals("bg_BG") || 
+			lang.equals("hu_HU") || 
+			lang.equals("ja_JP") || 
+			lang.equals("pl_PL") ||
+			lang.equals("pt_BR") || 
+			lang.equals("pt_PT") || 
+			lang.equals("tr_TR") || 
+			lang.equals("zh_TW")) 
+				return lang.split("_");
+		return new String[] { lang, "" };
+	}
+
+	public static void logger(String type, String msg, String tag) {
+    	if (settings.getBoolean("enable_logging", false)) {
+	    	if (type.equals("v")) {
+	    		Log.v(tag, msg);
+	    	} else if (type.equals("d")) {
+	    		Log.d(tag, msg);
+	    	} else if (type.equals("i")) {
+	    		Log.i(tag, msg);
+	    	} else if (type.equals("w")) {
+	    		Log.w(tag, msg);
+	    	}
+    	}
+    }
+    
+    public static void createLogFile(File destDir, String filename, String content) {
+    	File file = new File(destDir, filename);
+    	try {
+	        InputStream is = new ByteArrayInputStream(content.getBytes("UTF-8"));
+	        OutputStream os = new FileOutputStream(file);
+	        byte[] data = new byte[is.available()];
+	        is.read(data);
+	        os.write(data);
+	        is.close();
+	        os.close();
+		} catch (IOException e) {
+			Log.e(DEBUG_TAG, "Error creating '" + filename + "' Log file", e);
+		}
+	}
+    
+    public static void setNotificationDefaults(NotificationCompat.Builder aBuilder) {
+    	String def = settings.getString("notification_defaults", "0");
+    	if (def.equals("0")) {
+    		aBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
+    	}
+    	if (def.equals("1")) {
+    		aBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS);
+    	}
+    	if (def.equals("2")) {
+    		aBuilder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+    	}
+    	if (def.equals("3")) {
+    		aBuilder.setDefaults(Notification.DEFAULT_ALL);
+    	}
+    	if (def.equals("4")) {
+    		aBuilder.setDefaults(Notification.DEFAULT_SOUND);
+    	}
+    	if (def.equals("5")) { 
+    		aBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
+    	}
+    	if (def.equals("6")) {
+    		aBuilder.setDefaults(Notification.DEFAULT_LIGHTS);
+    	}
+    	if (def.equals("7")) {
+    		// nothing...
+    	}
+    }
+    
+    // --------------------------------------------------------------------------
     
 	/* class VersionComparator from Stack Overflow:
 	 * 
@@ -247,110 +380,4 @@ public class Utils {
 		});
 		msc.connect();
 	}
-    
-    // --------------- !!!
-    
-    public static void themeInit(Context context) {
-    	settings = context.getSharedPreferences(PREFS_NAME, 0);
-		String theme = settings.getString("choose_theme", "D");
-    	if (theme.equals("D")) {
-    		context.setTheme(R.style.AppThemeDark);
-    	} else {
-    		context.setTheme(R.style.AppThemeLight);
-    	}
-	}
-    
-    public static void langInit(Context context) {
-    	
-    	if (settings.getString("DEF_LANG", "").isEmpty()) {	
-    		Locale defLocale = Locale.getDefault();
-    		String defLang = defLocale.getLanguage();
-    		settings.edit().putString("DEF_LANG", defLang).commit();
-    	}
-    		
-		String lang  = settings.getString("lang", "default");
-        Locale locale;
-		if (!lang.equals("default")) {
-			String[] fLang = filterLang(lang);
-	        locale = new Locale(fLang[0], fLang[1]);
-	        Locale.setDefault(locale);
-	        Configuration config = new Configuration();
-	        config.locale = locale;
-        } else {
-        	locale = new Locale(settings.getString("DEF_LANG", ""));
-        	Locale.setDefault(locale);
-        }
-        Configuration config = new Configuration();
-        config.locale = locale;
-        context.getResources().updateConfiguration(config, null);
-	}
-    
-    private static String[] filterLang(String lang) {
-		if (lang.equals("bg_BG") || 
-			lang.equals("hu_HU") || 
-			lang.equals("ja_JP") || 
-			lang.equals("pl_PL") || 
-			lang.equals("pt_PT") || 
-			lang.equals("tr_TR") || 
-			lang.equals("zh_TW")) 
-				return lang.split("_");
-		return new String[] { lang, "" };
-	}
-
-	public static void logger(String type, String msg, String tag) {
-    	if (settings.getBoolean("enable_logging", false)) {
-	    	if (type.equals("v")) {
-	    		Log.v(tag, msg);
-	    	} else if (type.equals("d")) {
-	    		Log.d(tag, msg);
-	    	} else if (type.equals("i")) {
-	    		Log.i(tag, msg);
-	    	} else if (type.equals("w")) {
-	    		Log.w(tag, msg);
-	    	}
-    	}
-    }
-    
-    public static void createLogFile(File destDir, String filename, String content) {
-    	File file = new File(destDir, filename);
-    	try {
-	        InputStream is = new ByteArrayInputStream(content.getBytes("UTF-8"));
-	        OutputStream os = new FileOutputStream(file);
-	        byte[] data = new byte[is.available()];
-	        is.read(data);
-	        os.write(data);
-	        is.close();
-	        os.close();
-		} catch (IOException e) {
-			Log.e(DEBUG_TAG, "Error creating '" + filename + "' Log file", e);
-		}
-	}
-    
-    public static void setNotificationDefaults(NotificationCompat.Builder aBuilder) {
-    	String def = settings.getString("notification_defaults", "0");
-    	if (def.equals("0")) {
-    		aBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
-    	}
-    	if (def.equals("1")) {
-    		aBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS);
-    	}
-    	if (def.equals("2")) {
-    		aBuilder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
-    	}
-    	if (def.equals("3")) {
-    		aBuilder.setDefaults(Notification.DEFAULT_ALL);
-    	}
-    	if (def.equals("4")) {
-    		aBuilder.setDefaults(Notification.DEFAULT_SOUND);
-    	}
-    	if (def.equals("5")) { 
-    		aBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
-    	}
-    	if (def.equals("6")) {
-    		aBuilder.setDefaults(Notification.DEFAULT_LIGHTS);
-    	}
-    	if (def.equals("7")) {
-    		// nothing...
-    	}
-    }
 }

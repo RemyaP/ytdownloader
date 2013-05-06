@@ -42,7 +42,7 @@
 \n\nEscoga un perfil en ConnectBot y una vez iniciado el shell remoto (SSH), debe navigar al 
 directorio deseado, COPIE la línea (use el botón de menú) y teclee ENTER. </string>
     <string name="callConnectBot_dialog_title">¡%1$s no esta instalado!</string>
-    <string name="callConnectBot_dialog_msg">Requerirá a ésta aplicación gratuita para enviar los videos descargados por SSH.</string>
+    <string name="callConnectBot_dialog_msg">Esta aplicación gratuita se requiere para enviar los videos descargados por SSH.</string>
     <string name="callConnectBot_dialog_positive">Descargar</string>
     <string name="download_complete_dialog_msg1">Video de YouTube:\n</string>
     <string name="download_complete_dialog_msg2">\nDescargado éxitosamente.</string>
@@ -56,7 +56,7 @@ directorio deseado, COPIE la línea (use el botón de menú) y teclee ENTER. </s
     <string name="notification_downloading_pt1">Descargando</string>
     <string name="notification_downloading_pt2">archivos de video</string>
     <string name="notification_no_downloads">No hay descargas en proceso</string>
-    <string name="long_click_title">Handle selected link:</string>
+    <string name="long_click_title">¿Qué desea hacer con el enlace?</string>
     <string name="extsdcard_info_title">Ruta de destino no estándar</string>
     <string name="extsdcard_info_msg">El Archivo va a ser descargado inicialmente a la carpeta de Descargas y después será trasladado a la destinación seleccionada.</string>
     <string name="ffmpeg_ready">FFmpeg listo.</string>
@@ -87,7 +87,7 @@ directorio deseado, COPIE la línea (use el botón de menú) y teclee ENTER. </s
     <string name="new_v_install">descargado. Haga clic para instalar. </string>
     <string name="ffmpeg_download_dialog_title">Se requiere un archivo adicional. ¿Descargarlo ahora?</string>
     <string name="ffmpeg_download_dialog_msg">Vínculo de web:</string>
-    <string name="ffmpeg_device_not_supported">Dispositivo no soportado aún.</string>
+    <string name="ffmpeg_device_not_supported">Dispositivo aún no soportado.</string>
     <string name="ffmpeg_support_mail">¿Mandar correo al programador?
 \nPodrá revisar toda la información en su aplicación de correo electónico antes de enviar los datos.</string>
     <string name="ffmpeg_download_notification">Descargar FFmpeg</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
-		\n v2.0 - May xx 2013
+		\n v2.0 - May 06 2013
 		\n-----------------------------------
 		\n[x] audio extraction from 
 		\n    downloaded video with optional 
@@ -19,9 +19,11 @@
 		\n[x] new translations:
 		\n    - German
 		\n    - Hebrew
-		\n    - Polish
+		\n    - Polish (Poland)
+		\n    - Portuguese (Brazil)
 		\n    - Russian
-		\n    - Western Farsi
+		\n    - Spanish
+		\n    - Western Farsi (Iran)
 		\n 
 		\n v1.9 - Mar 23 2013
 		\n-----------------------------------
@@ -62,7 +64,7 @@
 		\n v1.7 - Mar 03 2012
 		\n-----------------------------------
 		\n[x] Italian translation
-		\n[x] Portuguese translation
+		\n[x] Portuguese (Portugal) transl.
 		\n[x] option to force the locale
 		\n
 		\n v1.6 - Mar 01 2013
@@ -322,12 +324,13 @@
         <item>Italian</item>
         <item>German</item>
         <item>Korean</item>
-        <item>Polish</item>
-        <item>Portuguese</item>
+        <item>Polish (Poland)</item>
+        <item>Portuguese (Brazil)</item>
+        <item>Portuguese (Portugal)</item>
         <item>Russian</item>
         <item>Spanish</item>
         <item>Turkish</item>
-        <item>Western Farsi</item>
+        <item>Western Farsi (Iran)</item>
     </string-array>
     
     <string-array name="lang_entry_values">
@@ -340,6 +343,7 @@
         <item>de</item>
         <item>ko</item>
         <item>pl_PL</item>
+        <item>pt_BR</item>
         <item>pt_PT</item>
         <item>ru</item>
         <item>es</item>

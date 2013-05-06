@@ -11,11 +11,11 @@
     <!-- ### ShareActivity ### -->
 
     <string name="tutorial_title">Ogólny samouczek</string>
-	<string name="tutorial_msg_new">Now you will see a list with all the codecs and qualities available for the selected video. You can:
-		\n\n*) Press an item to download the video locally (on the device) or to send the download via SSH to a remote PC.
-		\nDestination machine requirements: Bash and Wget. Additional SSH info further on;
-		\n\n*) Long-press an item and choose between copy to clipboard or share link as text (i.e. send to another app).
-		\nPlease note that such a link (differently from when you send it via SSH) can be only used from the same device where it has been created OR from the same LAN, if you share it to another machine.\n</string>
+	<string name="tutorial_msg_new">Teraz zobaczysz listę wszystkich kodeków i jakości dostępnych dla tego materiału. Możesz:
+\n\n*) Wybrać materiał, aby go pobrać (na urządzenie) lub wysłać do pobierania przez SSH do zdalnego komputera.
+\nWymagania komputera: Bash i Wget. Więcej informacji dalej;
+\n\n*) Przytrzymać materiał i skopiować link do schowka lub wysłać jako tekst (przez inną aplikację)
+\nPamiętaj, że taki link (w przeciwieństwie do wysłanego przez SSH) może być wykorzystany tylko przez urządzenie, na którym został stworzony LUB z tego samego połączenia LAN, jeśli dzielisz je z innym urządzeniem.\n</string>
     <string name="loading">Ładowanie&#8230;</string>
     <string name="error">Błąd!</string>
     <string name="information">Informacje</string>
@@ -324,7 +324,7 @@ Aplikacja może zostać wybrana poprzez przycisk udostępnij w aplikacji YouTube
 	<string name="connectbot_flavour_dialog_title">Wybierz rodzaj Bota połączenia przy wysłaniu filmów przez SSH</string>
 	<string name="enable_connectbot_short_cmd_title">Włącz krótkie komendy SSH (cmd)</string>
 	<string name="enable_connectbot_short_cmd_summary">Używa nieco krótszych, ale znacznie szybciej działających komend do wklejanie, do zdalnej powłoki ( działa tylko, jeśli przeznaczony do tego działania komputer jest połączony z tą samą siecią LAN)</string>
-	<string name="ssh_to_longpress_menu_title">SSH-send to long-press menu</string>
+	<string name="ssh_to_longpress_menu_title">Wysyłanie przez SSH do menu długiego przytrzymania</string>
 	<string name="ssh_to_longpress_menu_summary">Move \"Send via SSH\" action into the long-press menu available from the video list</string>
 	
     <!-- -->
@@ -333,10 +333,10 @@ Aplikacja może zostać wybrana poprzez przycisk udostępnij w aplikacji YouTube
 	<string name="enable_logging_summary">Załącz wiadomość YTD\'s do systemowego dziennika zdarzeń. Obowiązkowe, przy wysyłaniu logcat\'u do developera.</string>
 	<string name="disable_bugsense_title">Wyłącz BugSense</string>
 	<string name="disable_bugsense_summary">To nie wyśle raportu błędu do developera. Nie rekomendowane.</string>
-	<string name="disable_bugsense_confirm_title">Are you sure?</string>
-	<string name="disable_bugsense_confirm_msg">Will be harder to fix bugs and improve this app.
-	    \nNo personal data will be collected.</string>
+	<string name="disable_bugsense_confirm_title">Jesteś pewien?</string>
+	<string name="disable_bugsense_confirm_msg">Naprawa błędów będzie trudniejsza, a ulepszanie aplikacji będzie wolniejsze.
+\nNie będną zbierane żadne prywatne dane.</string>
 	<string name="disable_bugsense_confirm_neutral">Review a Crash\nReport sample</string>
-	<string name="disable_bugsense_confirm_popup_title">Crash Report sample</string>
+	<string name="disable_bugsense_confirm_popup_title">Przykład raportu błędu</string>
 	
 </resources>

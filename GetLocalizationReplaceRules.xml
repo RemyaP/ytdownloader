@@ -35,4 +35,8 @@
 		<from>bg-BG</from>
 		<to>bg-rBG</to>
 	</replaceItem>
+	<replaceItem>
+		<from>pt-BR</from>
+		<to>pt-rBR</to>
+	</replaceItem>
 </items>
