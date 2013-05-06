@@ -9,7 +9,7 @@ Android 3+ App to download videos from YouTube
 
 `versionName="2.0"`
 
-MD5 checksum: `85acff97685d75b8912ac655dcfc0c04` dentex.youtube.downloader_v2.0.apk
+MD5 checksum: `5401317fcbf9ef649dd597628964f556` dentex.youtube.downloader_v2.0.apk
 
 LICENSE
 ================================================================
