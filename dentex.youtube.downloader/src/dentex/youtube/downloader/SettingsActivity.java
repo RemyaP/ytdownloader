@@ -117,7 +117,12 @@ public class SettingsActivity extends Activity {
         		startActivity(new Intent(this, AboutActivity.class));
         		return true;
         	case R.id.menu_dm:
-        		startActivity(new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS));
+        		Intent viewIntent = new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS);
+        		if(viewIntent.resolveActivity(getPackageManager()) != null) {
+        			startActivity(viewIntent);
+        		} else {
+        			Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show();
+        		}
         		return true;
         	case R.id.menu_tutorials:
         		startActivity(new Intent(this, TutorialsActivity.class));
@@ -173,7 +178,12 @@ public class SettingsActivity extends Activity {
             dm.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             	
                 public boolean onPreferenceClick(Preference preference) {
-                	startActivity(new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS));
+                	Intent viewIntent = new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS);
+	        		if(viewIntent.resolveActivity(getPackageManager()) != null) {
+	        			startActivity(viewIntent);
+	        		} else {
+	        			Toast.makeText(getActivity(), getActivity().getString(R.string.error), Toast.LENGTH_LONG).show();
+	        		}
                     return true;
                 }
             });*/

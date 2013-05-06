@@ -18,11 +18,9 @@
             android:entryValues="@array/standard_location_entry_values"
             android:defaultValue="@string/standard_location_default"/>
             	
-    	<SwitchPreference
+    	<CheckBoxPreference
         	android:key="swap_location"
         	android:title="@string/chooser_swap_title"
-        	android:switchTextOn="ON"
-        	android:switchTextOff="OFF"
         	android:defaultValue="false" 
         	android:disableDependentsState="true"/>
     	

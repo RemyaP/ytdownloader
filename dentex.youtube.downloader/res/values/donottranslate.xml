@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v2.0.1 - May 06 2013
+        \n-----------------------------------
+        \n[x] small bug fixes
+        \n
 		\n v2.0 - May 06 2013
 		\n-----------------------------------
 		\n[x] audio extraction from 

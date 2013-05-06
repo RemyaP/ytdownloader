@@ -256,7 +256,12 @@ public class ShareActivity extends Activity {
         		startActivity(new Intent(this, AboutActivity.class));
         		return true;
         	case R.id.menu_dm:
-        		startActivity(new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS));
+        		Intent viewIntent = new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS);
+        		if(viewIntent.resolveActivity(getPackageManager()) != null) {
+        			startActivity(viewIntent);
+        		} else {
+        			Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show();
+        		}
         		return true;
         	case R.id.menu_tutorials:
         		startActivity(new Intent(this, TutorialsActivity.class));
@@ -893,7 +898,11 @@ public class ShareActivity extends Activity {
     	mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
     	
     	Intent notificationIntent = new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS);
-    	notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+    	if(notificationIntent.resolveActivity(mContext.getPackageManager()) != null) {
+    		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+    	} else {
+    		Toast.makeText(mContext, mContext.getString(R.string.error), Toast.LENGTH_LONG).show();
+    	}
     	PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0, notificationIntent, 0);
     	mBuilder.setContentIntent(contentIntent);
     	mId = 1;
