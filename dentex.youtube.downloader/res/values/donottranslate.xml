@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v2.0.2 - May 07 2013
+        \n-----------------------------------
+        \n[x] bug fix
+        \n
         \n v2.0.1 - May 06 2013
         \n-----------------------------------
-        \n[x] small bug fixes
+        \n[x] bug fix
         \n
 		\n v2.0 - May 06 2013
 		\n-----------------------------------

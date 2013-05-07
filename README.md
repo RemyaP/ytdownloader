@@ -5,11 +5,11 @@ Android 3+ App to download videos from YouTube
 
 ################################################################
 
-`versionCode="43"`
+`versionCode="44"`
 
-`versionName="2.0.1"`
+`versionName="2.0.2"`
 
-MD5 checksum: `c60cbaddacb704a8ffd4915f3668b184` dentex.youtube.downloader_v2.0.1.apk
+MD5 checksum: `7fe979e503ed6bd046310fbb7546889b` dentex.youtube.downloader_v2.0.2.apk
 
 LICENSE
 ================================================================
@@ -68,14 +68,10 @@ OTHER LICENSES
      This App uses some code snippets from: 
     
      1) CyanogenMod custom ROM (https://github.com/CyanogenMod/android_packages_apps_CMUpdater) 
-    Copyright (C) 2012 The CyanogenMod Project, 
-    licensed under the GNU GPLv2 license. 
-    The text of the license can be found in the LICENSE_GPL file or at 
-    https://www.gnu.org/licenses/gpl-3.0.txt 
+    Copyright (C) 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license. 
+    The text of the license can be found in the LICENSE_GPL file or at https://www.gnu.org/licenses/gpl-3.0.txt 
     
-     2) Stack Overflow (http://stackoverflow.com), a question and answer 
-     site for programmers where all the content is CC BY-SA 3.0 licensed 
-     (see http://creativecommons.org/licenses/by-sa/3.0). 
+     2) Stack Overflow (http://stackoverflow.com), a question and answer site for programmers where all the content is CC BY-SA 3.0 licensed (see http://creativecommons.org/licenses/by-sa/3.0). 
     
      For more details, look for comments in YTD`s Java code.
 
@@ -91,10 +87,14 @@ OTHER LICENSES
 
 CHANGELOG
 ================================================================
-
-     v2.0.1 - May 06 2013
-    -----------------------------------
-    [x] small bug fixes
+    
+     v2.0.2 - May 07 2013 
+    ----------------------------------- 
+    [x] bug fix 
+     
+     v2.0.1 - May 06 2013 
+    ----------------------------------- 
+    [x] bug fix 
      
      v2.0 - May 06 2013 
     ----------------------------------- 
@@ -238,10 +238,7 @@ CHANGELOG
 TO-DO LIST
 ================================================================
 
-    [ ] implement the possibility to change, from preferences, 
-        audio extraction type during the video download
-    [ ] option to always download video locally [maybe not]
-    [ ] downloads log
+    [ ] downloads logs/dashboard
     [ ] default format/filter selection for video download
     [ ] handle SourceForge servers down; fallback on GitHub for apk download:
 	    page: https://github.com/dentex/ytdownloader
@@ -249,4 +246,3 @@ TO-DO LIST
     [ ] use icon/logo to identify codecs available
     [ ] make the App tablet friendly
     [ ] new App's ICON [maybe not]
-    [ ] handle YT links that require login (hard)

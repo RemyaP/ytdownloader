@@ -296,7 +296,9 @@ public class Utils {
             output = String.format("%32s", output).replace(' ', '0');
             return output;
         } catch (IOException e) {
-            throw new RuntimeException("Unable to process file for MD5", e);
+        	//throw new RuntimeException("Unable to process file for MD5", e);
+        	Log.e(DEBUG_TAG, "Unable to process file for MD5", e); //TODO check if actually avoid FC 
+        	return "00000000000000000000000000000000"; // fictional bad MD5: needed without "throw new RuntimeException"
         } finally {
             try {
                 is.close();

@@ -162,7 +162,7 @@ public class SettingsActivity extends Activity {
             //webview = new WebView(getActivity());
 
             String cf = settings.getString("CHOOSER_FOLDER", "");
-            if (cf.isEmpty()) {
+            if (cf.isEmpty() && cf != null) {
             	chooserSummary = getString(R.string.chooser_location_summary);
             } else {
             	chooserSummary = settings.getString("CHOOSER_FOLDER", "");
