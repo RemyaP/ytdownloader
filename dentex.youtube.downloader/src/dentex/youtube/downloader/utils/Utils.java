@@ -58,13 +58,13 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import dentex.youtube.downloader.R;
 import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
-import dentex.youtube.downloader.ShareActivity;
+import dentex.youtube.downloader.YTD;
 
 public class Utils {
 	
 	static final String DEBUG_TAG = "Utils";
-	static SharedPreferences settings = ShareActivity.settings;
-	static final String PREFS_NAME = ShareActivity.PREFS_NAME;
+	static SharedPreferences settings = YTD.settings;
+	static final String PREFS_NAME = YTD.PREFS_NAME;
 	InputStream isFromString;
 	static MediaScannerConnection msc;
 	static String onlineVersion;
@@ -80,8 +80,8 @@ public class Utils {
 	}
     
     public static void langInit(Context context) {
-    	
-    	if (settings.getString("DEF_LANG", "").isEmpty()) {	
+    	String storedDefLang = settings.getString("DEF_LANG", "");
+    	if (storedDefLang.isEmpty() && storedDefLang != null) {	
     		Locale defLocale = Locale.getDefault();
     		String defLang = defLocale.getLanguage();
     		settings.edit().putString("DEF_LANG", defLang).commit();

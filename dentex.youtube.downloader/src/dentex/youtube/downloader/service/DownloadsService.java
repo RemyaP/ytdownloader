@@ -70,8 +70,8 @@ import dentex.youtube.downloader.utils.Utils;
 public class DownloadsService extends Service {
 	
 	private final static String DEBUG_TAG = "DownloadsService";
-	public static SharedPreferences settings = ShareActivity.settings;
-	public final String PREFS_NAME = ShareActivity.PREFS_NAME;
+	static SharedPreferences settings = YTD.settings;
+	static final String PREFS_NAME = YTD.PREFS_NAME;
 	public static boolean copyEnabled;
 	public static String audio;
 	public static int ID;

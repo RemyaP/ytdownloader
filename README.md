@@ -1,15 +1,17 @@
-YouTube Downloader
+YouTube Downloader for Android _ by dentex
 ================================================================
 
 Android 3+ App to download videos from YouTube
 
+*Free, OpenSource and AdFree*
+
 ################################################################
 
-`versionCode="44"`
+`versionCode="45"`
 
-`versionName="2.0.2"`
+`versionName="2.0.3"`
 
-MD5 checksum: `7fe979e503ed6bd046310fbb7546889b` dentex.youtube.downloader_v2.0.2.apk
+MD5 checksum: `51617a2c41d623035c633e6e17b4b99f` dentex.youtube.downloader_v2.0.3.apk
 
 LICENSE
 ================================================================
@@ -69,9 +71,12 @@ OTHER LICENSES
     
      1) CyanogenMod custom ROM (https://github.com/CyanogenMod/android_packages_apps_CMUpdater) 
     Copyright (C) 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license. 
-    The text of the license can be found in the LICENSE_GPL file or at https://www.gnu.org/licenses/gpl-3.0.txt 
+    The text of the license can be found in the LICENSE_GPL file or at 
+    https://www.gnu.org/licenses/gpl-3.0.txt 
     
-     2) Stack Overflow (http://stackoverflow.com), a question and answer site for programmers where all the content is CC BY-SA 3.0 licensed (see http://creativecommons.org/licenses/by-sa/3.0). 
+     2) Stack Overflow (http://stackoverflow.com), a question and answer site 
+	for programmers where all the content is CC BY-SA 3.0 licensed 
+    (see http://creativecommons.org/licenses/by-sa/3.0). 
     
      For more details, look for comments in YTD`s Java code.
 
@@ -88,6 +93,11 @@ OTHER LICENSES
 CHANGELOG
 ================================================================
     
+     v2.0.3 - May 08 2013 
+    ----------------------------------- 
+    [x] bug fix (FC when Downloads 
+     system app is not found) 
+     
      v2.0.2 - May 07 2013 
     ----------------------------------- 
     [x] bug fix 

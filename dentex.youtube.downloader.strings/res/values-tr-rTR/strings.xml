@@ -21,6 +21,8 @@
     <string name="information">Bilgi</string>
     <string name="dialogs_negative">Iptal</string>
     <string name="wait">Lütfen bekleyiniz&#8230;</string>
+    <string name="no_downloads_sys_app">\"Downloads\" system App not found.</string>
+    <string name="ytd_useless">This App cannot work.</string>
     <string name="invalid_url">Web sayfası alınamadı. URL geçersiz olabilir.</string>
     <string name="invalid_url_short">Web sayfası alınamadı.</string>
     <string name="invalid_response">Geçersiz HTTP sunucusu yanıtı.</string>
@@ -338,5 +340,9 @@ For more details, look for comments in YTD\'s Java code.</string>
 \nKişisel bilgiler toplanmayacak.</string>
 	<string name="disable_bugsense_confirm_neutral">Hata\nRaporu örneği gözden geçir</string>
 	<string name="disable_bugsense_confirm_popup_title">Hata Raporu örneği</string>
+	<string name="disable_bugsense_confirm_disable">Yes,\n
+	    											disable it</string>
 	
+	<string name="disable_bugsense_confirm_keep">No, keep\n
+	    										 it enabled!</string>
 </resources>

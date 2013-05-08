@@ -21,6 +21,8 @@
     <string name="information">Informatie</string>
     <string name="dialogs_negative">Annuleren</string>
     <string name="wait">Een moment geduld a.u.b. &#8230;</string>
+    <string name="no_downloads_sys_app">\"Downloads\" system App not found.</string>
+    <string name="ytd_useless">This App cannot work.</string>
     <string name="invalid_url">Niet in staat om de pagina te laden. URL wellicht ongeldig.</string>
     <string name="invalid_url_short">Niet in staat om de pagina te laden.</string>
     <string name="invalid_response">Ongeldige HTTP server terugkoppeling.</string>
@@ -338,5 +340,9 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
 	    \nNo personal data will be collected.</string>
 	<string name="disable_bugsense_confirm_neutral">Review a Crash\nReport sample</string>
 	<string name="disable_bugsense_confirm_popup_title">Crash Report sample</string>
+	<string name="disable_bugsense_confirm_disable">Yes,\n
+	    											disable it</string>
 	
+	<string name="disable_bugsense_confirm_keep">No, keep\n
+	    										 it enabled!</string>
 </resources>

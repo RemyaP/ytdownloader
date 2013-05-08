@@ -10,17 +10,19 @@
 
     <!-- ### ShareActivity ### -->
 
-    <string name="tutorial_title">General App tutorial</string>
+    <string name="tutorial_title">Dicas do aplicativo</string>
 	<string name="tutorial_msg_new">Agora você verá uma lista com todos os codecs e qualidades disponíveis para o vídeo disponível. Você pode:
 \n\n*) Pressionar um item para baixar o vídeo localmente (no seu dispositivo) ou enviar o download via SSH para um PC remoto.
 \nRequerimentos da máquina de destino: bash e Wget. Informações adicionais sobre SSH em:
 \n\n*) Clique e mantenha pressionado em um item para escolher entre copiar para a área de transferência ou compartilhar o link como texto (por exemplo, ao enviar para outro aplicativo).
 \nPor favor, note que esse link (diferentemente de quando você o envia via SSH) só pode ser usado pelo mesmo dispositivo em que foi criado OU na mesma rede local, se você for compartilhá-lo com outro computador ou dispositivo.\n</string>
-    <string name="loading">Loading&#8230;</string>
-    <string name="error">Erro</string>
+    <string name="loading">Carregando&#8230;</string>
+    <string name="error">Erro!</string>
     <string name="information">Informações</string>
     <string name="dialogs_negative">Cancelar</string>
     <string name="wait">Aguarde&#8230;</string>
+    <string name="no_downloads_sys_app">\"Downloads\" system App not found.</string>
+    <string name="ytd_useless">This App cannot work.</string>
     <string name="invalid_url">Não é possível acessar a página. O endereço URL pode ser inválido.</string>
     <string name="invalid_url_short">Não é possível acessar a página.</string>
     <string name="invalid_response">Resposta inválida do servidor HTTP.</string>
@@ -37,7 +39,7 @@
     <string name="rename_dialog_msg">Não digite a extensão do arquivo (como .mp4 ou .flv)</string>
     <string name="unable_save">Não foi possível salvar o vídeo.</string>
     <string name="unable_save_dialog_msg">A pasta de destino não está disponível e/ou não possui permissões de escrita.</string>
-    <string name="ssh_info_tutorial_title">Enviar via como utilizar SSH.</string>
+    <string name="ssh_info_tutorial_title">Dica: como enviar por SSH</string>
     <string name="ssh_info_tutorial_msg">A single long command has been loaded in the clipboard.
 		\n\nChoose a profile in ConnectBot and once in your remote shell, browse to the desired 
 		directory, PASTE the command (use the menu button) and push ENTER.</string>
@@ -81,7 +83,7 @@
     <string name="system_warning_title">Essa é uma pasta do sistema</string>
     <string name="system_warning_msg">O caminho selecionado será revertido para a pasta padrão\'s de download.</string>
     <string name="sdcard_unmounted_warning">Cartão de memória não disponível</string>
-    <string name="update_disabled_summary">Found different signature (F-Droid?)</string>
+    <string name="update_disabled_summary">Assinatura diferente encontrada (F-Droid?)</string>
     <string name="failed_download">Download mal sucedido removido</string>
     <string name="new_v_download">encontrada. Baixando&#8230;</string>
     <string name="new_v_install">baixada. Toque para instalar.</string>
@@ -185,19 +187,19 @@
     <string name="settings_cat_files">Arquivos de vídeo</string>
     <string name="enable_q_suffix_title">Acrescentar qualidade do vídeo no título do arquivo</string>
     <string name="enable_q_suffix_summary">Adicionar a qualidade do vídeo no fim do nome do arquivo</string>
-    <string name="enable_rename_title">Renomeie o vídeo</string>
+    <string name="enable_rename_title">Renomear o vídeo</string>
     <string name="enable_rename_summary">Permite alterar o nome do vídeo antes do download (apenas para downloads locais).</string>
     <string name="show_size_title">Exibir tamanho do arquivo</string>
     <string name="show_size_summary">Exibe o tamanho do arquivo de vídeo na mensagem de confirmação do download (mais lento).</string>
     <string name="show_size_list_title">Exibir todos os tamanhos de vídeo</string>
     <string name="show_size_list_summary">Exibe os tamanhos dos arquivos de cada item na lista de vídeos disponíveis (muito mais lento).</string>
     <string name="show_thumb_title">Exibir imagem de visualização</string>
-    <string name="show_thumb_summary">Baixar a imagem de visualização junto com a lista de vídeos</string>
+    <string name="show_thumb_summary">Baixar a imagem de visualização junto com a lista de vídeos.</string>
     
     <!-- -->
     <string name="settings_cat_audio">Áudio</string>
     <string name="enable_audio_extraction_title">Habilitar extração de áudio</string>
-    <string name="enable_audio_extraction_summary">Extrair e converter o áudio do vídeo baixado (apenas para downloads locais)</string>
+    <string name="enable_audio_extraction_summary">Extrair e converter o áudio do vídeo baixado (apenas para downloads locais).</string>
     <string name="mp3_bitrate_title">Taxa de bits para codificação de .mp3 (kbps)</string>
     <string name="audio_extraction_type_title">Tipo de extração</string>
     <string name="enable_audio_q_suffix_title">Acrescentar a qualidade de áudio no título do arquivo</string>
@@ -223,7 +225,7 @@
         <item>Nunca</item>
     </string-array>
     
-    <string name="notification_defaults_title">Padrões de notificações</string>
+    <string name="notification_defaults_title">Alertas de notificações</string>
     <string name="notification_defaults_dialog_title">Notificações padrões\'s próprios do YTD</string>
     <string-array name="notification_defaults_entries">
         <item>Som e vibração</item>
@@ -338,5 +340,9 @@ colar no shell remoto (só irá funcionar se o PC de destino estiver dentro da m
 \nNenhum dado pessoal será coletado.</string>
 	<string name="disable_bugsense_confirm_neutral">Review a Crash\nReport sample</string>
 	<string name="disable_bugsense_confirm_popup_title">Crash Report sample</string>
+	<string name="disable_bugsense_confirm_disable">Yes,\n
+	    											disable it</string>
 	
+	<string name="disable_bugsense_confirm_keep">No, keep\n
+	    										 it enabled!</string>
 </resources>

@@ -21,6 +21,8 @@
     <string name="information">Info</string>
     <string name="dialogs_negative">Mégse</string>
     <string name="wait">Kérlek várj&#8230;</string>
+    <string name="no_downloads_sys_app">\"Downloads\" system App not found.</string>
+    <string name="ytd_useless">This App cannot work.</string>
     <string name="invalid_url">Weboldal nem elérhető. Hibás URL?</string>
     <string name="invalid_url_short">Weboldal nem elérhető.</string>
     <string name="invalid_response">Invalid HTTP server response.</string>
@@ -28,27 +30,27 @@
     <string name="bad_link_dialog_msg">Nem érvényes YouTube link.</string>
     <string name="no_net">Nincs elérhető kapcsolat.</string>
     <string name="no_net_dialog_msg">Kérlek, először engedélyezz egy hálózati kapcsolatot.</string>
-    <string name="no_market">No market App available.</string>
-    <string name="no_market_dialog_msg">Please, install Google Play</string>
-    <string name="list_click_dialog_title">Confirm download for:</string>
-    <string name="list_click_download_local">Download here</string>
-    <string name="list_click_download_ssh">Send via SSH</string>
-    <string name="rename_dialog_title">New filename:</string>
-    <string name="rename_dialog_msg">Do not enter the file extension (like .mp4 or .flv).</string>
-    <string name="unable_save">Unable to save the video!</string>
-    <string name="unable_save_dialog_msg">Destination folder is NOT available and/or NOT writable.</string>
-    <string name="ssh_info_tutorial_title">Send via SSH How-To</string>
-    <string name="ssh_info_tutorial_msg">A single long command has been loaded in the clipboard.
-		\n\nChoose a profile in ConnectBot and once in your remote shell, browse to the desired 
-		directory, PASTE the command (use the menu button) and push ENTER.</string>
+    <string name="no_market">Nincs elérhető market app.</string>
+    <string name="no_market_dialog_msg">Kérlek, telepítsd a Play Áruházat</string>
+    <string name="list_click_dialog_title">Letöltés megerősítése ide: </string>
+    <string name="list_click_download_local">Letöltés ide</string>
+    <string name="list_click_download_ssh">Küldés SSH-n keresztül</string>
+    <string name="rename_dialog_title">Új fájlnév: </string>
+    <string name="rename_dialog_msg">Ne írd be a fájl kiterjesztését (pl.: .mp4 vagy .flv).</string>
+    <string name="unable_save">A videó nem menthető!</string>
+    <string name="unable_save_dialog_msg">A célkönyvtár nem elérhető, és/vagy nem írható.</string>
+    <string name="ssh_info_tutorial_title">Küldés SSH-n keresztül (segítség)</string>
+    <string name="ssh_info_tutorial_msg">Egy hosszú parancs lett betöltve a vágólapra.
+\n\nVálassz egy profilt a ConnectBot-ban, és amint beléptél, tallózd ki a kívánt könyvtárat, 
+illeszd be a parancsot (a menü gombal), és nyomd meg az ENTER-t.</string>
     <string name="callConnectBot_dialog_title">%1$s not installed!</string>
-    <string name="callConnectBot_dialog_msg">You need this free App to send the video download via SSH.</string>
+    <string name="callConnectBot_dialog_msg">Szükséged lesz erre az ingyenes appra az SSH-n való küldéshez.</string>
     <string name="callConnectBot_dialog_positive">Download</string>
-    <string name="download_complete_dialog_msg1">YouTube Video:\n</string>
-    <string name="download_complete_dialog_msg2">\nSuccessfully downloaded.</string>
-    <string name="download_complete_dialog_positive">Open</string>
-    <string name="downloading">Downloading&#8230;</string>
-    <string name="cancel_download_dialog_title">Cancel download?</string>
+    <string name="download_complete_dialog_msg1">YouTube videó:\n</string>
+    <string name="download_complete_dialog_msg2">\nSikeresen letöltve.</string>
+    <string name="download_complete_dialog_positive">Megnyitás</string>
+    <string name="downloading">Letöltés folyamatban&#8230;</string>
+    <string name="cancel_download_dialog_title">Letöltés megszakítása?</string>
     <string name="video_list_error_toast">Error in video list.</string>
     <string name="codec">\n\n\tCodec:</string>
     <string name="quality">\n\tQuality:</string>
@@ -76,12 +78,12 @@
     
     <!-- ### SettingsActivity ### -->
 
-    <string name="attention">Attention!</string>
+    <string name="attention">Figyelem!</string>
     <string name="extsdcard_warning">Unable to write files on the removable sdcard.\nFalling back on standard sdcard.</string>
     <string name="system_warning_title">This is a system folder</string>
     <string name="system_warning_msg">Chosen path will fall back on standard sdcard\'s Download folder.</string>
     <string name="sdcard_unmounted_warning">Sdcard NOT mounted</string>
-    <string name="update_disabled_summary">Found different signature (F-Droid?)</string>
+    <string name="update_disabled_summary">Rossz megjelölés (talán az F-Droid miatt?)</string>
     <string name="failed_download">Failed download removed</string>
     <string name="new_v_download">found. Downloading&#8230;</string>
     <string name="new_v_install">downloaded. Click to install.</string>
@@ -96,18 +98,18 @@
     
     <!-- ### UpgradeApkActivity ### -->
     
-    <string name="upgrade_button_init">Update</string>
-    <string name="upgrade_button_download">Download\nand install</string>
-    <string name="upgrade_uppertext_searching">Searching&#8230;</string>
-    <string name="upgrade_uppertext_init">Installed version:\n</string>
+    <string name="upgrade_button_init">Frissítés</string>
+    <string name="upgrade_button_download">Letöltés\nés telepítés</string>
+    <string name="upgrade_uppertext_searching">Keresés&#8230;</string>
+    <string name="upgrade_uppertext_init">Telepített verzió:\n</string>
 
-    <string name="upgrade_latest">Latest:\t</string>
-    <string name="upgrade_installed">\nInstalled:\t</string>
-    <string name="upgraded_dialog_msg">New version stored in standard sdcard \'Download\' folder.\n\nInstall now?</string>
-    <string name="upgraded_dialog_negative">Later\n(manually)</string>
-    <string name="upgrade_latest_installed">Latest version is already installed!</string>
-    <string name="upgrade_network_error">Unable to retrieve update data.\nRetry later.</string>
-    <string name="upgrade_bad_md5_dialog_msg">Downloaded package corrupted.\nWill be deleted now.\nPress OK to download it again.</string>
+    <string name="upgrade_latest">Legfrissebb:\t</string>
+    <string name="upgrade_installed">\nTelepített:\t</string>
+    <string name="upgraded_dialog_msg">Az új verzió elmentve az sd kártya \'Download\' mappájába.\n\nTelepítse most?</string>
+    <string name="upgraded_dialog_negative">Később\n(sajátkezűleg)</string>
+    <string name="upgrade_latest_installed">A legfroissebb verzió már telepítve van!</string>
+    <string name="upgrade_network_error">Frissítési adatok nem elérhetőek.\nPróbáld később.</string>
+    <string name="upgrade_bad_md5_dialog_msg">Érvénytelen letöltés.\nA fájl most letörlődik.\nMenj az OK-ra, hogy újból letöltsd.</string>
     
     <!-- ### DownloadsService ### -->
     
@@ -137,7 +139,7 @@
 
     <!-- -->
     <string name="dm_title">Downloads</string>
-    <string name="dm_summary">Open system\'s Download Manager</string>
+    <string name="dm_summary">Letöltéskezelő megnyitása (rendszer)</string>
 
     <!-- -->
     <string name="settings_cat_ui">User Interface</string>
@@ -150,17 +152,17 @@
     </string-array>
     
     <!-- -->
-    <string name="quick_start_title">Quick start</string>
+    <string name="quick_start_title">Gyors kezdés</string>
     <string name="quick_start_summ">Open a quick start tutorial</string>
-    <string name="quick_start_text">Here are just the preferences for \'YouTube Downloader\'.
-		\n\nThe actual App can be accessed via the share button in the YouTube App, while watching a video.
-		\n\nThen choose \'YouTube Downloader\' and you will have further usage info.
-		\n\nYou can also share any YouTube plain text link via any other App: i.e. your browser.</string>
-    <string name="general_info_title">Enable General how-to</string>
-    <string name="general_info_summary">Show a general App tutorial on startup</string>
-    <string name="show_again_checkbox">Show again next time</string>
-    <string name="ssh_info_title">Enable SSH how-to</string>
-    <string name="ssh_info_summary">Show a quick tip about remote downloading via SSH</string>
+    <string name="quick_start_text">Itt vannak a  \'YouTube Downloader\' beállításai.
+\n\nAz alkalmazás elérhető a YouTube appból, videó nézése közben a megosztás gomb alatt.
+\n\nEzután válaszd ki a  \'YouTube Downloader\' -t, és még több infót kapsz.
+\n\nEzen kívül bármi más módon megoszthatod a YouTube linkeket, pl Böngészőn keresztül.</string>
+    <string name="general_info_title">Segítség engedélyezése</string>
+    <string name="general_info_summary">Tudnivalók mutatása indításkor</string>
+    <string name="show_again_checkbox">Mutasd legközelebb is</string>
+    <string name="ssh_info_title">SSH Tudnivalók engedélyezése</string>
+    <string name="ssh_info_summary">Gyors tipp mutatása az SSH használatáról</string>
     <string name="audio_tutorial_title">Audio extraction tutorial</string>
     <string name="audio_tutorial_summary">Open a brief guide about the audio extraction feature</string>
     <string name="audio_tutorial_text">To extract or convert to mp3 the audio from a downloaded video:
@@ -175,8 +177,8 @@
         \n\nChoose from settings if you want to remove the video file after a successful audio extraction.</string>
     
     <!-- -->
-    <string name="settings_cat_folder">Download folder</string>
-    <string name="standard_location_title">Choose standard folder</string>
+    <string name="settings_cat_folder">Letöltési mappa</string>
+    <string name="standard_location_title">Válassz ki egy mappát</string>
     <string name="chooser_swap_title">Swap chooser</string>
     <string name="chooser_location_title">Open file-chooser</string>
     <string name="chooser_location_summary">Long-press to select a folder</string>
@@ -238,7 +240,7 @@
     
     <!-- -->
     <string name="settings_cat_updates">Updates</string>
-    <string name="update_title">Check for updates</string>
+    <string name="update_title">Új verzió keresése</string>
     <string name="autoupdate_title">Enable auto-update</string>
     <string name="autoupdate_summary">Check for updates on first application\'s run of the day (the new package will be auto-downloaded)</string>
 
@@ -338,5 +340,9 @@
 	    \nNo personal data will be collected.</string>
 	<string name="disable_bugsense_confirm_neutral">Review a Crash\nReport sample</string>
 	<string name="disable_bugsense_confirm_popup_title">Crash Report sample</string>
+	<string name="disable_bugsense_confirm_disable">Yes,\n
+	    											disable it</string>
 	
+	<string name="disable_bugsense_confirm_keep">No, keep\n
+	    										 it enabled!</string>
 </resources>

@@ -131,12 +131,12 @@ public class ShareActivity extends Activity {
 	public CheckBox showAgain2;
 	public CheckBox showAgain3;
 	public TextView userFilename;
-	public static SharedPreferences settings;
-	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
+	public static SharedPreferences settings = YTD.settings;
+	public final String PREFS_NAME = YTD.PREFS_NAME;
 	public static final File dir_Downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 	public static final File dir_DCIM = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
 	public static final File dir_Movies = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
-	public File logDir = Environment.getExternalStorageDirectory();
+	public File sdcard = Environment.getExternalStorageDirectory();
 	boolean sshInfoCheckboxEnabled;
 	boolean generalInfoCheckboxEnabled;
 	boolean fileRenameEnabled;
@@ -223,7 +223,13 @@ public class ShareActivity extends Activity {
             if ("text/plain".equals(type)) {
                 try {
                 	SharingIntent = intent;
-                    handleSendText(SharingIntent);
+                	if (settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true)) {
+                		handleSendText(SharingIntent);
+    	    		} else {
+    	    			progressBar1.setVisibility(View.GONE);
+    	    			YTD.NoDownProvPopUp(this);
+    	    			tv.setText(getString(R.string.error));
+    	    		}
                 } catch (IOException e) {
                     e.printStackTrace();
                     Utils.logger("d", "Error: " + e.toString(), DEBUG_TAG);
@@ -260,7 +266,7 @@ public class ShareActivity extends Activity {
         		if(viewIntent.resolveActivity(getPackageManager()) != null) {
         			startActivity(viewIntent);
         		} else {
-        			Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show();
+        			Toast.makeText(this, getString(R.string.no_downloads_sys_app), Toast.LENGTH_LONG).show();
         		}
         		return true;
         	case R.id.menu_tutorials:
@@ -462,7 +468,7 @@ public class ShareActivity extends Activity {
 					
 					assignPath();
 					
-                    //Utils.createLogFile(logDir, "ytd_FINAL_LINK.txt", links.get(position));
+                    //Utils.createLogFile(sdcard, "ytd_FINAL_LINK.txt", links.get(position));
 					
                     pos = position;     
                     //pos = 45;		// to test IndexOutOfBound Exception...
@@ -823,7 +829,7 @@ public class ShareActivity extends Activity {
         	tempDownloadToSdcard(request);
         }
 		
-    	startService(intent1);
+		startService(intent1);
 		
 		settings.edit().putString(String.valueOf(enqueue), composedVideoFilename).apply();
     	
@@ -901,7 +907,7 @@ public class ShareActivity extends Activity {
     	if(notificationIntent.resolveActivity(mContext.getPackageManager()) != null) {
     		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
     	} else {
-    		Toast.makeText(mContext, mContext.getString(R.string.error), Toast.LENGTH_LONG).show();
+    		Log.e(DEBUG_TAG, "notificationIntent not resolved");
     	}
     	PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0, notificationIntent, 0);
     	mBuilder.setContentIntent(contentIntent);
@@ -1004,9 +1010,9 @@ public class ShareActivity extends Activity {
             } 
             
             /*
-			Utils.createLogFile(logDir, "ytd_links.txt", Arrays.toString(links.toArray()));
-			Utils.createLogFile(logDir, "ytd_codecs.txt", Arrays.toString(codecs.toArray()));
-	        Utils.createLogFile(logDir, "ytd_qualities.txt", Arrays.toString(qualities.toArray()));
+			Utils.createLogFile(sdcard, "ytd_links.txt", Arrays.toString(links.toArray()));
+			Utils.createLogFile(sdcard, "ytd_codecs.txt", Arrays.toString(codecs.toArray()));
+	        Utils.createLogFile(sdcard, "ytd_qualities.txt", Arrays.toString(qualities.toArray()));
 			*/
             
             return "Match!";

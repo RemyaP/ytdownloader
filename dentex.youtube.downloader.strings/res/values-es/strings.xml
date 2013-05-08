@@ -21,6 +21,8 @@
     <string name="information">Información</string>
     <string name="dialogs_negative">Cancelar</string>
     <string name="wait">Por favor espere&#8230;</string>
+    <string name="no_downloads_sys_app">\"Downloads\" system App not found.</string>
+    <string name="ytd_useless">This App cannot work.</string>
     <string name="invalid_url">La página de web no se puede accesar. El URL puede ser inválido.</string>
     <string name="invalid_url_short">La página de web no se puede accesar. </string>
     <string name="invalid_response">Respuesta inválida del servidor HTTP.</string>
@@ -337,5 +339,9 @@ pegar al shell remoto (solo funcionará si la computadora de destinación se enc
 \nDatos personales no serán recolectados.</string>
 	<string name="disable_bugsense_confirm_neutral">Revisar un Fallo\nMuestra de informe</string>
 	<string name="disable_bugsense_confirm_popup_title">Muestra de Report de Fallo</string>
+	<string name="disable_bugsense_confirm_disable">Yes,\n
+	    											disable it</string>
 	
+	<string name="disable_bugsense_confirm_keep">No, keep\n
+	    										 it enabled!</string>
 </resources>

@@ -2,10 +2,12 @@
 
 dest=README.md
 
-echo "YouTube Downloader
+echo "YouTube Downloader for Android _ by dentex
 ================================================================
 
 Android 3+ App to download videos from YouTube
+
+*Free, OpenSource and AdFree*
 
 ################################################################
 " > $dest

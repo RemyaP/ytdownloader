@@ -56,8 +56,8 @@ public class AboutActivity extends Activity {
 	
 	public static final String DEBUG_TAG = "AboutActivity";
 	public static String chooserSummary;
-    public static SharedPreferences settings = ShareActivity.settings;
-	public final String PREFS_NAME = ShareActivity.PREFS_NAME;
+	static SharedPreferences settings = YTD.settings;
+	static final String PREFS_NAME = YTD.PREFS_NAME;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {

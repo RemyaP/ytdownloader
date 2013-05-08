@@ -32,7 +32,7 @@
     <string name="afc_msg_app_doesnot_have_permission_to_create_files">Ta aplikacja niema uprawnień, by tworzyć pliki/foldery</string>
     <string name="afc_msg_app_doesnot_have_permission_to_delete_files">Ta aplikacja niema uprawnień, by usuwać pliki/foldery</string>
     <string name="afc_msg_cancelled">Anulowano</string>
-    <string name="afc_msg_cannot_connect_to_file_provider_service">Can not connect to file provider service</string>
+    <string name="afc_msg_cannot_connect_to_file_provider_service">Nie można połączyć się z plikiem serwisu go dystrybującego</string>
     <string name="afc_msg_done">Gotowe</string>
     <string name="afc_msg_empty">&#8230;pusty</string>
     <string name="afc_msg_filename_is_empty">Nazwa pliku jest pusta.</string>

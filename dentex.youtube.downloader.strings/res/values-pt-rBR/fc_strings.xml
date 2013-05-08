@@ -9,7 +9,7 @@
 <resources>
 
     <string name="afc_lib_name">android-filechooser</string>
-    <string name="afc_cmd_advanced_selection_all">All</string>
+    <string name="afc_cmd_advanced_selection_all">Todos</string>
     <string name="afc_cmd_advanced_selection_invert">Inverter seleção</string>
     <string name="afc_cmd_advanced_selection_none">Nenhum</string>
     <string name="afc_cmd_clear">Limpar</string>
@@ -61,7 +61,7 @@
     <string name="afc_title_history">Histórico</string>
     <string name="afc_title_info">Informações</string>
     <string name="afc_title_name">Nome</string>
-    <string name="afc_title_save_as">Salvar como...&#8230;</string>
+    <string name="afc_title_save_as">Salvar como&#8230;</string>
     <string name="afc_title_size">Tamanho</string>
     <string name="afc_title_sort_by">Ordenar por&#8230;</string>
     <string name="afc_yesterday">Ontem</string>

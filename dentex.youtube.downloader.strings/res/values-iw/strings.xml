@@ -19,6 +19,8 @@ ssh ללחוץ על פריט בשביל להוריד את הווידיאו על 
     <string name="information">מידע</string>
     <string name="dialogs_negative">בטל</string>
     <string name="wait">אנא המתן&#8230;</string>
+    <string name="no_downloads_sys_app">\"Downloads\" system App not found.</string>
+    <string name="ytd_useless">This App cannot work.</string>
     <string name="invalid_url">לא מצליח לאחזר דף אינטרנט. כתובת האתר עלולה להיות לא חוקית.</string>
     <string name="invalid_url_short">לא מצליח לאחזר דף אינטרנט.</string>
     <string name="invalid_response">תגובת שרת HTTP לא חוקית.</string>
@@ -339,5 +341,9 @@ https://sourceforge.net/projects/ytdownloader/files\n
 	    \nNo personal data will be collected.</string>
 	<string name="disable_bugsense_confirm_neutral">Review a Crash\nReport sample</string>
 	<string name="disable_bugsense_confirm_popup_title">Crash Report sample</string>
+	<string name="disable_bugsense_confirm_disable">Yes,\n
+	    											disable it</string>
 	
+	<string name="disable_bugsense_confirm_keep">No, keep\n
+	    										 it enabled!</string>
 </resources>

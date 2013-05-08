@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v2.0.3 - May 08 2013
+        \n-----------------------------------
+        \n[x] bug fix (FC when Downloads
+        \n    system app is not found)
+        \n
         \n v2.0.2 - May 07 2013
         \n-----------------------------------
         \n[x] bug fix
@@ -221,7 +226,6 @@
     <string name="tweet_summary">\@twidentex</string>    
     
     <string name="thumb_preview_descr">Video thumbnail</string>
-    <string name="bugsense_screenshot_descr">BugSense screenshot</string>
 	
     <string name="app_name">YouTube Downloader</string>
     <string name="title_activity_share">YouTube Downloader</string>

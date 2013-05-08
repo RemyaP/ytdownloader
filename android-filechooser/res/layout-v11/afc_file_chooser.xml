@@ -18,11 +18,13 @@
 
         <ImageView
             android:id="@+id/afc_filechooser_activity_button_go_back"
+            android:contentDescription="@string/afc_img"
             style="@style/afc_button_navi_left"
             android:layout_alignParentLeft="true" />
 
         <ImageView
             android:id="@+id/afc_filechooser_activity_button_go_forward"
+            android:contentDescription="@string/afc_img"
             style="@style/afc_button_navi_right"
             android:layout_toRightOf="@id/afc_filechooser_activity_button_go_back" />
 

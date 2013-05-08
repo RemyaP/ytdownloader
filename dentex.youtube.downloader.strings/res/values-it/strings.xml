@@ -21,6 +21,8 @@
     <string name="information">Informazione</string>
     <string name="dialogs_negative">Annulla</string>
     <string name="wait">Attendi&#8230;</string>
+    <string name="no_downloads_sys_app">Applicazione di sistema per i downloads non trovata.</string>
+    <string name="ytd_useless">Questa applicazione non può funzionare.</string>
     <string name="invalid_url">Impossibile ottenere la pagina web. L\'URL potrebbe essere non valido.</string>
     <string name="invalid_url_short">Impossibile ottenere la pagina web.</string>
     <string name="invalid_response">Risposta non valida dal server HTTP.</string>
@@ -337,5 +339,9 @@ Per maggiori dettagli, cercare tra i commenti del codice Java di YTD.</string>
 \nNon verranno raccolti dati personali.</string>
 	<string name="disable_bugsense_confirm_neutral">Esamina un esempio\ndi Crash Report</string>
 	<string name="disable_bugsense_confirm_popup_title">Esempio di Crash Report</string>
+	<string name="disable_bugsense_confirm_disable">Si,\n
+Disabilitalo</string>
 	
+	<string name="disable_bugsense_confirm_keep">No, tienilo\n
+abilitato!</string>
 </resources>
