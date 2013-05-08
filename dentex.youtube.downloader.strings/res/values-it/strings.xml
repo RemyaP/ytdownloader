@@ -21,8 +21,8 @@
     <string name="information">Informazione</string>
     <string name="dialogs_negative">Annulla</string>
     <string name="wait">Attendi&#8230;</string>
-    <string name="no_downloads_sys_app">Applicazione di sistema per i downloads non trovata.</string>
-    <string name="ytd_useless">Questa applicazione non può funzionare.</string>
+    <string name="no_downloads_sys_app">App di sistema per i download non trovata.</string>
+    <string name="ytd_useless">YTD non può scaricare file su questo dispositivo.</string>
     <string name="invalid_url">Impossibile ottenere la pagina web. L\'URL potrebbe essere non valido.</string>
     <string name="invalid_url_short">Impossibile ottenere la pagina web.</string>
     <string name="invalid_response">Risposta non valida dal server HTTP.</string>

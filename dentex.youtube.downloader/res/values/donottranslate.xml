@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v2.0.4 - May 08 2013
+        \n-----------------------------------
+        \n[x] bug fix (FC when Downloads
+        \n    system app is not found)(2)
+        \n[x] Hungarian translation
+        \n
         \n v2.0.3 - May 08 2013
         \n-----------------------------------
         \n[x] bug fix (FC when Downloads
@@ -333,6 +339,7 @@
         <item>Dutch</item>
         <item>French</item>
         <item>Hebrew</item>
+        <item>Hungarian (Hungary)</item>
         <item>Italian</item>
         <item>German</item>
         <item>Korean</item>
@@ -351,6 +358,7 @@
         <item>nl</item>
         <item>fr</item>
         <item>iw</item>
+        <item>hu_HU</item>
         <item>it</item>
         <item>de</item>
         <item>ko</item>

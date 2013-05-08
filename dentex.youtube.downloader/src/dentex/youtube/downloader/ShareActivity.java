@@ -173,7 +173,8 @@ public class ShareActivity extends Activity {
 	public String extrType;
 	public String aquality;
 	public boolean audioExtrEnabled = false;
-	public CheckBox audioConfirm; 
+	public CheckBox audioConfirm;
+	public boolean haveDownloadProvider;
 
     @SuppressLint("CutPasteId")
 	@Override
@@ -188,6 +189,8 @@ public class ShareActivity extends Activity {
         setContentView(R.layout.activity_share);
         
     	showSizesInVideoList = settings.getBoolean("show_size_list", false);
+    	
+    	haveDownloadProvider = settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true);
 
     	// Language init
     	Utils.langInit(this);
@@ -223,13 +226,7 @@ public class ShareActivity extends Activity {
             if ("text/plain".equals(type)) {
                 try {
                 	SharingIntent = intent;
-                	if (settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true)) {
-                		handleSendText(SharingIntent);
-    	    		} else {
-    	    			progressBar1.setVisibility(View.GONE);
-    	    			YTD.NoDownProvPopUp(this);
-    	    			tv.setText(getString(R.string.error));
-    	    		}
+                	handleSendText(SharingIntent);
                 } catch (IOException e) {
                     e.printStackTrace();
                     Utils.logger("d", "Error: " + e.toString(), DEBUG_TAG);
@@ -418,7 +415,7 @@ public class ShareActivity extends Activity {
             try {
             	Utils.logger("d", "doInBackground...", DEBUG_TAG);
             	
-            	if (settings.getBoolean("show_thumb", false)) {
+            	if (settings.getBoolean("show_thumb", false) && haveDownloadProvider) {
             		downloadThumbnail(generateThumbUrl());
             	}
             	
@@ -523,14 +520,22 @@ public class ShareActivity extends Activity {
 		                    	    		title = userFilename.getText().toString();
 		                    	    		composedVideoFilename = composeVideoFilename();
 		                    	    		manageAudioFeature();
-											callDownloadManager(links.get(pos));
+											if (haveDownloadProvider) {
+												callDownloadManager(links.get(pos));
+											} else {
+			                            		YTD.NoDownProvPopUp(ShareActivity.this);
+			                            	}
 		                    	    	}
 		                    	    });
 		                    	    adb.show();
 	                            } else {
 	                            	composedVideoFilename = composeVideoFilename();
 	                            	manageAudioFeature();
-									callDownloadManager(links.get(pos));
+	                            	if (haveDownloadProvider) {
+	                            		callDownloadManager(links.get(pos));
+	                            	} else {
+	                            		YTD.NoDownProvPopUp(ShareActivity.this);
+	                            	}
 	                            }
                         	} catch (IndexOutOfBoundsException e) {
     							Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
