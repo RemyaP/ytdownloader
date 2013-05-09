@@ -281,7 +281,12 @@ public class AutoUpgradeApkService extends Service {
 	    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
 	    request.setTitle("YouTube Downloader v" + ver);
 	    downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-	    enqueue = downloadManager.enqueue(request);
+	    try {
+	    	enqueue = downloadManager.enqueue(request);
+	    } catch (IllegalArgumentException e) {
+	    	Log.e(DEBUG_TAG, "enqueue request error: " + e.getMessage());
+	    	BugSenseHandler.sendExceptionMessage("enqueue request error", e.getMessage(), e);
+	    }
 	}
 
 	BroadcastReceiver apkReceiver = new BroadcastReceiver() {

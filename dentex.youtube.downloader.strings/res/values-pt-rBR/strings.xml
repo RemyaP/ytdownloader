@@ -22,7 +22,7 @@
     <string name="dialogs_negative">Cancelar</string>
     <string name="wait">Aguarde&#8230;</string>
     <string name="no_downloads_sys_app">\"Downloads\" system App not found.</string>
-    <string name="ytd_useless">This App cannot work.</string>
+    <string name="ytd_useless">YTD cannot download files on this device.</string>
     <string name="invalid_url">Não é possível acessar a página. O endereço URL pode ser inválido.</string>
     <string name="invalid_url_short">Não é possível acessar a página.</string>
     <string name="invalid_response">Resposta inválida do servidor HTTP.</string>

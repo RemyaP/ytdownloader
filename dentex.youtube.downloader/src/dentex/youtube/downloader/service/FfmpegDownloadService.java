@@ -112,7 +112,12 @@ public class FfmpegDownloadService extends Service {
         request.setVisibleInDownloadsUi(false);
         request.setTitle(getString(R.string.ffmpeg_download_notification));
         dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-        enqueue = dm.enqueue(request);
+        try {
+        	enqueue = dm.enqueue(request);
+        } catch (IllegalArgumentException e) {
+	    	Log.e(DEBUG_TAG, "enqueue request error: " + e.getMessage());
+	    	BugSenseHandler.sendExceptionMessage("enqueue request error", e.getMessage(), e);
+	    }
         
 		ffmpegBinObserver = new Observer.YtdFileObserver(DIR);
         ffmpegBinObserver.startWatching();

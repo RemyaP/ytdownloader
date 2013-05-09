@@ -22,7 +22,7 @@
     <string name="dialogs_negative">Iptal</string>
     <string name="wait">Lütfen bekleyiniz&#8230;</string>
     <string name="no_downloads_sys_app">\"Downloads\" system App not found.</string>
-    <string name="ytd_useless">This App cannot work.</string>
+    <string name="ytd_useless">YTD cannot download files on this device.</string>
     <string name="invalid_url">Web sayfası alınamadı. URL geçersiz olabilir.</string>
     <string name="invalid_url_short">Web sayfası alınamadı.</string>
     <string name="invalid_response">Geçersiz HTTP sunucusu yanıtı.</string>

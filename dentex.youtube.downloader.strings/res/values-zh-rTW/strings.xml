@@ -22,10 +22,10 @@
     <string name="dialogs_negative">取消</string>
     <string name="wait">請稍後&#8230;</string>
     <string name="no_downloads_sys_app">\"Downloads\" system App not found.</string>
-    <string name="ytd_useless">This App cannot work.</string>
+    <string name="ytd_useless">YTD cannot download files on this device.</string>
     <string name="invalid_url">無法取得網站頁面。連結可能無效。</string>
     <string name="invalid_url_short">無法取得網站頁面。</string>
-    <string name="invalid_response">Invalid HTTP server response.</string>
+    <string name="invalid_response">無效的 HTTP 伺服器回應。</string>
     <string name="bad_link">檢查提供的連結。</string>
     <string name="bad_link_dialog_msg">YouTube 連結無效。</string>
     <string name="no_net">沒有可用的網路連線。</string>
@@ -185,10 +185,10 @@
     <string name="settings_cat_files">影片檔案</string>
     <string name="enable_q_suffix_title">附上影片品質詞尾</string>
     <string name="enable_q_suffix_summary">Add the video quality at the end of the file name</string>
-    <string name="enable_rename_title">Enable file rename</string>
-    <string name="enable_rename_summary">Rename the video file before downloading it (for the local download only)</string>
-    <string name="show_size_title">Show file size</string>
-    <string name="show_size_summary">Fetch the video file size on download confirmation message (slower)</string>
+    <string name="enable_rename_title">准許修改檔案名稱</string>
+    <string name="enable_rename_summary">在下載之前更改影片檔案名稱（只有地區性下載）</string>
+    <string name="show_size_title">顯示檔案大小</string>
+    <string name="show_size_summary">在下載確認訊息顯示影片檔案大小（較慢）</string>
     <string name="show_size_list_title">Show all video sizes</string>
     <string name="show_size_list_summary">Fetch the file sizes for every item in the list of available video (much slower)</string>
     <string name="show_thumb_title">Show preview image</string>
@@ -211,11 +211,11 @@
     </string-array>
     
     <!-- -->
-    <string name="settings_cat_notifications">Notifications</string>
-    <string name="enable_own_notification_title">Enable own notification</string>
-    <string name="enable_own_notification_summary">Show a comprehensive notification about all YTD downloads</string>
-    <string name="download_manager_notification_title">Manage system\'s notifications</string>
-    <string name="download_manager_notification_dialog_title">Show system\'s Download Manager notifications:</string>
+    <string name="settings_cat_notifications">通知</string>
+    <string name="enable_own_notification_title">准許自己的通知</string>
+    <string name="enable_own_notification_summary">顯示關於所有 YTD 下載的全面的通知</string>
+    <string name="download_manager_notification_title">管理系統通知</string>
+    <string name="download_manager_notification_dialog_title">顯示系統下載管理員通知：</string>
     
     <string-array name="download_manager_notification_entries">
         <item>While in progress and after completion</item>
@@ -245,11 +245,11 @@
     <!-- -->
     <string name="settings_cat_app">Application</string>
     <string name="settings_cat_about_condensed">About</string>
-    <string name="title_changelog">Changelog</string>
-    <string name="screen_licences_code_title">Licenses and Code</string>
+    <string name="title_changelog">更新紀錄</string>
+    <string name="screen_licences_code_title">執照和原始碼</string>
 
     <!-- -->
-    <string name="settings_cat_licenses">Licenses</string>
+    <string name="settings_cat_licenses">執照</string>
 
     <string name="credits_title">Credits</string>
     <string name="title_activity_credits_show">Other licenses and translations</string>
@@ -302,18 +302,18 @@
     <string name="translators_info">\nFor more info:</string>
         
     <!-- -->
-    <string name="settings_cat_code">Source Code</string>
-    <string name="ytd_code_git_title">YTD at GitHub</string>
-    <string name="ytd_code_hg_title">YTD at Sourceforge</string>
+    <string name="settings_cat_code">原始碼</string>
+    <string name="ytd_code_git_title">在 GitHub 找 YTD</string>
+    <string name="ytd_code_hg_title">在 Sourceforge 找 YTD</string>
 
     <!-- -->
-    <string name="settings_cat_social">Social</string>
-    <string name="share_title">Share this App</string>
-    <string name="share_summary">via Twitter, Facebook, Gmail, etc&#8230;</string>
-    <string name="share_warning">No suitable Apps found.</string>
+    <string name="settings_cat_social">社交</string>
+    <string name="share_title">分享此程式</string>
+    <string name="share_summary">透過 Twitter, Facebook, Gmail 等&#8230;</string>
+    <string name="share_warning">找不到合適的程式</string>
     <string name="share_message">#YouTubeDownloader
-	 	\nFree and Open-Source Android App to download YouTube video!
-	 	\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
+\n下載 YouTube 影片的免費、開放原始碼 Android 程式！
+\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
 	<string name="help_translate_title">Help translate this App</string>
     <string name="help_translate_summary">Go to www.getlocalization.com/ytdownloader</string>
     

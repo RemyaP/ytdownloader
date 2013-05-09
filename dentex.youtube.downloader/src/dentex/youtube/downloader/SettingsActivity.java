@@ -204,12 +204,12 @@ public class SettingsActivity extends Activity {
             up.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             	
                 public boolean onPreferenceClick(Preference preference) {
-                	if (settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true)) {
+                	//if (settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true)) {
                 		Intent intent = new Intent(getActivity(),  UpgradeApkActivity.class);
     		            startActivity(intent);
-    	    		} else {
+    	    		/*} else {
     	    			YTD.NoDownProvPopUp(getActivity());
-    	    		}
+    	    		}*/
 		            return true;
                 }
             });
@@ -381,7 +381,7 @@ public class SettingsActivity extends Activity {
 						Utils.logger("d", "ffmpegInstalled: " + ffmpegInstalled, DEBUG_TAG);
 					
 						if (!ffmpegInstalled && isCpuSupported) {
-							if (settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true)) {
+							//if (settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true)) {
 								
 								AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
 		                        adb.setIcon(android.R.drawable.ic_dialog_info);
@@ -436,9 +436,9 @@ public class SettingsActivity extends Activity {
 		                        	helpDialog.show();
 		                        }
 	                        
-	                        } else {
+	                        /*} else {
                     			YTD.NoDownProvPopUp(getActivity());
-                    		}
+                    		}*/
 						}
 					}
 					if (ffmpegInstalled) {
@@ -664,10 +664,10 @@ public class SettingsActivity extends Activity {
 	        boolean shouldCheckForUpdate = !DateUtils.isToday(storedTime);
 	        Utils.logger("i", "shouldCheckForUpdate: " + shouldCheckForUpdate, DEBUG_TAG);
 	        if (shouldCheckForUpdate) {
-	        	if (settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true)) {
+	        	//if (settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true)) {
 	        		Intent intent = new Intent(context, AutoUpgradeApkService.class);
 		        	context.startService(intent);
-	    		}
+	    		//}
 	        }
 	        
 	        long time = System.currentTimeMillis();

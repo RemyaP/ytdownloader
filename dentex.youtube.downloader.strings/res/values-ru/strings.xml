@@ -22,7 +22,7 @@
     <string name="dialogs_negative">Отмена</string>
     <string name="wait">Пожалуйста, подождите&#8230;</string>
     <string name="no_downloads_sys_app">Системное приложение \"Загрузки\" не найдено.</string>
-    <string name="ytd_useless">Приложение не работает.</string>
+    <string name="ytd_useless">YTD cannot download files on this device.</string>
     <string name="invalid_url">Невозможно открыть веб-страницу. Возможно, неверный адрес.</string>
     <string name="invalid_url_short">Невозможно открыть веб-страницу. </string>
     <string name="invalid_response">Неверный ответ HTTP-сервера.</string>

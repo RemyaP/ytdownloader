@@ -1,3 +1,8 @@
+**v2.0.5: HOTFIX to resolve regression raised into version 2.0.3 and 2.0.4**
+================================================================
+**If the in-app update is blocked, update manually from here !!!**
+================================================================
+
 YouTube Downloader for Android _ by dentex
 ================================================================
 
@@ -7,11 +12,11 @@ Android 3+ App to download videos from YouTube
 
 ################################################################
 
-`versionCode="46"`
+`versionCode="47"`
 
-`versionName="2.0.4"`
+`versionName="2.0.5"`
 
-MD5 checksum: `6157db7751a4840b674ac21e94b4e488` dentex.youtube.downloader_v2.0.4.apk
+MD5 checksum: `a1ae54af80b8db9a0aa281258aea603e` dentex.youtube.downloader_v2.0.5.apk
 
 LICENSE
 ================================================================
@@ -93,6 +98,11 @@ OTHER LICENSES
 CHANGELOG
 ================================================================
     
+     v2.0.5 - May 09 2013 
+    ----------------------------------- 
+    [x] bug fix (FC when Downloads 
+     system app is not found)(3) 
+     
      v2.0.4 - May 08 2013 
     ----------------------------------- 
     [x] bug fix (FC when Downloads 

@@ -18,7 +18,7 @@
     <string name="dialogs_negative">لغو</string>
     <string name="wait"> لطفا منتظر بمانید&#8230;</string>
     <string name="no_downloads_sys_app">\"Downloads\" system App not found.</string>
-    <string name="ytd_useless">This App cannot work.</string>
+    <string name="ytd_useless">YTD cannot download files on this device.</string>
     <string name="invalid_url">قادر به بازیابی صفحه وب نیستیم.آدرس وب  ممکن است نامعتبر باشد.</string>
     <string name="invalid_url_short">قادر به بازیابی صفحه وب نیستیم.</string>
     <string name="invalid_response">پاسخ سرور HTTP نامعتبر است</string>

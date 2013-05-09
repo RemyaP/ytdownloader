@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v2.0.5 - May 09 2013
+        \n-----------------------------------
+        \n[x] bug fix (FC when Downloads
+        \n    system app is not found)(3)
+        \n
         \n v2.0.4 - May 08 2013
         \n-----------------------------------
         \n[x] bug fix (FC when Downloads

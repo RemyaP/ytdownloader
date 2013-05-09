@@ -16,13 +16,13 @@
 \nCéleszköz követelmények: Bash és Wget. További SSH információk;
 \n\n*) Hosszan nyomhatsz egy elemre a vágólapra másoláshoz, vagy a link megosztásához (másik appnak).
 \nKérlek vedd figyelembe, hogy az itt létrehozott link csak az azt létrehozó készüléken, vagy az annak hálózatában lévő eszközökön használható.\n</string>
-    <string name="loading">Töltés&#8230;</string>
+    <string name="loading">Betöltés&#8230;</string>
     <string name="error">Hiba!</string>
     <string name="information">Info</string>
     <string name="dialogs_negative">Mégse</string>
     <string name="wait">Kérlek várj&#8230;</string>
     <string name="no_downloads_sys_app">\"Downloads\" rendszer app nem található.</string>
-    <string name="ytd_useless">Ez az app nem fog működni.</string>
+    <string name="ytd_useless">YTD cannot download files on this device.</string>
     <string name="invalid_url">Weboldal nem elérhető. Hibás URL?</string>
     <string name="invalid_url_short">Weboldal nem elérhető.</string>
     <string name="invalid_response">Érvénytelen HTTP szerver válasz.</string>

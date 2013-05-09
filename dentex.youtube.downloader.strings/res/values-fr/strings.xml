@@ -22,7 +22,7 @@
     <string name="dialogs_negative">Annuler</string>
     <string name="wait">Veuillez patienter&#8230;</string>
     <string name="no_downloads_sys_app">\"Downloads\" system App not found.</string>
-    <string name="ytd_useless">This App cannot work.</string>
+    <string name="ytd_useless">YTD cannot download files on this device.</string>
     <string name="invalid_url">Impossible de récupérer la page web. L\'URL est peut-être invalide.</string>
     <string name="invalid_url_short">Impossible de récupérer la page web.</string>
     <string name="invalid_response">Réponse HTTP du serveur invalide.</string>

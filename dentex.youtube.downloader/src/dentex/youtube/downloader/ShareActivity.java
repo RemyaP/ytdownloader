@@ -45,6 +45,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.bugsense.trace.BugSenseHandler;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -190,7 +192,7 @@ public class ShareActivity extends Activity {
         
     	showSizesInVideoList = settings.getBoolean("show_size_list", false);
     	
-    	haveDownloadProvider = settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true);
+    	haveDownloadProvider = true; // settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true); // TODO fix
 
     	// Language init
     	Utils.langInit(this);
@@ -823,7 +825,12 @@ public class ShareActivity extends Activity {
     	}
     	
 		try {
-			enqueue = dm.enqueue(request);
+			try {
+				enqueue = dm.enqueue(request);
+			} catch (IllegalArgumentException e) {
+		    	Log.e(DEBUG_TAG, "enqueue request error: " + e.getMessage());
+		    	BugSenseHandler.sendExceptionMessage("enqueue request error", e.getMessage(), e);
+		    }
         	Utils.logger("d", "_ID " + enqueue + " enqueued", DEBUG_TAG);
         } catch (SecurityException e) {
         	// handle path on etxSdCard:
@@ -892,7 +899,12 @@ public class ShareActivity extends Activity {
     	videoUri = Uri.parse(dir_Downloads.toURI() + composedVideoFilename);
         Utils.logger("d", "** NEW ** videoUri: " + videoUri, DEBUG_TAG);
         request.setDestinationUri(videoUri);
-        enqueue = dm.enqueue(request);
+        try {
+        	enqueue = dm.enqueue(request);
+        } catch (IllegalArgumentException e) {
+	    	Log.e(DEBUG_TAG, "enqueue request error: " + e.getMessage());
+	    	BugSenseHandler.sendExceptionMessage("enqueue request error", e.getMessage(), e);
+	    }
     }
 
     public static void NotificationHelper() {

@@ -67,7 +67,7 @@ public class YTD extends Application {
 			settings.edit().putBoolean("DOWNLOAD_PROVIDER_" + suffix, false).commit();
 		}
 		Log.i(DEBUG_TAG, "DownloadProvider" + suffix + " system app present: " + downProvSysApp.exists());
-		BugSenseHandler.leaveBreadcrumb("DownloadProvider" + suffix + " : " + downProvSysApp.exists());
+		BugSenseHandler.leaveBreadcrumb("DownloadProvider" + suffix + ": " + downProvSysApp.exists());
 	}
 
 	public static void NoDownProvPopUp(Context context) {

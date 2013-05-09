@@ -6,7 +6,7 @@
     <string name="title_activity_about">이 앱에 대하여</string>
     <string name="title_activity_donate">기부</string>
     <string name="title_activity_tutorials">튜토리얼</string>
-    <string name="title_activity_translators_show">Translators</string>    
+    <string name="title_activity_translators_show">번역에 도움을 준 분들</string>    
 
     <!-- ### ShareActivity ### -->
 
@@ -21,8 +21,8 @@
     <string name="information">정보</string>
     <string name="dialogs_negative">취소</string>
     <string name="wait">잠시 기다려주세요&#8230;</string>
-    <string name="no_downloads_sys_app">\"Downloads\" system App not found.</string>
-    <string name="ytd_useless">This App cannot work.</string>
+    <string name="no_downloads_sys_app">\"다운로드\" 시스템 앱이 없습니다.</string>
+    <string name="ytd_useless">유튜브 다운로더가 이 기기에 파일을 다운로드 할 수 없습니다.</string>
     <string name="invalid_url">웹페이지를 얻어올 수 없습니다. 올바르지 않은 주소입니다.</string>
     <string name="invalid_url_short">웹페이지를 얻어올 수 없습니다.</string>
     <string name="invalid_response">HTTP 서버 응답 오류.</string>
@@ -42,9 +42,9 @@
     <string name="ssh_info_tutorial_title">SSH로 보내기 안내</string>
     <string name="ssh_info_tutorial_msg">한줄의 긴 명령이 클립보드로 복사되었습니다.
 \n\nConnectBot 앱에서 적절한 프로파일을 선택한 후 원격 쉘에서 다운로드가 되기를 원하는 디렉토리로 이동합니다. 그 다음 붙여넣기(메뉴버튼 이용)한 후 엔터를 누르세요.</string>
-    <string name="callConnectBot_dialog_title">%1$s not installed!</string>
+    <string name="callConnectBot_dialog_title">%1$s 가 설치되지 않았습니다!</string>
     <string name="callConnectBot_dialog_msg">SSH로 보내려면 앱을 다운로드해야 합니다.</string>
-    <string name="callConnectBot_dialog_positive">Download</string>
+    <string name="callConnectBot_dialog_positive">다운로드</string>
     <string name="download_complete_dialog_msg1">유튜브 비디오:\n</string>
     <string name="download_complete_dialog_msg2">\n성공적으로 다운로드됨.</string>
     <string name="download_complete_dialog_positive">열기</string>
@@ -70,9 +70,9 @@
     </string-array>
     
     <string-array name="long_click_entries2">
-        <item>Copy to clipboard</item>
-        <item>Share as text</item>
-        <item>Send via SSH</item>
+        <item>클립보드에 복사</item>
+        <item>텍스트로 공유</item>
+        <item>SSH로 보내기</item>
     </string-array>
     
     <!-- ### SettingsActivity ### -->
@@ -162,18 +162,17 @@
     <string name="show_again_checkbox">다음에도 보기</string>
     <string name="ssh_info_title">SSH 사용법 안내 보기</string>
     <string name="ssh_info_summary">앱을 시작할 때 SSH를 통해 원격으로 다운로드하는 법을 보여줍니다.</string>
-    <string name="audio_tutorial_title">Audio extraction tutorial</string>
-    <string name="audio_tutorial_summary">Open a brief guide about the audio extraction feature</string>
-    <string name="audio_tutorial_text">To extract or convert to mp3 the audio from a downloaded video:
-        \n\n*) Enable the audio preference and download FFmpeg;
-        \n\n*) Choose the extraction type: 
-        \n\n\"extract only\" will conserve the audio stream from the video as is (WebM files contain an \"Ogg Vorbis\" 
-        audio; MP4, 3GPP and large/medium FLV video hold an \"AAC\" audio stream; FLV small holds an \"mp3\");
-        \n\n\"extract and encode to mp3\" will convert the extracted audio in an mp3, encoding it with the selected bitrate.
-        \n\nFrom now on, a checkbox will appear in the download confirmation box visible when you click an item 
-        in the YTD\'s video list. When checked, the audio extraction job will start upon video download completion 
-        (to hide the checkbox, disable the audio extraction option).
-        \n\nChoose from settings if you want to remove the video file after a successful audio extraction.</string>
+    <string name="audio_tutorial_title">오디오 추출 튜토리얼</string>
+    <string name="audio_tutorial_summary">오디오 추출 기능에 대한 간단한 설명을 봅니다</string>
+    <string name="audio_tutorial_text">다운로드한 비디오 파일로 부터 오디오를 추출하거나 mp3로 변환하는 방법:
+\n\n*) 오디오 설정을 활성화 하고 FFmpeg을 다운로드 합니다;
+\n\n*) 오디오 추출 방법을 선택합니다: 
+\n\n\"오디오 추출만 하기\" 원본 비디오 파일의 오디오 형식을 보존합니다. (WebM 파일은 \"Ogg Vorbis\" 
+오디오 형식; MP4, 3GPP 및 고화질/중화질 FLV 파일은 \"AAC\" 오디오 형식; 저화질 FLV 파일은 \"mp3\");
+\n\n\"오디오 추출 후 mp3로 변환\" 오디오를 추출한 후 선택한 비트레이트로 오디오를 인코딩합니다.
+\n\n이제부터 유튜브 비디오 다운로드 목록에서 비디오를 다운로드할 때 확인 창에 체크박스가 보일 것입니다.
+체크박스를 선택하면, 비디오를 다운로드한 후 오디오 추출 작업을 시작할 것입니다. (이 체크박스를 없애려면 오디오 추출 옵션을 끄세요) 
+\n\n오디오 추출 후 비디오 파일을 삭제하고 싶다면 설정에서 그 기능을 활성화하세요.</string>
     
     <!-- -->
     <string name="settings_cat_folder">다운로드 폴더</string>
@@ -203,8 +202,8 @@
     <string name="audio_extraction_type_title">오디오 추출 형식</string>
     <string name="enable_audio_q_suffix_title">음질 정보 추가</string>
     <string name="enable_audio_q_suffix_summary">파일 끝에 음질 정보를 추가합니다</string>
-    <string name="remove_video_title">Video removal</string>
-    <string name="remove_video_summary">Enable video file deletion after successful audio extraction (warning: no confirmation)</string>
+    <string name="remove_video_title">비디오 제거</string>
+    <string name="remove_video_summary">오디오 추출이 끝난 후 비디오 파일을 삭제합니다 (주의: 별도의 확인 메세지 없음)</string>
 
     <string-array name="audio_extraction_type_entries">
         <item>오디오 추출만 하기</item>
@@ -314,28 +313,27 @@ the content is CC BY-SA 3.0 licensed (see <http>http://creativecommons.org/licen
     
     <!-- -->
     <string name="settings_cat_ssh">SSH</string>
-    <string name="connectbot_flavour_title">ConnectBot version to use</string>
-	<string name="connectbot_flavour_dialog_title">Choose ConnectBot fork to send video via SSH</string>
-	<string name="enable_connectbot_short_cmd_title">Enable SSH short cmd</string>
-	<string name="enable_connectbot_short_cmd_summary">Use a slightly shorter but faster command to 
-	    paste into the remote shell (will ONLY work if the destination PC resides within the same LAN)</string>
-	<string name="ssh_to_longpress_menu_title">SSH-send to long-press menu</string>
-	<string name="ssh_to_longpress_menu_summary">Move \"Send via SSH\" action into the long-press menu available from the video list</string>
+    <string name="connectbot_flavour_title">ConnectBot 버전 선택</string>
+	<string name="connectbot_flavour_dialog_title">SSH를 통해 비디오 다운로드 정보를 전송하기 위한 ConnectBot을 선택해주세요</string>
+	<string name="enable_connectbot_short_cmd_title">짧은 SSH 명령어기능 켜기</string>
+	<string name="enable_connectbot_short_cmd_summary">원격 쉘에 전송하는 명령을 조금 더 짧게 만듭니다. (원격 PC가 같은 공유기에 연결되어 있을 때만 동작)</string>
+	<string name="ssh_to_longpress_menu_title">메뉴를 오래 눌러 SSH 전송</string>
+	<string name="ssh_to_longpress_menu_summary">비디오 목록에서 오래 누르기를 했을 때 \"SSH로 보내기\"가 보이도록 합니다</string>
 	
     <!-- -->
 	<string name="settings_cat_advanced">고급설정</string>
 	<string name="enable_logging_title">로깅 활성화</string>
 	<string name="enable_logging_summary">유튜브 다운로더의 로그를 시스템 로그에 남깁니다. 개발자에게 디버깅 정보를 보내려면 반드시 필요합니다.</string>
-	<string name="disable_bugsense_title">Disable BugSense</string>
-	<string name="disable_bugsense_summary">This will not send Crash Reports to the developer. Not recommended.</string>
-	<string name="disable_bugsense_confirm_title">Are you sure?</string>
-	<string name="disable_bugsense_confirm_msg">Will be harder to fix bugs and improve this app.
-	    \nNo personal data will be collected.</string>
-	<string name="disable_bugsense_confirm_neutral">Review a Crash\nReport sample</string>
-	<string name="disable_bugsense_confirm_popup_title">Crash Report sample</string>
-	<string name="disable_bugsense_confirm_disable">Yes,\n
-	    											disable it</string>
+	<string name="disable_bugsense_title"> BugSense 끄기</string>
+	<string name="disable_bugsense_summary">개발자에게 오류 정보를 보내지 않습니다. 추천하지 않는 방법입니다.</string>
+	<string name="disable_bugsense_confirm_title">확실합니까?</string>
+	<string name="disable_bugsense_confirm_msg">이 앱을 개선하고 버그를 수정하기 어려워집니다.
+\n어떠한 개인 정보도 수집하지 않습니다.</string>
+	<string name="disable_bugsense_confirm_neutral">충돌 정보\n샘플 보기</string>
+	<string name="disable_bugsense_confirm_popup_title">충돌 정보 샘플</string>
+	<string name="disable_bugsense_confirm_disable">예\n
+기능을 끕니다</string>
 	
-	<string name="disable_bugsense_confirm_keep">No, keep\n
-	    										 it enabled!</string>
+	<string name="disable_bugsense_confirm_keep">아니오\n
+기능을 유지합니다!</string>
 </resources>

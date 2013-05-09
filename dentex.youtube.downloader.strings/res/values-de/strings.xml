@@ -22,7 +22,7 @@
     <string name="dialogs_negative">Abbrechen</string>
     <string name="wait">Bitte warten&#8230;</string>
     <string name="no_downloads_sys_app">\"Downloads\" System App nicht gefunden.</string>
-    <string name="ytd_useless">Diese App kann nicht funktionieren</string>
+    <string name="ytd_useless">YTD kann auf diesem Gerät keine Dateien herunterladen.</string>
     <string name="invalid_url">Kann Webseite nicht laden. Möglicherweise ist der Link falsch.</string>
     <string name="invalid_url_short">Kann Webseite nicht laden.</string>
     <string name="invalid_response">Ungültige HTTP-Antwort.</string>

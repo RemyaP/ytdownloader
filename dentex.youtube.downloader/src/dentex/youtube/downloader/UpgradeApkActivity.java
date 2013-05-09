@@ -37,6 +37,8 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.bugsense.trace.BugSenseHandler;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -339,7 +341,12 @@ public class UpgradeApkActivity extends Activity {
 	    request.allowScanningByMediaScanner();
 	    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 	    request.setTitle("YouTube Downloader v" + ver);
-	    enqueue = downloadManager.enqueue(request);
+	    try {
+	    	enqueue = downloadManager.enqueue(request);
+	    } catch (IllegalArgumentException e) {
+	    	Log.e(DEBUG_TAG, "enqueue request error: " + e.getMessage());
+	    	BugSenseHandler.sendExceptionMessage("enqueue request error", e.getMessage(), e);
+	    }
 	}
 
 	BroadcastReceiver apkReceiver = new BroadcastReceiver() {
