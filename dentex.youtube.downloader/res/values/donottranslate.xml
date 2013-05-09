@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v2.0.6 - May 09 2013
+        \n-----------------------------------
+        \n[x] dialog/toast when Downloads
+        \n    system app is not found
+        \n[x] Chinese (Taiwan) translation
+        \n
         \n v2.0.5 - May 09 2013
         \n-----------------------------------
         \n[x] bug fix (FC when Downloads
@@ -355,6 +361,7 @@
         <item>Spanish</item>
         <item>Turkish</item>
         <item>Western Farsi (Iran)</item>
+        <item>Chinese (Taiwan)</item>
     </string-array>
     
     <string-array name="lang_entry_values">
@@ -374,6 +381,7 @@
         <item>es</item>
         <item>tr_TR</item>
         <item>fa</item>
+        <item>zh_TW</item>
     </string-array>
     
     <string name="lang_default">default</string>

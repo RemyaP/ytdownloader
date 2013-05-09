@@ -344,8 +344,9 @@ public class UpgradeApkActivity extends Activity {
 	    try {
 	    	enqueue = downloadManager.enqueue(request);
 	    } catch (IllegalArgumentException e) {
-	    	Log.e(DEBUG_TAG, "enqueue request error: " + e.getMessage());
-	    	BugSenseHandler.sendExceptionMessage("enqueue request error", e.getMessage(), e);
+	    	Log.e(DEBUG_TAG, "callDownloadApk: " + e.getMessage());
+	    	YTD.NoDownProvPopUp(this);
+	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> callDownloadApk: ", e.getMessage(), e);
 	    }
 	}
 

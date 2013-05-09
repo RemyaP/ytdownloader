@@ -204,12 +204,8 @@ public class SettingsActivity extends Activity {
             up.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             	
                 public boolean onPreferenceClick(Preference preference) {
-                	//if (settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true)) {
-                		Intent intent = new Intent(getActivity(),  UpgradeApkActivity.class);
-    		            startActivity(intent);
-    	    		/*} else {
-    	    			YTD.NoDownProvPopUp(getActivity());
-    	    		}*/
+                	Intent intent = new Intent(getActivity(),  UpgradeApkActivity.class);
+    		        startActivity(intent);
 		            return true;
                 }
             });
@@ -380,65 +376,59 @@ public class SettingsActivity extends Activity {
 						
 						Utils.logger("d", "ffmpegInstalled: " + ffmpegInstalled, DEBUG_TAG);
 					
-						if (!ffmpegInstalled && isCpuSupported) {
-							//if (settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true)) {
-								
-								AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
-		                        adb.setIcon(android.R.drawable.ic_dialog_info);
-		                        adb.setTitle(getString(R.string.ffmpeg_download_dialog_title));
-		                        
-		                        link = getString(R.string.ffmpeg_download_dialog_msg_link, cpuVers);
-		                        String msg = getString(R.string.ffmpeg_download_dialog_msg);
-		                        
-		                        String ffmpegSize;
-		                        if (cpuVers == 5) {
-		                        	ffmpegSize = getString(R.string.ffmpeg_size_arm5);
-		                        } else if (cpuVers == 7) {
-		                        	ffmpegSize = getString(R.string.ffmpeg_size_arm7);
-		                        } else {
-		                        	ffmpegSize = "n.a.";
-		                        }
-		                        String size = getString(R.string.size) + " " + ffmpegSize;
-		                        adb.setMessage(msg + " " + link + "\n" + size);                      
-
-		                        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-		
-		                            public void onClick(DialogInterface dialog, int which) {
-		                            	
-		                            	File sdcardAppDir = getActivity().getExternalFilesDir(null);
-		                            	if (sdcardAppDir != null) {
-		                            		File src = new File(getActivity().getExternalFilesDir(null), FfmpegController.ffmpegBinName);
-		                            		File dst = new File(getActivity().getDir("bin", 0), FfmpegController.ffmpegBinName);
-		                            		if (!src.exists()) {
-				                            	Intent intent = new Intent(getActivity(), FfmpegDownloadService.class);
-				                            	intent.putExtra("CPU", cpuVers);
-				                            	intent.putExtra("DIR", sdcardAppDir.getAbsolutePath());
-				                            	getActivity().startService(intent);
-		                            		} else {
-		                            			FfmpegDownloadService.copyFfmpegToAppDataDir(getActivity(), src, dst);
-		                            		}
-		                            	} else {
-		                            		Utils.logger("w", getString(R.string.unable_save_dialog_msg), DEBUG_TAG);
-		                            		PopUps.showPopUp(getString(R.string.error), getString(R.string.unable_save_dialog_msg), "alert", getActivity());
-		                            	}
-	                            	}
-		                        });
-		
-		                        adb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
-		
-		                            public void onClick(DialogInterface dialog, int which) {
-		                            	// cancel
-		                            }
-		                        });
-		
-		                        AlertDialog helpDialog = adb.create();
-		                        if (! (getActivity()).isFinishing()) {
-		                        	helpDialog.show();
-		                        }
+						if (!ffmpegInstalled && isCpuSupported) {	
+							AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
+	                        adb.setIcon(android.R.drawable.ic_dialog_info);
+	                        adb.setTitle(getString(R.string.ffmpeg_download_dialog_title));
 	                        
-	                        /*} else {
-                    			YTD.NoDownProvPopUp(getActivity());
-                    		}*/
+	                        link = getString(R.string.ffmpeg_download_dialog_msg_link, cpuVers);
+	                        String msg = getString(R.string.ffmpeg_download_dialog_msg);
+	                        
+	                        String ffmpegSize;
+	                        if (cpuVers == 5) {
+	                        	ffmpegSize = getString(R.string.ffmpeg_size_arm5);
+	                        } else if (cpuVers == 7) {
+	                        	ffmpegSize = getString(R.string.ffmpeg_size_arm7);
+	                        } else {
+	                        	ffmpegSize = "n.a.";
+	                        }
+	                        String size = getString(R.string.size) + " " + ffmpegSize;
+	                        adb.setMessage(msg + " " + link + "\n" + size);                      
+
+	                        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	
+	                            public void onClick(DialogInterface dialog, int which) {
+	                            	
+	                            	File sdcardAppDir = getActivity().getExternalFilesDir(null);
+	                            	if (sdcardAppDir != null) {
+	                            		File src = new File(getActivity().getExternalFilesDir(null), FfmpegController.ffmpegBinName);
+	                            		File dst = new File(getActivity().getDir("bin", 0), FfmpegController.ffmpegBinName);
+	                            		if (!src.exists()) {
+			                            	Intent intent = new Intent(getActivity(), FfmpegDownloadService.class);
+			                            	intent.putExtra("CPU", cpuVers);
+			                            	intent.putExtra("DIR", sdcardAppDir.getAbsolutePath());
+			                            	getActivity().startService(intent);
+	                            		} else {
+	                            			FfmpegDownloadService.copyFfmpegToAppDataDir(getActivity(), src, dst);
+	                            		}
+	                            	} else {
+	                            		Utils.logger("w", getString(R.string.unable_save_dialog_msg), DEBUG_TAG);
+	                            		PopUps.showPopUp(getString(R.string.error), getString(R.string.unable_save_dialog_msg), "alert", getActivity());
+	                            	}
+                            	}
+	                        });
+	
+	                        adb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
+	
+	                            public void onClick(DialogInterface dialog, int which) {
+	                            	// cancel
+	                            }
+	                        });
+	
+	                        AlertDialog helpDialog = adb.create();
+	                        if (! (getActivity()).isFinishing()) {
+	                        	helpDialog.show();
+	                        }
 						}
 					}
 					if (ffmpegInstalled) {

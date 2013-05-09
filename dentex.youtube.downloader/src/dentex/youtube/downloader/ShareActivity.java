@@ -176,7 +176,6 @@ public class ShareActivity extends Activity {
 	public String aquality;
 	public boolean audioExtrEnabled = false;
 	public CheckBox audioConfirm;
-	public boolean haveDownloadProvider;
 
     @SuppressLint("CutPasteId")
 	@Override
@@ -191,8 +190,6 @@ public class ShareActivity extends Activity {
         setContentView(R.layout.activity_share);
         
     	showSizesInVideoList = settings.getBoolean("show_size_list", false);
-    	
-    	haveDownloadProvider = true; // settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true); // TODO fix
 
     	// Language init
     	Utils.langInit(this);
@@ -417,7 +414,7 @@ public class ShareActivity extends Activity {
             try {
             	Utils.logger("d", "doInBackground...", DEBUG_TAG);
             	
-            	if (settings.getBoolean("show_thumb", false) && haveDownloadProvider) {
+            	if (settings.getBoolean("show_thumb", false)) {
             		downloadThumbnail(generateThumbUrl());
             	}
             	
@@ -522,22 +519,14 @@ public class ShareActivity extends Activity {
 		                    	    		title = userFilename.getText().toString();
 		                    	    		composedVideoFilename = composeVideoFilename();
 		                    	    		manageAudioFeature();
-											if (haveDownloadProvider) {
-												callDownloadManager(links.get(pos));
-											} else {
-			                            		YTD.NoDownProvPopUp(ShareActivity.this);
-			                            	}
+											callDownloadManager(links.get(pos));
 		                    	    	}
 		                    	    });
 		                    	    adb.show();
 	                            } else {
 	                            	composedVideoFilename = composeVideoFilename();
 	                            	manageAudioFeature();
-	                            	if (haveDownloadProvider) {
-	                            		callDownloadManager(links.get(pos));
-	                            	} else {
-	                            		YTD.NoDownProvPopUp(ShareActivity.this);
-	                            	}
+	                            	callDownloadManager(links.get(pos));
 	                            }
                         	} catch (IndexOutOfBoundsException e) {
     							Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
@@ -828,8 +817,9 @@ public class ShareActivity extends Activity {
 			try {
 				enqueue = dm.enqueue(request);
 			} catch (IllegalArgumentException e) {
-		    	Log.e(DEBUG_TAG, "enqueue request error: " + e.getMessage());
-		    	BugSenseHandler.sendExceptionMessage("enqueue request error", e.getMessage(), e);
+		    	Log.e(DEBUG_TAG, "callDownloadManager: " + e.getMessage());
+		    	YTD.NoDownProvPopUp(this);
+		    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> callDownloadManager: ", e.getMessage(), e);
 		    }
         	Utils.logger("d", "_ID " + enqueue + " enqueued", DEBUG_TAG);
         } catch (SecurityException e) {
@@ -901,9 +891,9 @@ public class ShareActivity extends Activity {
         request.setDestinationUri(videoUri);
         try {
         	enqueue = dm.enqueue(request);
-        } catch (IllegalArgumentException e) {
-	    	Log.e(DEBUG_TAG, "enqueue request error: " + e.getMessage());
-	    	BugSenseHandler.sendExceptionMessage("enqueue request error", e.getMessage(), e);
+        } catch (IllegalArgumentException e) { // probably useless try/catch
+	    	Log.e(DEBUG_TAG, "tempDownloadToSdcard: " + e.getMessage());
+	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> tempDownloadToSdcard", e.getMessage(), e);
 	    }
     }
 

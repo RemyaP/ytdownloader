@@ -198,9 +198,12 @@ public class DownloadsService extends Service {
 					        intent2.setDataAndType(Uri.fromFile(dst), "video/*");
 							Utils.logger("i", "_ID " + ID + " Copy OK", DEBUG_TAG);
 							
-							if (audio.equals("none")) Utils.setNotificationDefaults(cBuilder);
+							if (audio.equals("none")) {
+								Utils.setNotificationDefaults(cBuilder);
+								Utils.scanMedia(getApplicationContext(), new File[] {dst}, new String[] {"video/*"});
+							}
 							
-							if (!audio.equals("conv")) Utils.scanMedia(getApplicationContext(), new File[] {dst}, new String[] {"video/*"});
+							//if (!audio.equals("conv")) Utils.scanMedia(getApplicationContext(), new File[] {dst}, new String[] {"video/*"});
 						                  
 							if (ShareActivity.dm.remove(id) == 0) {
 								Toast.makeText(context, "YTD: " + getString(R.string.download_remove_failed), Toast.LENGTH_LONG).show();

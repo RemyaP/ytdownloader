@@ -284,8 +284,8 @@ public class AutoUpgradeApkService extends Service {
 	    try {
 	    	enqueue = downloadManager.enqueue(request);
 	    } catch (IllegalArgumentException e) {
-	    	Log.e(DEBUG_TAG, "enqueue request error: " + e.getMessage());
-	    	BugSenseHandler.sendExceptionMessage("enqueue request error", e.getMessage(), e);
+	    	Log.e(DEBUG_TAG, "callDownloadApk: " + e.getMessage());
+	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> callDownloadApk: ", e.getMessage(), e);
 	    }
 	}
 

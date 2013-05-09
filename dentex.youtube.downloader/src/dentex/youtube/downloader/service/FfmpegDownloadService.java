@@ -30,8 +30,6 @@ package dentex.youtube.downloader.service;
 import java.io.File;
 import java.io.IOException;
 
-import com.bugsense.trace.BugSenseHandler;
-
 import android.app.DownloadManager;
 import android.app.DownloadManager.Query;
 import android.app.DownloadManager.Request;
@@ -45,9 +43,11 @@ import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.bugsense.trace.BugSenseHandler;
+
 import dentex.youtube.downloader.R;
 import dentex.youtube.downloader.SettingsActivity;
-import dentex.youtube.downloader.YTD;
 import dentex.youtube.downloader.ffmpeg.FfmpegController;
 import dentex.youtube.downloader.utils.Observer;
 import dentex.youtube.downloader.utils.Utils;
@@ -72,7 +72,7 @@ public class FfmpegDownloadService extends Service {
 	@Override
 	public void onCreate() {
 		Utils.logger("d", "service created", DEBUG_TAG);
-		BugSenseHandler.initAndStartSession(getApplicationContext(), YTD.BAK);
+		//BugSenseHandler.initAndStartSession(getApplicationContext(), YTD.BAK);
 		nContext = getBaseContext();	
 		registerReceiver(ffmpegReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 	}
@@ -115,8 +115,9 @@ public class FfmpegDownloadService extends Service {
         try {
         	enqueue = dm.enqueue(request);
         } catch (IllegalArgumentException e) {
-	    	Log.e(DEBUG_TAG, "enqueue request error: " + e.getMessage());
-	    	BugSenseHandler.sendExceptionMessage("enqueue request error", e.getMessage(), e);
+	    	Log.e(DEBUG_TAG, "downloadFfmpeg: " + e.getMessage());
+	    	Toast.makeText(this,  this.getString(R.string.no_downloads_sys_app), Toast.LENGTH_LONG).show();
+	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> downloadFfmpeg", e.getMessage(), e);
 	    }
         
 		ffmpegBinObserver = new Observer.YtdFileObserver(DIR);
