@@ -368,18 +368,23 @@ public class Utils {
 	 */
     
     public static void scanMedia(Context context, final File[] file, final String[] mime) {
-		msc = new MediaScannerConnection(context, new MediaScannerConnectionClient() {
-			public void onScanCompleted(String path, Uri uri) {
-				Utils.logger("d", "Scanned " + path + ":", DEBUG_TAG);
-				Utils.logger("d", "-> uri: " + uri, DEBUG_TAG);
-				msc.disconnect();  
-			}
-			public void onMediaScannerConnected() {
-				for (int i = 0; i < file.length; i++) {
-					msc.scanFile(file[i].getAbsolutePath(), mime[i]);
+   	if (file == null) {
+   		return;
+   	}
+   	for (int i = 0; i < file.length; i++) {
+   		 final File curFile = file[i];
+   		 final String mimeType = mime[i];
+   		 msc = new MediaScannerConnection(context, new MediaScannerConnectionClient() {
+				public void onScanCompleted(String path, Uri uri) {
+					Utils.logger("d", "Scanned " + path + ":", DEBUG_TAG);
+					Utils.logger("d", "-> uri: " + uri, DEBUG_TAG);
+					msc.disconnect();
 				}
-			}
-		});
-		msc.connect();
+				public void onMediaScannerConnected() {
+					msc.scanFile(curFile.getAbsolutePath(), mimeType);
+				}
+			});
+			msc.connect();
+		}		
 	}
 }
