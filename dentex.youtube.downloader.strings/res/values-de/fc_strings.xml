@@ -16,7 +16,7 @@
     <string name="afc_cmd_grid_view">Gitteransicht</string>
     <string name="afc_cmd_home">Startseite</string>
     <string name="afc_cmd_list_view">Listenansicht</string>
-    <string name="afc_cmd_new_folder">Neuer Ornder &#8230;</string>
+    <string name="afc_cmd_new_folder">Neuer Ordner &#8230;</string>
     <string name="afc_cmd_reload">Neu laden</string>
     <string name="afc_cmd_remove_from_list">Von Liste entfernen</string>
     <string name="afc_cmd_select_all_files">Alle Dateien auswählen</string>
