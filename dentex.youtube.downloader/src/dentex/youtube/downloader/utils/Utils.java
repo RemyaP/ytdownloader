@@ -51,7 +51,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.media.MediaScannerConnection;
-import android.media.MediaScannerConnection.MediaScannerConnectionClient;
+import android.media.MediaScannerConnection.OnScanCompletedListener;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
@@ -112,6 +112,8 @@ public class Utils {
 			lang.equals("pt_BR") || 
 			lang.equals("pt_PT") || 
 			lang.equals("tr_TR") || 
+			lang.equals("zh_CN") ||
+			lang.equals("zh_HK") ||
 			lang.equals("zh_TW")) 
 				return lang.split("_");
 		return new String[] { lang, "" };
@@ -359,32 +361,17 @@ public class Utils {
     	return sb.toString();
     }
     
-    /* method mediaScan adapted from Stack Overflow:
-	 * 
-	 * http://stackoverflow.com/questions/9707572/android-how-to-get-and-setchange-id3-tagmetadata-of-audio-files/11035755#11035755
-	 * 
-	 * Q: http://stackoverflow.com/users/849664/chirag-shah
-	 * A: http://stackoverflow.com/users/1456506/shtrule
-	 */
+    /*
+     * scanMedia method adapted from Wolfram Rittmeyer's blog:
+     * http://www.grokkingandroid.com/adding-files-to-androids-media-library-using-the-mediascanner/
+     */
     
-    public static void scanMedia(Context context, final File[] file, final String[] mime) {
-   	if (file == null) {
-   		return;
-   	}
-   	for (int i = 0; i < file.length; i++) {
-   		 final File curFile = file[i];
-   		 final String mimeType = mime[i];
-   		 msc = new MediaScannerConnection(context, new MediaScannerConnectionClient() {
-				public void onScanCompleted(String path, Uri uri) {
-					Utils.logger("d", "Scanned " + path + ":", DEBUG_TAG);
-					Utils.logger("d", "-> uri: " + uri, DEBUG_TAG);
-					msc.disconnect();
-				}
-				public void onMediaScannerConnected() {
-					msc.scanFile(curFile.getAbsolutePath(), mimeType);
-				}
-			});
-			msc.connect();
-		}		
-	}
+    public static void scanMedia(Context context, final String[] filePath, final String[] mime) {
+    	MediaScannerConnection.scanFile(context, filePath, mime, new OnScanCompletedListener() {
+    		@Override
+    		public void onScanCompleted(String path, Uri uri) {
+    			Log.v(DEBUG_TAG, "file " + path + " was scanned seccessfully: " + uri);
+    		}
+    	});
+    }
 }

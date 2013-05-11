@@ -1288,7 +1288,7 @@ public class ShareActivity extends Activity {
 					SettingsActivity.SettingsFragment.autoUpdate(ShareActivity.this);
 				}
 		} else {
-			Utils.logger("d", "diffrent or null YTD signature. Update check cancelled.", DEBUG_TAG);
+			Utils.logger("d", "different or null YTD signature. Update check cancelled.", DEBUG_TAG);
 		}
 	}
 

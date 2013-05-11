@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v2.1 - May 11 2013
+        \n-----------------------------------
+        \n[x] code optimizations
+        \n[x] mediaScanner bug fix
+        \n    (thanks Wolfram!)
+        \n[x] new translations:
+        \n    - Chinese (China)
+        \n    - Chinese (Hong Kong)
+        \n
         \n v2.0.6 - May 09 2013
         \n-----------------------------------
         \n[x] dialog/toast when Downloads
@@ -134,7 +143,7 @@
 		\n v1.3.1 - Jan 19 2013
 		\n-----------------------------------
 		\n[x] handle again http|https links
-		\n    (thanks Reiner)
+		\n    (thanks Reiner!)
 		\n
 		\n v1.3 - Jan 18 2013
 		\n-----------------------------------
@@ -235,7 +244,20 @@
 		
     <string name="ytd_code_git_summary">https://github.com/dentex/ytdownloader/</string>
     <string name="ytd_code_hg_summary">https://sourceforge.net/projects/ytdownloader/</string>
+       
+    <string name="credits_text2">\n\ti.e.:
+        \n\nFfmpegController.java: GPL-3.0 - Copyright &#169; 2009, Nathan Freitas, Orbot / The Guardian Project - http://openideals.com/guardian - https://github.com/guardianproject/android-ffmpeg-java
+        \n\nObserver.java: reference - https://gist.github.com/shirou/659180
+        \n\nSectionedAdapter.java: GPL-3.0 - Copyright &#169; 2008-2010 CommonsWare, LLC - portions Copyright &#169; 2008 Jeffrey Sharkey
+        \n\nUtils.getCpuInfo(): http://www.roman10.net/how-to-get-cpu-information-on-android/ - by Liu Feipeng
+        \n\nUtils.scanMedia(&#8230;): http://www.grokkingandroid.com/adding-files-to-androids-media-library-using-the-mediascanner/ - by Wolfram Rittmeyer
+    </string>
     
+    <string name="translators_links">
+        \n<http>www.getlocalization.com/ytdownloader</http>
+        \n\n<http>forum.xda-developers.com/showthread.php?p=37708791</http>
+    </string>
+
     <string name="paypal_user">samuele.rini76\@gmail.com</string>
     <string name="paypal_currency_code">EUR</string>
     
@@ -344,6 +366,19 @@
     <string name="ffmpeg_size_arm7">6.0 MB</string>
     <string name="ffmpeg_size_arm5">6.4 MB</string>
     
+    <string-array name="notification_defaults_entry_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+    
+    <string name="notification_defaults_default">0</string>
+    
     <string-array name="lang_entries">
         <item>Default</item>
         <item>English</item>
@@ -361,6 +396,8 @@
         <item>Spanish</item>
         <item>Turkish</item>
         <item>Western Farsi (Iran)</item>
+        <item>Chinese (China)</item>
+        <item>Chinese (Hong Kong)</item>
         <item>Chinese (Taiwan)</item>
     </string-array>
     
@@ -381,26 +418,11 @@
         <item>es</item>
         <item>tr_TR</item>
         <item>fa</item>
+        <item>zh_CN</item>
+        <item>zh_HK</item>
         <item>zh_TW</item>
     </string-array>
     
     <string name="lang_default">default</string>
-    
-    <string-array name="notification_defaults_entry_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-    </string-array>
-    
-    <string name="notification_defaults_default">0</string>
-    
-    <string name="translators_links">
-        \n<http>www.getlocalization.com/ytdownloader</http>
-        \n\n<http>forum.xda-developers.com/showthread.php?p=37708791</http></string>
 
 </resources>

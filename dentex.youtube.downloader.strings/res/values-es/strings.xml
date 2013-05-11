@@ -21,8 +21,8 @@
     <string name="information">Información</string>
     <string name="dialogs_negative">Cancelar</string>
     <string name="wait">Por favor espere&#8230;</string>
-    <string name="no_downloads_sys_app">\"Downloads\" system App not found.</string>
-    <string name="ytd_useless">YTD cannot download files on this device.</string>
+    <string name="no_downloads_sys_app">\"Downloads\" App del sistema no fue encontrada.</string>
+    <string name="ytd_useless">YTD no puede descargar archivos en este dispositivo</string>
     <string name="invalid_url">La página de web no se puede accesar. El URL puede ser inválido.</string>
     <string name="invalid_url_short">La página de web no se puede accesar. </string>
     <string name="invalid_response">Respuesta inválida del servidor HTTP.</string>
@@ -34,17 +34,17 @@
     <string name="no_market_dialog_msg">Por favor instale Google Play</string>
     <string name="list_click_dialog_title">Confirmar descarga para:</string>
     <string name="list_click_download_local">Descargar aquí</string>
-    <string name="list_click_download_ssh">Enviar por SSH</string>
+    <string name="list_click_download_ssh">Enviar vía SSH</string>
     <string name="rename_dialog_title">Nuevo nombre de archivo:</string>
-    <string name="rename_dialog_msg">No introduzque extensiones de archivos (como .mp4 o .flv).</string>
-    <string name="unable_save">¡No se pudo guardar el video!</string>
+    <string name="rename_dialog_msg">No introduzcas extensiónes de archivos (como .mp4 o .flv).</string>
+    <string name="unable_save">¡No se ha podido guardar el video!</string>
     <string name="unable_save_dialog_msg">La carpeta de destino no esta disponible y/o no se puede escribir.</string>
-    <string name="ssh_info_tutorial_title">Como enviar por SSH</string>
+    <string name="ssh_info_tutorial_title">Como enviar vía SSH</string>
     <string name="ssh_info_tutorial_msg">Una línea de comando ha sido copiado al portapapeles.
 \n\nEscoga un perfil en ConnectBot y una vez iniciado el shell remoto (SSH), debe navigar al 
 directorio deseado, COPIE la línea (use el botón de menú) y teclee ENTER. </string>
     <string name="callConnectBot_dialog_title">¡%1$s no esta instalado!</string>
-    <string name="callConnectBot_dialog_msg">Esta aplicación gratuita se requiere para enviar los videos descargados por SSH.</string>
+    <string name="callConnectBot_dialog_msg">Necesitas esta aplicación gratuita para mandar los videos descargados vía SSH.</string>
     <string name="callConnectBot_dialog_positive">Descargar</string>
     <string name="download_complete_dialog_msg1">Video de YouTube:\n</string>
     <string name="download_complete_dialog_msg2">\nDescargado éxitosamente.</string>
@@ -339,9 +339,9 @@ pegar al shell remoto (solo funcionará si la computadora de destinación se enc
 \nDatos personales no serán recolectados.</string>
 	<string name="disable_bugsense_confirm_neutral">Revisar un Fallo\nMuestra de informe</string>
 	<string name="disable_bugsense_confirm_popup_title">Muestra de Report de Fallo</string>
-	<string name="disable_bugsense_confirm_disable">Yes,\n
-	    											disable it</string>
+	<string name="disable_bugsense_confirm_disable">Si,\n
+desactivarlo</string>
 	
-	<string name="disable_bugsense_confirm_keep">No, keep\n
-	    										 it enabled!</string>
+	<string name="disable_bugsense_confirm_keep">¡No,mantenerlo\n
+activo!</string>
 </resources>

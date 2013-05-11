@@ -39,4 +39,12 @@
 		<from>pt-BR</from>
 		<to>pt-rBR</to>
 	</replaceItem>
+	<replaceItem>
+		<from>zh-CN</from>
+		<to>zh-rCN</to>
+	</replaceItem>
+	<replaceItem>
+		<from>zh-HK</from>
+		<to>zh-rHK</to>
+	</replaceItem>
 </items>
