@@ -100,7 +100,6 @@ import dentex.youtube.downloader.utils.Utils;
 
 public class ShareActivity extends Activity {
 	
-	private Intent SharingIntent;
 	private ProgressBar progressBar1;
 	private ProgressBar progressBarD;
 	private ProgressBar progressBarL;
@@ -224,12 +223,22 @@ public class ShareActivity extends Activity {
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             if ("text/plain".equals(type)) {
                 try {
-                	SharingIntent = intent;
-                	handleSendText(SharingIntent);
+                	handleSendText(intent, action);
+                	Utils.logger("d", "handling ACTION_SEND", DEBUG_TAG);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Utils.logger("d", "Error: " + e.toString(), DEBUG_TAG);
+                    Log.e(DEBUG_TAG, "Error: " + e.toString(), e);
                 }
+            }
+        }
+        
+        if (Intent.ACTION_VIEW.equals(action)) {
+            try {
+            	handleSendText(intent, action);
+            	Utils.logger("d", "handling ACTION_VIEW", DEBUG_TAG);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e(DEBUG_TAG, "Error: " + e.toString(), e);
             }
         }
     }
@@ -313,27 +322,42 @@ public class ShareActivity extends Activity {
 		Utils.logger("v", "_onBackPressed", DEBUG_TAG);
 	}
 
-    void handleSendText(Intent intent) throws IOException {
+    void handleSendText(Intent intent, String action) throws IOException {
 
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-            String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-            if (linkValidator(sharedText) == "not_a_valid_youtube_link") {
-            	progressBar1.setVisibility(View.GONE);
-            	tv.setText(getString(R.string.bad_link));
-            	PopUps.showPopUp(getString(R.string.error), getString(R.string.bad_link_dialog_msg), "alert", this);
-            } else if (sharedText != null) {
-            	showGeneralInfoTutorial();
-            	asyncDownload = new AsyncDownload();
-            	asyncDownload.execute(validatedLink);
-            }
+        	
+        	String sharedText = null;
+			if (action.equals(Intent.ACTION_SEND)) {
+            	sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        	} else if (action.equals(Intent.ACTION_VIEW)) {
+        		sharedText = intent.getDataString();
+        	}
+            
+			if (sharedText != null) {
+	            if (linkValidator(sharedText) == "not_a_valid_youtube_link") {
+	            	badOrNullLinkAlert();
+	            } else if (sharedText != null) {
+	            	showGeneralInfoTutorial();
+	            	asyncDownload = new AsyncDownload();
+	            	asyncDownload.execute(validatedLink);
+	            }
+			} else {
+				badOrNullLinkAlert();
+			}
         } else {
         	progressBar1.setVisibility(View.GONE);
         	tv.setText(getString(R.string.no_net));
         	PopUps.showPopUp(getString(R.string.no_net), getString(R.string.no_net_dialog_msg), "alert", this);
         }
     }
+
+	public void badOrNullLinkAlert() {
+		progressBar1.setVisibility(View.GONE);
+		tv.setText(getString(R.string.bad_link));
+		PopUps.showPopUp(getString(R.string.error), getString(R.string.bad_link_dialog_msg), "alert", this);
+	}
     
     void showGeneralInfoTutorial() {
         generalInfoCheckboxEnabled = settings.getBoolean("general_info", true);

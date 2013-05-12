@@ -37,8 +37,6 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.bugsense.trace.BugSenseHandler;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -57,13 +55,19 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bugsense.trace.BugSenseHandler;
+
 import dentex.youtube.downloader.utils.PopUps;
 import dentex.youtube.downloader.utils.Utils;
 
@@ -96,6 +100,8 @@ public class UpgradeApkActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+		
 		// Theme init
     	Utils.themeInit(this);
     	
@@ -121,6 +127,22 @@ public class UpgradeApkActivity extends Activity {
         tv.setText(getString(R.string.upgrade_uppertext_init) + currentVersion);
         
         cl = (TextView) findViewById(R.id.upgrade_textview2);
+        
+		setupActionBar();
+	}
+	
+	private void setupActionBar() {
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	public void upgradeButtonClick(View v) {

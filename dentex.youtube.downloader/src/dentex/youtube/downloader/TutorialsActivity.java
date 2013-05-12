@@ -35,6 +35,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.view.Window;
 import dentex.youtube.downloader.utils.PopUps;
 import dentex.youtube.downloader.utils.Utils;
 
@@ -52,6 +53,8 @@ public class TutorialsActivity extends Activity {
         this.setTitle(R.string.title_activity_tutorials);
         
     	settings = getSharedPreferences(PREFS_NAME, 0);
+    	
+    	getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         
     	// Theme init
     	Utils.themeInit(this);

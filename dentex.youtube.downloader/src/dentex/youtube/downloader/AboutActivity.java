@@ -43,6 +43,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.Window;
 import dentex.youtube.downloader.docs.ChangelogActivity;
 import dentex.youtube.downloader.docs.CreditsShowActivity;
 import dentex.youtube.downloader.docs.GplShowActivity;
@@ -66,6 +67,8 @@ public class AboutActivity extends Activity {
         this.setTitle(R.string.title_activity_about);
         
     	settings = getSharedPreferences(PREFS_NAME, 0);
+    	
+    	getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         
     	// Theme init
     	Utils.themeInit(this);

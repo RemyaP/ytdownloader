@@ -10,9 +10,13 @@ package group.pals.android.lib.ui.filechooser.utils.history;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bugsense.trace.BugSenseHandler;
+
+import android.os.BadParcelableException;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 /**
  * A history store of any object extending {@link Parcelable}.<br>
@@ -181,6 +185,12 @@ public class HistoryStore<A extends Parcelable> implements History<A> {
 
         int count = in.readInt();
         for (int i = 0; i < count; i++)
-            mHistoryList.add((A) in.readParcelable(null));
+        	try {
+        		mHistoryList.add((A) in.readParcelable(null)); // this (maybe sometimes) crashes with a BadParcelableException
+        	} catch (BadParcelableException e) { 
+        		mHistoryList.add((A) in.readParcelable(HistoryStore.class.getClassLoader()));
+        		Log.e("afc_HistoryStore", "BadParcelableException: " + e.getMessage());
+        		BugSenseHandler.sendExceptionMessage("afc_HistoryStore", "readParcelable: " + e.getMessage(), e);
+        	}
     }
 }

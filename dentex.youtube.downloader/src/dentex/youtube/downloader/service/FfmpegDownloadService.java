@@ -48,6 +48,7 @@ import com.bugsense.trace.BugSenseHandler;
 
 import dentex.youtube.downloader.R;
 import dentex.youtube.downloader.SettingsActivity;
+import dentex.youtube.downloader.YTD;
 import dentex.youtube.downloader.ffmpeg.FfmpegController;
 import dentex.youtube.downloader.utils.Observer;
 import dentex.youtube.downloader.utils.Utils;
@@ -72,7 +73,7 @@ public class FfmpegDownloadService extends Service {
 	@Override
 	public void onCreate() {
 		Utils.logger("d", "service created", DEBUG_TAG);
-		//BugSenseHandler.initAndStartSession(getApplicationContext(), YTD.BAK);
+		BugSenseHandler.initAndStartSession(getApplicationContext(), YTD.BAK);
 		nContext = getBaseContext();	
 		registerReceiver(ffmpegReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 	}

@@ -62,6 +62,7 @@ public class DonateActivity extends Activity {
     	settings = getSharedPreferences(PREFS_NAME, 0);
     	
     	getWindow().requestFeature(Window.FEATURE_PROGRESS);
+    	getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         
     	// Theme init
     	Utils.themeInit(this);
@@ -162,7 +163,9 @@ public class DonateActivity extends Activity {
 	                    	return true;  
 	                    }
 	                    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-	                        Toast.makeText(activity, getString(R.string.error) + description, Toast.LENGTH_SHORT).show();
+	                        if (isAdded()) {
+	                        	Toast.makeText(activity, getString(R.string.error) + description, Toast.LENGTH_SHORT).show();
+	                        }
 	                    }
 	                });  
 	                activity.setContentView(webview);

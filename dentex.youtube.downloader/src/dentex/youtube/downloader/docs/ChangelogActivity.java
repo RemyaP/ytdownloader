@@ -31,6 +31,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.view.Window;
 import dentex.youtube.downloader.R;
 import dentex.youtube.downloader.utils.Utils;
 
@@ -39,6 +40,8 @@ public class ChangelogActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
 		
 		// Theme init
     	Utils.themeInit(this);

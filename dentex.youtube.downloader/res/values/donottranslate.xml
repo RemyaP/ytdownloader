@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v2.2 - May 12 2013
+        \n-----------------------------------
+        \n[x] fixed a bunch of BUUUUUGS !!!
+        \n[x] handles direct link clicks
+        \n    (use of Intent.ACTION_VIEW)
+        \n
         \n v2.1 - May 11 2013
         \n-----------------------------------
         \n[x] code optimizations

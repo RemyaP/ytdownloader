@@ -48,6 +48,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import dentex.youtube.downloader.R;
@@ -63,6 +64,8 @@ public class TranslatorsListActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
 		
 		// Theme init
     	Utils.themeInit(this);

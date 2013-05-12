@@ -193,10 +193,12 @@ public class SettingsActivity extends Activity {
             	
                 public boolean onPreferenceClick(Preference preference) {
                 	Intent intent = new Intent(getActivity(),  FileChooserActivity.class);
-            		intent.putExtra(FileChooserActivity._Rootpath, (Parcelable) new LocalFile(Environment.getExternalStorageDirectory()));
-            		intent.putExtra(FileChooserActivity._FilterMode, IFileProvider.FilterMode.DirectoriesOnly);
-            		startActivityForResult(intent, _ReqChooseFile);
-                    return true;
+                	if (intent != null) {
+	            		intent.putExtra(FileChooserActivity._Rootpath, (Parcelable) new LocalFile(Environment.getExternalStorageDirectory()));
+	            		intent.putExtra(FileChooserActivity._FilterMode, IFileProvider.FilterMode.DirectoriesOnly);
+	            		startActivityForResult(intent, _ReqChooseFile);
+                	} 
+                	return true;
                 }
             });
             
