@@ -384,7 +384,9 @@ public class ShareActivity extends Activity {
     	    		}
         		}
         	});
-    	    adb.show();
+    	    if (! ((Activity) this).isFinishing()) {
+    	    	adb.show();
+    	    }
         }
     }
     
@@ -546,7 +548,9 @@ public class ShareActivity extends Activity {
 											callDownloadManager(links.get(pos));
 		                    	    	}
 		                    	    });
-		                    	    adb.show();
+		                    	    if (! ((Activity) ShareActivity.this).isFinishing()) {
+		                    	    	adb.show();
+		                    	    }
 	                            } else {
 	                            	composedVideoFilename = composeVideoFilename();
 	                            	manageAudioFeature();
@@ -586,7 +590,10 @@ public class ShareActivity extends Activity {
                     
                     if ((!showSingleSize) || (showSizesInVideoList && showSingleSize)) {
                     	helpDialog = helpBuilder.create();
-                    	helpDialog.show();
+                    	
+                    	if (! ((Activity) ShareActivity.this).isFinishing()) {
+                    		helpDialog.show();
+                	    }
                     }
                 }
             });
@@ -627,7 +634,10 @@ public class ShareActivity extends Activity {
 					    	}
 	            		});
             		}
-            		builder.create().show();
+            		builder.create();
+            		if (! ((Activity) ShareActivity.this).isFinishing()) {
+            			builder.show();
+            		}
 				    return true;
             	}
             });
@@ -741,7 +751,10 @@ public class ShareActivity extends Activity {
     	        });
 
     	        AlertDialog helpDialog = cb.create();
-    	        helpDialog.show();
+    	        
+    	        if (! ((Activity) ShareActivity.this).isFinishing()) {
+    	        	helpDialog.show();
+        		}
     		}
         }
 
@@ -795,7 +808,9 @@ public class ShareActivity extends Activity {
 				    		callConnectBot(); 
 			    		}
 			    	});
-				    adb.show();
+				    if (! ((Activity) ShareActivity.this).isFinishing()) {
+	    	        	adb.show();
+	        		}
 			    } else {
 			    	callConnectBot();
 			    }
@@ -844,6 +859,10 @@ public class ShareActivity extends Activity {
 		    	Log.e(DEBUG_TAG, "callDownloadManager: " + e.getMessage());
 		    	YTD.NoDownProvPopUp(this);
 		    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> callDownloadManager: ", e.getMessage(), e);
+		    } catch (NullPointerException ne) {
+		    	Log.e(DEBUG_TAG, "callDownloadApk: " + ne.getMessage());
+		    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> callDownloadApk: ", ne.getMessage(), ne);
+		    	Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show();
 		    }
         	Utils.logger("d", "_ID " + enqueue + " enqueued", DEBUG_TAG);
         } catch (SecurityException e) {
@@ -905,7 +924,9 @@ public class ShareActivity extends Activity {
     	    		}
         		}
         	});
-    	    adb.show();
+    	    if (! ((Activity) ShareActivity.this).isFinishing()) {
+	        	adb.show();
+    		}
         }
     }
       
@@ -918,6 +939,10 @@ public class ShareActivity extends Activity {
         } catch (IllegalArgumentException e) { // probably useless try/catch
 	    	Log.e(DEBUG_TAG, "tempDownloadToSdcard: " + e.getMessage());
 	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> tempDownloadToSdcard", e.getMessage(), e);
+	    } catch (NullPointerException ne) {
+	    	Log.e(DEBUG_TAG, "callDownloadApk: " + ne.getMessage());
+	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> callDownloadApk: ", ne.getMessage(), ne);
+	    	Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show();
 	    }
     }
 
@@ -1172,7 +1197,9 @@ public class ShareActivity extends Activity {
     	    		getString(R.string.codec) + " " + codecs.get(pos) + 
 					getString(R.string.quality) + " " + qualities.get(pos) + stereo.get(pos));
     	    waitBox = waitBuilder.create();
-    	    waitBox.show();
+    	    if (! ((Activity) ShareActivity.this).isFinishing()) {
+	        	waitBox.show();
+    		}
     	}
 
 		protected String doInBackground(String... urls) {
@@ -1193,7 +1220,9 @@ public class ShareActivity extends Activity {
 					getString(R.string.quality) + " " + qualities.get(pos) + stereo.get(pos) +
 					getString(R.string.size) + " " + videoFileSize);
         	helpDialog = helpBuilder.create();
-            helpDialog.show();
+            if (! ((Activity) ShareActivity.this).isFinishing()) {
+	        	helpDialog.show();
+    		}
         }
 	}
     

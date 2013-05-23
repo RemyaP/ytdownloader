@@ -25,6 +25,12 @@ echo -e "\n\`$name\`" >> $dest
 echo -e "\nMD5 checksum: \`"$md5 >> $dest
 
 echo "
+NOTICE
+================================================================
+    Please comply with the GPL below. 
+    It's not that difficult: just give proper credits 
+    to this sources and release your modified ones.
+
 LICENSE
 ================================================================
 Copyright (C) 2012  Samuele Rini

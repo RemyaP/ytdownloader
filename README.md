@@ -15,10 +15,9 @@ MD5 checksum: `8bb84792b1fd3de791ee67f0080ca57d` dentex.youtube.downloader_v2.2.
 
 NOTICE
 ================================================================
-    To all the developers using this code lately: please comply with
-    the GPL below. It's not that difficult: just give proper credits 
+    Please comply with the GPL below. 
+    It's not that difficult: just give proper credits 
     to this sources and release your modified ones.
-    Why stealing software when it's Open Source?
 
 LICENSE
 ================================================================

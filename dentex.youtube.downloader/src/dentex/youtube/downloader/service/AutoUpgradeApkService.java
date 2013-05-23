@@ -286,6 +286,9 @@ public class AutoUpgradeApkService extends Service {
 	    } catch (IllegalArgumentException e) {
 	    	Log.e(DEBUG_TAG, "callDownloadApk: " + e.getMessage());
 	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> callDownloadApk: ", e.getMessage(), e);
+	    } catch (NullPointerException ne) {
+	    	Log.e(DEBUG_TAG, "callDownloadApk: " + ne.getMessage());
+	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> callDownloadApk: ", ne.getMessage(), ne);
 	    }
 	}
 

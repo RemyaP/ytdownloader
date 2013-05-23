@@ -40,6 +40,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -119,6 +120,15 @@ public class FfmpegDownloadService extends Service {
 	    	Log.e(DEBUG_TAG, "downloadFfmpeg: " + e.getMessage());
 	    	Toast.makeText(this,  this.getString(R.string.no_downloads_sys_app), Toast.LENGTH_LONG).show();
 	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> downloadFfmpeg", e.getMessage(), e);
+	    } catch (SecurityException se) {
+	    	request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, ffmpegBinName);
+	    	enqueue = dm.enqueue(request);
+	    	DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> downloadFfmpeg", se.getMessage(), se);
+	    } catch (NullPointerException ne) {
+	    	Log.e(DEBUG_TAG, "callDownloadApk: " + ne.getMessage());
+	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> callDownloadApk: ", ne.getMessage(), ne);
+	    	Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show();
 	    }
         
 		ffmpegBinObserver = new Observer.YtdFileObserver(DIR);
@@ -162,7 +172,7 @@ public class FfmpegDownloadService extends Service {
 					
 					case DownloadManager.STATUS_SUCCESSFUL:
 	    		
-						File src = new File(nContext.getExternalFilesDir(null), ffmpegBinName);
+						File src = new File(DIR, ffmpegBinName);
 						File dst = new File(nContext.getDir("bin", 0), ffmpegBinName);
 						
 						String md5 = null;

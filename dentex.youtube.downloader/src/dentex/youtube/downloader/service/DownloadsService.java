@@ -92,7 +92,7 @@ public class DownloadsService extends Service {
 	//public static File copyDst;
 	private int totSeconds;
 	private int currentTime;
-	public static boolean removeVideo;
+	private boolean removeVideo;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -121,7 +121,13 @@ public class DownloadsService extends Service {
 		Utils.logger("d", "Audio extraction: " + audio, DEBUG_TAG);
 		
 		removeVideo = settings.getBoolean("remove_video", false);
-		if (audio.equals("none")) removeVideo = false;
+		try {
+			if (audio.equals("none")) removeVideo = false;
+		} catch (NullPointerException ne) {
+			removeVideo = false;
+			Log.e(DEBUG_TAG, "DownloadsService: " + ne.getMessage());
+	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> DownloadsService: ", ne.getMessage(), ne);
+		}
 		Utils.logger("d", "Video removal: " + removeVideo, DEBUG_TAG);
 		
 		super.onStartCommand(intent, flags, startId);

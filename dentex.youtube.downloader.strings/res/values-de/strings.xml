@@ -87,11 +87,11 @@ Verzeichnis, füge den Befehl ein (verwende den Menü-Knopf) und drücke ENTER.<
     <string name="failed_download">Fehlgeschlagener Download gelöscht.</string>
     <string name="new_v_download">gefunden. Herunterladen&#8230;</string>
     <string name="new_v_install">heruntergeladen. Drücken, um zu installieren.</string>
-    <string name="ffmpeg_download_dialog_title">Weiter Dateien benötigt. Sollen diese nun heruntergeladen werden?</string>
+    <string name="ffmpeg_download_dialog_title">Weitere Dateien werden benötigt. Sollen diese nun heruntergeladen werden?</string>
     <string name="ffmpeg_download_dialog_msg">Web link:</string>
     <string name="ffmpeg_device_not_supported">Dieses Gerät wird zurzeit nicht unterstützt.</string>
-    <string name="ffmpeg_support_mail">E-mail an den Entwickler schreiben?
-\nDu kannst alle Daten in deiner E-mail App einsehen bevor sie gesendet werden.</string>
+    <string name="ffmpeg_support_mail">E-Mail an den Entwickler schicken?
+Du kannst alle Daten in deiner E-Mail App einsehen, bevor sie gesendet werden.</string>
     <string name="ffmpeg_download_notification">FFmpeg herunterladen</string>
     <string name="ffmpeg_install">Installiere FFmpeg Daten&#8230;</string>
     <string name="email_via">Senden per Mail:</string>
@@ -107,9 +107,9 @@ Verzeichnis, füge den Befehl ein (verwende den Menü-Knopf) und drücke ENTER.<
     <string name="upgrade_installed">\nInstalliert:\t</string>
     <string name="upgraded_dialog_msg">Neue Version im Ordner \'Download\' gespeichert.\n\nJetzt installieren?</string>
     <string name="upgraded_dialog_negative">Später\n(manuell)</string>
-    <string name="upgrade_latest_installed">Die neuste Version ist installiert!</string>
+    <string name="upgrade_latest_installed">Die neuste Version ist bereits installiert!</string>
     <string name="upgrade_network_error">Update nicht möglich. \nSpäter erneut versuchen.</string>
-    <string name="upgrade_bad_md5_dialog_msg">Heruntergeladenes Paket fehlerhaft.\nWird nun gelöscht.\nOK drücken, um erneut herunterzuladen.</string>
+    <string name="upgrade_bad_md5_dialog_msg">Heruntergeladenes Paket fehlerhaft.\nWird nun gelöscht.\nOK drücken, um es erneut herunterzuladen.</string>
     
     <!-- ### DownloadsService ### -->
     
@@ -153,13 +153,13 @@ Verzeichnis, füge den Befehl ein (verwende den Menü-Knopf) und drücke ENTER.<
     
     <!-- -->
     <string name="quick_start_title">Einstiegshilfe</string>
-    <string name="quick_start_summ">Starte kurzes Tutorial</string>
+    <string name="quick_start_summ">Starte kurze Einführung</string>
     <string name="quick_start_text">Hier finden Sie nur die Einstellungen für \'YouTube Downloader\'.
 \n\nDie eigentliche App kann über den Share Button in der YouTube App aufgerufen werden, während das Video läuft.
 \n\nDann \'YouTube Downloader\' wählen und du erhältst weitere Benutzerhilfe.
 \n\nDu kannst auch jeden YouTube Klartext Link über jede App teilen, z.B. deinen Browser.</string>
     <string name="general_info_title">Aktiviere Allgemeine Anleitung</string>
-    <string name="general_info_summary">Starte App Tutorial beim starten</string>
+    <string name="general_info_summary">Starte allgemeine Anleitung beim öffnen</string>
     <string name="show_again_checkbox">Nächstes Mal nochmal anzeigen.</string>
     <string name="ssh_info_title">Aktiviere SSH Anleitung</string>
     <string name="ssh_info_summary">Zeige einen Hinweis über Remote Downloads via SSH</string>
@@ -188,7 +188,7 @@ in der YTD\'s Video Liste angeklickt wird. Ist der Haken gesetzt, wird die Tonsp
     <string name="enable_q_suffix_title">Hänge Qualitätshinweis an</string>
     <string name="enable_q_suffix_summary">Füge die Videoqualität am Ende des Dateinamens an</string>
     <string name="enable_rename_title">Datei Umbenennung aktivieren</string>
-    <string name="enable_rename_summary">Video umbenennen, bevor es heruntergeladen wird (nur für einen lokalen Download)</string>
+    <string name="enable_rename_summary">Video umbenennen, bevor es heruntergeladen wird (nur für den lokalen Download)</string>
     <string name="show_size_title">Dateigröße zeigen</string>
     <string name="show_size_summary">Ermittle die Videodateigröße bei Download-Bestätigungsnachricht (langsam)</string>
     <string name="show_size_list_title">Alle Videogrößen anzeigen</string>

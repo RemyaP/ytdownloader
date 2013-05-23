@@ -305,8 +305,8 @@ diingini. PASTE command tersebut (gunakan butang menu) dan tekan ENTER.</string>
         
     <!-- -->
     <string name="settings_cat_code">Source Code</string>
-    <string name="ytd_code_git_title">YTD at GitHub</string>
-    <string name="ytd_code_hg_title">YTD at Sourceforge</string>
+    <string name="ytd_code_git_title">YTD di GitHub</string>
+    <string name="ytd_code_hg_title">YTD di Sourceforge</string>
 
     <!-- -->
     <string name="settings_cat_social">Social</string>

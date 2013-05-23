@@ -367,8 +367,12 @@ public class UpgradeApkActivity extends Activity {
 	    	enqueue = downloadManager.enqueue(request);
 	    } catch (IllegalArgumentException e) {
 	    	Log.e(DEBUG_TAG, "callDownloadApk: " + e.getMessage());
-	    	YTD.NoDownProvPopUp(this);
 	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> callDownloadApk: ", e.getMessage(), e);
+	    	YTD.NoDownProvPopUp(this);
+	    } catch (NullPointerException ne) {
+	    	Log.e(DEBUG_TAG, "callDownloadApk: " + ne.getMessage());
+	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> callDownloadApk: ", ne.getMessage(), ne);
+	    	Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show();
 	    }
 	}
 
