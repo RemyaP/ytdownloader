@@ -102,7 +102,7 @@ public class DownloadsService extends Service {
 	@Override
 	public void onCreate() {
 		Utils.logger("d", "service created", DEBUG_TAG);
-		BugSenseHandler.initAndStartSession(this, YTD.BAK);
+		//BugSenseHandler.initAndStartSession(this, YTD.BugsenseApiKey);
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		nContext = getBaseContext();
 		registerReceiver(downloadComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
@@ -267,7 +267,7 @@ public class DownloadsService extends Service {
 						aFileName = aBaseName + acodec;
 						out = new File(ShareActivity.path, aFileName);
 					    
-				    	class ff implements Runnable {
+				    	class FfmpegTask implements Runnable {
 						    
 						    private Looper myLooper;
 		
@@ -310,11 +310,11 @@ public class DownloadsService extends Service {
 							    
 							    myLooper = Looper.myLooper();
 					            Looper.loop();
-					            myLooper.quit(); 
+					            myLooper.quit();
 							}
 				    	};
 				    	
-				    	Thread t = new Thread(new ff());
+				    	Thread t = new Thread(new FfmpegTask());
 				    	t.start();
 					}
 					break;

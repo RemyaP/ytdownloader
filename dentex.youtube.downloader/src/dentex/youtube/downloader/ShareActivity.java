@@ -1211,7 +1211,9 @@ public class ShareActivity extends Activity {
         protected void onPostExecute(String result) {
         	
         	filesizeProgressBar.setVisibility(View.GONE);
-        	waitBox.dismiss();
+        	if (! ((Activity) ShareActivity.this).isFinishing()) {
+        		waitBox.dismiss();
+        	}
         	
         	videoFileSize = result;
         	Utils.logger("d", "size " + pos + ": " + result, DEBUG_TAG);

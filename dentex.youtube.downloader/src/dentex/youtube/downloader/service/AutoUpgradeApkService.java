@@ -93,7 +93,7 @@ public class AutoUpgradeApkService extends Service {
 	@Override
 	public void onCreate() {
 		Utils.logger("d", "service created", DEBUG_TAG);
-		BugSenseHandler.initAndStartSession(this, YTD.BAK);
+		BugSenseHandler.initAndStartSession(this, YTD.BugsenseApiKey);
 		registerReceiver(apkReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 		
 		try {

@@ -70,7 +70,7 @@ public class FfmpegController {
     	boolean started = true;
     	try {
     		
-    		process = pb.start();    
+    		process = pb.start();
     	
     		// any error message?
     		StreamGobbler errorGobbler = new 

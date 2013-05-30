@@ -40,7 +40,14 @@ import dentex.youtube.downloader.utils.PopUps;
 public class YTD extends Application {
 	
 	static String DEBUG_TAG = "YTD";
-	public static String BAK = "3bee3036";
+	
+	/* To anyone using this code:
+	 * PLEASE change the BugsenseApiKey below
+	 * (that is: register your own project OR disable all bugsense's calls) 
+	 * in order not to spam my bugsense dashboard with YOUR errors.
+	 */
+	public static String BugsenseApiKey = "b9d46d82";  // <--- see comment above!
+
 	public static SharedPreferences settings;
 	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
 	
@@ -50,7 +57,7 @@ public class YTD extends Application {
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		
 		if (!settings.getBoolean("disable_bugsense", false)) {
-        	BugSenseHandler.initAndStartSession(getApplicationContext(), BAK);
+        	//BugSenseHandler.initAndStartSession(getApplicationContext(), BugsenseApiKey);
 		}
 		
 		checkDownloadProvider(".apk");

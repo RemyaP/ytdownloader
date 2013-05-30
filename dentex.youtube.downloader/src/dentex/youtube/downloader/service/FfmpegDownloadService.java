@@ -74,7 +74,7 @@ public class FfmpegDownloadService extends Service {
 	@Override
 	public void onCreate() {
 		Utils.logger("d", "service created", DEBUG_TAG);
-		BugSenseHandler.initAndStartSession(getApplicationContext(), YTD.BAK);
+		BugSenseHandler.initAndStartSession(getApplicationContext(), YTD.BugsenseApiKey);
 		nContext = getBaseContext();	
 		registerReceiver(ffmpegReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 	}
