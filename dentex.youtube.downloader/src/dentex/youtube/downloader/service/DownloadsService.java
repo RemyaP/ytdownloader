@@ -102,7 +102,7 @@ public class DownloadsService extends Service {
 	@Override
 	public void onCreate() {
 		Utils.logger("d", "service created", DEBUG_TAG);
-		//BugSenseHandler.initAndStartSession(this, YTD.BugsenseApiKey);
+		BugSenseHandler.initAndStartSession(this, YTD.BugsenseApiKey);
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		nContext = getBaseContext();
 		registerReceiver(downloadComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
@@ -267,10 +267,8 @@ public class DownloadsService extends Service {
 						aFileName = aBaseName + acodec;
 						out = new File(ShareActivity.path, aFileName);
 					    
-				    	class FfmpegTask implements Runnable {
+						new Thread(new Runnable() {
 						    
-						    private Looper myLooper;
-		
 							@Override
 							public void run() {
 								
@@ -308,14 +306,9 @@ public class DownloadsService extends Service {
 									Log.e(DEBUG_TAG, "InterruptedException running ffmpeg" + e.getMessage());
 								}
 							    
-							    myLooper = Looper.myLooper();
 					            Looper.loop();
-					            myLooper.quit();
 							}
-				    	};
-				    	
-				    	Thread t = new Thread(new FfmpegTask());
-				    	t.start();
+				    	}).start();
 					}
 					break;
 					

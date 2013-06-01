@@ -57,7 +57,7 @@ public class YTD extends Application {
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		
 		if (!settings.getBoolean("disable_bugsense", false)) {
-        	//BugSenseHandler.initAndStartSession(getApplicationContext(), BugsenseApiKey);
+        	BugSenseHandler.initAndStartSession(getApplicationContext(), BugsenseApiKey);
 		}
 		
 		checkDownloadProvider(".apk");
