@@ -366,7 +366,7 @@ public class Utils {
      * http://www.grokkingandroid.com/adding-files-to-androids-media-library-using-the-mediascanner/
      */
     
-    public static void scanMedia(Context context, final String[] filePath, final String[] mime) {
+    public static void scanMedia(Context context, String[] filePath, String[] mime) {
     	MediaScannerConnection.scanFile(context, filePath, mime, new OnScanCompletedListener() {
     		@Override
     		public void onScanCompleted(String path, Uri uri) {

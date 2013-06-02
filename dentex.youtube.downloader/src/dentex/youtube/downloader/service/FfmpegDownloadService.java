@@ -38,6 +38,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
@@ -56,6 +57,8 @@ import dentex.youtube.downloader.utils.Utils;
 
 public class FfmpegDownloadService extends Service {
 	
+	SharedPreferences settings = YTD.settings;
+	final String PREFS_NAME = YTD.PREFS_NAME;
 	private static final String DEBUG_TAG = "FfmpegDownloadService";
 	public static Context nContext;
 	public long enqueue;
@@ -74,7 +77,12 @@ public class FfmpegDownloadService extends Service {
 	@Override
 	public void onCreate() {
 		Utils.logger("d", "service created", DEBUG_TAG);
-		BugSenseHandler.initAndStartSession(getApplicationContext(), YTD.BugsenseApiKey);
+		settings = getSharedPreferences(PREFS_NAME, 0);
+		
+		if (!settings.getBoolean("disable_bugsense", false)) {
+        	BugSenseHandler.initAndStartSession(this, YTD.BugsenseApiKey);
+		}
+		
 		nContext = getBaseContext();	
 		registerReceiver(ffmpegReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 	}
