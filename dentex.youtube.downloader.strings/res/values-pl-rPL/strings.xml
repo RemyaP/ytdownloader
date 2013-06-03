@@ -331,16 +331,4 @@ Dla uzyskania dokładniejszych informacji zajrzyj do kodu Java YTD\'s</string>
 	<string name="settings_cat_advanced">Zaawansowane</string>
 	<string name="enable_logging_title">Włącz zapis logów.</string>
 	<string name="enable_logging_summary">Załącz wiadomość YTD\'s do systemowego dziennika zdarzeń. Obowiązkowe, przy wysyłaniu logcat\'u do developera.</string>
-	<string name="disable_bugsense_title">Wyłącz dokładnie sprawdzanie błędów.</string>
-	<string name="disable_bugsense_summary">To nie wyśle raportu błędu do developera. Nie rekomendowane.</string>
-	<string name="disable_bugsense_confirm_title">Jesteś pewien?</string>
-	<string name="disable_bugsense_confirm_msg">Naprawa błędów będzie trudniejsza, a ulepszanie aplikacji będzie wolniejsze.
-\nNie będną zbierane żadne prywatne dane.</string>
-	<string name="disable_bugsense_confirm_neutral">Pokaż wzór raportu o błędzie</string>
-	<string name="disable_bugsense_confirm_popup_title">Przykład raportu błędu</string>
-	<string name="disable_bugsense_confirm_disable">Yes,\n
-	    											disable it</string>
-	
-	<string name="disable_bugsense_confirm_keep">No, keep\n
-	    										 it enabled!</string>
 </resources>

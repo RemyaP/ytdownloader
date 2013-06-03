@@ -332,16 +332,4 @@ pegar al shell remoto (solo funcionará si la computadora de destinación se enc
 	<string name="settings_cat_advanced">Avanzado</string>
 	<string name="enable_logging_title">Habilitar registros</string>
 	<string name="enable_logging_summary">Incluir mensajes de YTD en el registro del sistema. Obligatorio para mandar reporte de logcat al programador. </string>
-	<string name="disable_bugsense_title">Desactivar BugSense</string>
-	<string name="disable_bugsense_summary">Esto no enviará Informes de Fallos al programador. No se recomienda.</string>
-	<string name="disable_bugsense_confirm_title">¿Está seguro?</string>
-	<string name="disable_bugsense_confirm_msg">Será más difícil corregir errores y mejorar esta aplicación.
-\nDatos personales no serán recolectados.</string>
-	<string name="disable_bugsense_confirm_neutral">Revisar un Fallo\nMuestra de informe</string>
-	<string name="disable_bugsense_confirm_popup_title">Muestra de Report de Fallo</string>
-	<string name="disable_bugsense_confirm_disable">Si,\n
-desactivarlo</string>
-	
-	<string name="disable_bugsense_confirm_keep">¡No,mantenerlo\n
-activo!</string>
 </resources>

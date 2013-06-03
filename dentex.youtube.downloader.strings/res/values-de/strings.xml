@@ -332,16 +332,4 @@ Einfügen in die Remote Shell (funktioniert NUR, wenn der Ziel-PC sich im gleich
 	<string name="settings_cat_advanced">Erweitert</string>
 	<string name="enable_logging_title">Protokollierung einschalten</string>
 	<string name="enable_logging_summary">Füge YTD\'s Meldungen in die System Logs ein. Erforderlich um Logcat an den Entwickler zu senden.</string>
-	<string name="disable_bugsense_title">BugSense abschalten</string>
-	<string name="disable_bugsense_summary">Es wird kein Crash Report an den Entwickler gesendet. Nicht empfohlen.</string>
-	<string name="disable_bugsense_confirm_title">Sind sie sicher?</string>
-	<string name="disable_bugsense_confirm_msg">Schwieriger Fehler zu finden und die App zu verbessern.
-\nEs werden keine personenbezogenen Daten gesammelt.</string>
-	<string name="disable_bugsense_confirm_neutral">Crash einsehen\Beispiel-Report</string>
-	<string name="disable_bugsense_confirm_popup_title">Crash Report Beispiel</string>
-	<string name="disable_bugsense_confirm_disable">Ja,\n
-deaktiviere es</string>
-	
-	<string name="disable_bugsense_confirm_keep">Nein, lass\n
-es aktiv!</string>
 </resources>

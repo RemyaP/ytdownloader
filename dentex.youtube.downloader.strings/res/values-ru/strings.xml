@@ -332,16 +332,4 @@ YTD mp3 теги написаны  с MyID3: библиотека тегов Jav
 	<string name="settings_cat_advanced">Дополнительно</string>
 	<string name="enable_logging_title">Включить журнал</string>
 	<string name="enable_logging_summary">Включать сообщения YTD в журнал системы. Обязательно при отправке логката разработчику.</string>
-	<string name="disable_bugsense_title">Отключить BugSense</string>
-	<string name="disable_bugsense_summary">Сообщения о сбоях не будут посылаться разработчику. Не рекомендуется.</string>
-	<string name="disable_bugsense_confirm_title">Вы уверены ?</string>
-	<string name="disable_bugsense_confirm_msg">Будет тяжелее исправлять ошибки и улучшать приложение.
-\nЛичная информация собираться не будет.</string>
-	<string name="disable_bugsense_confirm_neutral">Обзор сбоя\nОбразец сообщения</string>
-	<string name="disable_bugsense_confirm_popup_title">Образец сообщения о сбое</string>
-	<string name="disable_bugsense_confirm_disable">Да,\n
-отключить</string>
-	
-	<string name="disable_bugsense_confirm_keep">Нет, оставить\n
-включенным!</string>
 </resources>

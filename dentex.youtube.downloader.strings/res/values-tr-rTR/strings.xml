@@ -333,16 +333,4 @@ For more details, look for comments in YTD\'s Java code.</string>
 	<string name="settings_cat_advanced">Advanced</string>
 	<string name="enable_logging_title">Günlük tutmayı etkinleştir</string>
 	<string name="enable_logging_summary">YTD\'s mesajlarını sistem günlüğüne ekle. Geliştiriciye sistem günlüğünü göndermek gereklidir.</string>
-	<string name="disable_bugsense_title">Hata algılamayı devre dışı bırak</string>
-	<string name="disable_bugsense_summary">Bu geliştiriciye Hata Raporları göndermez. Tavsiye edilmez.</string>
-	<string name="disable_bugsense_confirm_title">Emin misiniz?</string>
-	<string name="disable_bugsense_confirm_msg">Uygulamadaki hataları düzeltmek ve uygulamayı geliştirme daha zor olacaktır.
-\nKişisel bilgiler toplanmayacak.</string>
-	<string name="disable_bugsense_confirm_neutral">Hata\nRaporu örneği gözden geçir</string>
-	<string name="disable_bugsense_confirm_popup_title">Hata Raporu örneği</string>
-	<string name="disable_bugsense_confirm_disable">Evet,\n
-devre dışı bırak</string>
-	
-	<string name="disable_bugsense_confirm_keep">Hayır,\n
-etkin bırak!</string>
 </resources>

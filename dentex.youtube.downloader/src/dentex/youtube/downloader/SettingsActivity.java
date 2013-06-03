@@ -60,7 +60,6 @@ import android.text.format.DateUtils;
 import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 import dentex.youtube.downloader.ffmpeg.FfmpegController;
 import dentex.youtube.downloader.service.AutoUpgradeApkService;
@@ -249,67 +248,6 @@ public class SettingsActivity extends Activity {
 					String language = settings.getString("lang", "default");
 					if (!language.equals(newValue)) reload();
 					return true;
-				}
-			});
-			
-			bs = (CheckBoxPreference) findPreference("disable_bugsense");
-			bs.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-				
-				public boolean onPreferenceChange(Preference preference, Object newValue) {
-					
-					boolean disableBsEnabled = settings.getBoolean("disable_bugsense", false);
-					if (!disableBsEnabled) {
-						AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
-                        adb.setIcon(android.R.drawable.ic_dialog_alert);
-                        adb.setTitle(getString(R.string.disable_bugsense_confirm_title));
-                        adb.setMessage(getString(R.string.disable_bugsense_confirm_msg));
-                        adb.setPositiveButton(getString(R.string.disable_bugsense_confirm_disable), new DialogInterface.OnClickListener() {
-                        	
-                            public void onClick(DialogInterface dialog, int which) {
-                            	bs.setChecked(true);
-                            }
-                        });
-                        
-                        adb.setNeutralButton(getString(R.string.disable_bugsense_confirm_neutral), 
-                        		new DialogInterface.OnClickListener() {
-                        
-                        		public void onClick(DialogInterface dialog, int which) {
-	                        		// show sample
-	                        		AlertDialog.Builder helpBuilder = new AlertDialog.Builder(boxThemeContextWrapper);
-	                        	    helpBuilder.setTitle(getString(R.string.disable_bugsense_confirm_popup_title));
-	                        	    helpBuilder.setMessage(getString(R.string.disable_bugsense_report_sample));
-	                        	    helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
-	                        	    
-	                        	    helpBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-	                        	
-	                        	        public void onClick(DialogInterface dialog, int which) {
-	                        	            // Do nothing but close the dialog
-	                        	        }
-	                        	    });
-	                        	    
-	                        	    AlertDialog helpDialog = helpBuilder.create();
-	                        	    helpDialog.show();
-	                        	    
-	                        	    TextView textView = (TextView) helpDialog.findViewById(android.R.id.message);
-	                        	    textView.setTextSize(12);
-                        	}
-                        });
-                        
-                        adb.setNegativeButton(getString(R.string.disable_bugsense_confirm_keep), new DialogInterface.OnClickListener() {
-                        	
-                            public void onClick(DialogInterface dialog, int which) {
-                            	// cancel
-                            }
-                        });
-                        
-                        AlertDialog helpDialog = adb.create();
-                        if (! (getActivity()).isFinishing()) {
-                        	helpDialog.show();
-                        }
-                        return false;
-					} else {
-						return true;
-					}
 				}
 			});
 

@@ -333,16 +333,4 @@ colar no shell remoto (só irá funcionar se o PC de destino estiver dentro da m
 	<string name="settings_cat_advanced">Avançado</string>
 	<string name="enable_logging_title">Habilitar registro</string>
 	<string name="enable_logging_summary">Incluir mensagens do YTD\'s nos registros do sistema. Obrigatório para o envio de um logcat para o desenvolvedor.</string>
-	<string name="disable_bugsense_title">Desabilitar BugSense</string>
-	<string name="disable_bugsense_summary">Essa opção desativa notificações de falhas do aplicativo para o desenvolvedor. Não recomendável.</string>
-	<string name="disable_bugsense_confirm_title">Tem certeza?</string>
-	<string name="disable_bugsense_confirm_msg">Será mais difícil de corrigir bugs e melhorar esse aplicativo.
-\nNenhum dado pessoal será coletado.</string>
-	<string name="disable_bugsense_confirm_neutral">Review a Crash\nReport sample</string>
-	<string name="disable_bugsense_confirm_popup_title">Crash Report sample</string>
-	<string name="disable_bugsense_confirm_disable">Yes,\n
-	    											disable it</string>
-	
-	<string name="disable_bugsense_confirm_keep">No, keep\n
-	    										 it enabled!</string>
 </resources>

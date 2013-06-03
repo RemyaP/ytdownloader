@@ -333,16 +333,4 @@
 	<string name="settings_cat_advanced">Lisäasetukset</string>
 	<string name="enable_logging_title">Hyväksy lokitiedot</string>
 	<string name="enable_logging_summary">Include YTD\'s messages into the system log. Mandatory for sending a logcat to the developer.</string>
-	<string name="disable_bugsense_title">Disable BugSense</string>
-	<string name="disable_bugsense_summary">This will not send Crash Reports to the developer. Not recommended.</string>
-	<string name="disable_bugsense_confirm_title">Are you sure?</string>
-	<string name="disable_bugsense_confirm_msg">Will be harder to fix bugs and improve this app.
-	    \nNo personal data will be collected.</string>
-	<string name="disable_bugsense_confirm_neutral">Review a Crash\nReport sample</string>
-	<string name="disable_bugsense_confirm_popup_title">Crash Report sample</string>
-	<string name="disable_bugsense_confirm_disable">Yes,\n
-	    											disable it</string>
-	
-	<string name="disable_bugsense_confirm_keep">No, keep\n
-	    										 it enabled!</string>
 </resources>

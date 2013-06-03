@@ -214,12 +214,6 @@
             android:title="@string/enable_logging_title"
             android:summary="@string/enable_logging_summary"
             android:defaultValue="false"/>
-        
-        <CheckBoxPreference 
-            android:key="disable_bugsense"
-            android:title="@string/disable_bugsense_title"
-            android:summary="@string/disable_bugsense_summary"
-            android:defaultValue="false"/>
 
     </PreferenceCategory>
 

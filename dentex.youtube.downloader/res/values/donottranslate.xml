@@ -289,32 +289,6 @@
     
     <string name="standard_location_default">Downloads</string>
     
-    <string name="disable_bugsense_report_sample">
-        \n example based on the developer\'s device:
-        \n -------------------
-        \nOS version: 4.2.2
-        \nDevice: GT-I9100
-        \nCountry: IT
-        \n -------------------
-        \njava.lang.RuntimeException: Unable to create application dentex.youtube.downloader.YTD: java.lang.NullPointerException
-		\nat android.app.ActivityThread.handleBindApplication(ActivityThread.java:4579)
-		\nat android.app.ActivityThread.access$1300(ActivityThread.java:153)
-		\nat android.app.ActivityThread$H.handleMessage(ActivityThread.java:1307)
-		\nat android.os.Handler.dispatchMessage(Handler.java:99)
-		\nat android.os.Looper.loop(Looper.java:137)
-		\nat android.app.ActivityThread.main(ActivityThread.java:5226)
-		\nat java.lang.reflect.Method.invokeNative(Native Method)
-		\nat java.lang.reflect.Method.invoke(Method.java:511)
-		\nat com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:795)
-		\nat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:562)
-		\nat dalvik.system.NativeStart.main(Native Method)
-		\nCaused by: java.lang.NullPointerException
-		\nat dentex.youtube.downloader.utils.Utils.logger(Utils.java:275)
-		\nat dentex.youtube.downloader.YTD.onCreate(YTD.java:25)
-		\nat android.app.Instrumentation.callApplicationOnCreate(Instrumentation.java:1000)
-		\nat android.app.ActivityThread.handleBindApplication(ActivityThread.java:4576)
-		\n&#8230; 10 more</string>
-    
     <string-array name="connectbot_flavour_entries">
         <item>ConnectBot</item>
         <item>VX ConnectBot</item>

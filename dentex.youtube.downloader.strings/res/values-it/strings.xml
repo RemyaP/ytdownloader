@@ -332,16 +332,4 @@ Per maggiori dettagli, cercare tra i commenti del codice Java di YTD.</string>
 	<string name="settings_cat_advanced">Avanzate</string>
 	<string name="enable_logging_title">Abilita logging</string>
 	<string name="enable_logging_summary">Include i messaggi di YTD nel log di sistema. Obbligatorio per l\'invio di un logcat allo sviluppatore.</string>
-	<string name="disable_bugsense_title">Disabilita BugSense</string>
-	<string name="disable_bugsense_summary">Questo eviterà di mandare i Crash Report allo sviluppatore. Sconsigliato.</string>
-	<string name="disable_bugsense_confirm_title">Sei sicuro?</string>
-	<string name="disable_bugsense_confirm_msg">Sarà più difficile risolvere bug e migliorare questa app.
-\nNon verranno raccolti dati personali.</string>
-	<string name="disable_bugsense_confirm_neutral">Esamina un esempio\ndi Crash Report</string>
-	<string name="disable_bugsense_confirm_popup_title">Esempio di Crash Report</string>
-	<string name="disable_bugsense_confirm_disable">Si,\n
-Disabilitalo</string>
-	
-	<string name="disable_bugsense_confirm_keep">No, tienilo\n
-abilitato!</string>
 </resources>

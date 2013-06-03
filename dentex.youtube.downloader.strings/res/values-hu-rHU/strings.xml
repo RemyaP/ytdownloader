@@ -331,16 +331,4 @@ SSH-n való küldéshez (csak akkor működik, ha a céleszköz ugyanazon a hál
 	<string name="settings_cat_advanced">Speciális beállítások</string>
 	<string name="enable_logging_title">Naplózás engedélyezése</string>
 	<string name="enable_logging_summary">YTD üzeneteinek felvétele a rendszernaplóba. Kötelező logcat küldéséhez a fejlesztőnek.</string>
-	<string name="disable_bugsense_title">Bugsense letiltása</string>
-	<string name="disable_bugsense_summary">Hiba esetén nem kap a fejlesztő jelentést. Nem ajánlott.</string>
-	<string name="disable_bugsense_confirm_title">Biztos vagy benne?</string>
-	<string name="disable_bugsense_confirm_msg">Nehezebb lesz a hibák javítása, és az app fejlesztése.
-\nNévtelen adatok lesznek küldve.</string>
-	<string name="disable_bugsense_confirm_neutral">Jelentés átnézése\nJelentés minta</string>
-	<string name="disable_bugsense_confirm_popup_title">Hibajelentési minta</string>
-	<string name="disable_bugsense_confirm_disable">Igen,\n
-tiltsd le.</string>
-	
-	<string name="disable_bugsense_confirm_keep">Ne, hagyd\n
-engedélyezve!</string>
 </resources>

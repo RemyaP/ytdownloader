@@ -331,18 +331,4 @@ pour coller dans le terminal distant (fonctionnera SEULEMENT si le PC de destina
 	<string name="settings_cat_advanced">Paramètres avancés</string>
 	<string name="enable_logging_title">Activer la journalisation (logs)</string>
 	<string name="enable_logging_summary">Ajouter les messages d\'YTD dans le journal système. Obligatoire pour l\'envoi d\'un rapport au développeur.</string>
-	<string name="disable_bugsense_title">Désactiver BugSense</string>
-	<string name="disable_bugsense_summary">Ceci n\'enverra pas de rapports de crash au développeur. Non recommandé.</string>
-	<string name="disable_bugsense_confirm_title">Etes-vous sûr ?</string>
-	<string name="disable_bugsense_confirm_msg">Plus difficile de corriger les bugs et améliorer cette app.
-\nAucunes données personnelles ne seront collectées.
-
-</string>
-	<string name="disable_bugsense_confirm_neutral">Voir un exemple de Rapport\nde bug</string>
-	<string name="disable_bugsense_confirm_popup_title">Exemple de rapport de crash</string>
-	<string name="disable_bugsense_confirm_disable">Yes,\n
-	    											disable it</string>
-	
-	<string name="disable_bugsense_confirm_keep">No, keep\n
-	    										 it enabled!</string>
 </resources>

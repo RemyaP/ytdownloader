@@ -324,16 +324,4 @@ the content is CC BY-SA 3.0 licensed (see <http>http://creativecommons.org/licen
 	<string name="settings_cat_advanced">고급설정</string>
 	<string name="enable_logging_title">로깅 활성화</string>
 	<string name="enable_logging_summary">유튜브 다운로더의 로그를 시스템 로그에 남깁니다. 개발자에게 디버깅 정보를 보내려면 반드시 필요합니다.</string>
-	<string name="disable_bugsense_title"> BugSense 끄기</string>
-	<string name="disable_bugsense_summary">개발자에게 오류 정보를 보내지 않습니다. 추천하지 않는 방법입니다.</string>
-	<string name="disable_bugsense_confirm_title">확실합니까?</string>
-	<string name="disable_bugsense_confirm_msg">이 앱을 개선하고 버그를 수정하기 어려워집니다.
-\n어떠한 개인 정보도 수집하지 않습니다.</string>
-	<string name="disable_bugsense_confirm_neutral">충돌 정보\n샘플 보기</string>
-	<string name="disable_bugsense_confirm_popup_title">충돌 정보 샘플</string>
-	<string name="disable_bugsense_confirm_disable">예\n
-기능을 끕니다</string>
-	
-	<string name="disable_bugsense_confirm_keep">아니오\n
-기능을 유지합니다!</string>
 </resources>

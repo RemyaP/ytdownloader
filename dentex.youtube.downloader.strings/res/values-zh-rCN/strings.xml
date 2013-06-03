@@ -326,14 +326,4 @@ For more details, look for comments in YTD\'s Java code.</string>
 	<string name="settings_cat_advanced">高级</string>
 	<string name="enable_logging_title">允许纪录</string>
 	<string name="enable_logging_summary">包括 YTD 的资讯进入系统纪录。强制传送 logcat 至开发者。</string>
-	<string name="disable_bugsense_title">关闭 BugSense</string>
-	<string name="disable_bugsense_summary">这将不会寄送崩溃报告至开发者。不建议。</string>
-	<string name="disable_bugsense_confirm_title">你确定吗？</string>
-	<string name="disable_bugsense_confirm_msg">将会更难修正错误和改善此程式。
-\n不会搜集个人资料。</string>
-	<string name="disable_bugsense_confirm_neutral">简阅一个崩溃报告样本</string>
-	<string name="disable_bugsense_confirm_popup_title">崩溃报告样本</string>
-	<string name="disable_bugsense_confirm_disable">是，\n关闭它</string>
-	
-	<string name="disable_bugsense_confirm_keep">不，继续允许它！</string>
 </resources>

@@ -50,7 +50,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
@@ -69,8 +68,6 @@ import dentex.youtube.downloader.utils.Utils;
 
 public class AutoUpgradeApkService extends Service {
 	
-	SharedPreferences settings = YTD.settings;
-	final String PREFS_NAME = YTD.PREFS_NAME;
 	private String currentVersion;
 	private String apkFilename;
 	private static final String DEBUG_TAG = "AutoUpgradeApkService";
@@ -96,10 +93,7 @@ public class AutoUpgradeApkService extends Service {
 	@Override
 	public void onCreate() {
 		Utils.logger("d", "service created", DEBUG_TAG);
-		settings = getSharedPreferences(PREFS_NAME, 0);
-		if (!settings.getBoolean("disable_bugsense", false)) {
-        	BugSenseHandler.initAndStartSession(this, YTD.BugsenseApiKey);
-		}
+		BugSenseHandler.initAndStartSession(this, YTD.BugsenseApiKey);
 		registerReceiver(apkReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 		
 		try {
