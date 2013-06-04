@@ -6,7 +6,8 @@
     <string name="title_activity_about">이 앱에 대하여</string>
     <string name="title_activity_donate">기부</string>
     <string name="title_activity_tutorials">튜토리얼</string>
-    <string name="title_activity_translators_show">번역에 도움을 준 분들</string>    
+    <string name="title_activity_translators_show">번역에 도움을 준 분들</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -137,8 +138,7 @@
     <!-- ### preferences ### -->
 
     <!-- -->
-    <string name="dm_title">다운로드</string>
-    <string name="dm_summary">시스템의 다운로드 관리자를 엽니다</string>
+    <string name="dashboard_summary">Open YTD\'s Dashboard</string>
 
     <!-- -->
     <string name="settings_cat_ui">사용자 인터페이스</string>

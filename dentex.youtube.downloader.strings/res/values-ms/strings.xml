@@ -6,7 +6,8 @@
     <string name="title_activity_about">About</string>
     <string name="title_activity_donate">Donations</string>
     <string name="title_activity_tutorials">Tutorials</string>
-    <string name="title_activity_translators_show">Translators</string>    
+    <string name="title_activity_translators_show">Translators</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -138,8 +139,7 @@ diingini. PASTE command tersebut (gunakan butang menu) dan tekan ENTER.</string>
     <!-- ### preferences ### -->
 
     <!-- -->
-    <string name="dm_title">Downloads</string>
-    <string name="dm_summary">Buka system\'s Pengurus Muat turun</string>
+    <string name="dashboard_summary">Open YTD\'s Dashboard</string>
 
     <!-- -->
     <string name="settings_cat_ui">User Interface</string>

@@ -6,7 +6,8 @@
     <string name="title_activity_about">About</string>
     <string name="title_activity_donate">Donations</string>
     <string name="title_activity_tutorials">تعليم</string>
-    <string name="title_activity_translators_show">Translators</string>    
+    <string name="title_activity_translators_show">Translators</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -136,8 +137,7 @@
     <!-- ### preferences ### -->
 
     <!-- -->
-    <string name="dm_title">Downloads</string>
-    <string name="dm_summary">فتح مدير التحميل بالنظام</string>
+    <string name="dashboard_summary">Open YTD\'s Dashboard</string>
 
     <!-- -->
     <string name="settings_cat_ui">واجهة المستخدم</string>

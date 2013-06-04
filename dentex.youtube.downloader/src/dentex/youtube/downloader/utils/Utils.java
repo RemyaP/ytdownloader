@@ -43,6 +43,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -177,6 +178,29 @@ public class Utils {
     }
     
     // --------------------------------------------------------------------------
+    
+    /*
+     *  method MakeSizeHumanReadable(int bytes, boolean si) from Stack Overflow:
+	 * http://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into-human-readable-format-in-java
+	 * 
+	 * Q: http://stackoverflow.com/users/404615/iimuhin
+	 * A: http://stackoverflow.com/users/276052/aioobe
+	 */
+	 
+	@SuppressLint("DefaultLocale")
+	public static String MakeSizeHumanReadable(int bytes, boolean si) {
+		String hr;
+		int unit = si ? 1000 : 1024;
+	    if (bytes < unit) {
+	    	hr = bytes + " B";
+		} else {
+			int exp = (int) (Math.log(bytes) / Math.log(unit));
+			String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
+			hr = String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+		}
+		hr = hr.replace("-1 B", "n.a.");
+	    return hr;
+	}
     
 	/* class VersionComparator from Stack Overflow:
 	 * 

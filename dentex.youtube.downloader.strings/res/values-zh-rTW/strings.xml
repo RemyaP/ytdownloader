@@ -6,7 +6,8 @@
     <string name="title_activity_about">關於</string>
     <string name="title_activity_donate">捐贈</string>
     <string name="title_activity_tutorials">教學</string>
-    <string name="title_activity_translators_show">翻譯者</string>    
+    <string name="title_activity_translators_show">翻譯者</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -136,8 +137,7 @@
     <!-- ### preferences ### -->
 
     <!-- -->
-    <string name="dm_title">下載</string>
-    <string name="dm_summary">開啟系統下載管理員</string>
+    <string name="dashboard_summary">Open YTD\'s Dashboard</string>
 
     <!-- -->
     <string name="settings_cat_ui">使用者介面</string>

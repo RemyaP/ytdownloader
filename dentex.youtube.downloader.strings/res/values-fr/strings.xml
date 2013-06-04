@@ -6,7 +6,8 @@
     <string name="title_activity_about">A propos</string>
     <string name="title_activity_donate">Faire un don</string>
     <string name="title_activity_tutorials">Tutoriels</string>
-    <string name="title_activity_translators_show">Traducteurs</string>    
+    <string name="title_activity_translators_show">Traducteurs</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -138,8 +139,7 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
     <!-- ### preferences ### -->
 
     <!-- -->
-    <string name="dm_title">Téléchargements</string>
-    <string name="dm_summary">Ouvrir le gestionnaire de téléchargements du système</string>
+    <string name="dashboard_summary">Open YTD\'s Dashboard</string>
 
     <!-- -->
     <string name="settings_cat_ui">Interface utilisateur</string>

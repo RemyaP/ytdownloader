@@ -45,9 +45,6 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.bugsense.trace.BugSenseHandler;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -93,6 +90,9 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bugsense.trace.BugSenseHandler;
+
 import dentex.youtube.downloader.service.DownloadsService;
 import dentex.youtube.downloader.utils.Observer;
 import dentex.youtube.downloader.utils.PopUps;
@@ -162,21 +162,20 @@ public class ShareActivity extends Activity {
 	public static NotificationCompat.Builder mBuilder;
 	public static String onlineVersion;
 	public static List<Long> sequence = new ArrayList<Long>();
-	String audioFilename = "audio";
-	public static String audioCodec = "";
-	private boolean audioExtractionEnabled;
+	//String audioFilename = "audio";
+	//public static String audioCodec = "";
+	//private boolean audioExtractionEnabled;
 	public static Context mContext;
 	boolean showSizesInVideoList;
 	boolean showSingleSize;
 	ContextThemeWrapper boxThemeContextWrapper = new ContextThemeWrapper(this, R.style.BoxTheme);
 	public int count;
-	public String acodec = "";
-	public String extrType;
-	public String aquality;
-	public boolean audioExtrEnabled = false;
-	public CheckBox audioConfirm;
+	//public String acodec = "";
+	//public String extrType;
+	//public String aquality;
+	//public boolean audioExtrEnabled = false;
+	//public CheckBox audioConfirm;
 
-    @SuppressLint("CutPasteId")
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -266,13 +265,8 @@ public class ShareActivity extends Activity {
         	case R.id.menu_about:
         		startActivity(new Intent(this, AboutActivity.class));
         		return true;
-        	case R.id.menu_dm:
-        		Intent viewIntent = new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS);
-        		if(viewIntent.resolveActivity(getPackageManager()) != null) {
-        			startActivity(viewIntent);
-        		} else {
-        			Toast.makeText(this, getString(R.string.no_downloads_sys_app), Toast.LENGTH_LONG).show();
-        		}
+        	case R.id.menu_dashboard:
+        		startActivity(new Intent(this, DashboardActivity.class));
         		return true;
         	case R.id.menu_tutorials:
         		startActivity(new Intent(this, TutorialsActivity.class));
@@ -499,7 +493,7 @@ public class ShareActivity extends Activity {
                     helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
                     helpBuilder.setTitle(getString(R.string.list_click_dialog_title));
                     
-                    insertAudioConfirmation();
+                    //insertAudioConfirmation();
                     
                     if (showSizesInVideoList) {
                     	showSingleSize = true;
@@ -544,7 +538,7 @@ public class ShareActivity extends Activity {
 		                    	    	public void onClick(DialogInterface dialog, int which) {
 		                    	    		title = userFilename.getText().toString();
 		                    	    		composedVideoFilename = composeVideoFilename();
-		                    	    		manageAudioFeature();
+		                    	    		//manageAudioFeature();
 											callDownloadManager(links.get(pos));
 		                    	    	}
 		                    	    });
@@ -553,7 +547,7 @@ public class ShareActivity extends Activity {
 		                    	    }
 	                            } else {
 	                            	composedVideoFilename = composeVideoFilename();
-	                            	manageAudioFeature();
+	                            	//manageAudioFeature();
 	                            	callDownloadManager(links.get(pos));
 	                            }
                         	} catch (IndexOutOfBoundsException e) {
@@ -561,14 +555,14 @@ public class ShareActivity extends Activity {
     						}
                         }
 
-						public void manageAudioFeature() {
+						/*public void manageAudioFeature() {
 							audioExtractionEnabled = settings.getBoolean("enable_audio_extraction", false);
 							if (audioExtractionEnabled == true) {
 								audioCodec = findAudioCodec();
 								settings.edit().putString(composedVideoFilename + "FFext", audioCodec).apply();
 							}
 							settings.edit().putString(composedVideoFilename + "FFbase", title).apply();
-						}
+						}*/
                     });
 					
                     // show central button for SSH send if enabled in prefs
@@ -657,7 +651,7 @@ public class ShareActivity extends Activity {
 			cb.setPrimaryClip(cmd);
 		}
 		
-		private void insertAudioConfirmation() {
+		/*private void insertAudioConfirmation() {
 			boolean fromPrefs = settings.getBoolean("enable_audio_extraction", false);
 			if (fromPrefs) {
 				LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
@@ -668,15 +662,10 @@ public class ShareActivity extends Activity {
 				audioConfirm.setChecked(false);
 				helpBuilder.setView(handleAudio);
 			}
-		}
+		}*/
         
 		private boolean useQualitySuffix() {
         	boolean enabled = settings.getBoolean("enable_q_suffix", true);
-        	return enabled;
-        }
-        
-		private boolean useAudioQualitySuffix() {
-        	boolean enabled = settings.getBoolean("enable_audio_q_suffix", true);
         	return enabled;
         }
         
@@ -690,7 +679,7 @@ public class ShareActivity extends Activity {
     	    return videoFilename;
         }
 
-		private String findAudioCodec() {
+		/*private String findAudioCodec() {
         	//CODEC [file EXTENSION]
         	extrType = settings.getString("audio_extraction_type", "extr");
     		if (extrType.equals("conv")) {
@@ -704,14 +693,14 @@ public class ShareActivity extends Activity {
     		    if (codecs.get(pos).equals("3gpp")) acodec = ".aac";
     		}
     		//QUALITY
-        	if (useAudioQualitySuffix()&& extrType.equals("conv")) {
+        	if (extrType.equals("conv")) {
         		aquality = "_" + settings.getString("mp3_bitrate", "192k");
         	} else { 
         		aquality = "";
         	}
         	//FINALLY
         	return aquality + acodec;
-        }
+        }*/
 
 		private void callConnectBot() {
         	Context context = getApplicationContext();
@@ -845,13 +834,13 @@ public class ShareActivity extends Activity {
     	Intent intent1 = new Intent(ShareActivity.this, DownloadsService.class);
     	intent1.putExtra("COPY", false);
     	
-    	audioExtrEnabled = settings.getBoolean("enable_audio_extraction", false);
+    	/*audioExtrEnabled = settings.getBoolean("enable_audio_extraction", false);
     	if (audioExtractionEnabled && audioConfirm.isChecked()) {
     		intent1.putExtra("AUDIO", extrType);
     	} else {
     		intent1.putExtra("AUDIO", "none");
-    	}
-    	
+    	}*/
+
 		try {
 			try {
 				enqueue = dm.enqueue(request);
@@ -959,12 +948,7 @@ public class ShareActivity extends Activity {
     	
     	mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
     	
-    	Intent notificationIntent = new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS);
-    	if(notificationIntent.resolveActivity(mContext.getPackageManager()) != null) {
-    		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-    	} else {
-    		Log.e(DEBUG_TAG, "notificationIntent not resolved");
-    	}
+    	Intent notificationIntent = new Intent(mContext, DashboardActivity.class);
     	PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0, notificationIntent, 0);
     	mBuilder.setContentIntent(contentIntent);
     	mId = 1;
@@ -1235,34 +1219,11 @@ public class ShareActivity extends Activity {
 			HttpURLConnection ucon = (HttpURLConnection) uri.openConnection();
 			ucon.connect();
 			int file_size = ucon.getContentLength();
-			size = MakeSizeHumanReadable(file_size, true);
+			size = Utils.MakeSizeHumanReadable(file_size, true);
 		} catch(IOException e) {
 			size = "n.a.";
 		}
 		return size;
-	}
-
-    /*
-     *  method MakeSizeHumanReadable(int bytes, boolean si) from Stack Overflow:
-	 * http://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into-human-readable-format-in-java
-	 * 
-	 * Q: http://stackoverflow.com/users/404615/iimuhin
-	 * A: http://stackoverflow.com/users/276052/aioobe
-	 */
-	 
-	@SuppressLint("DefaultLocale")
-	private String MakeSizeHumanReadable(int bytes, boolean si) {
-		String hr;
-		int unit = si ? 1000 : 1024;
-	    if (bytes < unit) {
-	    	hr = bytes + " B";
-		} else {
-			int exp = (int) (Math.log(bytes) / Math.log(unit));
-			String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
-			hr = String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
-		}
-		hr = hr.replace("-1 B", "n.a.");
-	    return hr;
 	}
 
     private void codecMatcher(String currentCQ, int i) {
@@ -1354,12 +1315,7 @@ public class ShareActivity extends Activity {
 			//Utils.logger("d", "inAppCompleteReceiver: onReceive CALLED", DEBUG_TAG);
 	        long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -2);
 	        
-	        boolean audioConfirmed = false;
-	        if (audioConfirm != null && audioConfirm.isChecked()) {
-	        	audioConfirmed = true;
-	        }
-	        
-	        if (enqueue != -1 && id != -2 && id == enqueue && !videoOnExt && !audioConfirmed) {
+	        if (enqueue != -1 && id != -2 && id == enqueue && !videoOnExt) {
 	            Query query = new Query();
 	            query.setFilterById(id);
 	            Cursor c = dm.query(query);

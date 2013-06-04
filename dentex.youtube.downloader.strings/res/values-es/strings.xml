@@ -6,7 +6,8 @@
     <string name="title_activity_about">Información </string>
     <string name="title_activity_donate">Donaciones</string>
     <string name="title_activity_tutorials">Tutoriales</string>
-    <string name="title_activity_translators_show">Traductores</string>    
+    <string name="title_activity_translators_show">Traductores</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -138,8 +139,7 @@ directorio deseado, COPIE la línea (use el botón de menú) y teclee ENTER. </s
     <!-- ### preferences ### -->
 
     <!-- -->
-    <string name="dm_title">Descargas</string>
-    <string name="dm_summary">Abrir el Administrador de Descargas del sistema</string>
+    <string name="dashboard_summary">Open YTD\'s Dashboard</string>
 
     <!-- -->
     <string name="settings_cat_ui">Interfaz de Usuario</string>

@@ -6,7 +6,8 @@
     <string name="title_activity_about">Névjegy</string>
     <string name="title_activity_donate">Adományok</string>
     <string name="title_activity_tutorials">Oktatások</string>
-    <string name="title_activity_translators_show">Fordítók</string>    
+    <string name="title_activity_translators_show">Fordítók</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -138,8 +139,7 @@ illeszd be a parancsot (a menü gombal), és nyomd meg az ENTER-t.</string>
     <!-- ### preferences ### -->
 
     <!-- -->
-    <string name="dm_title">Letöltések</string>
-    <string name="dm_summary">Letöltéskezelő megnyitása (rendszer)</string>
+    <string name="dashboard_summary">Open YTD\'s Dashboard</string>
 
     <!-- -->
     <string name="settings_cat_ui">Felhasználói felület</string>

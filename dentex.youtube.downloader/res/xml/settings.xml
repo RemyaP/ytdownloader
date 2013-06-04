@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <!-- <Preference    
-		android:key="dm"
-		android:title="@string/dm_title"
-		android:summary="@string/dm_summary"/> -->
+    <Preference    
+		android:key="dashboard"
+		android:title="@string/title_activity_dashboard"
+		android:summary="@string/dashboard_summary"/>
     
     <PreferenceCategory
     	android:title="@string/settings_cat_folder">
@@ -93,20 +93,6 @@
             android:entries="@array/mp3_bitrate_entries"
             android:entryValues="@array/mp3_bitrate_entry_values"
             android:defaultValue="@string/mp3_bitrate_default" />
-        
-        <CheckBoxPreference
-        	android:key="enable_audio_q_suffix"
-        	android:dependency="enable_audio_extraction"
-        	android:title="@string/enable_audio_q_suffix_title"
-        	android:summary="@string/enable_audio_q_suffix_summary"
-        	android:defaultValue="true" />
-        
-        <CheckBoxPreference
-        	android:key="remove_video"
-        	android:dependency="enable_audio_extraction"
-        	android:title="@string/remove_video_title"
-            android:summary="@string/remove_video_summary"
-            android:defaultValue="false" />
             
 	</PreferenceCategory>
 

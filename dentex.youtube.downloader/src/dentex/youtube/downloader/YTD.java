@@ -51,19 +51,22 @@ public class YTD extends Application {
 	public static SharedPreferences settings;
 	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
 	
+	public static SharedPreferences dashboard;
+	public static final String DASHBOARD_NAME = "dentex.youtube.downloader_dashboard";
+	
 	@Override
     public void onCreate() {
 		Log.d(DEBUG_TAG, "onCreate");
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		
-        BugSenseHandler.initAndStartSession(getApplicationContext(), BugsenseApiKey);
+        //BugSenseHandler.initAndStartSession(getApplicationContext(), BugsenseApiKey);
 		
 		checkDownloadProvider(".apk");
 		checkDownloadProvider("Ui.apk");
         	
         super.onCreate();
 	}
-
+	
 	private void checkDownloadProvider(String suffix) {
 		File downProvSysApp = new File("/system/app/DownloadProvider" + suffix);
 		if (downProvSysApp.exists()) {

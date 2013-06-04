@@ -6,7 +6,8 @@
     <string name="title_activity_about">О программе</string>
     <string name="title_activity_donate">Пожертвования</string>
     <string name="title_activity_tutorials">Руководства</string>
-    <string name="title_activity_translators_show">Переводчики</string>    
+    <string name="title_activity_translators_show">Переводчики</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -138,8 +139,7 @@
     <!-- ### preferences ### -->
 
     <!-- -->
-    <string name="dm_title">Загрузки</string>
-    <string name="dm_summary">Открыть системный диспетчер загрузок</string>
+    <string name="dashboard_summary">Open YTD\'s Dashboard</string>
 
     <!-- -->
     <string name="settings_cat_ui">Пользовательский интерфейс</string>

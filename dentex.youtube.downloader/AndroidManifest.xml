@@ -21,9 +21,7 @@
         android:allowBackup="true"
         android:icon="@drawable/icon_new"
         android:label="@string/app_name" >
-        
         <service android:name="group.pals.android.lib.ui.filechooser.services.LocalFileProvider" />
-        
         <activity
             android:name="group.pals.android.lib.ui.filechooser.FileChooserActivity"
             android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
@@ -36,32 +34,50 @@
             android:label="@string/title_activity_share" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.BROWSABLE" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="http" android:host="www.youtube.com"/>
+
+                <data
+                    android:host="www.youtube.com"
+                    android:scheme="http" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.BROWSABLE" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="https" android:host="www.youtube.com"/>
+
+                <data
+                    android:host="www.youtube.com"
+                    android:scheme="https" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.BROWSABLE" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="http" android:host="m.youtube.com"/>
+
+                <data
+                    android:host="m.youtube.com"
+                    android:scheme="http" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.BROWSABLE" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="https" android:host="m.youtube.com"/>
+
+                <data
+                    android:host="m.youtube.com"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
         <activity
@@ -159,6 +175,13 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="dentex.youtube.downloader.AboutActivity" />
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.DashboardActivity"
+            android:label="@string/title_activity_dashboard" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="dentex.youtube.downloader.SettingsActivity" />
         </activity>
     </application>
 

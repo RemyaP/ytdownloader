@@ -6,7 +6,8 @@
     <string name="title_activity_about">Hakkinda</string>
     <string name="title_activity_donate">Bağışlar</string>
     <string name="title_activity_tutorials">Rehberler</string>
-    <string name="title_activity_translators_show">Tercüme Edenler</string>    
+    <string name="title_activity_translators_show">Tercüme Edenler</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -138,8 +139,7 @@
     <!-- ### preferences ### -->
 
     <!-- -->
-    <string name="dm_title">İndirmeler</string>
-    <string name="dm_summary">Sistem İndirme Yöneticisini Aç</string>
+    <string name="dashboard_summary">Open YTD\'s Dashboard</string>
 
     <!-- -->
     <string name="settings_cat_ui">Kullanıcı Arabirimi</string>

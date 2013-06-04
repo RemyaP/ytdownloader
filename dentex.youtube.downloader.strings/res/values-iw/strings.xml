@@ -6,7 +6,8 @@
     <string name="title_activity_about">אודות</string>
     <string name="title_activity_donate">תרומות</string>
     <string name="title_activity_tutorials">הדרכות</string>
-    <string name="title_activity_translators_show">מתרגמים</string>    
+    <string name="title_activity_translators_show">מתרגמים</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -137,8 +138,7 @@ ssh ללחוץ על פריט בשביל להוריד את הווידיאו על 
     <!-- ### preferences ### -->
 
     <!-- -->
-    <string name="dm_title">הורדות</string>
-    <string name="dm_summary">פתח את מנהל ההורדות\'s של המערכת.</string>
+    <string name="dashboard_summary">Open YTD\'s Dashboard</string>
 
     <!-- -->
     <string name="settings_cat_ui">ממשק משתמש</string>

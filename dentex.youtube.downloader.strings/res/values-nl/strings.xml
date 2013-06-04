@@ -6,7 +6,8 @@
     <string name="title_activity_about">Over</string>
     <string name="title_activity_donate">Schenkingen</string>
     <string name="title_activity_tutorials">Tutorials</string>
-    <string name="title_activity_translators_show">Translators</string>    
+    <string name="title_activity_translators_show">Translators</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -138,8 +139,7 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     <!-- ### preferences ### -->
 
     <!-- -->
-    <string name="dm_title">Downloads</string>
-    <string name="dm_summary">Open system\'s Download Manager</string>
+    <string name="dashboard_summary">Open YTD\'s Dashboard</string>
 
     <!-- -->
     <string name="settings_cat_ui">Gebruikersinterface</string>

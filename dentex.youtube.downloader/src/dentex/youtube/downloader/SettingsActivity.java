@@ -115,14 +115,9 @@ public class SettingsActivity extends Activity {
         	case R.id.menu_about:
         		startActivity(new Intent(this, AboutActivity.class));
         		return true;
-        	case R.id.menu_dm:
-        		Intent viewIntent = new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS);
-        		if(viewIntent.resolveActivity(getPackageManager()) != null) {
-        			startActivity(viewIntent);
-        		} else {
-        			Toast.makeText(this, getString(R.string.no_downloads_sys_app), Toast.LENGTH_LONG).show();
-        		}
-        		return true;
+        	/*case R.id.menu_dashboard:
+        		startActivity(new Intent(this, DashboardActivity.class));
+        		return true;*/
         	case R.id.menu_tutorials:
         		startActivity(new Intent(this, TutorialsActivity.class));
         		return true;
@@ -133,7 +128,7 @@ public class SettingsActivity extends Activity {
 
 	public static class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {
     	
-		//private Preference dm;
+		private Preference dashboard;
 		private Preference filechooser;
 		private Preference up;
 		private CheckBoxPreference ownNot;
@@ -173,19 +168,14 @@ public class SettingsActivity extends Activity {
                 initSummary(getPreferenceScreen().getPreference(i));
             }
 
-            /*dm = (Preference) findPreference("dm");
-            dm.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            dashboard = (Preference) findPreference("dashboard");
+            dashboard.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             	
                 public boolean onPreferenceClick(Preference preference) {
-                	Intent viewIntent = new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS);
-	        		if(viewIntent.resolveActivity(getPackageManager()) != null) {
-	        			startActivity(viewIntent);
-	        		} else {
-	        			Toast.makeText(getActivity(), getActivity().getString(R.string.error), Toast.LENGTH_LONG).show();
-	        		}
+                	startActivity(new Intent(getActivity(), DashboardActivity.class));
                     return true;
                 }
-            });*/
+            });
             
             filechooser = (Preference) getPreferenceScreen().findPreference("open_chooser");
             filechooser.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -205,8 +195,7 @@ public class SettingsActivity extends Activity {
             up.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             	
                 public boolean onPreferenceClick(Preference preference) {
-                	Intent intent = new Intent(getActivity(),  UpgradeApkActivity.class);
-    		        startActivity(intent);
+    		        startActivity(new Intent(getActivity(),  UpgradeApkActivity.class));
 		            return true;
                 }
             });

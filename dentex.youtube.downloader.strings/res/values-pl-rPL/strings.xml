@@ -6,7 +6,8 @@
     <string name="title_activity_about">O programie</string>
     <string name="title_activity_donate">Darowizna</string>
     <string name="title_activity_tutorials">Poradnik</string>
-    <string name="title_activity_translators_show">Tłumacze</string>    
+    <string name="title_activity_translators_show">Tłumacze</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -139,8 +140,7 @@ Pobrać je teraz?</string>
     <!-- ### preferences ### -->
 
     <!-- -->
-    <string name="dm_title">Pobrane</string>
-    <string name="dm_summary">Otwórz systemowy\'s menadżer pobierania</string>
+    <string name="dashboard_summary">Open YTD\'s Dashboard</string>
 
     <!-- -->
     <string name="settings_cat_ui">Interfejs użytkownika</string>

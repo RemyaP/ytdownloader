@@ -6,7 +6,8 @@
     <string name="title_activity_about">Informazioni</string>
     <string name="title_activity_donate">Donazioni</string>
     <string name="title_activity_tutorials">Guide</string>
-    <string name="title_activity_translators_show">Traduttori</string>    
+    <string name="title_activity_translators_show">Traduttori</string>
+    <string name="title_activity_dashboard">Dashboard</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -138,8 +139,7 @@
     <!-- ### preferences ### -->
 
     <!-- -->
-    <string name="dm_title">Downloads</string>
-    <string name="dm_summary">Apri il Download Manager di sistema</string>
+    <string name="dashboard_summary">Apri la Dashboard di YTD</string>
 
     <!-- -->
     <string name="settings_cat_ui">Interfaccia utente</string>
