@@ -44,14 +44,14 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+import dentex.youtube.downloader.utils.Constants;
 import dentex.youtube.downloader.utils.Utils;
 
-public class DonateActivity extends Activity {
+public class DonateActivity extends Activity implements Constants {
 	
 	public static final String DEBUG_TAG = "DonateActivity";
 	public static String chooserSummary;
 	static SharedPreferences settings = YTD.settings;
-	static final String PREFS_NAME = YTD.PREFS_NAME;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {

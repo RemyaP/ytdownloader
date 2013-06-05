@@ -36,15 +36,15 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.view.Window;
+import dentex.youtube.downloader.utils.Constants;
 import dentex.youtube.downloader.utils.PopUps;
 import dentex.youtube.downloader.utils.Utils;
 
-public class TutorialsActivity extends Activity {
+public class TutorialsActivity extends Activity implements Constants {
 	
 	public static final String DEBUG_TAG = "TutorialsActivity";
 	public static String chooserSummary;
 	static SharedPreferences settings = YTD.settings;
-	static final String PREFS_NAME = YTD.PREFS_NAME;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -50,15 +50,15 @@ import dentex.youtube.downloader.docs.GplShowActivity;
 import dentex.youtube.downloader.docs.LgplShowActivity;
 import dentex.youtube.downloader.docs.MitShowActivity;
 import dentex.youtube.downloader.docs.TranslatorsListActivity;
+import dentex.youtube.downloader.utils.Constants;
 import dentex.youtube.downloader.utils.PopUps;
 import dentex.youtube.downloader.utils.Utils;
 
-public class AboutActivity extends Activity {
+public class AboutActivity extends Activity implements Constants {
 	
 	public static final String DEBUG_TAG = "AboutActivity";
 	public static String chooserSummary;
 	static SharedPreferences settings = YTD.settings;
-	static final String PREFS_NAME = YTD.PREFS_NAME;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {

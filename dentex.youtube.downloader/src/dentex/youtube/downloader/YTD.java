@@ -35,9 +35,10 @@ import android.util.Log;
 
 import com.bugsense.trace.BugSenseHandler;
 
+import dentex.youtube.downloader.utils.Constants;
 import dentex.youtube.downloader.utils.PopUps;
 
-public class YTD extends Application {
+public class YTD extends Application implements Constants {
 	
 	static String DEBUG_TAG = "YTD";
 	
@@ -49,10 +50,7 @@ public class YTD extends Application {
 	public static String BugsenseApiKey = "b9d46d82";  // <--- see comment above!
 
 	public static SharedPreferences settings;
-	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
-	
 	public static SharedPreferences dashboard;
-	public static final String DASHBOARD_NAME = "dentex.youtube.downloader_dashboard";
 	
 	@Override
     public void onCreate() {

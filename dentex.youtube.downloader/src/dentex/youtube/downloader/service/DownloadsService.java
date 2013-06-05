@@ -30,6 +30,9 @@ package dentex.youtube.downloader.service;
 import java.io.File;
 import java.io.IOException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.DownloadManager;
 import android.app.DownloadManager.Query;
 import android.app.NotificationManager;
@@ -49,15 +52,14 @@ import android.widget.Toast;
 import dentex.youtube.downloader.R;
 import dentex.youtube.downloader.ShareActivity;
 import dentex.youtube.downloader.YTD;
+import dentex.youtube.downloader.utils.Constants;
 import dentex.youtube.downloader.utils.Utils;
 
-public class DownloadsService extends Service {
+public class DownloadsService extends Service implements Constants {
 	
 	private final static String DEBUG_TAG = "DownloadsService";
 	private SharedPreferences settings = YTD.settings;
-	private String PREFS_NAME = YTD.PREFS_NAME;
-	//private SharedPreferences dashboard = YTD.dashboard;
-	//private String DASHBOARD_NAME = YTD.DASHBOARD_NAME;
+	private SharedPreferences dashboard = YTD.dashboard;
 	public static boolean copyEnabled;
 	public static Context nContext;
 
@@ -73,6 +75,8 @@ public class DownloadsService extends Service {
 		//BugSenseHandler.initAndStartSession(this, YTD.BugsenseApiKey);
 		
 		settings = getSharedPreferences(PREFS_NAME, 0);
+		dashboard = getSharedPreferences(DASHBOARD_NAME, 0);
+		
 		nContext = getBaseContext();
 		registerReceiver(downloadComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 	}
@@ -105,7 +109,8 @@ public class DownloadsService extends Service {
     	public void onReceive(final Context context, Intent intent) {
     		Utils.logger("d", "downloadComplete: onReceive CALLED", DEBUG_TAG);
     		long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-    		String vfilename = settings.getString(String.valueOf(id), "video");
+    		int ID = (int) id;
+    		String vfilename = dashboard.getString(String.valueOf(id) + DASHBOARD_FILENAME, "video");
     		
 			Query query = new Query();
 			query.setFilterById(id);
@@ -117,15 +122,14 @@ public class DownloadsService extends Service {
 				int status = c.getInt(statusIndex);
 				int reason = c.getInt(reasonIndex);
 				
-				/*int sizeIndex = c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
+				int sizeIndex = c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
 				int sizeRaw = c.getInt(sizeIndex);
-				String size = Utils.MakeSizeHumanReadable(sizeRaw, true);*/
+				String size = Utils.MakeSizeHumanReadable(sizeRaw, true);
 
 				switch (status) {
 				
 				case DownloadManager.STATUS_SUCCESSFUL:
 					Utils.logger("d", "_ID " + id + " SUCCESSFUL (status " + status + ")", DEBUG_TAG);
-					int ID = (int) id;
 					
 					// copy job notification init
 					NotificationCompat.Builder cBuilder =  new NotificationCompat.Builder(context);
@@ -189,10 +193,6 @@ public class DownloadsService extends Service {
 				        				size,
 				        				false);*/
 				        	}
-							
-							// db
-							
-							
 						} catch (IOException e) {
 							// Toast + Notification + Log ::: Copy FAILED
 							Toast.makeText(context, vfilename + ": " + getString(R.string.copy_error), Toast.LENGTH_LONG).show();
@@ -205,6 +205,33 @@ public class DownloadsService extends Service {
 							cNotificationManager.notify(ID, cBuilder.build());
 						}
 					}
+					
+					// dashboard
+					/*dashboard.edit().putBoolean(String.valueOf(ID) + DASHBOARD_COMPLETED, true).apply();
+					dashboard.edit().putString(String.valueOf(ID) + DASHBOARD_SIZE, size).apply();*/
+					
+					JSONObject jO = new JSONObject();
+					
+					try {
+						jO.put("completed", true);
+						jO.put("name", vfilename);
+						jO.put("size", size);
+					} catch (JSONException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					String json = null;
+					try {
+						json = jO.toString(4);
+					} catch (JSONException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					File jsonFolder = nContext.getDir("json", 0);
+					Utils.writeToFile(jsonFolder, "dashboard.json", json);
+					
 					break;
 					
 				case DownloadManager.STATUS_FAILED:

@@ -26,13 +26,13 @@ import android.util.Log;
 import android.widget.Toast;
 import dentex.youtube.downloader.ffmpeg.FfmpegController;
 import dentex.youtube.downloader.ffmpeg.ShellUtils.ShellCallback;
+import dentex.youtube.downloader.utils.Constants;
 import dentex.youtube.downloader.utils.Utils;
 
-public class DashboardActivity extends ListActivity {
+public class DashboardActivity extends ListActivity implements Constants {
 	
 	private final static String DEBUG_TAG = "DashboardActivity";
 	SharedPreferences settings = YTD.settings;
-	String PREFS_NAME = YTD.PREFS_NAME;
 	private NotificationCompat.Builder aBuilder;
 	public NotificationManager aNotificationManager;
 	private int totSeconds;

@@ -64,16 +64,16 @@ import android.widget.Toast;
 import dentex.youtube.downloader.ffmpeg.FfmpegController;
 import dentex.youtube.downloader.service.AutoUpgradeApkService;
 import dentex.youtube.downloader.service.FfmpegDownloadService;
+import dentex.youtube.downloader.utils.Constants;
 import dentex.youtube.downloader.utils.PopUps;
 import dentex.youtube.downloader.utils.Utils;
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends Activity implements Constants {
 	
 	public static final String DEBUG_TAG = "SettingsActivity";
 	private static final int _ReqChooseFile = 0;
 	public static String chooserSummary;
 	static SharedPreferences settings = YTD.settings;
-	static final String PREFS_NAME = YTD.PREFS_NAME;
 	public static Activity mActivity;
 	
     @Override

@@ -61,11 +61,10 @@ import dentex.youtube.downloader.R;
 import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
 import dentex.youtube.downloader.YTD;
 
-public class Utils {
+public class Utils implements Constants {
 	
 	static final String DEBUG_TAG = "Utils";
 	static SharedPreferences settings = YTD.settings;
-	static final String PREFS_NAME = YTD.PREFS_NAME;
 	InputStream isFromString;
 	static MediaScannerConnection msc;
 	static String onlineVersion;
@@ -134,7 +133,7 @@ public class Utils {
     	}
     }
     
-    public static void createLogFile(File destDir, String filename, String content) {
+    public static void writeToFile(File destDir, String filename, String content) {
     	File file = new File(destDir, filename);
     	try {
 	        InputStream is = new ByteArrayInputStream(content.getBytes("UTF-8"));
