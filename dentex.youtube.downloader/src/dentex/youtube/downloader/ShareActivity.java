@@ -94,12 +94,11 @@ import android.widget.Toast;
 import com.bugsense.trace.BugSenseHandler;
 
 import dentex.youtube.downloader.service.DownloadsService;
-import dentex.youtube.downloader.utils.Constants;
 import dentex.youtube.downloader.utils.Observer;
 import dentex.youtube.downloader.utils.PopUps;
 import dentex.youtube.downloader.utils.Utils;
 
-public class ShareActivity extends Activity implements Constants {
+public class ShareActivity extends Activity {
 	
 	private ProgressBar progressBar1;
 	private ProgressBar progressBarD;
@@ -134,7 +133,7 @@ public class ShareActivity extends Activity implements Constants {
 	public CheckBox showAgain3;
 	public TextView userFilename;
 	public static SharedPreferences settings = YTD.settings;
-	public static SharedPreferences dashboard = YTD.dashboard;
+	public static SharedPreferences videoinfo = YTD.videoinfo;
 	public static final File dir_Downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 	public static final File dir_DCIM = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
 	public static final File dir_Movies = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
@@ -181,8 +180,8 @@ public class ShareActivity extends Activity implements Constants {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getBaseContext();
-        settings = getSharedPreferences(PREFS_NAME, 0);
-        dashboard = getSharedPreferences(DASHBOARD_NAME, 0);
+        settings = getSharedPreferences(YTD.PREFS_NAME, 0);
+        videoinfo = getSharedPreferences(YTD.VIDEOINFO_NAME, 0);
         
     	// Theme init
     	Utils.themeInit(this);
@@ -863,18 +862,18 @@ public class ShareActivity extends Activity implements Constants {
 		
 		startService(intent1);
 		
-		dashboard.edit().putString(String.valueOf(enqueue) + DASHBOARD_FILENAME, composedVideoFilename).apply();
+		videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_FILENAME, composedVideoFilename).apply();
+		videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_PATH, path.getAbsolutePath()).apply();
 		
-		// db
-		/*dashboard.edit().putString(String.valueOf(enqueue) + DASHBOARD_TITLE , title).apply();
-		dashboard.edit().putString(String.valueOf(enqueue) + DASHBOARD_CODEC, codecs.get(pos)).apply();
-		dashboard.edit().putString(String.valueOf(enqueue) + DASHBOARD_QUALITY, qualities.get(pos)).apply();
-		dashboard.edit().putString(String.valueOf(enqueue) + DASHBOARD_3D, stereo.get(pos)).apply();*/
+		/*videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_TITLE , title).apply();
+		videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_CODEC, codecs.get(pos)).apply();
+		videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_QUALITY, qualities.get(pos)).apply();
+		videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_3D, stereo.get(pos)).apply();*/
     	
     	if (settings.getBoolean("enable_own_notification", true) == true) {
     		Utils.logger("i", "enable_own_notification: true", DEBUG_TAG);
 			sequence.add(enqueue);
-			dashboard.edit().putLong(composedVideoFilename, enqueue).apply();
+			videoinfo.edit().putLong(composedVideoFilename, enqueue).apply();
 			
 			if (videoOnExt == true) {
 				videoFileObserver = new Observer.YtdFileObserver(dir_Downloads.getAbsolutePath());

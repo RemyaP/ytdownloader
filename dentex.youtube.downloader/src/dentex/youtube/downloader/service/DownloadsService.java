@@ -52,14 +52,13 @@ import android.widget.Toast;
 import dentex.youtube.downloader.R;
 import dentex.youtube.downloader.ShareActivity;
 import dentex.youtube.downloader.YTD;
-import dentex.youtube.downloader.utils.Constants;
 import dentex.youtube.downloader.utils.Utils;
 
-public class DownloadsService extends Service implements Constants {
+public class DownloadsService extends Service {
 	
 	private final static String DEBUG_TAG = "DownloadsService";
 	private SharedPreferences settings = YTD.settings;
-	private SharedPreferences dashboard = YTD.dashboard;
+	private SharedPreferences videoinfo = YTD.videoinfo;
 	public static boolean copyEnabled;
 	public static Context nContext;
 
@@ -74,8 +73,8 @@ public class DownloadsService extends Service implements Constants {
 		
 		//BugSenseHandler.initAndStartSession(this, YTD.BugsenseApiKey);
 		
-		settings = getSharedPreferences(PREFS_NAME, 0);
-		dashboard = getSharedPreferences(DASHBOARD_NAME, 0);
+		settings = getSharedPreferences(YTD.PREFS_NAME, 0);
+		videoinfo = getSharedPreferences(YTD.VIDEOINFO_NAME, 0);
 		
 		nContext = getBaseContext();
 		registerReceiver(downloadComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
@@ -110,7 +109,8 @@ public class DownloadsService extends Service implements Constants {
     		Utils.logger("d", "downloadComplete: onReceive CALLED", DEBUG_TAG);
     		long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
     		int ID = (int) id;
-    		String vfilename = dashboard.getString(String.valueOf(id) + DASHBOARD_FILENAME, "video");
+    		String vfilename = videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_FILENAME, "video");
+    		String path = videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_PATH, ShareActivity.path.getAbsolutePath());
     		
 			Query query = new Query();
 			query.setFilterById(id);
@@ -142,7 +142,7 @@ public class DownloadsService extends Service implements Constants {
 					 */
 					if (copyEnabled) {
 						File in = new File(ShareActivity.dir_Downloads, vfilename);
-						File dst = new File(ShareActivity.path, vfilename);
+						File dst = new File(path, vfilename);
 						
 						if (settings.getBoolean("enable_own_notification", true) == true) {
 							try {
@@ -206,31 +206,7 @@ public class DownloadsService extends Service implements Constants {
 						}
 					}
 					
-					// dashboard
-					/*dashboard.edit().putBoolean(String.valueOf(ID) + DASHBOARD_COMPLETED, true).apply();
-					dashboard.edit().putString(String.valueOf(ID) + DASHBOARD_SIZE, size).apply();*/
-					
-					JSONObject jO = new JSONObject();
-					
-					try {
-						jO.put("completed", true);
-						jO.put("name", vfilename);
-						jO.put("size", size);
-					} catch (JSONException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					
-					String json = null;
-					try {
-						json = jO.toString(4);
-					} catch (JSONException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					
-					File jsonFolder = nContext.getDir("json", 0);
-					Utils.writeToFile(jsonFolder, "dashboard.json", json);
+					writeToJsonFile(id, true, path, vfilename, size);
 					
 					break;
 					
@@ -238,6 +214,9 @@ public class DownloadsService extends Service implements Constants {
 					Log.e(DEBUG_TAG, "_ID " + id + " FAILED (status " + status + ")");
 					Log.e(DEBUG_TAG, " Reason: " + reason);
 					Toast.makeText(context,  vfilename + ": " + getString(R.string.download_failed), Toast.LENGTH_LONG).show();
+					
+					writeToJsonFile(id, false, path, vfilename, size);
+					
 					break;
 					
 				default:
@@ -278,5 +257,49 @@ public class DownloadsService extends Service implements Constants {
 			ShareActivity.videoFileObserver.stopWatching();
 			nContext.stopService(new Intent(DownloadsService.getContext(), DownloadsService.class));
 		}
+	}
+    
+	private void writeToJsonFile(long id, boolean completed, String path, String vfilename, String size) {
+		// parse existing/init new JSON 
+		File jsonFile = new File(nContext.getDir("json", 0), "dashboard.json");
+		String previousJson = null;
+		if (jsonFile.exists()) {
+			try {
+				previousJson = Utils.readFromFile(jsonFile);
+			} catch (IOException e1) {
+				// TODO
+				e1.printStackTrace();
+			}
+		} else {
+			previousJson = "{}";
+		}
+		
+		// create new "complex" object
+		JSONObject mO = null;
+		JSONObject jO = new JSONObject();
+		
+		try {
+			mO = new JSONObject(previousJson);
+			jO.put("completed", completed);
+			jO.put("path", path);
+			jO.put("filename", vfilename);
+			jO.put("size", size);
+			mO.put(String.valueOf(id), jO);
+		} catch (JSONException e1) {
+			// TODO
+			e1.printStackTrace();
+		}
+		
+		// generate string from the object
+		String jsonString = null;
+		try {
+			jsonString = mO.toString(4);
+		} catch (JSONException e1) {
+			// TODO
+			e1.printStackTrace();
+		}
+
+		// write back JSON file
+		Utils.writeToFile(jsonFile, jsonString);
 	}
 }

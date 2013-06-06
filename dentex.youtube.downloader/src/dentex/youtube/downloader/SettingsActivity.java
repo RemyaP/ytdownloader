@@ -64,11 +64,10 @@ import android.widget.Toast;
 import dentex.youtube.downloader.ffmpeg.FfmpegController;
 import dentex.youtube.downloader.service.AutoUpgradeApkService;
 import dentex.youtube.downloader.service.FfmpegDownloadService;
-import dentex.youtube.downloader.utils.Constants;
 import dentex.youtube.downloader.utils.PopUps;
 import dentex.youtube.downloader.utils.Utils;
 
-public class SettingsActivity extends Activity implements Constants {
+public class SettingsActivity extends Activity {
 	
 	public static final String DEBUG_TAG = "SettingsActivity";
 	private static final int _ReqChooseFile = 0;
@@ -82,7 +81,7 @@ public class SettingsActivity extends Activity implements Constants {
         
         this.setTitle(R.string.title_activity_settings);
         
-    	settings = getSharedPreferences(PREFS_NAME, 0);
+    	settings = getSharedPreferences(YTD.PREFS_NAME, 0);
 
     	// Theme init
     	Utils.themeInit(this);

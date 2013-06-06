@@ -36,11 +36,10 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.view.Window;
-import dentex.youtube.downloader.utils.Constants;
 import dentex.youtube.downloader.utils.PopUps;
 import dentex.youtube.downloader.utils.Utils;
 
-public class TutorialsActivity extends Activity implements Constants {
+public class TutorialsActivity extends Activity {
 	
 	public static final String DEBUG_TAG = "TutorialsActivity";
 	public static String chooserSummary;
@@ -52,7 +51,7 @@ public class TutorialsActivity extends Activity implements Constants {
         
         this.setTitle(R.string.title_activity_tutorials);
         
-    	settings = getSharedPreferences(PREFS_NAME, 0);
+    	settings = getSharedPreferences(YTD.PREFS_NAME, 0);
     	
     	getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         

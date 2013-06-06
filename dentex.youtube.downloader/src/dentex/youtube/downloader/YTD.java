@@ -35,10 +35,9 @@ import android.util.Log;
 
 import com.bugsense.trace.BugSenseHandler;
 
-import dentex.youtube.downloader.utils.Constants;
 import dentex.youtube.downloader.utils.PopUps;
 
-public class YTD extends Application implements Constants {
+public class YTD extends Application {
 	
 	static String DEBUG_TAG = "YTD";
 	
@@ -50,7 +49,17 @@ public class YTD extends Application implements Constants {
 	public static String BugsenseApiKey = "b9d46d82";  // <--- see comment above!
 
 	public static SharedPreferences settings;
-	public static SharedPreferences dashboard;
+	public static SharedPreferences videoinfo;
+	public static String PREFS_NAME = "dentex.youtube.downloader_preferences";
+	public static String VIDEOINFO_NAME = "dentex.youtube.downloader_videoinfo";
+	
+	public static String VIDEOINFO_FILENAME = "_F";
+	public static String VIDEOINFO_PATH = "_P";
+	
+	/*public static String VIDEOINFO_TITLE = "_T";
+	public static String VIDEOINFO_CODEC = "_C";
+	public static String VIDEOINFO_QUALITY = "_Q";
+	public static String VIDEOINFO_3D = "_3D";*/
 	
 	@Override
     public void onCreate() {

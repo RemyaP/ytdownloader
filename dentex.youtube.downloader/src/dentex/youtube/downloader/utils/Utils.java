@@ -61,7 +61,7 @@ import dentex.youtube.downloader.R;
 import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
 import dentex.youtube.downloader.YTD;
 
-public class Utils implements Constants {
+public class Utils {
 	
 	static final String DEBUG_TAG = "Utils";
 	static SharedPreferences settings = YTD.settings;
@@ -70,7 +70,7 @@ public class Utils implements Constants {
 	static String onlineVersion;
     
     public static void themeInit(Context context) {
-    	settings = context.getSharedPreferences(PREFS_NAME, 0);
+    	settings = context.getSharedPreferences(YTD.PREFS_NAME, 0);
 		String theme = settings.getString("choose_theme", "D");
     	if (theme.equals("D")) {
     		context.setTheme(R.style.AppThemeDark);
@@ -133,8 +133,7 @@ public class Utils implements Constants {
     	}
     }
     
-    public static void writeToFile(File destDir, String filename, String content) {
-    	File file = new File(destDir, filename);
+    public static void writeToFile(File file, String content) {
     	try {
 	        InputStream is = new ByteArrayInputStream(content.getBytes("UTF-8"));
 	        OutputStream os = new FileOutputStream(file);
@@ -144,7 +143,7 @@ public class Utils implements Constants {
 	        is.close();
 	        os.close();
 		} catch (IOException e) {
-			Log.e(DEBUG_TAG, "Error creating '" + filename + "' Log file", e);
+			Log.e(DEBUG_TAG, "Error creating '" + file.getName() + "' Log file", e);
 		}
 	}
     
@@ -177,6 +176,30 @@ public class Utils implements Constants {
     }
     
     // --------------------------------------------------------------------------
+    
+    /*
+     *  method readFromFile adapted from Stack Overflow:
+	 * http://stackoverflow.com/questions/2902689/how-can-i-read-a-text-file-from-the-sd-card-in-android
+	 * 
+	 * Q: http://stackoverflow.com/users/349664/rsss
+	 * A: http://stackoverflow.com/users/3171/dave-webb
+	 */
+    
+    public static String readFromFile(File file) throws IOException {
+ 
+        StringBuilder text = null;
+        if(file.exists()) {   
+            text = new StringBuilder();  
+            BufferedReader br = new BufferedReader(new FileReader(file));  
+            String line;  
+            while ((line = br.readLine()) != null) {  
+                text.append(line);  
+                text.append('\n');  
+            }
+            br.close();
+        }
+        return text.toString();
+    }
     
     /*
      *  method MakeSizeHumanReadable(int bytes, boolean si) from Stack Overflow:

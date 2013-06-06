@@ -50,11 +50,10 @@ import dentex.youtube.downloader.docs.GplShowActivity;
 import dentex.youtube.downloader.docs.LgplShowActivity;
 import dentex.youtube.downloader.docs.MitShowActivity;
 import dentex.youtube.downloader.docs.TranslatorsListActivity;
-import dentex.youtube.downloader.utils.Constants;
 import dentex.youtube.downloader.utils.PopUps;
 import dentex.youtube.downloader.utils.Utils;
 
-public class AboutActivity extends Activity implements Constants {
+public class AboutActivity extends Activity {
 	
 	public static final String DEBUG_TAG = "AboutActivity";
 	public static String chooserSummary;
@@ -66,7 +65,7 @@ public class AboutActivity extends Activity implements Constants {
         
         this.setTitle(R.string.title_activity_about);
         
-    	settings = getSharedPreferences(PREFS_NAME, 0);
+    	settings = getSharedPreferences(YTD.PREFS_NAME, 0);
     	
     	getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         

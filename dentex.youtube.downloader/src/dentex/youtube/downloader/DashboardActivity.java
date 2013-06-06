@@ -26,10 +26,9 @@ import android.util.Log;
 import android.widget.Toast;
 import dentex.youtube.downloader.ffmpeg.FfmpegController;
 import dentex.youtube.downloader.ffmpeg.ShellUtils.ShellCallback;
-import dentex.youtube.downloader.utils.Constants;
 import dentex.youtube.downloader.utils.Utils;
 
-public class DashboardActivity extends ListActivity implements Constants {
+public class DashboardActivity extends ListActivity{
 	
 	private final static String DEBUG_TAG = "DashboardActivity";
 	SharedPreferences settings = YTD.settings;
@@ -55,7 +54,7 @@ public class DashboardActivity extends ListActivity implements Constants {
 		
 		//BugSenseHandler.initAndStartSession(this, YTD.BugsenseApiKey);
 		
-		settings = getSharedPreferences(PREFS_NAME, 0);
+		settings = getSharedPreferences(YTD.PREFS_NAME, 0);
 		
 		// Theme init
     	Utils.themeInit(this);

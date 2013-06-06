@@ -76,7 +76,7 @@ public class Observer {
 				if (observedPath.equals(FfmpegDownloadService.DIR)) {
 					SettingsActivity.SettingsFragment.touchAudioExtrPref(true, false);
 				} else {
-					long id = ShareActivity.dashboard.getLong(path, 0);
+					long id = ShareActivity.videoinfo.getLong(path, 0);
 					Utils.logger("d", TAG + "Retrieved ID: " +  id, DEBUG_TAG);
 					try {
 						DownloadsService.removeIdUpdateNotification(id);

@@ -44,10 +44,9 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
-import dentex.youtube.downloader.utils.Constants;
 import dentex.youtube.downloader.utils.Utils;
 
-public class DonateActivity extends Activity implements Constants {
+public class DonateActivity extends Activity {
 	
 	public static final String DEBUG_TAG = "DonateActivity";
 	public static String chooserSummary;
@@ -59,7 +58,7 @@ public class DonateActivity extends Activity implements Constants {
         
         this.setTitle(R.string.title_activity_donate);
         
-    	settings = getSharedPreferences(PREFS_NAME, 0);
+    	settings = getSharedPreferences(YTD.PREFS_NAME, 0);
     	
     	getWindow().requestFeature(Window.FEATURE_PROGRESS);
     	getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
