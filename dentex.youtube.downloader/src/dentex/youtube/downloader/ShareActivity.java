@@ -60,7 +60,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -132,8 +131,8 @@ public class ShareActivity extends Activity {
 	public CheckBox showAgain2;
 	public CheckBox showAgain3;
 	public TextView userFilename;
-	public static SharedPreferences settings = YTD.settings;
-	public static SharedPreferences videoinfo = YTD.videoinfo;
+	//public static SharedPreferences settings = YTD.settings;
+	//public static SharedPreferences videoinfo = YTD.videoinfo;
 	public static final File dir_Downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 	public static final File dir_DCIM = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
 	public static final File dir_Movies = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
@@ -180,15 +179,15 @@ public class ShareActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getBaseContext();
-        settings = getSharedPreferences(YTD.PREFS_NAME, 0);
-        videoinfo = getSharedPreferences(YTD.VIDEOINFO_NAME, 0);
+        //settings = getSharedPreferences(YTD.PREFS_NAME, 0);
+        //videoinfo = getSharedPreferences(YTD.VIDEOINFO_NAME, 0);
         
     	// Theme init
     	Utils.themeInit(this);
     	
         setContentView(R.layout.activity_share);
         
-    	showSizesInVideoList = settings.getBoolean("show_size_list", false);
+    	showSizesInVideoList = YTD.settings.getBoolean("show_size_list", false);
 
     	// Language init
     	Utils.langInit(this);
@@ -199,7 +198,7 @@ public class ShareActivity extends Activity {
         progressBarD = (ProgressBar) findViewById(R.id.progressBarD);
         progressBarL = (ProgressBar) findViewById(R.id.progressBarL);
         
-        String theme = settings.getString("choose_theme", "D");
+        String theme = YTD.settings.getString("choose_theme", "D");
     	if (theme.equals("D")) {
     		progressBar1 = progressBarD;
     		progressBarL.setVisibility(View.GONE);
@@ -355,7 +354,7 @@ public class ShareActivity extends Activity {
 	}
     
     void showGeneralInfoTutorial() {
-        generalInfoCheckboxEnabled = settings.getBoolean("general_info", true);
+        generalInfoCheckboxEnabled = YTD.settings.getBoolean("general_info", true);
         if (generalInfoCheckboxEnabled == true) {
         	AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
     	    LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
@@ -371,8 +370,8 @@ public class ShareActivity extends Activity {
     	    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
     	    	public void onClick(DialogInterface dialog, int which) {
     	    		if (!showAgain1.isChecked()) {
-    	    			settings.edit().putBoolean("general_info", false).commit();
-    	    			sshInfoCheckboxEnabled = settings.getBoolean("general_info", true);
+    	    			YTD.settings.edit().putBoolean("general_info", false).commit();
+    	    			sshInfoCheckboxEnabled = YTD.settings.getBoolean("general_info", true);
     	    			Utils.logger("d", "generalInfoCheckboxEnabled: " + generalInfoCheckboxEnabled, DEBUG_TAG);
     	    		}
         		}
@@ -395,10 +394,10 @@ public class ShareActivity extends Activity {
     }
     
     public static void assignPath() {
-    	boolean Location = settings.getBoolean("swap_location", false);
+    	boolean Location = YTD.settings.getBoolean("swap_location", false);
         
         if (Location == false) {
-            String location = settings.getString("standard_location", "Downloads");
+            String location = YTD.settings.getString("standard_location", "Downloads");
             Utils.logger("d", "location: " + location, DEBUG_TAG);
             
             if (location.equals("DCIM") == true) {
@@ -412,7 +411,7 @@ public class ShareActivity extends Activity {
             }
             
         } else {
-        	String cs = settings.getString("CHOOSER_FOLDER", "");
+        	String cs = YTD.settings.getString("CHOOSER_FOLDER", "");
         	chooserFolder = new File(cs);
         	Utils.logger("d", "chooserFolder: " + chooserFolder, DEBUG_TAG);
         	path = chooserFolder;
@@ -433,7 +432,7 @@ public class ShareActivity extends Activity {
             try {
             	Utils.logger("d", "doInBackground...", DEBUG_TAG);
             	
-            	if (settings.getBoolean("show_thumb", false)) {
+            	if (YTD.settings.getBoolean("show_thumb", false)) {
             		downloadThumbnail(generateThumbUrl());
             	}
             	
@@ -456,7 +455,7 @@ public class ShareActivity extends Activity {
 
         	progressBar1.setVisibility(View.GONE);
         	
-        	if (settings.getBoolean("show_thumb", false)) {
+        	if (YTD.settings.getBoolean("show_thumb", false)) {
         		imgView.setImageBitmap(img);
         	}
         	isAsyncDownloadRunning = false;
@@ -497,7 +496,7 @@ public class ShareActivity extends Activity {
                     if (showSizesInVideoList) {
                     	showSingleSize = true;
                     } else {
-                    	showSingleSize = settings.getBoolean("show_size", false);
+                    	showSingleSize = YTD.settings.getBoolean("show_size", false);
                     }
 					
 					try {
@@ -523,7 +522,7 @@ public class ShareActivity extends Activity {
                     helpBuilder.setPositiveButton(getString(R.string.list_click_download_local), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         	try {
-                        		fileRenameEnabled = settings.getBoolean("enable_rename", false);
+                        		fileRenameEnabled = YTD.settings.getBoolean("enable_rename", false);
 	                            if (fileRenameEnabled == true) {
 									AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
 	                            	LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
@@ -555,17 +554,17 @@ public class ShareActivity extends Activity {
                         }
 
 						/*public void manageAudioFeature() {
-							audioExtractionEnabled = settings.getBoolean("enable_audio_extraction", false);
+							audioExtractionEnabled = YTD.settings.getBoolean("enable_audio_extraction", false);
 							if (audioExtractionEnabled == true) {
 								audioCodec = findAudioCodec();
-								settings.edit().putString(composedVideoFilename + "FFext", audioCodec).apply();
+								YTD.settings.edit().putString(composedVideoFilename + "FFext", audioCodec).apply();
 							}
-							settings.edit().putString(composedVideoFilename + "FFbase", title).apply();
+							YTD.settings.edit().putString(composedVideoFilename + "FFbase", title).apply();
 						}*/
                     });
 					
                     // show central button for SSH send if enabled in prefs
-                    if (!settings.getBoolean("ssh_to_longpress_menu", false)) {
+                    if (!YTD.settings.getBoolean("ssh_to_longpress_menu", false)) {
 	                    helpBuilder.setNeutralButton(getString(R.string.list_click_download_ssh), new DialogInterface.OnClickListener() {
 	
 	                        public void onClick(DialogInterface dialog, int which) {
@@ -597,7 +596,7 @@ public class ShareActivity extends Activity {
             	public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
             		pos = position;
             		AlertDialog.Builder builder = new AlertDialog.Builder(boxThemeContextWrapper);
-            		if (!settings.getBoolean("ssh_to_longpress_menu", false)) {
+            		if (!YTD.settings.getBoolean("ssh_to_longpress_menu", false)) {
 	            		builder.setTitle(R.string.long_click_title).setItems(R.array.long_click_entries, new DialogInterface.OnClickListener() {
 					    	public void onClick(DialogInterface dialog, int which) {
 					    		composedVideoFilename = composeVideoFilename();
@@ -651,7 +650,7 @@ public class ShareActivity extends Activity {
 		}
 		
 		/*private void insertAudioConfirmation() {
-			boolean fromPrefs = settings.getBoolean("enable_audio_extraction", false);
+			boolean fromPrefs = YTD.settings.getBoolean("enable_audio_extraction", false);
 			if (fromPrefs) {
 				LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
 				View handleAudio = adbInflater.inflate(R.layout.dialog_confirm_download, null);
@@ -664,7 +663,7 @@ public class ShareActivity extends Activity {
 		}*/
         
 		private boolean useQualitySuffix() {
-        	boolean enabled = settings.getBoolean("enable_q_suffix", true);
+        	boolean enabled = YTD.settings.getBoolean("enable_q_suffix", true);
         	return enabled;
         }
         
@@ -680,7 +679,7 @@ public class ShareActivity extends Activity {
 
 		/*private String findAudioCodec() {
         	//CODEC [file EXTENSION]
-        	extrType = settings.getString("audio_extraction_type", "extr");
+        	extrType = YTD.settings.getString("audio_extraction_type", "extr");
     		if (extrType.equals("conv")) {
     			acodec = ".mp3";
     		} else {
@@ -693,7 +692,7 @@ public class ShareActivity extends Activity {
     		}
     		//QUALITY
         	if (extrType.equals("conv")) {
-        		aquality = "_" + settings.getString("mp3_bitrate", "192k");
+        		aquality = "_" + YTD.settings.getString("mp3_bitrate", "192k");
         	} else { 
         		aquality = "";
         	}
@@ -705,7 +704,7 @@ public class ShareActivity extends Activity {
         	Context context = getApplicationContext();
     		PackageManager pm = context.getPackageManager();
     		
-    		final String connectBotFlavour = settings.getString("connectbot_flavour", "org.connectbot");
+    		final String connectBotFlavour = YTD.settings.getString("connectbot_flavour", "org.connectbot");
     		
     		String connectBotFlavourPlain = "ConnectBot";
     		if (connectBotFlavour.equals("sk.vx.connectbot")) connectBotFlavourPlain = "VX " + connectBotFlavourPlain;
@@ -751,7 +750,7 @@ public class ShareActivity extends Activity {
 				String wgetCmd;
 				composedVideoFilename = composeVideoFilename();
 				
-				Boolean shortSshCmdEnabled = settings.getBoolean("enable_connectbot_short_cmd", false);
+				Boolean shortSshCmdEnabled = YTD.settings.getBoolean("enable_connectbot_short_cmd", false);
 				if (shortSshCmdEnabled) {
 					wgetCmd = "wget -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --no-check-certificate \'" + 
 							links.get(pos) + "\' -O " + composedVideoFilename;
@@ -774,7 +773,7 @@ public class ShareActivity extends Activity {
 			    ClipboardManager cb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 			    cb.setPrimaryClip(cmd);
 			    
-			    sshInfoCheckboxEnabled = settings.getBoolean("ssh_info", true);
+			    sshInfoCheckboxEnabled = YTD.settings.getBoolean("ssh_info", true);
 			    if (sshInfoCheckboxEnabled == true) {
 			        AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
 				    LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
@@ -787,8 +786,8 @@ public class ShareActivity extends Activity {
 				    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				    	public void onClick(DialogInterface dialog, int which) {
 				    		if (!showAgain2.isChecked()) {
-				    			settings.edit().putBoolean("ssh_info", false).apply();
-				    			sshInfoCheckboxEnabled = settings.getBoolean("ssh_info", true);
+				    			YTD.settings.edit().putBoolean("ssh_info", false).apply();
+				    			sshInfoCheckboxEnabled = YTD.settings.getBoolean("ssh_info", true);
 				    			Utils.logger("d", "sshInfoCheckboxEnabled: " + sshInfoCheckboxEnabled, DEBUG_TAG);
 				    		}
 				    		callConnectBot(); 
@@ -815,7 +814,7 @@ public class ShareActivity extends Activity {
         request.setDestinationUri(videoUri);
         request.allowScanningByMediaScanner();
         
-        String visValue = settings.getString("download_manager_notification", "VISIBLE");
+        String visValue = YTD.settings.getString("download_manager_notification", "VISIBLE");
         int vis;
 		if (visValue.equals("VISIBLE_NOTIFY_COMPLETED")) {
 			vis = DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
@@ -831,7 +830,7 @@ public class ShareActivity extends Activity {
     	Intent intent1 = new Intent(ShareActivity.this, DownloadsService.class);
     	intent1.putExtra("COPY", false);
     	
-    	/*audioExtrEnabled = settings.getBoolean("enable_audio_extraction", false);
+    	/*audioExtrEnabled = YTD.settings.getBoolean("enable_audio_extraction", false);
     	if (audioExtractionEnabled && audioConfirm.isChecked()) {
     		intent1.putExtra("AUDIO", extrType);
     	} else {
@@ -862,18 +861,18 @@ public class ShareActivity extends Activity {
 		
 		startService(intent1);
 		
-		videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_FILENAME, composedVideoFilename).apply();
-		videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_PATH, path.getAbsolutePath()).apply();
+		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_FILENAME, composedVideoFilename).apply();
+		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_PATH, path.getAbsolutePath()).apply();
 		
-		/*videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_TITLE , title).apply();
-		videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_CODEC, codecs.get(pos)).apply();
-		videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_QUALITY, qualities.get(pos)).apply();
-		videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_3D, stereo.get(pos)).apply();*/
+		/*YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_TITLE , title).apply();
+		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_CODEC, codecs.get(pos)).apply();
+		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_QUALITY, qualities.get(pos)).apply();
+		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_3D, stereo.get(pos)).apply();*/
     	
-    	if (settings.getBoolean("enable_own_notification", true) == true) {
+    	if (YTD.settings.getBoolean("enable_own_notification", true) == true) {
     		Utils.logger("i", "enable_own_notification: true", DEBUG_TAG);
 			sequence.add(enqueue);
-			videoinfo.edit().putLong(composedVideoFilename, enqueue).apply();
+			YTD.videoinfo.edit().putLong(composedVideoFilename, enqueue).apply();
 			
 			if (videoOnExt == true) {
 				videoFileObserver = new Observer.YtdFileObserver(dir_Downloads.getAbsolutePath());
@@ -896,7 +895,7 @@ public class ShareActivity extends Activity {
 	}
 
     private void showExtsdcardInfo() {
-        generalInfoCheckboxEnabled = settings.getBoolean("extsdcard_info", true);
+        generalInfoCheckboxEnabled = YTD.settings.getBoolean("extsdcard_info", true);
         if (generalInfoCheckboxEnabled == true) {
         	AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
     	    LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
@@ -910,8 +909,8 @@ public class ShareActivity extends Activity {
     	    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
     	    	public void onClick(DialogInterface dialog, int which) {
     	    		if (showAgain3.isChecked() == false) {
-    	    			settings.edit().putBoolean("extsdcard_info", false).commit();
-    	    			sshInfoCheckboxEnabled = settings.getBoolean("extsdcard_info", true);
+    	    			YTD.settings.edit().putBoolean("extsdcard_info", false).commit();
+    	    			sshInfoCheckboxEnabled = YTD.settings.getBoolean("extsdcard_info", true);
     	    			Utils.logger("d", "generalInfoCheckboxEnabled: " + generalInfoCheckboxEnabled, DEBUG_TAG);
     	    		}
         		}
@@ -1086,7 +1085,7 @@ public class ShareActivity extends Activity {
         Iterator<String> stereoIter = stereo.iterator();
         Iterator<String> sizesIter = sizes.iterator();
         
-    	if (settings.getBoolean("show_size_list", false)) {
+    	if (YTD.settings.getBoolean("show_size_list", false)) {
 	        while (codecsIter.hasNext()) {
 	        	try {
 	        		listEntries.add(codecsIter.next().toUpperCase(Locale.ENGLISH).replace("WEBM", "WebM") + 
@@ -1162,7 +1161,7 @@ public class ShareActivity extends Activity {
 
 		links.add(composedLink);
 		//Utils.logger("i", composedLink);
-		if (settings.getBoolean("show_size_list", false) && !asyncDownload.isCancelled()) {
+		if (YTD.settings.getBoolean("show_size_list", false) && !asyncDownload.isCancelled()) {
 			String size = getVideoFileSize(composedLink);
 			sizes.add(size);
         	Utils.logger("d", "size " + i + ": " + size, DEBUG_TAG);
@@ -1296,13 +1295,13 @@ public class ShareActivity extends Activity {
     }
     
     private void updateInit() {
-		int prefSig = settings.getInt("APP_SIGNATURE", 0);
+		int prefSig = YTD.settings.getInt("APP_SIGNATURE", 0);
 		Utils.logger("d", "prefSig: " + prefSig, DEBUG_TAG);
 		
 		if (prefSig == SettingsActivity.SettingsFragment.YTD_SIG_HASH) {
 				Utils.logger("d", "YTD signature in PREFS: update check possile", DEBUG_TAG);
 				
-				if (settings.getBoolean("autoupdate", false)) {
+				if (YTD.settings.getBoolean("autoupdate", false)) {
 					Utils.logger("i", "autoupdate enabled", DEBUG_TAG);
 					SettingsActivity.SettingsFragment.autoUpdate(ShareActivity.this);
 				}

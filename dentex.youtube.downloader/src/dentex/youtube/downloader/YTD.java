@@ -47,7 +47,8 @@ public class YTD extends Application {
 	 * in order not to spam my bugsense dashboard with YOUR errors.
 	 */
 	public static String BugsenseApiKey = "b9d46d82";  // <--- see comment above!
-
+	public static final String JSON_FILENAME = "dashboard.json";
+	public static final String JSON_FOLDER = "json";
 	public static SharedPreferences settings;
 	public static SharedPreferences videoinfo;
 	public static String PREFS_NAME = "dentex.youtube.downloader_preferences";
@@ -64,7 +65,9 @@ public class YTD extends Application {
 	@Override
     public void onCreate() {
 		Log.d(DEBUG_TAG, "onCreate");
+		
 		settings = getSharedPreferences(PREFS_NAME, 0);
+		videoinfo = getSharedPreferences(VIDEOINFO_NAME, 0);
 		
         //BugSenseHandler.initAndStartSession(getApplicationContext(), BugsenseApiKey);
 		

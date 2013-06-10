@@ -57,15 +57,12 @@ public class AboutActivity extends Activity {
 	
 	public static final String DEBUG_TAG = "AboutActivity";
 	public static String chooserSummary;
-	static SharedPreferences settings = YTD.settings;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         this.setTitle(R.string.title_activity_about);
-        
-    	settings = getSharedPreferences(YTD.PREFS_NAME, 0);
     	
     	getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         

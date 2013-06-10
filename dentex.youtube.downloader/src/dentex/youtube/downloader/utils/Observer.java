@@ -32,6 +32,7 @@ import android.os.FileObserver;
 import android.util.Log;
 import dentex.youtube.downloader.SettingsActivity;
 import dentex.youtube.downloader.ShareActivity;
+import dentex.youtube.downloader.YTD;
 import dentex.youtube.downloader.service.DownloadsService;
 import dentex.youtube.downloader.service.FfmpegDownloadService;
 
@@ -76,7 +77,7 @@ public class Observer {
 				if (observedPath.equals(FfmpegDownloadService.DIR)) {
 					SettingsActivity.SettingsFragment.touchAudioExtrPref(true, false);
 				} else {
-					long id = ShareActivity.videoinfo.getLong(path, 0);
+					long id = YTD.videoinfo.getLong(path, 0);
 					Utils.logger("d", TAG + "Retrieved ID: " +  id, DEBUG_TAG);
 					try {
 						DownloadsService.removeIdUpdateNotification(id);

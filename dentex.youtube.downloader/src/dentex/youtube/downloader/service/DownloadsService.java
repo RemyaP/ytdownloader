@@ -30,6 +30,7 @@ package dentex.youtube.downloader.service;
 import java.io.File;
 import java.io.IOException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,7 +43,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.IBinder;
@@ -57,8 +57,8 @@ import dentex.youtube.downloader.utils.Utils;
 public class DownloadsService extends Service {
 	
 	private final static String DEBUG_TAG = "DownloadsService";
-	private SharedPreferences settings = YTD.settings;
-	private SharedPreferences videoinfo = YTD.videoinfo;
+	//private SharedPreferences settings = YTD.settings;
+	//private SharedPreferences videoinfo = YTD.videoinfo;
 	public static boolean copyEnabled;
 	public static Context nContext;
 
@@ -73,8 +73,8 @@ public class DownloadsService extends Service {
 		
 		//BugSenseHandler.initAndStartSession(this, YTD.BugsenseApiKey);
 		
-		settings = getSharedPreferences(YTD.PREFS_NAME, 0);
-		videoinfo = getSharedPreferences(YTD.VIDEOINFO_NAME, 0);
+		//settings = getSharedPreferences(YTD.PREFS_NAME, 0);
+		//videoinfo = getSharedPreferences(YTD.VIDEOINFO_NAME, 0);
 		
 		nContext = getBaseContext();
 		registerReceiver(downloadComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
@@ -109,8 +109,8 @@ public class DownloadsService extends Service {
     		Utils.logger("d", "downloadComplete: onReceive CALLED", DEBUG_TAG);
     		long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
     		int ID = (int) id;
-    		String vfilename = videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_FILENAME, "video");
-    		String path = videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_PATH, ShareActivity.path.getAbsolutePath());
+    		String vfilename = YTD.videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_FILENAME, "video");
+    		String path = YTD.videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_PATH, ShareActivity.path.getAbsolutePath());
     		
 			Query query = new Query();
 			query.setFilterById(id);
@@ -144,7 +144,7 @@ public class DownloadsService extends Service {
 						File in = new File(ShareActivity.dir_Downloads, vfilename);
 						File dst = new File(path, vfilename);
 						
-						if (settings.getBoolean("enable_own_notification", true) == true) {
+						if (YTD.settings.getBoolean("enable_own_notification", true) == true) {
 							try {
 								removeIdUpdateNotification(id);
 							} catch (NullPointerException e) {
@@ -223,7 +223,7 @@ public class DownloadsService extends Service {
 					Utils.logger("w", "_ID " + id + " completed with status " + status, DEBUG_TAG);
 				}
 				
-				if (settings.getBoolean("enable_own_notification", true) == true) {
+				if (YTD.settings.getBoolean("enable_own_notification", true) == true) {
 					try {
 						removeIdUpdateNotification(id);
 					} catch (NullPointerException e) {
@@ -261,7 +261,7 @@ public class DownloadsService extends Service {
     
 	private void writeToJsonFile(long id, boolean completed, String path, String vfilename, String size) {
 		// parse existing/init new JSON 
-		File jsonFile = new File(nContext.getDir("json", 0), "dashboard.json");
+		File jsonFile = new File(nContext.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILENAME);
 		String previousJson = null;
 		if (jsonFile.exists()) {
 			try {
@@ -271,20 +271,25 @@ public class DownloadsService extends Service {
 				e1.printStackTrace();
 			}
 		} else {
-			previousJson = "{}";
+			//previousJson = "{}";	//v1
+			previousJson = "[]";	//v2
 		}
 		
 		// create new "complex" object
-		JSONObject mO = null;
+		//JSONObject mO = null;	//v1
+		JSONArray jA = null;	//v2
 		JSONObject jO = new JSONObject();
 		
 		try {
-			mO = new JSONObject(previousJson);
+			//mO = new JSONObject(previousJson);
+			jA = new JSONArray(previousJson);
 			jO.put("completed", completed);
 			jO.put("path", path);
 			jO.put("filename", vfilename);
 			jO.put("size", size);
-			mO.put(String.valueOf(id), jO);
+			//mO.put(String.valueOf(id), jO);	//v1
+			jO.put("id", String.valueOf(id));	//v2
+			jA.put(jO);							//v2
 		} catch (JSONException e1) {
 			// TODO
 			e1.printStackTrace();
@@ -293,7 +298,8 @@ public class DownloadsService extends Service {
 		// generate string from the object
 		String jsonString = null;
 		try {
-			jsonString = mO.toString(4);
+			//jsonString = mO.toString(4);	//v1
+			jsonString = jA.toString(4);	//v2
 		} catch (JSONException e1) {
 			// TODO
 			e1.printStackTrace();

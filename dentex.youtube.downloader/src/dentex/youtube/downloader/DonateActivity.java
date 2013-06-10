@@ -30,7 +30,6 @@ import org.apache.http.util.EncodingUtils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -50,15 +49,12 @@ public class DonateActivity extends Activity {
 	
 	public static final String DEBUG_TAG = "DonateActivity";
 	public static String chooserSummary;
-	static SharedPreferences settings = YTD.settings;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         this.setTitle(R.string.title_activity_donate);
-        
-    	settings = getSharedPreferences(YTD.PREFS_NAME, 0);
     	
     	getWindow().requestFeature(Window.FEATURE_PROGRESS);
     	getWindow().requestFeature(Window.FEATURE_ACTION_BAR);

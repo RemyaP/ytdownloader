@@ -2,7 +2,11 @@ package dentex.youtube.downloader;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,18 +15,21 @@ import org.cmc.music.common.ID3WriteException;
 import org.cmc.music.metadata.MusicMetadata;
 import org.cmc.music.metadata.MusicMetadataSet;
 import org.cmc.music.myid3.MyID3;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.ListActivity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import dentex.youtube.downloader.ffmpeg.FfmpegController;
 import dentex.youtube.downloader.ffmpeg.ShellUtils.ShellCallback;
@@ -31,7 +38,6 @@ import dentex.youtube.downloader.utils.Utils;
 public class DashboardActivity extends ListActivity{
 	
 	private final static String DEBUG_TAG = "DashboardActivity";
-	SharedPreferences settings = YTD.settings;
 	private NotificationCompat.Builder aBuilder;
 	public NotificationManager aNotificationManager;
 	private int totSeconds;
@@ -54,8 +60,6 @@ public class DashboardActivity extends ListActivity{
 		
 		//BugSenseHandler.initAndStartSession(this, YTD.BugsenseApiKey);
 		
-		settings = getSharedPreferences(YTD.PREFS_NAME, 0);
-		
 		// Theme init
     	Utils.themeInit(this);
     	
@@ -63,8 +67,59 @@ public class DashboardActivity extends ListActivity{
 		
 		// Language init
     	Utils.langInit(this);
+    	
+    	String[] list = readJson();
+    	setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list));
 	}
 
+	private String[] readJson() {
+		// parse existing/init new JSON 
+		String previousJson = parseJsonDashboardFile(this);
+				
+		JSONArray jArray = null;
+		List<String> filenames = new ArrayList<String>();
+		try {
+			jArray = new JSONArray(previousJson);
+			for (int i = 0; i < jArray.length(); i++) {
+	        	JSONObject jo = jArray.getJSONObject(i);
+				String username = jo.getString("filename");
+				filenames.add(username);
+	        }
+		} catch (JSONException e) {
+			Log.e(DEBUG_TAG, e.getMessage());
+		}
+		
+		Iterator<String> filenamesIter = filenames.iterator();
+		
+		List<String> listEntries = new ArrayList<String>();
+		while (filenamesIter.hasNext()) {
+			try {
+            	listEntries.add(filenamesIter.next());
+        	} catch (NoSuchElementException e) {
+        		listEntries.add("//");
+        	}
+        }
+		return listEntries.toArray(new String[0]);
+	}
+
+	public String parseJsonDashboardFile(Context context) {
+		File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILENAME);
+		String jsonString = null;
+		if (jsonFile.exists()) {
+			try {
+				jsonString = Utils.readFromFile(jsonFile);
+			} catch (IOException e1) {
+				// TODO
+				e1.printStackTrace();
+			}
+		} else {
+			jsonString = "[]";
+		}
+		return jsonString;
+	}
+	
+	// #####################################################################
+	
 	public void ffmpegJob() {
 		// audio jobs notification init
 		aBuilder =  new NotificationCompat.Builder(this);
@@ -75,62 +130,60 @@ public class DashboardActivity extends ListActivity{
 		/*
 		 *  Audio extraction/conversion
 		 */
-		if (!audio.equals("none")) {
 			
-			if (removeVideo && copyEnabled) {
-				in = new File(ShareActivity.dir_Downloads, vfilename);
-			} else {
-				in = new File(ShareActivity.path, vfilename);
-			}
-			
-			acodec = settings.getString(vfilename + "FFext", ".audio");
-			aBaseName = settings.getString(vfilename + "FFbase", ".audio");
-			aFileName = aBaseName + acodec;
-			out = new File(ShareActivity.path, aFileName);
-		    
-			new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					
-					Looper.prepare();
-					
-					FfmpegController ffmpeg = null;
-	
-				    try {
-				    	ffmpeg = new FfmpegController(DashboardActivity.this);
-				    	
-				    	// Toast + Notification + Log ::: Audio job in progress...
-				    	String text = null;
-				    	if (audio.equals("extr")) {
-							text = getString(R.string.audio_extr_progress);
-						} else {
-							text = getString(R.string.audio_conv_progress);
-						}
-				    	Toast.makeText(DashboardActivity.this,"YTD: " + text, Toast.LENGTH_LONG).show();
-				    	aBuilder.setContentTitle(aFileName);
-				        aBuilder.setContentText(text);
-						aNotificationManager.notify(ID*ID, aBuilder.build());
-						Utils.logger("i", "_ID " + ID + " " + text, DEBUG_TAG);
-				    } catch (IOException ioe) {
-				    	Log.e(DEBUG_TAG, "Error loading ffmpeg. " + ioe.getMessage());
-				    }
-				    
-				    ShellDummy shell = new ShellDummy();
-				    String mp3BitRate = settings.getString("mp3_bitrate", getString(R.string.mp3_bitrate_default));
-				    
-				    try {
-						ffmpeg.extractAudio(in, out, audio, mp3BitRate, shell);
-				    } catch (IOException e) {
-						Log.e(DEBUG_TAG, "IOException running ffmpeg" + e.getMessage());
-					} catch (InterruptedException e) {
-						Log.e(DEBUG_TAG, "InterruptedException running ffmpeg" + e.getMessage());
-					}
-				    
-		            Looper.loop();
-				}
-	    	}).start();
+		if (removeVideo && copyEnabled) {
+			in = new File(ShareActivity.dir_Downloads, vfilename);
+		} else {
+			in = new File(ShareActivity.path, vfilename);
 		}
+		
+		acodec = YTD.settings.getString(vfilename + "FFext", ".audio");
+		aBaseName = YTD.settings.getString(vfilename + "FFbase", ".audio");
+		aFileName = aBaseName + acodec;
+		out = new File(ShareActivity.path, aFileName);
+	    
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				
+				Looper.prepare();
+				
+				FfmpegController ffmpeg = null;
+
+			    try {
+			    	ffmpeg = new FfmpegController(DashboardActivity.this);
+			    	
+			    	// Toast + Notification + Log ::: Audio job in progress...
+			    	String text = null;
+			    	if (audio.equals("extr")) {
+						text = getString(R.string.audio_extr_progress);
+					} else {
+						text = getString(R.string.audio_conv_progress);
+					}
+			    	Toast.makeText(DashboardActivity.this,"YTD: " + text, Toast.LENGTH_LONG).show();
+			    	aBuilder.setContentTitle(aFileName);
+			        aBuilder.setContentText(text);
+					aNotificationManager.notify(ID*ID, aBuilder.build());
+					Utils.logger("i", "_ID " + ID + " " + text, DEBUG_TAG);
+			    } catch (IOException ioe) {
+			    	Log.e(DEBUG_TAG, "Error loading ffmpeg. " + ioe.getMessage());
+			    }
+			    
+			    ShellDummy shell = new ShellDummy();
+			    String mp3BitRate = YTD.settings.getString("mp3_bitrate", getString(R.string.mp3_bitrate_default));
+			    
+			    try {
+					ffmpeg.extractAudio(in, out, audio, mp3BitRate, shell);
+			    } catch (IOException e) {
+					Log.e(DEBUG_TAG, "IOException running ffmpeg" + e.getMessage());
+				} catch (InterruptedException e) {
+					Log.e(DEBUG_TAG, "InterruptedException running ffmpeg" + e.getMessage());
+				}
+			    
+	            Looper.loop();
+			}
+    	}).start();
 	}
 	
 	private class ShellDummy implements ShellCallback {

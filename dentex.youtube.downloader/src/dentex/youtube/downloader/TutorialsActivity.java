@@ -27,7 +27,6 @@
 package dentex.youtube.downloader;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -43,15 +42,12 @@ public class TutorialsActivity extends Activity {
 	
 	public static final String DEBUG_TAG = "TutorialsActivity";
 	public static String chooserSummary;
-	static SharedPreferences settings = YTD.settings;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         this.setTitle(R.string.title_activity_tutorials);
-        
-    	settings = getSharedPreferences(YTD.PREFS_NAME, 0);
     	
     	getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         

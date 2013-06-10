@@ -72,7 +72,7 @@ public class SettingsActivity extends Activity {
 	public static final String DEBUG_TAG = "SettingsActivity";
 	private static final int _ReqChooseFile = 0;
 	public static String chooserSummary;
-	static SharedPreferences settings = YTD.settings;
+	//static SharedPreferences settings = YTD.settings;
 	public static Activity mActivity;
 	
     @Override
@@ -81,7 +81,7 @@ public class SettingsActivity extends Activity {
         
         this.setTitle(R.string.title_activity_settings);
         
-    	settings = getSharedPreferences(YTD.PREFS_NAME, 0);
+    	//settings = getSharedPreferences(YTD.PREFS_NAME, 0);
 
     	// Theme init
     	Utils.themeInit(this);
@@ -154,11 +154,11 @@ public class SettingsActivity extends Activity {
             
             //webview = new WebView(getActivity());
 
-            String cf = settings.getString("CHOOSER_FOLDER", "");
+            String cf = YTD.settings.getString("CHOOSER_FOLDER", "");
             if (cf.isEmpty() && cf != null) {
             	chooserSummary = getString(R.string.chooser_location_summary);
             } else {
-            	chooserSummary = settings.getString("CHOOSER_FOLDER", "");
+            	chooserSummary = YTD.settings.getString("CHOOSER_FOLDER", "");
             }
             initSwapPreference();
             initSizePreference();
@@ -217,7 +217,7 @@ public class SettingsActivity extends Activity {
 			th.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 				
 				public boolean onPreferenceChange(Preference preference, Object newValue) {
-					String theme = settings.getString("choose_theme", "D");
+					String theme = YTD.settings.getString("choose_theme", "D");
 			    	if (theme.equals("D")) {
 			    		getActivity().setTheme(R.style.AppThemeDark);
 			    	} else {
@@ -233,7 +233,7 @@ public class SettingsActivity extends Activity {
 			lang.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 				
 				public boolean onPreferenceChange(Preference preference, Object newValue) {
-					String language = settings.getString("lang", "default");
+					String language = YTD.settings.getString("lang", "default");
 					if (!language.equals(newValue)) reload();
 					return true;
 				}
@@ -243,7 +243,7 @@ public class SettingsActivity extends Activity {
 			audio.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 				
 				public boolean onPreferenceChange(Preference preference, Object newValue) {
-					boolean audioExtrEnabled = settings.getBoolean("enable_audio_extraction", false);
+					boolean audioExtrEnabled = YTD.settings.getBoolean("enable_audio_extraction", false);
 					File binDir = getActivity().getDir("bin", 0);
 					boolean ffmpegInstalled = new File(binDir, "ffmpeg").exists();
 					if (!audioExtrEnabled) {
@@ -254,7 +254,7 @@ public class SettingsActivity extends Activity {
 						if (!isCpuSupported) {
 							audio.setEnabled(false);
 							audio.setChecked(false);
-							settings.edit().putBoolean("FFMPEG_SUPPORTED", false).commit();
+							YTD.settings.edit().putBoolean("FFMPEG_SUPPORTED", false).commit();
 
 							AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
 	                        adb.setIcon(android.R.drawable.ic_dialog_alert);
@@ -299,7 +299,7 @@ public class SettingsActivity extends Activity {
 	                        	helpDialog.show();
 	                        }	                            
 						} else {
-							settings.edit().putBoolean("FFMPEG_SUPPORTED", true).commit();
+							YTD.settings.edit().putBoolean("FFMPEG_SUPPORTED", true).commit();
 						}
 						
 						Utils.logger("d", "ffmpegInstalled: " + ffmpegInstalled, DEBUG_TAG);
@@ -392,7 +392,7 @@ public class SettingsActivity extends Activity {
         }
 
 		public void initUpdate() {
-			int prefSig = settings.getInt("APP_SIGNATURE", 0);
+			int prefSig = YTD.settings.getInt("APP_SIGNATURE", 0);
 			Utils.logger("d", "prefSig: " + prefSig, DEBUG_TAG);
 			
 			if (prefSig == 0 ) {
@@ -400,7 +400,7 @@ public class SettingsActivity extends Activity {
 					Utils.logger("d", "Found YTD signature: update check possile", DEBUG_TAG);
 					up.setEnabled(true);
 					
-					if (settings.getBoolean("autoupdate", false)) {
+					if (YTD.settings.getBoolean("autoupdate", false)) {
 						Utils.logger("i", "autoupdate enabled", DEBUG_TAG);
 						autoUpdate(getActivity());
 					}
@@ -409,7 +409,7 @@ public class SettingsActivity extends Activity {
 		    		up.setEnabled(false);
 		    		up.setSummary(R.string.update_disabled_summary);
 		    	}
-				SharedPreferences.Editor editor = settings.edit();
+				SharedPreferences.Editor editor = YTD.settings.edit();
 		    	editor.putInt("APP_SIGNATURE", Utils.currentHashCode);
 		    	if (editor.commit()) Utils.logger("d", "saving sig pref...", DEBUG_TAG);
 			} else {
@@ -417,7 +417,7 @@ public class SettingsActivity extends Activity {
 					Utils.logger("d", "YTD signature in PREFS: update check possile", DEBUG_TAG);
 					up.setEnabled(true);
 					
-					if (settings.getBoolean("autoupdate", false)) {
+					if (YTD.settings.getBoolean("autoupdate", false)) {
 						Utils.logger("i", "autoupdate enabled", DEBUG_TAG);
 						autoUpdate(getActivity());
 					}
@@ -429,7 +429,7 @@ public class SettingsActivity extends Activity {
 		}
 
 		private void initSwapPreference() {
-			boolean swap = settings.getBoolean("swap_location", false);
+			boolean swap = YTD.settings.getBoolean("swap_location", false);
 			PreferenceScreen p = (PreferenceScreen) findPreference("open_chooser");
             if (swap == true) {
             	p.setEnabled(true);
@@ -450,9 +450,9 @@ public class SettingsActivity extends Activity {
 		}
 		
 		private void initAudioPreference() {
-			boolean ffmpegSupported = settings.getBoolean("FFMPEG_SUPPORTED", true);
+			boolean ffmpegSupported = YTD.settings.getBoolean("FFMPEG_SUPPORTED", true);
 			if (ffmpegSupported) {
-				String encode = settings.getString("audio_extraction_type", "extr");
+				String encode = YTD.settings.getString("audio_extraction_type", "extr");
 				Preference p = (Preference) findPreference("mp3_bitrate");
 				if (encode.equals("conv") == true) {
 					p.setEnabled(true);
@@ -557,7 +557,7 @@ public class SettingsActivity extends Activity {
 			for(int i=0;i<getPreferenceScreen().getPreferenceCount();i++){
 				initSummary(getPreferenceScreen().getPreference(i));
 			}
-			settings.edit().putString("CHOOSER_FOLDER", chooserSummary).apply();
+			YTD.settings.edit().putString("CHOOSER_FOLDER", chooserSummary).apply();
 		}
         
         public int pathCheck(File path) {
@@ -576,20 +576,20 @@ public class SettingsActivity extends Activity {
         }
         
         public static void autoUpdate(Context context) {
-	        long storedTime = settings.getLong("time", 0); // final string
+	        long storedTime = YTD.settings.getLong("time", 0); // final string
 	        //long storedTime = 10000; // dev test: forces auto update
 	        
 	        boolean shouldCheckForUpdate = !DateUtils.isToday(storedTime);
 	        Utils.logger("i", "shouldCheckForUpdate: " + shouldCheckForUpdate, DEBUG_TAG);
 	        if (shouldCheckForUpdate) {
-	        	//if (settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true)) {
+	        	//if (YTD.settings.getBoolean("DOWNLOAD_PROVIDER_.apk", true)) {
 	        		Intent intent = new Intent(context, AutoUpgradeApkService.class);
 		        	context.startService(intent);
 	    		//}
 	        }
 	        
 	        long time = System.currentTimeMillis();
-	        if (settings.edit().putLong("time", time).commit()) Utils.logger("i", "time written in prefs", DEBUG_TAG);
+	        if (YTD.settings.edit().putLong("time", time).commit()) Utils.logger("i", "time written in prefs", DEBUG_TAG);
 		}
 
 		public static void touchAudioExtrPref(final boolean enable, final boolean check) {

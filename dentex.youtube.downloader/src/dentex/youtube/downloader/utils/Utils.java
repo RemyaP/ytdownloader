@@ -46,7 +46,6 @@ import java.util.regex.Pattern;
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
@@ -64,14 +63,14 @@ import dentex.youtube.downloader.YTD;
 public class Utils {
 	
 	static final String DEBUG_TAG = "Utils";
-	static SharedPreferences settings = YTD.settings;
+	//static SharedPreferences settings = YTD.settings;
 	InputStream isFromString;
 	static MediaScannerConnection msc;
 	static String onlineVersion;
     
     public static void themeInit(Context context) {
-    	settings = context.getSharedPreferences(YTD.PREFS_NAME, 0);
-		String theme = settings.getString("choose_theme", "D");
+    	//settings = context.getSharedPreferences(YTD.PREFS_NAME, 0);
+		String theme = YTD.settings.getString("choose_theme", "D");
     	if (theme.equals("D")) {
     		context.setTheme(R.style.AppThemeDark);
     	} else {
@@ -80,14 +79,14 @@ public class Utils {
 	}
     
     public static void langInit(Context context) {
-    	String storedDefLang = settings.getString("DEF_LANG", "");
+    	String storedDefLang = YTD.settings.getString("DEF_LANG", "");
     	if (storedDefLang.isEmpty() && storedDefLang != null) {	
     		Locale defLocale = Locale.getDefault();
     		String defLang = defLocale.getLanguage();
-    		settings.edit().putString("DEF_LANG", defLang).commit();
+    		YTD.settings.edit().putString("DEF_LANG", defLang).commit();
     	}
     		
-		String lang  = settings.getString("lang", "default");
+		String lang  = YTD.settings.getString("lang", "default");
         Locale locale;
 		if (!lang.equals("default")) {
 			String[] fLang = filterLang(lang);
@@ -96,7 +95,7 @@ public class Utils {
 	        Configuration config = new Configuration();
 	        config.locale = locale;
         } else {
-        	locale = new Locale(settings.getString("DEF_LANG", ""));
+        	locale = new Locale(YTD.settings.getString("DEF_LANG", ""));
         	Locale.setDefault(locale);
         }
         Configuration config = new Configuration();
@@ -120,7 +119,7 @@ public class Utils {
 	}
 
 	public static void logger(String type, String msg, String tag) {
-    	if (settings.getBoolean("enable_logging", false)) {
+    	if (YTD.settings.getBoolean("enable_logging", false)) {
 	    	if (type.equals("v")) {
 	    		Log.v(tag, msg);
 	    	} else if (type.equals("d")) {
@@ -148,7 +147,7 @@ public class Utils {
 	}
     
     public static void setNotificationDefaults(NotificationCompat.Builder aBuilder) {
-    	String def = settings.getString("notification_defaults", "0");
+    	String def = YTD.settings.getString("notification_defaults", "0");
     	if (def.equals("0")) {
     		aBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
     	}
@@ -178,7 +177,7 @@ public class Utils {
     // --------------------------------------------------------------------------
     
     /*
-     *  method readFromFile adapted from Stack Overflow:
+     * method readFromFile adapted from Stack Overflow:
 	 * http://stackoverflow.com/questions/2902689/how-can-i-read-a-text-file-from-the-sd-card-in-android
 	 * 
 	 * Q: http://stackoverflow.com/users/349664/rsss
@@ -202,7 +201,7 @@ public class Utils {
     }
     
     /*
-     *  method MakeSizeHumanReadable(int bytes, boolean si) from Stack Overflow:
+     * method MakeSizeHumanReadable(int bytes, boolean si) from Stack Overflow:
 	 * http://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into-human-readable-format-in-java
 	 * 
 	 * Q: http://stackoverflow.com/users/404615/iimuhin

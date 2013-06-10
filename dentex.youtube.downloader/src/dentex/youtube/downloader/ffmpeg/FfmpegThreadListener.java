@@ -1,4 +1,4 @@
-package dentex.youtube.downloader.service;
+package dentex.youtube.downloader.ffmpeg;
 
 public interface FfmpegThreadListener {
 	void handleFfmpegThreadUpdate();
