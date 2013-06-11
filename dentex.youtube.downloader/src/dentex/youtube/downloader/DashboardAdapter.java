@@ -80,8 +80,8 @@ public class DashboardAdapter extends ArrayAdapter<DashboardListItem> {
 		
 		DashboardListItem dli = itemsList.get(position);
 		holder.itemOne.setText(dli.getFilename());
-		holder.itemTwo.setText(dli.getPath());
-		holder.itemThree.setText(dli.getSize());
+		holder.itemTwo.setText(dli.getSize());
+		holder.itemThree.setText(dli.getPath());
 		if (dli.isCompleted()) {
 			holder.itemFour.setTextColor(Color.GREEN);
 			holder.itemFour.setText(context.getString(R.string.completed));

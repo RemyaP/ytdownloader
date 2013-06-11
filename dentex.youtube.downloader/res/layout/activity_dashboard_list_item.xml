@@ -8,21 +8,22 @@
         android:textIsSelectable="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textSize="18sp"
+        android:textColor="@android:color/white"/>
  
     <TextView
         android:id="@+id/two"
         android:textIsSelectable="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textStyle="italic"/>
+        android:textStyle="bold"/>
     
     <TextView
         android:id="@+id/three"
         android:textIsSelectable="false"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:textStyle="italic"/>
     
     <TextView
         android:id="@+id/four"
