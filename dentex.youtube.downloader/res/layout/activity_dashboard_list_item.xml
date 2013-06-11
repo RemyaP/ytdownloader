@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+ 
+    <TextView
+        android:id="@+id/one"
+        android:textIsSelectable="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+ 
+    <TextView
+        android:id="@+id/two"
+        android:textIsSelectable="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textStyle="italic"/>
+    
+    <TextView
+        android:id="@+id/three"
+        android:textIsSelectable="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    
+    <TextView
+        android:id="@+id/four"
+        android:textIsSelectable="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="12sp"/>
+    
+</LinearLayout>

@@ -206,7 +206,7 @@ public class DownloadsService extends Service {
 						}
 					}
 					
-					writeToJsonFile(id, true, path, vfilename, size);
+					writeToJsonFile(String.valueOf(id), true, path, vfilename, size);
 					
 					break;
 					
@@ -215,7 +215,7 @@ public class DownloadsService extends Service {
 					Log.e(DEBUG_TAG, " Reason: " + reason);
 					Toast.makeText(context,  vfilename + ": " + getString(R.string.download_failed), Toast.LENGTH_LONG).show();
 					
-					writeToJsonFile(id, false, path, vfilename, size);
+					writeToJsonFile(String.valueOf(id), false, path, vfilename, size);
 					
 					break;
 					
@@ -259,7 +259,7 @@ public class DownloadsService extends Service {
 		}
 	}
     
-	private void writeToJsonFile(long id, boolean completed, String path, String vfilename, String size) {
+	private void writeToJsonFile(String id, boolean completed, String path, String vfilename, String size) {
 		// parse existing/init new JSON 
 		File jsonFile = new File(nContext.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILENAME);
 		String previousJson = null;
@@ -288,7 +288,7 @@ public class DownloadsService extends Service {
 			jO.put("filename", vfilename);
 			jO.put("size", size);
 			//mO.put(String.valueOf(id), jO);	//v1
-			jO.put("id", String.valueOf(id));	//v2
+			jO.put("id", id);					//v2
 			jA.put(jO);							//v2
 		} catch (JSONException e1) {
 			// TODO

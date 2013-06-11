@@ -257,6 +257,7 @@
         \n\nSectionedAdapter.java: GPL-3.0 - Copyright &#169; 2008-2010 CommonsWare, LLC - portions Copyright &#169; 2008 Jeffrey Sharkey
         \n\nUtils.getCpuInfo(): http://www.roman10.net/how-to-get-cpu-information-on-android/ - by Liu Feipeng
         \n\nUtils.scanMedia(&#8230;): http://www.grokkingandroid.com/adding-files-to-androids-media-library-using-the-mediascanner/ - by Wolfram Rittmeyer
+        \n\nDashboardAdapter.java &amp; DashboardListItem.java: https://github.com/survivingwithandroid/Surviving-with-android/tree/master/SimpleList - by Francesco Azzola (JFrankie)
     </string>
     
     <string name="translators_links">

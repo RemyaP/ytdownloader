@@ -178,10 +178,8 @@
         </activity>
         <activity
             android:name="dentex.youtube.downloader.DashboardActivity"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
             android:label="@string/title_activity_dashboard" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="dentex.youtube.downloader.SettingsActivity" />
         </activity>
     </application>
 

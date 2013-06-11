@@ -19,7 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -29,13 +29,13 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 import dentex.youtube.downloader.ffmpeg.FfmpegController;
 import dentex.youtube.downloader.ffmpeg.ShellUtils.ShellCallback;
 import dentex.youtube.downloader.utils.Utils;
 
-public class DashboardActivity extends ListActivity{
+public class DashboardActivity extends Activity{
 	
 	private final static String DEBUG_TAG = "DashboardActivity";
 	private NotificationCompat.Builder aBuilder;
@@ -53,6 +53,17 @@ public class DashboardActivity extends ListActivity{
 	private String aFileName;
 	private String audio;
 	private int ID;
+	
+	private int index;
+	
+	List<String> idEntries = new ArrayList<String>();
+	List<Boolean> completionEntries = new ArrayList<Boolean>();
+	List<String> pathEntries = new ArrayList<String>();
+	List<String> filenameEntries = new ArrayList<String>();
+	List<String> sizeEntries = new ArrayList<String>();
+	
+	List<DashboardListItem> itemsList = new ArrayList<DashboardListItem>();
+	DashboardAdapter da;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,38 +79,66 @@ public class DashboardActivity extends ListActivity{
 		// Language init
     	Utils.langInit(this);
     	
-    	String[] list = readJson();
-    	setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list));
+    	readJson();
+    	
+    	for (int i = 0; i < index; i++) {
+			itemsList.add(new DashboardListItem(
+							idEntries.get(i), 
+							completionEntries.get(i),
+							pathEntries.get(i), 
+							filenameEntries.get(i), 
+							sizeEntries.get(i)));
+		}
+    	
+    	ListView lv = (ListView) findViewById(R.id.dashboard_list);
+    	
+    	da = new DashboardAdapter(itemsList, this);
+    	lv.setAdapter(da);
+
 	}
 
-	private String[] readJson() {
+	private void readJson() {
 		// parse existing/init new JSON 
 		String previousJson = parseJsonDashboardFile(this);
 				
 		JSONArray jArray = null;
+		List<String> ids = new ArrayList<String>();
+		List<Boolean> completions = new ArrayList<Boolean>();
+		List<String> paths = new ArrayList<String>();
 		List<String> filenames = new ArrayList<String>();
+		List<String> sizes = new ArrayList<String>();
 		try {
 			jArray = new JSONArray(previousJson);
+			index = jArray.length();
 			for (int i = 0; i < jArray.length(); i++) {
 	        	JSONObject jo = jArray.getJSONObject(i);
-				String username = jo.getString("filename");
-				filenames.add(username);
+	        	ids.add(jo.getString("id"));
+	        	completions.add(jo.getBoolean("completed"));
+	        	paths.add(jo.getString("path"));
+	        	filenames.add(jo.getString("filename"));
+	        	sizes.add(jo.getString("size"));
 	        }
 		} catch (JSONException e) {
 			Log.e(DEBUG_TAG, e.getMessage());
 		}
 		
+		Iterator<String> idsIter = ids.iterator();
+		Iterator<Boolean> completionsIter = completions.iterator();
+		Iterator<String> pathsIter = paths.iterator();
 		Iterator<String> filenamesIter = filenames.iterator();
+		Iterator<String> sizesIter = sizes.iterator();
 		
-		List<String> listEntries = new ArrayList<String>();
-		while (filenamesIter.hasNext()) {
+		while (idsIter.hasNext()) {
 			try {
-            	listEntries.add(filenamesIter.next());
+            	idEntries.add(idsIter.next());
+            	completionEntries.add(completionsIter.next());
+            	pathEntries.add(pathsIter.next());
+            	filenameEntries.add(filenamesIter.next());
+            	sizeEntries.add(sizesIter.next());
         	} catch (NoSuchElementException e) {
-        		listEntries.add("//");
+        		//TODO
         	}
         }
-		return listEntries.toArray(new String[0]);
 	}
 
 	public String parseJsonDashboardFile(Context context) {

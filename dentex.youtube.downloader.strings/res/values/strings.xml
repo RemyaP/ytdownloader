@@ -135,6 +135,10 @@
 	
 	<!-- ### FfmpegDownloadService ### -->
 	<string name="ffmpeg_install_failed">FFmpeg installation failed.</string>
+	
+	<!-- ### DashboardActivity ### -->
+	<string name="completed">Completed</string>
+	<string name="failed">Failed</string>
 
     <!-- ### preferences ### -->
 
