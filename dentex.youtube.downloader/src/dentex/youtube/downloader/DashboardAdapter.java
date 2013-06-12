@@ -22,7 +22,6 @@ package dentex.youtube.downloader;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,13 +81,10 @@ public class DashboardAdapter extends ArrayAdapter<DashboardListItem> {
 		holder.itemOne.setText(dli.getFilename());
 		holder.itemTwo.setText(dli.getSize());
 		holder.itemThree.setText(dli.getPath());
-		if (dli.isCompleted()) {
-			holder.itemFour.setTextColor(Color.GREEN);
-			holder.itemFour.setText(context.getString(R.string.completed));
-		} else {
-			holder.itemFour.setTextColor(Color.RED);
-			holder.itemFour.setText(context.getString(R.string.failed));
-		}
+		holder.itemFour.setText(dli.getStatus());
+		
+			//holder.itemFour.setTextColor(Color.GREEN);
+			//holder.itemFour.setTextColor(Color.RED);
 		
 		return v;
 	}

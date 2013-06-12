@@ -137,8 +137,9 @@
 	<string name="ffmpeg_install_failed">FFmpeg installation failed.</string>
 	
 	<!-- ### DashboardActivity ### -->
-	<string name="completed">Completed</string>
-	<string name="failed">Failed</string>
+	<string name="json_status_completed">Completed</string>
+	<string name="json_status_failed">Failed</string>
+	<string name="json_status_in_progress">In Progress</string>
 
     <!-- ### preferences ### -->
 

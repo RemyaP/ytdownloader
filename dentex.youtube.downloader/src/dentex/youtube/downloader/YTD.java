@@ -47,10 +47,18 @@ public class YTD extends Application {
 	 * in order not to spam my bugsense dashboard with YOUR errors.
 	 */
 	public static String BugsenseApiKey = "b9d46d82";  // <--- see comment above!
-	public static final String JSON_FILENAME = "dashboard.json";
+	
+	public static final String JSON_FILE = "dashboard.json";
 	public static final String JSON_FOLDER = "json";
+	public static final String JSON_DATA_ID = "id";
+	public static final String JSON_DATA_STATUS = "status";
+	public static final String JSON_DATA_PATH = "path";
+	public static final String JSON_DATA_FILENAME = "filename";
+	public static final String JSON_DATA_SIZE = "size";
+	
 	public static SharedPreferences settings;
 	public static SharedPreferences videoinfo;
+	
 	public static String PREFS_NAME = "dentex.youtube.downloader_preferences";
 	public static String VIDEOINFO_NAME = "dentex.youtube.downloader_videoinfo";
 	

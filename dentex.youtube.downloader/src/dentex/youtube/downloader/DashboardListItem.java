@@ -22,15 +22,15 @@ package dentex.youtube.downloader;
 public class DashboardListItem {
 	
 	private String id;
-	private boolean completed;
+	private String status;
 	private String path;
 	private String filename;
 	private String size;
 
 
-	public DashboardListItem(String id, boolean completed, String path, String filename, String size) {
+	public DashboardListItem(String id, String status, String path, String filename, String size) {
 		this.id = id;
-		this.completed = completed;
+		this.status = status;
 		this.path = path;
 		this.filename = filename;
 		this.size = size;
@@ -45,12 +45,12 @@ public class DashboardListItem {
 		return this.id;
 	}
 	
-	public boolean isCompleted() {
-		return completed;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setCompleted(boolean completed) {
-		this.completed = completed;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getPath() {

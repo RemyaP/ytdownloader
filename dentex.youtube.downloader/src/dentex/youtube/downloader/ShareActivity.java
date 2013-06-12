@@ -179,8 +179,6 @@ public class ShareActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getBaseContext();
-        //settings = getSharedPreferences(YTD.PREFS_NAME, 0);
-        //videoinfo = getSharedPreferences(YTD.VIDEOINFO_NAME, 0);
         
     	// Theme init
     	Utils.themeInit(this);
@@ -813,6 +811,7 @@ public class ShareActivity extends Activity {
         Request request = new Request(Uri.parse(link));
         request.setDestinationUri(videoUri);
         request.allowScanningByMediaScanner();
+        request.setVisibleInDownloadsUi(false);
         
         String visValue = YTD.settings.getString("download_manager_notification", "VISIBLE");
         int vis;
@@ -863,6 +862,12 @@ public class ShareActivity extends Activity {
 		
 		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_FILENAME, composedVideoFilename).apply();
 		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_PATH, path.getAbsolutePath()).apply();
+		
+		/*Utils.writeToJsonFile2(mContext,
+				String.valueOf(enqueue), 
+				getString(R.string.json_status_in_progress), 
+				path.getAbsolutePath(), composedVideoFilename, 
+				"-");*/
 		
 		/*YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_TITLE , title).apply();
 		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_CODEC, codecs.get(pos)).apply();

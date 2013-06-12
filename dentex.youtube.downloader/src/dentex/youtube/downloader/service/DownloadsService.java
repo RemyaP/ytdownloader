@@ -30,10 +30,6 @@ package dentex.youtube.downloader.service;
 import java.io.File;
 import java.io.IOException;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.DownloadManager;
 import android.app.DownloadManager.Query;
 import android.app.NotificationManager;
@@ -72,9 +68,6 @@ public class DownloadsService extends Service {
 		Utils.logger("d", "service created", DEBUG_TAG);
 		
 		//BugSenseHandler.initAndStartSession(this, YTD.BugsenseApiKey);
-		
-		//settings = getSharedPreferences(YTD.PREFS_NAME, 0);
-		//videoinfo = getSharedPreferences(YTD.VIDEOINFO_NAME, 0);
 		
 		nContext = getBaseContext();
 		registerReceiver(downloadComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
@@ -206,7 +199,7 @@ public class DownloadsService extends Service {
 						}
 					}
 					
-					writeToJsonFile(String.valueOf(id), true, path, vfilename, size);
+					Utils.writeToJsonFile2(nContext, String.valueOf(id), getString(R.string.json_status_completed), path, vfilename, size);
 					
 					break;
 					
@@ -215,7 +208,7 @@ public class DownloadsService extends Service {
 					Log.e(DEBUG_TAG, " Reason: " + reason);
 					Toast.makeText(context,  vfilename + ": " + getString(R.string.download_failed), Toast.LENGTH_LONG).show();
 					
-					writeToJsonFile(String.valueOf(id), false, path, vfilename, size);
+					Utils.writeToJsonFile2(nContext, String.valueOf(id), getString(R.string.json_status_failed), path, vfilename, size);
 					
 					break;
 					
@@ -257,55 +250,5 @@ public class DownloadsService extends Service {
 			ShareActivity.videoFileObserver.stopWatching();
 			nContext.stopService(new Intent(DownloadsService.getContext(), DownloadsService.class));
 		}
-	}
-    
-	private void writeToJsonFile(String id, boolean completed, String path, String vfilename, String size) {
-		// parse existing/init new JSON 
-		File jsonFile = new File(nContext.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILENAME);
-		String previousJson = null;
-		if (jsonFile.exists()) {
-			try {
-				previousJson = Utils.readFromFile(jsonFile);
-			} catch (IOException e1) {
-				// TODO
-				e1.printStackTrace();
-			}
-		} else {
-			//previousJson = "{}";	//v1
-			previousJson = "[]";	//v2
-		}
-		
-		// create new "complex" object
-		//JSONObject mO = null;	//v1
-		JSONArray jA = null;	//v2
-		JSONObject jO = new JSONObject();
-		
-		try {
-			//mO = new JSONObject(previousJson);
-			jA = new JSONArray(previousJson);
-			jO.put("completed", completed);
-			jO.put("path", path);
-			jO.put("filename", vfilename);
-			jO.put("size", size);
-			//mO.put(String.valueOf(id), jO);	//v1
-			jO.put("id", id);					//v2
-			jA.put(jO);							//v2
-		} catch (JSONException e1) {
-			// TODO
-			e1.printStackTrace();
-		}
-		
-		// generate string from the object
-		String jsonString = null;
-		try {
-			//jsonString = mO.toString(4);	//v1
-			jsonString = jA.toString(4);	//v2
-		} catch (JSONException e1) {
-			// TODO
-			e1.printStackTrace();
-		}
-
-		// write back JSON file
-		Utils.writeToFile(jsonFile, jsonString);
 	}
 }

@@ -43,6 +43,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.content.Context;
@@ -173,6 +177,91 @@ public class Utils {
     		// nothing...
     	}
     }
+    
+    public static void writeToJsonFile1(Context ctx, String id, String status, String path, String filename, String size) {
+		// parse existing/init new JSON 
+		File jsonFile = new File(ctx.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
+		String previousJson = null;
+		if (jsonFile.exists()) {
+			try {
+				previousJson = readFromFile(jsonFile);
+			} catch (IOException e1) {
+				previousJson = "[]";
+				Log.e(DEBUG_TAG, e1.getMessage());
+			}
+		} else {
+			previousJson = "{}";
+		}
+		
+		// create new "complex" object
+		JSONObject mO = null;
+		JSONObject jO = new JSONObject();
+		
+		try {
+			mO = new JSONObject(previousJson);
+			jO.put(YTD.JSON_DATA_STATUS, status);
+			jO.put(YTD.JSON_DATA_PATH, path);
+			jO.put(YTD.JSON_DATA_FILENAME, filename);
+			jO.put(YTD.JSON_DATA_SIZE, size);
+			mO.put(id, jO);
+		} catch (JSONException e1) {
+			Log.e(DEBUG_TAG, e1.getMessage());
+		}
+		
+		// generate string from the object
+		String jsonString = null;
+		try {
+			jsonString = mO.toString(4);
+		} catch (JSONException e1) {
+			Log.e(DEBUG_TAG, e1.getMessage());
+		}
+
+		// write back JSON file
+		writeToFile(jsonFile, jsonString);
+	}
+    
+    public static void writeToJsonFile2(Context ctx, String id, String status, String path, String filename, String size) {
+		// parse existing/init new JSON 
+		File jsonFile = new File(ctx.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
+		String previousJson = null;
+		if (jsonFile.exists()) {
+			try {
+				previousJson = readFromFile(jsonFile);
+			} catch (IOException e1) {
+				previousJson = "[]";
+				Log.e(DEBUG_TAG, e1.getMessage());
+			}
+		} else {
+			previousJson = "[]";
+		}
+		
+		// create new "complex" object
+		JSONArray jA = null;
+		JSONObject jO = new JSONObject();
+		
+		try {
+			jA = new JSONArray(previousJson);
+			jO.put(YTD.JSON_DATA_STATUS, status);
+			jO.put(YTD.JSON_DATA_PATH, path);
+			jO.put(YTD.JSON_DATA_FILENAME, filename);
+			jO.put(YTD.JSON_DATA_SIZE, size);
+			jO.put(YTD.JSON_DATA_ID, id);
+			jA.put(jO);
+		} catch (JSONException e1) {
+			Log.e(DEBUG_TAG, e1.getMessage());
+		}
+		
+		// generate string from the object
+		String jsonString = null;
+		try {
+			jsonString = jA.toString(4);
+		} catch (JSONException e1) {
+			Log.e(DEBUG_TAG, e1.getMessage());
+		}
+
+		// write back JSON file
+		writeToFile(jsonFile, jsonString);
+	}
     
     // --------------------------------------------------------------------------
     

@@ -57,7 +57,7 @@ public class DashboardActivity extends Activity{
 	private int index;
 	
 	List<String> idEntries = new ArrayList<String>();
-	List<Boolean> completionEntries = new ArrayList<Boolean>();
+	List<String> statusEntries = new ArrayList<String>();
 	List<String> pathEntries = new ArrayList<String>();
 	List<String> filenameEntries = new ArrayList<String>();
 	List<String> sizeEntries = new ArrayList<String>();
@@ -81,20 +81,23 @@ public class DashboardActivity extends Activity{
     	
     	readJson();
     	
-    	for (int i = 0; i < index; i++) {
-			itemsList.add(new DashboardListItem(
-							idEntries.get(i), 
-							completionEntries.get(i),
-							pathEntries.get(i), 
-							filenameEntries.get(i), 
-							sizeEntries.get(i)));
-		}
+    	buildList();
     	
     	ListView lv = (ListView) findViewById(R.id.dashboard_list);
     	
     	da = new DashboardAdapter(itemsList, this);
     	lv.setAdapter(da);
+	}
 
+	private void buildList() {
+		for (int i = 0; i < index; i++) {
+			itemsList.add(new DashboardListItem(
+							idEntries.get(i), 
+							statusEntries.get(i),
+							pathEntries.get(i), 
+							filenameEntries.get(i), 
+							sizeEntries.get(i)));
+		}
 	}
 
 	private void readJson() {
@@ -103,7 +106,7 @@ public class DashboardActivity extends Activity{
 				
 		JSONArray jArray = null;
 		List<String> ids = new ArrayList<String>();
-		List<Boolean> completions = new ArrayList<Boolean>();
+		List<String> statuses = new ArrayList<String>();
 		List<String> paths = new ArrayList<String>();
 		List<String> filenames = new ArrayList<String>();
 		List<String> sizes = new ArrayList<String>();
@@ -112,18 +115,18 @@ public class DashboardActivity extends Activity{
 			index = jArray.length();
 			for (int i = 0; i < jArray.length(); i++) {
 	        	JSONObject jo = jArray.getJSONObject(i);
-	        	ids.add(jo.getString("id"));
-	        	completions.add(jo.getBoolean("completed"));
-	        	paths.add(jo.getString("path"));
-	        	filenames.add(jo.getString("filename"));
-	        	sizes.add(jo.getString("size"));
+	        	ids.add(jo.getString(YTD.JSON_DATA_ID));
+	        	statuses.add(jo.getString(YTD.JSON_DATA_STATUS));
+	        	paths.add(jo.getString(YTD.JSON_DATA_PATH));
+	        	filenames.add(jo.getString(YTD.JSON_DATA_FILENAME));
+	        	sizes.add(jo.getString(YTD.JSON_DATA_SIZE));
 	        }
 		} catch (JSONException e) {
 			Log.e(DEBUG_TAG, e.getMessage());
 		}
 		
 		Iterator<String> idsIter = ids.iterator();
-		Iterator<Boolean> completionsIter = completions.iterator();
+		Iterator<String> completionsIter = statuses.iterator();
 		Iterator<String> pathsIter = paths.iterator();
 		Iterator<String> filenamesIter = filenames.iterator();
 		Iterator<String> sizesIter = sizes.iterator();
@@ -131,7 +134,7 @@ public class DashboardActivity extends Activity{
 		while (idsIter.hasNext()) {
 			try {
             	idEntries.add(idsIter.next());
-            	completionEntries.add(completionsIter.next());
+            	statusEntries.add(completionsIter.next());
             	pathEntries.add(pathsIter.next());
             	filenameEntries.add(filenamesIter.next());
             	sizeEntries.add(sizesIter.next());
@@ -142,7 +145,7 @@ public class DashboardActivity extends Activity{
 	}
 
 	public String parseJsonDashboardFile(Context context) {
-		File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILENAME);
+		File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
 		String jsonString = null;
 		if (jsonFile.exists()) {
 			try {
