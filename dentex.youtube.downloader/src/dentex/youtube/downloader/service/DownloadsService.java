@@ -199,7 +199,7 @@ public class DownloadsService extends Service {
 						}
 					}
 					
-					Utils.writeToJsonFile2(nContext, String.valueOf(id), getString(R.string.json_status_completed), path, vfilename, size);
+					Utils.writeToJsonFile1(nContext, String.valueOf(id), getString(R.string.json_status_completed), path, vfilename, size);
 					
 					break;
 					
@@ -208,7 +208,7 @@ public class DownloadsService extends Service {
 					Log.e(DEBUG_TAG, " Reason: " + reason);
 					Toast.makeText(context,  vfilename + ": " + getString(R.string.download_failed), Toast.LENGTH_LONG).show();
 					
-					Utils.writeToJsonFile2(nContext, String.valueOf(id), getString(R.string.json_status_failed), path, vfilename, size);
+					Utils.writeToJsonFile1(nContext, String.valueOf(id), getString(R.string.json_status_failed), path, vfilename, size);
 					
 					break;
 					

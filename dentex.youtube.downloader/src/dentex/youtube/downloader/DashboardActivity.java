@@ -79,9 +79,9 @@ public class DashboardActivity extends Activity{
 		// Language init
     	Utils.langInit(this);
     	
-    	readJson();
+    	readJson1();
     	
-    	buildList();
+    	buildList1();
     	
     	ListView lv = (ListView) findViewById(R.id.dashboard_list);
     	
@@ -89,7 +89,49 @@ public class DashboardActivity extends Activity{
     	lv.setAdapter(da);
 	}
 
-	private void buildList() {
+	private void buildList1() {
+		Iterator<String> idsIter = idEntries.iterator();
+		Iterator<String> statusesIter = statusEntries.iterator();
+		Iterator<String> pathsIter = pathEntries.iterator();
+		Iterator<String> filenamesIter = filenameEntries.iterator();
+		Iterator<String> sizesIter = sizeEntries.iterator();
+		
+		while (statusesIter.hasNext()) {
+			itemsList.add(new DashboardListItem(
+					idsIter.next(),
+					statusesIter.next(),
+					pathsIter.next(), 
+					filenamesIter.next(), 
+					sizesIter.next()));
+		}
+	}
+	
+	private void readJson1() {
+		// parse existing/init new JSON 
+		String previousJson = Utils.parseJsonDashboardFile1(this);
+				
+		JSONObject jV = null;
+		try {
+			jV = new JSONObject(previousJson);
+			Utils.logger("v", "current json:\n" + previousJson, DEBUG_TAG);
+			@SuppressWarnings("unchecked")
+			Iterator<Object> ids = jV.keys();
+			while (ids.hasNext()) {
+				String id = (String) ids.next();
+				JSONObject jO = new JSONObject();
+				jO = jV.getJSONObject(id);
+				idEntries.add(id);
+				statusEntries.add(jO.getString(YTD.JSON_DATA_STATUS));
+				pathEntries.add(jO.getString(YTD.JSON_DATA_PATH));
+				filenameEntries.add(jO.getString(YTD.JSON_DATA_FILENAME));
+				sizeEntries.add(jO.getString(YTD.JSON_DATA_SIZE));
+			}
+		} catch (JSONException e) {
+			Log.e(DEBUG_TAG, e.getMessage());
+		}
+	}
+	
+	private void buildList2() {
 		for (int i = 0; i < index; i++) {
 			itemsList.add(new DashboardListItem(
 							idEntries.get(i), 
@@ -100,66 +142,28 @@ public class DashboardActivity extends Activity{
 		}
 	}
 
-	private void readJson() {
+	private void readJson2() {
 		// parse existing/init new JSON 
-		String previousJson = parseJsonDashboardFile(this);
+		String previousJson = Utils.parseJsonDashboardFile2(this);
 				
-		JSONArray jArray = null;
-		List<String> ids = new ArrayList<String>();
-		List<String> statuses = new ArrayList<String>();
-		List<String> paths = new ArrayList<String>();
-		List<String> filenames = new ArrayList<String>();
-		List<String> sizes = new ArrayList<String>();
+		JSONArray jA = null;
+
 		try {
-			jArray = new JSONArray(previousJson);
-			index = jArray.length();
-			for (int i = 0; i < jArray.length(); i++) {
-	        	JSONObject jo = jArray.getJSONObject(i);
-	        	ids.add(jo.getString(YTD.JSON_DATA_ID));
-	        	statuses.add(jo.getString(YTD.JSON_DATA_STATUS));
-	        	paths.add(jo.getString(YTD.JSON_DATA_PATH));
-	        	filenames.add(jo.getString(YTD.JSON_DATA_FILENAME));
-	        	sizes.add(jo.getString(YTD.JSON_DATA_SIZE));
+			jA = new JSONArray(previousJson);
+			index = jA.length();
+			for (int i = 0; i < jA.length(); i++) {
+	        	JSONObject jO = jA.getJSONObject(i);
+	        	idEntries.add(jO.getString(YTD.JSON_DATA_ID));
+	        	statusEntries.add(jO.getString(YTD.JSON_DATA_STATUS));
+	        	pathEntries.add(jO.getString(YTD.JSON_DATA_PATH));
+	        	filenameEntries.add(jO.getString(YTD.JSON_DATA_FILENAME));
+	        	sizeEntries.add(jO.getString(YTD.JSON_DATA_SIZE));
 	        }
 		} catch (JSONException e) {
 			Log.e(DEBUG_TAG, e.getMessage());
 		}
-		
-		Iterator<String> idsIter = ids.iterator();
-		Iterator<String> completionsIter = statuses.iterator();
-		Iterator<String> pathsIter = paths.iterator();
-		Iterator<String> filenamesIter = filenames.iterator();
-		Iterator<String> sizesIter = sizes.iterator();
-		
-		while (idsIter.hasNext()) {
-			try {
-            	idEntries.add(idsIter.next());
-            	statusEntries.add(completionsIter.next());
-            	pathEntries.add(pathsIter.next());
-            	filenameEntries.add(filenamesIter.next());
-            	sizeEntries.add(sizesIter.next());
-        	} catch (NoSuchElementException e) {
-        		//TODO
-        	}
-        }
 	}
 
-	public String parseJsonDashboardFile(Context context) {
-		File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
-		String jsonString = null;
-		if (jsonFile.exists()) {
-			try {
-				jsonString = Utils.readFromFile(jsonFile);
-			} catch (IOException e1) {
-				// TODO
-				e1.printStackTrace();
-			}
-		} else {
-			jsonString = "[]";
-		}
-		return jsonString;
-	}
-	
 	// #####################################################################
 	
 	public void ffmpegJob() {

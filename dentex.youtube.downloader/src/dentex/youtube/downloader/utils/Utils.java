@@ -67,13 +67,11 @@ import dentex.youtube.downloader.YTD;
 public class Utils {
 	
 	static final String DEBUG_TAG = "Utils";
-	//static SharedPreferences settings = YTD.settings;
 	InputStream isFromString;
 	static MediaScannerConnection msc;
 	static String onlineVersion;
     
     public static void themeInit(Context context) {
-    	//settings = context.getSharedPreferences(YTD.PREFS_NAME, 0);
 		String theme = YTD.settings.getString("choose_theme", "D");
     	if (theme.equals("D")) {
     		context.setTheme(R.style.AppThemeDark);
@@ -178,20 +176,9 @@ public class Utils {
     	}
     }
     
-    public static void writeToJsonFile1(Context ctx, String id, String status, String path, String filename, String size) {
+    public static void writeToJsonFile1(Context context, String id, String status, String path, String filename, String size) {
 		// parse existing/init new JSON 
-		File jsonFile = new File(ctx.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
-		String previousJson = null;
-		if (jsonFile.exists()) {
-			try {
-				previousJson = readFromFile(jsonFile);
-			} catch (IOException e1) {
-				previousJson = "[]";
-				Log.e(DEBUG_TAG, e1.getMessage());
-			}
-		} else {
-			previousJson = "{}";
-		}
+    	String previousJson = parseJsonDashboardFile1(context);
 		
 		// create new "complex" object
 		JSONObject mO = null;
@@ -217,23 +204,31 @@ public class Utils {
 		}
 
 		// write back JSON file
+		File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
+		logger("v", "updated json:\n" + jsonString, DEBUG_TAG);
 		writeToFile(jsonFile, jsonString);
 	}
     
-    public static void writeToJsonFile2(Context ctx, String id, String status, String path, String filename, String size) {
-		// parse existing/init new JSON 
-		File jsonFile = new File(ctx.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
-		String previousJson = null;
+    public static String parseJsonDashboardFile1(Context context) {
+    	File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
+		String jsonString = null;
 		if (jsonFile.exists()) {
 			try {
-				previousJson = readFromFile(jsonFile);
+				jsonString = readFromFile(jsonFile);
 			} catch (IOException e1) {
-				previousJson = "[]";
+				jsonString = "[]";
 				Log.e(DEBUG_TAG, e1.getMessage());
 			}
 		} else {
-			previousJson = "[]";
+			jsonString = "{}";
 		}
+		return jsonString;
+    }
+    
+    public static void writeToJsonFile2(Context context, String id, String status, String path, String filename, String size) {
+		// parse existing/init new JSON 
+		String previousJson = parseJsonDashboardFile2(context);
+		//logger("v", "previousJson:\n " + previousJson, DEBUG_TAG);
 		
 		// create new "complex" object
 		JSONArray jA = null;
@@ -260,6 +255,60 @@ public class Utils {
 		}
 
 		// write back JSON file
+		File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
+		logger("v", "updated json:\n" + jsonString, DEBUG_TAG);
+		writeToFile(jsonFile, jsonString);
+	}
+    
+    public static String parseJsonDashboardFile2(Context context) {
+		String jsonString = null;
+		File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
+		if (jsonFile.exists()) {
+			try {
+				jsonString = Utils.readFromFile(jsonFile);
+			} catch (IOException e1) {
+				// TODO
+				e1.printStackTrace();
+			}
+		} else {
+			jsonString = "[]";
+		}
+		return jsonString;
+	}
+    
+    public static void writeToJsonFile25(Context context, String id, String status, String path, String filename, String size) {
+		// parse existing/init new JSON 
+		String previousJson = parseJsonDashboardFile2(context);
+		//logger("v", "previousJson:\n " + previousJson, DEBUG_TAG);
+		
+		// create new "complex" object
+		JSONArray jA = null;
+		JSONObject jO = new JSONObject();
+		JSONObject jV = new JSONObject();
+		
+		try {
+			jA = new JSONArray(previousJson);
+			jO.put(YTD.JSON_DATA_STATUS, status);
+			jO.put(YTD.JSON_DATA_PATH, path);
+			jO.put(YTD.JSON_DATA_FILENAME, filename);
+			jO.put(YTD.JSON_DATA_SIZE, size);
+			jV.put(id, jO);
+			jA.put(jV);
+		} catch (JSONException e1) {
+			Log.e(DEBUG_TAG, e1.getMessage());
+		}
+		
+		// generate string from the object
+		String jsonString = null;
+		try {
+			jsonString = jA.toString(4);
+		} catch (JSONException e1) {
+			Log.e(DEBUG_TAG, e1.getMessage());
+		}
+
+		// write back JSON file
+		File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
+		logger("v", "updated json:\n" + jsonString, DEBUG_TAG);
 		writeToFile(jsonFile, jsonString);
 	}
     
