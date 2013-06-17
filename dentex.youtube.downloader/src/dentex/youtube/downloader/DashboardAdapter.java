@@ -19,6 +19,7 @@ package dentex.youtube.downloader;
  * limitations under the License.
  */
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -26,17 +27,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
-public class DashboardAdapter extends ArrayAdapter<DashboardListItem> {
+public class DashboardAdapter extends ArrayAdapter<DashboardListItem> implements Filterable {
 
 	private List<DashboardListItem> itemsList;
 	private Context context;
+	private Filter itemsFilter;
+	private List<DashboardListItem> origItemsList;
 	
-	public DashboardAdapter(List<DashboardListItem> itemList, Context ctx) {
-		super(ctx, R.layout.activity_dashboard_list_item, itemList);
-		this.itemsList = itemList;
+	public DashboardAdapter(List<DashboardListItem> itemsList, Context ctx) {
+		super(ctx, R.layout.activity_dashboard_list_item, itemsList);
+		this.itemsList = itemsList;
 		this.context = ctx;
+		this.origItemsList = itemsList;
 	}
 	
 	public int getCount() {
@@ -73,9 +79,9 @@ public class DashboardAdapter extends ArrayAdapter<DashboardListItem> {
 			holder.itemFour = tv4;
 			
 			v.setTag(holder);
-		}
-		else 
+		} else {
 			holder = (ItemHolder) v.getTag();
+		}
 		
 		DashboardListItem dli = itemsList.get(position);
 		holder.itemOne.setText(dli.getFilename());
@@ -101,5 +107,54 @@ public class DashboardAdapter extends ArrayAdapter<DashboardListItem> {
 		public TextView itemFour;
 	}
 
+	public class PlanetFilter extends Filter {
+	    @Override
+	    public FilterResults performFiltering(CharSequence constraint) {
+	    	FilterResults results = new FilterResults();
+	        // We implement here the filter logic
+	        if (constraint == null || constraint.length() == 0) {
+	            // No filter implemented we return all the list
+	            results.values = origItemsList;
+	            results.count = origItemsList.size();
+	        } else {
+	            // We perform filtering operation
+	            List<DashboardListItem> nList = new ArrayList<DashboardListItem>();
+	             
+	            for (DashboardListItem p : itemsList) {
+	                if (p.getFilename().startsWith(constraint.toString()))
+	                    nList.add(p);
+	            }
+	             
+	            results.values = nList;
+	            results.count = nList.size();
+	        }
+	        return results;
+	    }
+	 
+	    @SuppressWarnings("unchecked")
+		@Override
+	    public void publishResults(CharSequence constraint,FilterResults results) {
+	    	// Now we have to inform the adapter about the new list filtered
+	        if (results.count == 0) {
+	            notifyDataSetInvalidated();
+	        } else {
+	        	itemsList = (List<DashboardListItem>) results.values;
+	            notifyDataSetChanged();
+	        }
+	    }
+	}
+	
+	@Override
+	public Filter getFilter() {
+	    if (itemsFilter == null)
+	        itemsFilter = new PlanetFilter();
+	     
+	    return itemsFilter;
+	}
+	
+	public void resetData() {
+		itemsList = origItemsList;
+	}
+	
 }
 

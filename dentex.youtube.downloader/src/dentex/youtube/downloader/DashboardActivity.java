@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +14,6 @@ import org.cmc.music.common.ID3WriteException;
 import org.cmc.music.metadata.MusicMetadata;
 import org.cmc.music.metadata.MusicMetadataSet;
 import org.cmc.music.myid3.MyID3;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +26,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import dentex.youtube.downloader.ffmpeg.FfmpegController;
@@ -54,7 +55,7 @@ public class DashboardActivity extends Activity{
 	private String audio;
 	private int ID;
 	
-	private int index;
+	//private int index;
 	
 	List<String> idEntries = new ArrayList<String>();
 	List<String> statusEntries = new ArrayList<String>();
@@ -87,6 +88,26 @@ public class DashboardActivity extends Activity{
     	
     	da = new DashboardAdapter(itemsList, this);
     	lv.setAdapter(da);
+    	
+    	lv.setTextFilterEnabled(true);
+    	
+    	EditText inputSearch = (EditText) findViewById(R.id.edit_txt);
+    	inputSearch.addTextChangedListener(new TextWatcher() {
+        
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				if (count < before) da.resetData();
+				da.getFilter().filter(s.toString());
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+			}
+    	});
 	}
 
 	private void buildList1() {
@@ -131,7 +152,7 @@ public class DashboardActivity extends Activity{
 		}
 	}
 	
-	private void buildList2() {
+	/*private void buildList2() {
 		for (int i = 0; i < index; i++) {
 			itemsList.add(new DashboardListItem(
 							idEntries.get(i), 
@@ -162,7 +183,7 @@ public class DashboardActivity extends Activity{
 		} catch (JSONException e) {
 			Log.e(DEBUG_TAG, e.getMessage());
 		}
-	}
+	}*/
 
 	// #####################################################################
 	

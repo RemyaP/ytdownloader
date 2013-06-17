@@ -41,10 +41,6 @@ public class DashboardListItem {
 		return id;
 	}
 	
-	public String setId(int id) {
-		return this.id;
-	}
-	
 	public String getStatus() {
 		return status;
 	}
@@ -70,10 +66,6 @@ public class DashboardListItem {
 
 	public String getSize() {
 		return size;
-	}
-
-	public void setSize(String size) {
-		this.size = size;
 	}
 }
 

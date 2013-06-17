@@ -178,6 +178,7 @@
         </activity>
         <activity
             android:name="dentex.youtube.downloader.DashboardActivity"
+            android:windowSoftInputMode="stateHidden"
             android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
             android:label="@string/title_activity_dashboard" >
         </activity>

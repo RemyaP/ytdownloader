@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v3.0 - Xxx XX 2013
+        \n-----------------------------------
+        \n[x] Dashboard for interaction
+        \n    with downloaded video
+        \n[x] fixed a bug about downloads 
+        \n    destination path availability
+        \n
         \n v2.2 - May 12 2013
         \n-----------------------------------
         \n[x] fixed a bunch of BUUUUUGS !!!
@@ -127,8 +134,8 @@
 		\n
 		\n v1.5.1 - Feb 24 2013
 		\n-----------------------------------
-		\n[x] fix crash if no net is avail.
-		\n[x] fix crash on bad video list
+		\n[x] fixed crash if no net is avail.
+		\n[x] fixed crash on bad video list
 		\n
 		\n v1.5 - Feb 22 2013
 		\n-----------------------------------
@@ -257,7 +264,7 @@
         \n\nSectionedAdapter.java: GPL-3.0 - Copyright &#169; 2008-2010 CommonsWare, LLC - portions Copyright &#169; 2008 Jeffrey Sharkey
         \n\nUtils.getCpuInfo(): http://www.roman10.net/how-to-get-cpu-information-on-android/ - by Liu Feipeng
         \n\nUtils.scanMedia(&#8230;): http://www.grokkingandroid.com/adding-files-to-androids-media-library-using-the-mediascanner/ - by Wolfram Rittmeyer
-        \n\nDashboardAdapter.java &amp; DashboardListItem.java: https://github.com/survivingwithandroid/Surviving-with-android/tree/master/SimpleList - by Francesco Azzola (JFrankie)
+        \n\nDashboardAdapter.java &amp; DashboardListItem.java: https://github.com/survivingwithandroid/Surviving-with-android/ - by Francesco Azzola (JFrankie)
     </string>
     
     <string name="translators_links">

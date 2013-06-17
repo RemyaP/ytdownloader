@@ -411,9 +411,24 @@ public class ShareActivity extends Activity {
         } else {
         	String cs = YTD.settings.getString("CHOOSER_FOLDER", "");
         	chooserFolder = new File(cs);
-        	Utils.logger("d", "chooserFolder: " + chooserFolder, DEBUG_TAG);
-        	path = chooserFolder;
+        	if (chooserFolder.exists()) {
+        		Utils.logger("d", "chooserFolder: " + chooserFolder, DEBUG_TAG);
+        		path = chooserFolder;
+        	} else {
+        		path = dir_Downloads;
+        		Utils.logger("w", "chooserFolder not found, falling back to Download path", DEBUG_TAG);
+        	}
         }
+        
+        if (!path.exists()) {
+        	if (new File(path.getAbsolutePath()).mkdirs()) {
+        		Utils.logger("w", "destination path not found, creating it now", DEBUG_TAG);
+        	} else {
+        		Log.e(DEBUG_TAG, "Something really BAD went wrong with the download destination...");
+        	}
+        	
+        }
+        	
         Utils.logger("d", "path: " + path, DEBUG_TAG);
     }
 
@@ -863,11 +878,11 @@ public class ShareActivity extends Activity {
 		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_FILENAME, composedVideoFilename).apply();
 		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_PATH, path.getAbsolutePath()).apply();
 		
-		/*Utils.writeToJsonFile2(mContext,
+		Utils.writeToJsonFile1(mContext,
 				String.valueOf(enqueue), 
 				getString(R.string.json_status_in_progress), 
 				path.getAbsolutePath(), composedVideoFilename, 
-				"-");*/
+				"-");
 		
 		/*YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_TITLE , title).apply();
 		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_CODEC, codecs.get(pos)).apply();
