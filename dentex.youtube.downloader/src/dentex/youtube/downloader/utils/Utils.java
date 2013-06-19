@@ -43,13 +43,14 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Notification;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
@@ -70,6 +71,15 @@ public class Utils {
 	InputStream isFromString;
 	static MediaScannerConnection msc;
 	static String onlineVersion;
+	
+	public static void reload(Activity activity) {
+    	Intent intent = activity.getIntent();
+    	intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    	activity.finish();
+    	activity.overridePendingTransition(0, 0);
+    	activity.startActivity(intent);
+    	activity.overridePendingTransition(0, 0);
+    }
     
     public static void themeInit(Context context) {
 		String theme = YTD.settings.getString("choose_theme", "D");
@@ -176,9 +186,9 @@ public class Utils {
     	}
     }
     
-    public static void writeToJsonFile1(Context context, String id, String status, String path, String filename, String size) {
+    public static void addEntryToJsonFile(Context context, String id, String status, String path, String filename, String size) {
 		// parse existing/init new JSON 
-    	String previousJson = parseJsonDashboardFile1(context);
+    	String previousJson = parseJsonDashboardFile(context);
 		
 		// create new "complex" object
 		JSONObject mO = null;
@@ -205,11 +215,34 @@ public class Utils {
 
 		// write back JSON file
 		File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
-		logger("v", "updated json:\n" + jsonString, DEBUG_TAG);
+		logger("v", "updated (via addition) json:\n" + jsonString, DEBUG_TAG);
 		writeToFile(jsonFile, jsonString);
 	}
     
-    public static String parseJsonDashboardFile1(Context context) {
+    public static void removeEntryFromJsonFile(Context context, String id) {
+    	String previousJson = parseJsonDashboardFile(context);
+    	
+    	JSONObject mO = null;
+    	try {
+			mO = new JSONObject(previousJson);
+			mO.remove(id);
+		} catch (JSONException e1) {
+			Log.e(DEBUG_TAG, e1.getMessage());
+		}
+    	
+    	String jsonString = null;
+		try {
+			jsonString = mO.toString(4);
+		} catch (JSONException e1) {
+			Log.e(DEBUG_TAG, e1.getMessage());
+		}
+
+		File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
+		logger("v", "updated (via removal) json:\n" + jsonString, DEBUG_TAG);
+		writeToFile(jsonFile, jsonString);
+    }
+    
+    public static String parseJsonDashboardFile(Context context) {
     	File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
 		String jsonString = null;
 		if (jsonFile.exists()) {
@@ -224,93 +257,6 @@ public class Utils {
 		}
 		return jsonString;
     }
-    
-    public static void writeToJsonFile2(Context context, String id, String status, String path, String filename, String size) {
-		// parse existing/init new JSON 
-		String previousJson = parseJsonDashboardFile2(context);
-		//logger("v", "previousJson:\n " + previousJson, DEBUG_TAG);
-		
-		// create new "complex" object
-		JSONArray jA = null;
-		JSONObject jO = new JSONObject();
-		
-		try {
-			jA = new JSONArray(previousJson);
-			jO.put(YTD.JSON_DATA_STATUS, status);
-			jO.put(YTD.JSON_DATA_PATH, path);
-			jO.put(YTD.JSON_DATA_FILENAME, filename);
-			jO.put(YTD.JSON_DATA_SIZE, size);
-			jO.put(YTD.JSON_DATA_ID, id);
-			jA.put(jO);
-		} catch (JSONException e1) {
-			Log.e(DEBUG_TAG, e1.getMessage());
-		}
-		
-		// generate string from the object
-		String jsonString = null;
-		try {
-			jsonString = jA.toString(4);
-		} catch (JSONException e1) {
-			Log.e(DEBUG_TAG, e1.getMessage());
-		}
-
-		// write back JSON file
-		File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
-		logger("v", "updated json:\n" + jsonString, DEBUG_TAG);
-		writeToFile(jsonFile, jsonString);
-	}
-    
-    public static String parseJsonDashboardFile2(Context context) {
-		String jsonString = null;
-		File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
-		if (jsonFile.exists()) {
-			try {
-				jsonString = Utils.readFromFile(jsonFile);
-			} catch (IOException e1) {
-				// TODO
-				e1.printStackTrace();
-			}
-		} else {
-			jsonString = "[]";
-		}
-		return jsonString;
-	}
-    
-    public static void writeToJsonFile25(Context context, String id, String status, String path, String filename, String size) {
-		// parse existing/init new JSON 
-		String previousJson = parseJsonDashboardFile2(context);
-		//logger("v", "previousJson:\n " + previousJson, DEBUG_TAG);
-		
-		// create new "complex" object
-		JSONArray jA = null;
-		JSONObject jO = new JSONObject();
-		JSONObject jV = new JSONObject();
-		
-		try {
-			jA = new JSONArray(previousJson);
-			jO.put(YTD.JSON_DATA_STATUS, status);
-			jO.put(YTD.JSON_DATA_PATH, path);
-			jO.put(YTD.JSON_DATA_FILENAME, filename);
-			jO.put(YTD.JSON_DATA_SIZE, size);
-			jV.put(id, jO);
-			jA.put(jV);
-		} catch (JSONException e1) {
-			Log.e(DEBUG_TAG, e1.getMessage());
-		}
-		
-		// generate string from the object
-		String jsonString = null;
-		try {
-			jsonString = jA.toString(4);
-		} catch (JSONException e1) {
-			Log.e(DEBUG_TAG, e1.getMessage());
-		}
-
-		// write back JSON file
-		File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
-		logger("v", "updated json:\n" + jsonString, DEBUG_TAG);
-		writeToFile(jsonFile, jsonString);
-	}
     
     // --------------------------------------------------------------------------
     
@@ -554,6 +500,7 @@ public class Utils {
     		@Override
     		public void onScanCompleted(String path, Uri uri) {
     			Log.v(DEBUG_TAG, "file " + path + " was scanned seccessfully: " + uri);
+    			YTD.videoinfo.edit().putString(path, uri.toString()).apply();
     		}
     	});
     }

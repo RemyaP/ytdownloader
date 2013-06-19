@@ -18,18 +18,34 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
+import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
 import android.text.Editable;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.HapticFeedbackConstants;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.Toast;
 import dentex.youtube.downloader.ffmpeg.FfmpegController;
@@ -53,7 +69,9 @@ public class DashboardActivity extends Activity{
 	private boolean copyEnabled;
 	private String aFileName;
 	private String audio;
-	private int ID;
+	private ListView lv;
+	private Editable searchText;
+	//private DownloadManager dm;
 	
 	//private int index;
 	
@@ -62,9 +80,11 @@ public class DashboardActivity extends Activity{
 	List<String> pathEntries = new ArrayList<String>();
 	List<String> filenameEntries = new ArrayList<String>();
 	List<String> sizeEntries = new ArrayList<String>();
+	List<String> mediaIdEntries = new ArrayList<String>();
 	
 	List<DashboardListItem> itemsList = new ArrayList<DashboardListItem>();
 	DashboardAdapter da;
+	private boolean isSearchBarVisible;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,22 +100,143 @@ public class DashboardActivity extends Activity{
 		// Language init
     	Utils.langInit(this);
     	
-    	readJson1();
+    	//dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
     	
-    	buildList1();
+    	readJson();
     	
-    	ListView lv = (ListView) findViewById(R.id.dashboard_list);
+    	buildList();
+    	
+    	lv = (ListView) findViewById(R.id.dashboard_list);
     	
     	da = new DashboardAdapter(itemsList, this);
     	lv.setAdapter(da);
     	
     	lv.setTextFilterEnabled(true);
     	
-    	EditText inputSearch = (EditText) findViewById(R.id.edit_txt);
+    	lv.setLongClickable(true);
+    	lv.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+        	@Override
+        	public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+        		AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
+        		
+        		final DashboardListItem currentItem = da.getItem(position); // in order to refer to the filtered item
+        		
+        		builder.setTitle(currentItem.getFilename()).setItems(R.array.dashboard_long_click_entries, new DialogInterface.OnClickListener() {
+			    	public void onClick(DialogInterface dialog, int which) {
+			    		/*switch (which) {
+			    			case 0:
+			    				// 1st item
+			    				break;
+			    			case 1:
+			    				// 2nd item
+			    		}*/
+			    		// only one item for the moment: delete. TODO move, etc.
+			    		AlertDialog.Builder del = new AlertDialog.Builder(DashboardActivity.this);
+			    		del.setTitle(getString(R.string.attention));
+			    		del.setMessage(getString(R.string.delete_video_confirm));
+			    		
+			    		del.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+							public void onClick(DialogInterface dialog, int which) {
+			    				/*int id = Integer.parseInt(currentItem.getId());
+			    				if (dm.remove(id) > 0 ){
+			    					Utils.logger("d", "deleteVideo: _ID " + id + " successfully removed", DEBUG_TAG);
+			    				} else {
+			    					Utils.logger("w", "deleteVideo: _ID " + id + " NOT removed", DEBUG_TAG);
+			    				}*/
+								File fileToDel = new File(currentItem.getPath(), currentItem.getFilename());
+								if (fileToDel.delete()) {
+									Utils.logger("d", fileToDel.getName() + " successfully deleted.", DEBUG_TAG);
+									Toast.makeText(DashboardActivity.this, 
+											getString(R.string.delete_video_ok, currentItem.getFilename()), 
+											Toast.LENGTH_LONG).show();
+									
+									//1
+									/*Intent delIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(fileToDel));
+									delIntent.setType("video/*");
+									sendBroadcast(delIntent);*/
+									
+									//2
+									String mediaString = YTD.videoinfo.getString(fileToDel.getAbsolutePath(), "non-ext");
+									Utils.logger("d", "mediaString: " + mediaString, DEBUG_TAG);
+									if (mediaString.equals("non-ext")) {
+										DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+										long id = Long.parseLong(currentItem.getId());
+										if (dm.remove(id) > 0) {
+											Utils.logger("d", id + " (DownloadManager) removed", DEBUG_TAG);
+										}
+									} else {
+										Uri mediaUri = Uri.parse(mediaString);
+										long mediaId = ContentUris.parseId(mediaUri);
+										Uri videoUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+										Uri itemUri = ContentUris.withAppendedId(videoUri, mediaId);
+										if (getContentResolver().delete(itemUri, null, null) > 0) {
+											Utils.logger("d", mediaId + " (ContentResolver) removed", DEBUG_TAG);
+										}
+									}
+									
+									Utils.removeEntryFromJsonFile(DashboardActivity.this, currentItem.getId());
+									Utils.reload(DashboardActivity.this);
+								} else {
+									Utils.logger("w", fileToDel.getName() + " NOT deleted.", DEBUG_TAG);
+									Toast.makeText(DashboardActivity.this, 
+											getString(R.string.delete_video_failed, currentItem.getFilename()), 
+											Toast.LENGTH_LONG).show();
+								}
+			    			}
+			    		});
+			    		
+			    		del.setNegativeButton(R.string.dialogs_negative, new DialogInterface.OnClickListener() {
+			    			public void onClick(DialogInterface dialog, int which) {
+			    				// cancel
+			    			}
+			    		});
+			    		
+			    		AlertDialog delDialog = del.create();
+			    		if (! ((Activity) DashboardActivity.this).isFinishing()) {
+                        	delDialog.show();
+                        }
+			    	}
+        		});
+        		
+	        	builder.create();
+	    		if (! ((Activity) DashboardActivity.this).isFinishing()) {
+	    			builder.show();
+	    		}
+			    return true;
+        	}
+    	});
+	}
+
+	public void spawnSearchBar() {
+		Utils.logger("d", "showing searchbar...", DEBUG_TAG);
+		
+		EditText inputSearch = new EditText(DashboardActivity.this);
+		LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		inputSearch.setLayoutParams(layoutParams);
+		
+		if (TextUtils.isEmpty(searchText)) {
+			inputSearch.setHint(R.string.menu_search);
+		} else {
+			inputSearch.setText(searchText);
+		}
+		
+		inputSearch.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+		inputSearch.setSingleLine();
+		inputSearch.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+		inputSearch.setId(999);
+		
+		LinearLayout layout = (LinearLayout) findViewById(R.id.dashboard);
+		layout.addView(inputSearch, 0);
+		isSearchBarVisible = true;
+		
     	inputSearch.addTextChangedListener(new TextWatcher() {
         
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				Utils.logger("d", "Text ["+s+"] - Start ["+start+"] - Before ["+before+"] - Count ["+count+"]", DEBUG_TAG);
+				
 				if (count < before) da.resetData();
 				da.getFilter().filter(s.toString());
 			}
@@ -109,8 +250,47 @@ public class DashboardActivity extends Activity{
 			}
     	});
 	}
+	
+	public void hideSearchBar() {
+		Utils.logger("d", "hiding searchbar...", DEBUG_TAG); 
+		
+		LinearLayout layout = (LinearLayout) findViewById(R.id.dashboard);
+		EditText inputSearch = (EditText) findViewById(999);
+		
+		// hide keyboard
+		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(inputSearch.getWindowToken(), 0);
+		
+		// store text and remove EditText
+		searchText = inputSearch.getEditableText();
+		layout.removeView(inputSearch);
+		
+		isSearchBarVisible = false;
+	}
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_dashboard, menu);
+        return true;
+    }
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch(item.getItemId()){
+        	case R.id.menu_search:
+    			if (!isSearchBarVisible) {
+    				spawnSearchBar();
+    			} else {
+    				hideSearchBar();
+    			}
+    			return true;
+        	default:
+        		return super.onOptionsItemSelected(item);
+        }
+    }
 
-	private void buildList1() {
+	private void buildList() {
 		Iterator<String> idsIter = idEntries.iterator();
 		Iterator<String> statusesIter = statusEntries.iterator();
 		Iterator<String> pathsIter = pathEntries.iterator();
@@ -127,14 +307,14 @@ public class DashboardActivity extends Activity{
 		}
 	}
 	
-	private void readJson1() {
+	private void readJson() {
 		// parse existing/init new JSON 
-		String previousJson = Utils.parseJsonDashboardFile1(this);
+		String previousJson = Utils.parseJsonDashboardFile(this);
 				
 		JSONObject jV = null;
 		try {
 			jV = new JSONObject(previousJson);
-			Utils.logger("v", "current json:\n" + previousJson, DEBUG_TAG);
+			//Utils.logger("v", "current json:\n" + previousJson, DEBUG_TAG);
 			@SuppressWarnings("unchecked")
 			Iterator<Object> ids = jV.keys();
 			while (ids.hasNext()) {
@@ -151,43 +331,10 @@ public class DashboardActivity extends Activity{
 			Log.e(DEBUG_TAG, e.getMessage());
 		}
 	}
-	
-	/*private void buildList2() {
-		for (int i = 0; i < index; i++) {
-			itemsList.add(new DashboardListItem(
-							idEntries.get(i), 
-							statusEntries.get(i),
-							pathEntries.get(i), 
-							filenameEntries.get(i), 
-							sizeEntries.get(i)));
-		}
-	}
-
-	private void readJson2() {
-		// parse existing/init new JSON 
-		String previousJson = Utils.parseJsonDashboardFile2(this);
-				
-		JSONArray jA = null;
-
-		try {
-			jA = new JSONArray(previousJson);
-			index = jA.length();
-			for (int i = 0; i < jA.length(); i++) {
-	        	JSONObject jO = jA.getJSONObject(i);
-	        	idEntries.add(jO.getString(YTD.JSON_DATA_ID));
-	        	statusEntries.add(jO.getString(YTD.JSON_DATA_STATUS));
-	        	pathEntries.add(jO.getString(YTD.JSON_DATA_PATH));
-	        	filenameEntries.add(jO.getString(YTD.JSON_DATA_FILENAME));
-	        	sizeEntries.add(jO.getString(YTD.JSON_DATA_SIZE));
-	        }
-		} catch (JSONException e) {
-			Log.e(DEBUG_TAG, e.getMessage());
-		}
-	}*/
 
 	// #####################################################################
 	
-	public void ffmpegJob() {
+	public void ffmpegJob(final int ID) {
 		// audio jobs notification init
 		aBuilder =  new NotificationCompat.Builder(this);
 		aNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -254,12 +401,14 @@ public class DashboardActivity extends Activity{
 	}
 	
 	private class ShellDummy implements ShellCallback {
+		
+		int ID;
 
 		@Override
 		public void shellOut(String shellLine) {
 			findAudioSuffix(shellLine);
 			if (audio.equals("conv")) {
-				getAudioJobProgress(shellLine);
+				getAudioJobProgress(shellLine, ID);
 			}
 			Utils.logger("d", shellLine, DEBUG_TAG);
 		}
@@ -318,14 +467,14 @@ public class DashboardActivity extends Activity{
 				
 				Utils.setNotificationDefaults(aBuilder);
 			} else {
-				setNotificationForAudioJobError();
+				setNotificationForAudioJobError(ID);
 			}
 			
 			aBuilder.setProgress(0, 0, false);
 			aNotificationManager.cancel(ID*ID);
 			aNotificationManager.notify(ID*ID, aBuilder.build());
 			
-			deleteVideo();
+			deleteVideo(ID);
 		}
 		
 		@Override
@@ -334,7 +483,7 @@ public class DashboardActivity extends Activity{
 				Utils.logger("w", "FFmpeg process not started or not completed", DEBUG_TAG);
 
 				// Toast + Notification + Log ::: Audio job error
-				setNotificationForAudioJobError();
+				setNotificationForAudioJobError(ID);
 			}
 			aNotificationManager.notify(ID*ID, aBuilder.build());
 		}
@@ -412,7 +561,7 @@ public class DashboardActivity extends Activity{
 		}
 	}
 
-	public void setNotificationForAudioJobError() {
+	public void setNotificationForAudioJobError(int ID) {
 		String text;
 		if (audio.equals("extr")) {
 			text = getString(R.string.audio_extr_error);
@@ -424,7 +573,7 @@ public class DashboardActivity extends Activity{
 		aBuilder.setContentText(text);
 	}
 	
-	private void getAudioJobProgress(String shellLine) {
+	private void getAudioJobProgress(String shellLine, int ID) {
 		Pattern totalTimePattern = Pattern.compile("Duration: (..):(..):(..)\\.(..)");
 		Matcher totalTimeMatcher = totalTimePattern.matcher(shellLine);
 		if (totalTimeMatcher.find()) {
@@ -459,11 +608,13 @@ public class DashboardActivity extends Activity{
 		return tot;
 	}
 
-	public void deleteVideo() {
+	public void deleteVideo(int ID) {
 		// remove downloaded video upon successful audio extraction
 		if (removeVideo) {
 			if (ShareActivity.dm.remove(ID) > 0 ){
 				Utils.logger("d", "deleteVideo: _ID " + ID + " successfully removed", DEBUG_TAG);
+			} else {
+				Utils.logger("w", "deleteVideo: _ID " + ID + " NOT removed", DEBUG_TAG);
 			}
 		}
 	}

@@ -22,13 +22,16 @@ package dentex.youtube.downloader;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class DashboardAdapter extends ArrayAdapter<DashboardListItem> implements Filterable {
@@ -37,12 +40,13 @@ public class DashboardAdapter extends ArrayAdapter<DashboardListItem> implements
 	private Context context;
 	private Filter itemsFilter;
 	private List<DashboardListItem> origItemsList;
+	public ArrayList<DashboardListItem> filteredList;
 	
 	public DashboardAdapter(List<DashboardListItem> itemsList, Context ctx) {
 		super(ctx, R.layout.activity_dashboard_list_item, itemsList);
 		this.itemsList = itemsList;
 		this.context = ctx;
-		this.origItemsList = itemsList;
+		this.origItemsList = new ArrayList<DashboardListItem>(itemsList);
 	}
 	
 	public int getCount() {
@@ -68,12 +72,21 @@ public class DashboardAdapter extends ArrayAdapter<DashboardListItem> implements
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = inflater.inflate(R.layout.activity_dashboard_list_item, null);
 			// Now we can fill the layout with the right values
-			TextView tv1 = (TextView) v.findViewById(R.id.one);
+			LinearLayout layout = (LinearLayout) v.findViewById(R.id.dashboard_list_item);
+			TextView tv1D = (TextView) v.findViewById(R.id.one_D);
+			TextView tv1L = (TextView) v.findViewById(R.id.one_L);
+			String theme = YTD.settings.getString("choose_theme", "D");
+	    	if (theme.equals("D")) {
+	    		layout.removeView(tv1L);
+	    		holder.itemOne = tv1D;
+	    	} else {
+	    		layout.removeView(tv1D);
+	    		holder.itemOne = tv1L;
+	    	}
 			TextView tv2 = (TextView) v.findViewById(R.id.two);
 			TextView tv3 = (TextView) v.findViewById(R.id.three);
 			TextView tv4 = (TextView) v.findViewById(R.id.four);
 
-			holder.itemOne = tv1;
 			holder.itemTwo = tv2;
 			holder.itemThree = tv3;
 			holder.itemFour = tv4;
@@ -107,26 +120,24 @@ public class DashboardAdapter extends ArrayAdapter<DashboardListItem> implements
 		public TextView itemFour;
 	}
 
-	public class PlanetFilter extends Filter {
-	    @Override
+	public class ItemsFilter extends Filter {
+	    @SuppressLint("DefaultLocale")
+		@Override
 	    public FilterResults performFiltering(CharSequence constraint) {
 	    	FilterResults results = new FilterResults();
-	        // We implement here the filter logic
-	        if (constraint == null || constraint.length() == 0) {
-	            // No filter implemented we return all the list
+	        if (TextUtils.isEmpty(constraint)) {
 	            results.values = origItemsList;
 	            results.count = origItemsList.size();
 	        } else {
-	            // We perform filtering operation
-	            List<DashboardListItem> nList = new ArrayList<DashboardListItem>();
+	            filteredList = new ArrayList<DashboardListItem>();
 	             
 	            for (DashboardListItem p : itemsList) {
-	                if (p.getFilename().startsWith(constraint.toString()))
-	                    nList.add(p);
+	                if (p.getFilename().toUpperCase().startsWith(constraint.toString().toUpperCase()))
+	                    filteredList.add(p);
 	            }
 	             
-	            results.values = nList;
-	            results.count = nList.size();
+	            results.values = filteredList;
+	            results.count = filteredList.size();
 	        }
 	        return results;
 	    }
@@ -147,7 +158,7 @@ public class DashboardAdapter extends ArrayAdapter<DashboardListItem> implements
 	@Override
 	public Filter getFilter() {
 	    if (itemsFilter == null)
-	        itemsFilter = new PlanetFilter();
+	        itemsFilter = new ItemsFilter();
 	     
 	    return itemsFilter;
 	}

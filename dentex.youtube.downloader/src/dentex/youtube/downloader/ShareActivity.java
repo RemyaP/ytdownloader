@@ -878,7 +878,7 @@ public class ShareActivity extends Activity {
 		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_FILENAME, composedVideoFilename).apply();
 		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_PATH, path.getAbsolutePath()).apply();
 		
-		Utils.writeToJsonFile1(mContext,
+		Utils.addEntryToJsonFile(mContext,
 				String.valueOf(enqueue), 
 				getString(R.string.json_status_in_progress), 
 				path.getAbsolutePath(), composedVideoFilename, 

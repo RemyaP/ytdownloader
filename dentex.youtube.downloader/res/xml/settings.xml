@@ -93,6 +93,13 @@
             android:entries="@array/mp3_bitrate_entries"
             android:entryValues="@array/mp3_bitrate_entry_values"
             android:defaultValue="@string/mp3_bitrate_default" />
+        
+        <CheckBoxPreference
+        	android:key="remove_video"
+        	android:dependency="enable_audio_extraction"
+        	android:title="@string/remove_video_title"
+            android:summary="@string/remove_video_summary"
+            android:defaultValue="false" />
             
 	</PreferenceCategory>
 

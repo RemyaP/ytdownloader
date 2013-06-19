@@ -176,14 +176,14 @@ public class DownloadsService extends Service {
 				        		
 				        		// TODO dm.addCompletedDownload to add the completed file on extSdCard into the dm list; NOT working
 				        		//Uri dstUri = Uri.fromFile(dst); // <-- tried also this; see (1)
-
+				        		
 				        		/*Utils.logger("i", "dst: " + dst.getAbsolutePath(), DEBUG_TAG);
 				        		ShareActivity.dm.addCompletedDownload(vfilename, 
 				        				getString(R.string.ytd_video), 
 				        				true, 
-				        				"video/*", 
+				        				"video/mp4", 
 				        				dst.getAbsolutePath(), // <-- dstUri.getEncodedPath(), // (1) 
-				        				size,
+				        				sizeRaw,
 				        				false);*/
 				        	}
 						} catch (IOException e) {
@@ -199,7 +199,7 @@ public class DownloadsService extends Service {
 						}
 					}
 					
-					Utils.writeToJsonFile1(nContext, String.valueOf(id), getString(R.string.json_status_completed), path, vfilename, size);
+					Utils.addEntryToJsonFile(nContext, String.valueOf(id), getString(R.string.json_status_completed), path, vfilename, size);
 					
 					break;
 					
@@ -208,7 +208,7 @@ public class DownloadsService extends Service {
 					Log.e(DEBUG_TAG, " Reason: " + reason);
 					Toast.makeText(context,  vfilename + ": " + getString(R.string.download_failed), Toast.LENGTH_LONG).show();
 					
-					Utils.writeToJsonFile1(nContext, String.valueOf(id), getString(R.string.json_status_failed), path, vfilename, size);
+					Utils.addEntryToJsonFile(nContext, String.valueOf(id), getString(R.string.json_status_failed), path, vfilename, size);
 					
 					break;
 					

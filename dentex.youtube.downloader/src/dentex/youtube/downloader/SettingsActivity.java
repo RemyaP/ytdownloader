@@ -224,7 +224,7 @@ public class SettingsActivity extends Activity {
 			    		getActivity().setTheme(R.style.AppThemeLight);
 			    	}
 			    	
-			    	if (!theme.equals(newValue)) reload();
+			    	if (!theme.equals(newValue)) Utils.reload(getActivity());
 					return true;
 				}
 			});
@@ -234,7 +234,7 @@ public class SettingsActivity extends Activity {
 				
 				public boolean onPreferenceChange(Preference preference, Object newValue) {
 					String language = YTD.settings.getString("lang", "default");
-					if (!language.equals(newValue)) reload();
+					if (!language.equals(newValue)) Utils.reload(getActivity());
 					return true;
 				}
 			});
@@ -381,15 +381,6 @@ public class SettingsActivity extends Activity {
 				return 0;
 			}
 		}
-
-		public void reload() {
-        	Intent intent = getActivity().getIntent();
-        	intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-    		getActivity().finish();
-    		getActivity().overridePendingTransition(0, 0);
-    		startActivity(intent);
-    		getActivity().overridePendingTransition(0, 0);
-        }
 
 		public void initUpdate() {
 			int prefSig = YTD.settings.getInt("APP_SIGNATURE", 0);
