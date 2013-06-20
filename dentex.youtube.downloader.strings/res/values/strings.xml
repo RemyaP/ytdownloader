@@ -143,7 +143,8 @@
 	<string name="menu_search">search&#8230;</string>
 	
 	<string-array name="dashboard_long_click_entries">
-        <item>Delete video</item>
+	    <item>Copy</item>
+        <item>Delete</item>
     </string-array>
 
 	<string name="delete_video_confirm">Confirm you want to delete this video?</string>

@@ -1,5 +1,9 @@
 package dentex.youtube.downloader;
 
+import group.pals.android.lib.ui.filechooser.FileChooserActivity;
+import group.pals.android.lib.ui.filechooser.io.localfile.LocalFile;
+import group.pals.android.lib.ui.filechooser.services.IFileProvider;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,7 +32,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
 import android.text.Editable;
@@ -50,6 +56,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import dentex.youtube.downloader.ffmpeg.FfmpegController;
 import dentex.youtube.downloader.ffmpeg.ShellUtils.ShellCallback;
+import dentex.youtube.downloader.utils.PopUps;
 import dentex.youtube.downloader.utils.Utils;
 
 public class DashboardActivity extends Activity{
@@ -71,7 +78,6 @@ public class DashboardActivity extends Activity{
 	private String audio;
 	private ListView lv;
 	private Editable searchText;
-	//private DownloadManager dm;
 	
 	//private int index;
 	
@@ -85,6 +91,8 @@ public class DashboardActivity extends Activity{
 	List<DashboardListItem> itemsList = new ArrayList<DashboardListItem>();
 	DashboardAdapter da;
 	private boolean isSearchBarVisible;
+	private String selectedFolder;
+	DashboardListItem currentItem = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +107,6 @@ public class DashboardActivity extends Activity{
 		
 		// Language init
     	Utils.langInit(this);
-    	
-    	//dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
     	
     	readJson();
     	
@@ -120,71 +126,114 @@ public class DashboardActivity extends Activity{
         	public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
         		AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
         		
-        		final DashboardListItem currentItem = da.getItem(position); // in order to refer to the filtered item
+        		currentItem = da.getItem(position); // in order to refer to the filtered item
         		
         		builder.setTitle(currentItem.getFilename()).setItems(R.array.dashboard_long_click_entries, new DialogInterface.OnClickListener() {
-			    	public void onClick(DialogInterface dialog, int which) {
-			    		/*switch (which) {
+
+					public void onClick(DialogInterface dialog, int which) {
+			    		switch (which) {
 			    			case 0:
-			    				// 1st item
+			    				copy(currentItem);
 			    				break;
 			    			case 1:
-			    				// 2nd item
-			    		}*/
-			    		// only one item for the moment: delete. TODO move, etc.
-			    		AlertDialog.Builder del = new AlertDialog.Builder(DashboardActivity.this);
+			    				delete(currentItem);
+			    		}
+
+			    	}
+
+					private void copy(DashboardListItem currentItem) {
+						Intent intent = new Intent(DashboardActivity.this,  FileChooserActivity.class);
+	                	if (intent != null) {
+		            		intent.putExtra(FileChooserActivity._Rootpath, (Parcelable) new LocalFile(Environment.getExternalStorageDirectory()));
+		            		intent.putExtra(FileChooserActivity._FilterMode, IFileProvider.FilterMode.DirectoriesOnly);
+		            		startActivityForResult(intent, 0);
+	                	}
+					}
+					
+					
+
+					public void delete(final DashboardListItem currentItem) {
+						AlertDialog.Builder del = new AlertDialog.Builder(DashboardActivity.this);
 			    		del.setTitle(getString(R.string.attention));
 			    		del.setMessage(getString(R.string.delete_video_confirm));
 			    		
 			    		del.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
 							public void onClick(DialogInterface dialog, int which) {
-			    				/*int id = Integer.parseInt(currentItem.getId());
-			    				if (dm.remove(id) > 0 ){
-			    					Utils.logger("d", "deleteVideo: _ID " + id + " successfully removed", DEBUG_TAG);
-			    				} else {
-			    					Utils.logger("w", "deleteVideo: _ID " + id + " NOT removed", DEBUG_TAG);
-			    				}*/
 								File fileToDel = new File(currentItem.getPath(), currentItem.getFilename());
-								if (fileToDel.delete()) {
-									Utils.logger("d", fileToDel.getName() + " successfully deleted.", DEBUG_TAG);
-									Toast.makeText(DashboardActivity.this, 
-											getString(R.string.delete_video_ok, currentItem.getFilename()), 
-											Toast.LENGTH_LONG).show();
+								
+								if (currentItem.getStatus().equals(getString(R.string.json_status_completed))) {
 									
-									//1
-									/*Intent delIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(fileToDel));
-									delIntent.setType("video/*");
-									sendBroadcast(delIntent);*/
+									// get media Uri string stored in "videoinfo" prefs
+									String mediaUriString = YTD.videoinfo.getString(fileToDel.getAbsolutePath(), "non-ext");
+									Utils.logger("d", "mediaString: " + mediaUriString, DEBUG_TAG);
 									
-									//2
-									String mediaString = YTD.videoinfo.getString(fileToDel.getAbsolutePath(), "non-ext");
-									Utils.logger("d", "mediaString: " + mediaString, DEBUG_TAG);
-									if (mediaString.equals("non-ext")) {
-										DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-										long id = Long.parseLong(currentItem.getId());
-										if (dm.remove(id) > 0) {
-											Utils.logger("d", id + " (DownloadManager) removed", DEBUG_TAG);
-										}
+									// check if it actually exists (for video stored on extSdCard mediaUriString is not stored)
+									if (mediaUriString.equals("non-ext")) {
+										// video NOT on extSdCard -> use DownloadManager to remove file and delete MediaStore ref.
+										removeViaDm(currentItem, fileToDel);
 									} else {
-										Uri mediaUri = Uri.parse(mediaString);
-										long mediaId = ContentUris.parseId(mediaUri);
-										Uri videoUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-										Uri itemUri = ContentUris.withAppendedId(videoUri, mediaId);
-										if (getContentResolver().delete(itemUri, null, null) > 0) {
-											Utils.logger("d", mediaId + " (ContentResolver) removed", DEBUG_TAG);
-										}
+										// video on extSdCard -> manually delete file 
+										removeManually(currentItem, fileToDel, mediaUriString);
 									}
-									
-									Utils.removeEntryFromJsonFile(DashboardActivity.this, currentItem.getId());
-									Utils.reload(DashboardActivity.this);
-								} else {
-									Utils.logger("w", fileToDel.getName() + " NOT deleted.", DEBUG_TAG);
-									Toast.makeText(DashboardActivity.this, 
-											getString(R.string.delete_video_failed, currentItem.getFilename()), 
-											Toast.LENGTH_LONG).show();
+								} else if (currentItem.getStatus().equals(getString(R.string.json_status_in_progress))) {
+									// video download in progress -> use DownloadManager anyway to remove file
+									removeViaDm(currentItem, fileToDel);
 								}
+								
+								// remove entry from JSON and reload Dashboard
+								Utils.removeEntryFromJsonFile(DashboardActivity.this, currentItem.getId());
+								Utils.reload(DashboardActivity.this);
 			    			}
+
+							public void removeManually(final DashboardListItem currentItem, File fileToDel, String mediaUriString) {
+								if (fileToDel.delete()) {
+									notifyDeletionOk(currentItem, fileToDel);
+									
+									// parse media Uri
+									Uri mediaUri = Uri.parse(mediaUriString);
+									// parse its id
+									long mediaId = ContentUris.parseId(mediaUri);
+									// set ContentResolver params
+									Uri videoUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+									Uri itemUri = ContentUris.withAppendedId(videoUri, mediaId);
+									
+									// remove media file reference from MediaStore library via ContentResolver
+									if (getContentResolver().delete(itemUri, null, null) > 0) {
+										Utils.logger("d", mediaId + " (ContentResolver) removed", DEBUG_TAG);
+									} else {
+										Utils.logger("w", mediaId + " (ContentResolver) NOT removed", DEBUG_TAG);
+									}
+								} else {
+									notifyDeletionUnsuccessful(currentItem, fileToDel);
+								}
+							}
+
+							public void removeViaDm(final DashboardListItem currentItem, File fileToDel) {
+								DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+								long id = Long.parseLong(currentItem.getId());
+								if (dm.remove(id) > 0) {
+									Utils.logger("d", id + " (DownloadManager) removed", DEBUG_TAG);
+									notifyDeletionOk(currentItem, fileToDel);
+								} else {
+									Utils.logger("w", id + " (DownloadManager) NOT removed", DEBUG_TAG);
+									notifyDeletionUnsuccessful(currentItem, fileToDel);
+								}
+							}
+
+							public void notifyDeletionUnsuccessful(final DashboardListItem currentItem, File fileToDel) {
+								Utils.logger("w", fileToDel.getName() + " NOT deleted.", DEBUG_TAG);
+								Toast.makeText(DashboardActivity.this, 
+										getString(R.string.delete_video_failed, currentItem.getFilename()), 
+										Toast.LENGTH_LONG).show();
+							}
+
+							public void notifyDeletionOk(final DashboardListItem currentItem, File fileToDel) {
+								Utils.logger("d", fileToDel.getName() + " successfully deleted.", DEBUG_TAG);
+								Toast.makeText(DashboardActivity.this, 
+										getString(R.string.delete_video_ok, currentItem.getFilename()), 
+										Toast.LENGTH_LONG).show();
+							}
 			    		});
 			    		
 			    		del.setNegativeButton(R.string.dialogs_negative, new DialogInterface.OnClickListener() {
@@ -197,7 +246,7 @@ public class DashboardActivity extends Activity{
 			    		if (! ((Activity) DashboardActivity.this).isFinishing()) {
                         	delDialog.show();
                         }
-			    	}
+					}
         		});
         		
 	        	builder.create();
@@ -330,6 +379,73 @@ public class DashboardActivity extends Activity{
 		} catch (JSONException e) {
 			Log.e(DEBUG_TAG, e.getMessage());
 		}
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                @SuppressWarnings("unchecked")
+				List<LocalFile> files = (List<LocalFile>) data.getSerializableExtra(FileChooserActivity._Results);
+                	
+            	File chooserFolder = files.get(0);
+				selectedFolder = chooserFolder.toString();
+            	Utils.logger("d", "file-chooser selection: " + selectedFolder, DEBUG_TAG);
+            	
+            	switch (Utils.pathCheck(chooserFolder)) {
+            		case 0:
+            			// Path on standard sdcard
+            			doCopy(chooserFolder);
+                		break;
+            		case 1:
+            			// Path not writable
+            			chooserFolder = ShareActivity.dir_Downloads;
+            			doCopy(chooserFolder);
+            			
+            			PopUps.showPopUp(getString(R.string.system_warning_title), getString(R.string.system_warning_msg), "alert", DashboardActivity.this);
+            			//Toast.makeText(getActivity(), getString(R.string.system_warning_title), Toast.LENGTH_SHORT).show();
+            			break;
+            		case 2:
+            			// Path not mounted
+            			Toast.makeText(DashboardActivity.this, getString(R.string.sdcard_unmounted_warning), Toast.LENGTH_SHORT).show();
+            	}
+            }
+        }
+    }
+
+	public void doCopy(final File chooserFolder) {
+		
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+
+				Looper.prepare();
+					
+				File in = new File(currentItem.getPath(), currentItem.getFilename());
+				File out = new File(chooserFolder, currentItem.getFilename());
+				try {
+					Toast.makeText(DashboardActivity.this, 
+							currentItem.getFilename() + ": " + getString(R.string.copy_progress), 
+							Toast.LENGTH_LONG).show();
+					Utils.logger("i", currentItem.getFilename() + ": Copy in progress...", DEBUG_TAG);
+					
+					Utils.copyFile(in, out);
+					
+					Toast.makeText(DashboardActivity.this, 
+							currentItem.getFilename() + ": " + getString(R.string.copy_ok), 
+							Toast.LENGTH_LONG).show();
+					Utils.logger("i", currentItem.getFilename() + ": Copy OK", DEBUG_TAG);
+					// TODO register @ MediaLibrary
+				} catch (IOException e) {
+					Toast.makeText(DashboardActivity.this, 
+							currentItem.getFilename() + ": " + getString(R.string.copy_error), 
+							Toast.LENGTH_LONG).show();
+					Log.e(DEBUG_TAG, currentItem.getFilename() + ": Copy FAILED");
+				}
+				Looper.loop();
+			}
+		}).start();
 	}
 
 	// #####################################################################

@@ -59,6 +59,7 @@ import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.OnScanCompletedListener;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import dentex.youtube.downloader.R;
@@ -144,7 +145,22 @@ public class Utils {
     	}
     }
     
-    public static void writeToFile(File file, String content) {
+	public static int pathCheck(File path) {
+		String state = Environment.getExternalStorageState();
+		if (Environment.MEDIA_MOUNTED.equals(state)) {
+			if (path.canWrite()) {
+				return 0;
+			} else {
+				logger("w", "Path not writable", DEBUG_TAG);
+				return 1;
+			}
+		} else {
+			logger("w", "Path not mounted", DEBUG_TAG);
+			return 2;
+		}
+	 }
+	
+	 public static void writeToFile(File file, String content) {
     	try {
 	        InputStream is = new ByteArrayInputStream(content.getBytes("UTF-8"));
 	        OutputStream os = new FileOutputStream(file);

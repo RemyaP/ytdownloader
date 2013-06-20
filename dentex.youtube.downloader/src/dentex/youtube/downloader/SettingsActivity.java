@@ -70,7 +70,7 @@ import dentex.youtube.downloader.utils.Utils;
 public class SettingsActivity extends Activity {
 	
 	public static final String DEBUG_TAG = "SettingsActivity";
-	private static final int _ReqChooseFile = 0;
+	//private static final int _ReqChooseFile = 0;
 	public static String chooserSummary;
 	//static SharedPreferences settings = YTD.settings;
 	public static Activity mActivity;
@@ -184,7 +184,7 @@ public class SettingsActivity extends Activity {
                 	if (intent != null) {
 	            		intent.putExtra(FileChooserActivity._Rootpath, (Parcelable) new LocalFile(Environment.getExternalStorageDirectory()));
 	            		intent.putExtra(FileChooserActivity._FilterMode, IFileProvider.FilterMode.DirectoriesOnly);
-	            		startActivityForResult(intent, _ReqChooseFile);
+	            		startActivityForResult(intent, 0);
                 	} 
                 	return true;
                 }
@@ -513,8 +513,7 @@ public class SettingsActivity extends Activity {
 
         @Override
 		public void onActivityResult(int requestCode, int resultCode, Intent data) {
-            switch (requestCode) {
-            case _ReqChooseFile:
+        	if (requestCode == 0) {
                 if (resultCode == RESULT_OK) {
                     @SuppressWarnings("unchecked")
 					List<LocalFile> files = (List<LocalFile>) data.getSerializableExtra(FileChooserActivity._Results);
@@ -523,7 +522,7 @@ public class SettingsActivity extends Activity {
 					chooserSummary = chooserFolder.toString();
                 	Utils.logger("d", "file-chooser selection: " + chooserSummary, DEBUG_TAG);
                 	
-                	switch (pathCheck(chooserFolder)) {
+                	switch (Utils.pathCheck(chooserFolder)) {
                 		case 0:
                 			// Path on standard sdcard
                 			setChooserPrefAndSummary();
@@ -540,7 +539,6 @@ public class SettingsActivity extends Activity {
                 			Toast.makeText(getActivity(), getString(R.string.sdcard_unmounted_warning), Toast.LENGTH_SHORT).show();
                 	}
                 }
-                break;
             }
         }
 
@@ -550,21 +548,6 @@ public class SettingsActivity extends Activity {
 			}
 			YTD.settings.edit().putString("CHOOSER_FOLDER", chooserSummary).apply();
 		}
-        
-        public int pathCheck(File path) {
-            String state = Environment.getExternalStorageState();
-            if (Environment.MEDIA_MOUNTED.equals(state)) {
-            	if (path.canWrite()) {
-					return 0;
-				} else {
-					Utils.logger("w", "Path not writable", DEBUG_TAG);
-					return 1;
-				}
-            } else {
-            	Utils.logger("w", "Path not mounted", DEBUG_TAG);
-            	return 2;
-            }
-        }
         
         public static void autoUpdate(Context context) {
 	        long storedTime = YTD.settings.getLong("time", 0); // final string
