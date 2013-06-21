@@ -24,6 +24,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,9 @@ import android.widget.TextView;
 
 public class DashboardAdapter extends ArrayAdapter<DashboardListItem> implements Filterable {
 
+	private final String BLUE = "#242FB2";
+	private final String RED = "#E50300";
+	private final String GREEN = "#00AD21";
 	private List<DashboardListItem> itemsList;
 	private Context context;
 	private Filter itemsFilter;
@@ -101,9 +105,12 @@ public class DashboardAdapter extends ArrayAdapter<DashboardListItem> implements
 		holder.itemTwo.setText(dli.getSize());
 		holder.itemThree.setText(dli.getPath());
 		holder.itemFour.setText(dli.getStatus());
-		
-			//holder.itemFour.setTextColor(Color.GREEN);
-			//holder.itemFour.setTextColor(Color.RED);
+		if (dli.getStatus().equals(context.getString(R.string.json_status_completed)))
+			holder.itemFour.setTextColor(Color.parseColor(GREEN));
+		else if (dli.getStatus().equals(context.getString(R.string.json_status_failed)))
+			holder.itemFour.setTextColor(Color.parseColor(RED));
+		else if (dli.getStatus().equals(context.getString(R.string.json_status_in_progress)))
+			holder.itemFour.setTextColor(Color.parseColor(BLUE));
 		
 		return v;
 	}

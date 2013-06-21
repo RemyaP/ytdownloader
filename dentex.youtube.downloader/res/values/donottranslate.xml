@@ -279,6 +279,7 @@
     <string name="tweet_summary">\@twidentex</string>    
     
     <string name="thumb_preview_descr">Video thumbnail</string>
+    <string name="dashboard_longclick_item_icon_descr">longclick list item\'s icon</string>
 	
     <string name="app_name">YouTube Downloader</string>
     <string name="title_activity_share">YouTube Downloader</string>
