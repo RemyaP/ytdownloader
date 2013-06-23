@@ -26,7 +26,6 @@ import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,6 +41,7 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -68,6 +68,7 @@ import dentex.youtube.downloader.utils.Utils;
 public class DashboardActivity extends Activity{
 	
 	private final static String DEBUG_TAG = "DashboardActivity";
+	ContextThemeWrapper boxThemeContextWrapper = new ContextThemeWrapper(this, R.style.BoxTheme);
 	private NotificationCompat.Builder aBuilder;
 	public NotificationManager aNotificationManager;
 	private int totSeconds;
@@ -122,7 +123,13 @@ public class DashboardActivity extends Activity{
     	lv = (ListView) findViewById(R.id.dashboard_list);
     	
     	da = new DashboardAdapter(itemsList, this);
-    	lv.setAdapter(da);
+    	
+    	if (da.isEmpty()) {
+    		// TODO show TextView: "dashboard is empty"
+    		Utils.logger("d", "dashboard is empty", DEBUG_TAG);
+    	} else {
+    		lv.setAdapter(da);
+    	}
     	
     	lv.setTextFilterEnabled(true);
     	
@@ -131,7 +138,7 @@ public class DashboardActivity extends Activity{
 
         	@Override
         	public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-        		AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
+        		AlertDialog.Builder builder = new AlertDialog.Builder(boxThemeContextWrapper);
         		
         		currentItem = da.getItem(position); // in order to refer to the filtered item
         		
@@ -215,7 +222,7 @@ public class DashboardActivity extends Activity{
 					}
 
 					public void delete(final DashboardListItem currentItem) {
-						AlertDialog.Builder del = new AlertDialog.Builder(DashboardActivity.this);
+						AlertDialog.Builder del = new AlertDialog.Builder(boxThemeContextWrapper);
 			    		del.setTitle(getString(R.string.attention));
 			    		del.setMessage(getString(R.string.delete_video_confirm));
 			    		del.setIcon(android.R.drawable.ic_dialog_alert);
@@ -250,9 +257,9 @@ public class DashboardActivity extends Activity{
     	});
 	}
 	
-	private void doDelete(
-			final DashboardListItem currentItem,
-			File fileToDel) {
+	private void doDelete(final DashboardListItem currentItem, File fileToDel) {
+		Utils.logger("v", "----------> BEGIN delete", DEBUG_TAG);
+		
 		if (currentItem.getStatus().equals(getString(R.string.json_status_completed))) {
 			
 			// get media Uri string stored in "videoinfo" prefs
@@ -274,7 +281,9 @@ public class DashboardActivity extends Activity{
 		
 		// remove entry from JSON and reload Dashboard
 		Utils.removeEntryFromJsonFile(DashboardActivity.this, currentItem.getId());
-		Utils.reload(DashboardActivity.this);
+		
+		refreshlist();
+		Utils.logger("v", "----------> END delete", DEBUG_TAG);
 	}
 
 	public void removeManually(final DashboardListItem currentItem, File fileToDel, String mediaUriString) {
@@ -283,17 +292,12 @@ public class DashboardActivity extends Activity{
 			
 			// parse media Uri
 			Uri mediaUri = Uri.parse(mediaUriString);
-			// parse its id
-			long mediaId = ContentUris.parseId(mediaUri);
-			// set ContentResolver params
-			Uri videoUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-			Uri itemUri = ContentUris.withAppendedId(videoUri, mediaId);
 			
 			// remove media file reference from MediaStore library via ContentResolver
-			if (getContentResolver().delete(itemUri, null, null) > 0) {
-				Utils.logger("d", mediaId + " (ContentResolver) removed", DEBUG_TAG);
+			if (getContentResolver().delete(mediaUri, null, null) > 0) {
+				Utils.logger("d", mediaUri.toString() + " (ContentResolver) removed", DEBUG_TAG);
 			} else {
-				Utils.logger("w", mediaId + " (ContentResolver) NOT removed", DEBUG_TAG);
+				Utils.logger("w", mediaUri.toString() + " (ContentResolver) NOT removed", DEBUG_TAG);
 			}
 		} else {
 			notifyDeletionUnsuccessful(currentItem, fileToDel);
@@ -313,14 +317,14 @@ public class DashboardActivity extends Activity{
 	}
 
 	public void notifyDeletionUnsuccessful(final DashboardListItem currentItem, File fileToDel) {
-		Utils.logger("w", fileToDel.getName() + " NOT deleted.", DEBUG_TAG);
+		Utils.logger("w", fileToDel.getPath() + " NOT deleted.", DEBUG_TAG);
 		Toast.makeText(DashboardActivity.this, 
 				getString(R.string.delete_video_failed, currentItem.getFilename()), 
 				Toast.LENGTH_LONG).show();
 	}
 
 	public void notifyDeletionOk(final DashboardListItem currentItem, File fileToDel) {
-		Utils.logger("d", fileToDel.getName() + " successfully deleted.", DEBUG_TAG);
+		Utils.logger("d", fileToDel.getPath() + " successfully deleted.", DEBUG_TAG);
 		Toast.makeText(DashboardActivity.this, 
 				getString(R.string.delete_video_ok, currentItem.getFilename()), 
 				Toast.LENGTH_LONG).show();
@@ -491,8 +495,9 @@ public class DashboardActivity extends Activity{
 				Looper.prepare();
 					
 				File in = new File(currentItem.getPath(), currentItem.getFilename());
-				File out = new File(chooserFolder, currentItem.getFilename());
+				File out = new File(chooserFolder, "copy_" + currentItem.getFilename());
 				try {
+					Utils.logger("v", "----------> BEGIN copy/move", DEBUG_TAG);
 					Toast.makeText(DashboardActivity.this, 
 							currentItem.getFilename() + ": " + getString(R.string.copy_progress), 
 							Toast.LENGTH_LONG).show();
@@ -511,27 +516,55 @@ public class DashboardActivity extends Activity{
 					
 					Utils.addEntryToJsonFile(
 							DashboardActivity.this, 
-							currentItem.getId(), 
+							currentItem.getId() + "_copy", 
 							currentItem.getStatus(), 
 							out.getParent(), 
 							out.getName(), 
 							currentItem.getSize());
+					
+					if (moveEnabled) {
+						Utils.logger("i", "----------> move Enabled", DEBUG_TAG);
+						doDelete(currentItem, in);
+					}
 					
 				} catch (IOException e) {
 					Toast.makeText(DashboardActivity.this, 
 							currentItem.getFilename() + ": " + getString(R.string.copy_error), 
 							Toast.LENGTH_LONG).show();
 					Log.e(DEBUG_TAG, currentItem.getFilename() + ": Copy FAILED");
-				}
-				
-				if (moveEnabled) {
-					doDelete(currentItem, in);
+				} finally {
+					refreshlist();
+					Utils.logger("v", "----------> END copy/move", DEBUG_TAG);
 				}
 				
 				Looper.loop();
 			}
 		}).start();
 	}
+	
+	private void refreshlist() {
+		DashboardActivity.this.runOnUiThread(new Runnable() {
+			public void run() {
+				// clear the adapter
+				da.clear();
+			    
+			    // empty the Lists
+			    idEntries.clear();
+			    statusEntries.clear();
+				pathEntries.clear();
+				filenameEntries.clear();
+				sizeEntries.clear();
+			    
+			    // refill the Lists and re-populate the adapter
+			    readJson();
+				buildList();
+				
+				// refresh the list view
+				da.notifyDataSetChanged();
+			}
+		});
+	}
+	
 
 	// #####################################################################
 	

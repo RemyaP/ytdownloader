@@ -37,7 +37,7 @@ import android.widget.TextView;
 
 public class DashboardAdapter extends ArrayAdapter<DashboardListItem> implements Filterable {
 
-	private final String BLUE = "#242FB2";
+	private final String BLUE = "#3674F2";
 	private final String RED = "#E50300";
 	private final String GREEN = "#00AD21";
 	private List<DashboardListItem> itemsList;
@@ -111,7 +111,6 @@ public class DashboardAdapter extends ArrayAdapter<DashboardListItem> implements
 			holder.itemFour.setTextColor(Color.parseColor(RED));
 		else if (dli.getStatus().equals(context.getString(R.string.json_status_in_progress)))
 			holder.itemFour.setTextColor(Color.parseColor(BLUE));
-		
 		return v;
 	}
 	
