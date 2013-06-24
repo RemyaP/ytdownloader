@@ -30,11 +30,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
 import android.os.Parcelable;
-import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
 import android.text.Editable;
 import android.text.InputType;
@@ -47,16 +47,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,8 +69,8 @@ public class DashboardActivity extends Activity{
 	public NotificationManager aNotificationManager;
 	private int totSeconds;
 	private int currentTime;
-	protected File in;
-	protected File out;
+	protected File videoIn;
+	protected File audioOut;
 	protected String aBaseName;
 	public String aSuffix = ".audio";
 	public String vfilename;
@@ -98,9 +94,8 @@ public class DashboardActivity extends Activity{
 	private List<DashboardListItem> itemsList = new ArrayList<DashboardListItem>();
 	private DashboardAdapter da;
 	private boolean isSearchBarVisible;
-	private String selectedFolder;
 	private DashboardListItem currentItem = null;
-	private boolean moveEnabled;
+	private TextView userFilename;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +121,8 @@ public class DashboardActivity extends Activity{
     	
     	if (da.isEmpty()) {
     		// TODO show TextView: "dashboard is empty"
-    		Utils.logger("d", "dashboard is empty", DEBUG_TAG);
+    		Utils.logger("v", "__dashboard is empty__", DEBUG_TAG);
+    		
     	} else {
     		lv.setAdapter(da);
     	}
@@ -142,7 +138,7 @@ public class DashboardActivity extends Activity{
         		
         		currentItem = da.getItem(position); // in order to refer to the filtered item
         		
-        		final String[] items = {
+        		/*final String[] items = {
         				getString(R.string.dashboard_long_click_entry_0),
         				getString(R.string.dashboard_long_click_entry_1),
         				getString(R.string.dashboard_long_click_entry_2)
@@ -157,56 +153,50 @@ public class DashboardActivity extends Activity{
         		ListAdapter adapter = new ArrayAdapter<String>(
         		                getApplicationContext(), R.layout.activity_dashboard_longclick_list_item, items) {
         		               
-        		        ViewHolder holder;
-        		 
-        		        class ViewHolder {
-        		                ImageView icon;
-        		                TextView title;
-        		        }
-        		 
-        		        public View getView(int position, View convertView, ViewGroup parent) {
-        		                final LayoutInflater inflater = (LayoutInflater) getApplicationContext()
-        		                                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        		 
-        		                if (convertView == null) {
-        		                        convertView = inflater.inflate(
-        		                                        R.layout.activity_dashboard_longclick_list_item, null);
-        		 
-        		                        holder = new ViewHolder();
-        		                        holder.icon = (ImageView) convertView
-        		                                        .findViewById(R.id.icon);
-        		                        holder.title = (TextView) convertView
-        		                                        .findViewById(R.id.title);
-        		                        convertView.setTag(holder);
-        		                } else {
-        		                        // view already defined, retrieve view holder
-        		                        holder = (ViewHolder) convertView.getTag();
-        		                }              
-        		 
-        		                //tile = getResources().getDrawable(R.drawable.list_icon); //this is an image from the drawables folder
-        		               
-        		                holder.title.setText(items[position]);
-        		                //holder.icon.setImageDrawable(tile);
-        		                holder.icon.setImageResource(icons[position]);
-        		                return convertView;
-        		        }
-        		};
+    		        ViewHolder holder;
+    		 
+    		        class ViewHolder {
+    		            ImageView icon;
+    		            TextView title;
+    		        }
+    		 
+    		        public View getView(int position, View convertView, ViewGroup parent) {
+		                final LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		 
+		                if (convertView == null) {
+	                        convertView = inflater.inflate(R.layout.activity_dashboard_longclick_list_item, null);
+	 
+	                        holder = new ViewHolder();
+	                        holder.icon = (ImageView) convertView.findViewById(R.id.icon);
+	                        holder.title = (TextView) convertView.findViewById(R.id.title);
+	                        convertView.setTag(holder);
+		                } else {
+		                    // view already defined, retrieve view holder
+		                    holder = (ViewHolder) convertView.getTag();
+		                }              
+		               
+		                holder.title.setText(items[position]);
+		                holder.icon.setImageResource(icons[position]);
+		                return convertView;
+    		        }
+        		};*/
         		
         		builder.setTitle(currentItem.getFilename());
-        		//builder.setItems(R.array.dashboard_long_click_entries, new DialogInterface.OnClickListener() {
-        		builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+        		builder.setItems(R.array.dashboard_long_click_entries, new DialogInterface.OnClickListener() {
+        		//builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
 
 					public void onClick(DialogInterface dialog, int which) {
 			    		switch (which) {
 			    			case 0:
-			    				moveEnabled = false;
 			    				copy(currentItem);
 			    				break;
 			    			case 1:
-			    				moveEnabled = true;
-			    				copy(currentItem);
+			    				move(currentItem);
 			    				break;
 			    			case 2:
+			    				rename(currentItem);
+			    				break;
+			    			case 3:
 			    				delete(currentItem);
 			    		}
 
@@ -217,8 +207,96 @@ public class DashboardActivity extends Activity{
 	                	if (intent != null) {
 		            		intent.putExtra(FileChooserActivity._Rootpath, (Parcelable) new LocalFile(Environment.getExternalStorageDirectory()));
 		            		intent.putExtra(FileChooserActivity._FilterMode, IFileProvider.FilterMode.DirectoriesOnly);
-		            		startActivityForResult(intent, 0);
+		            		startActivityForResult(intent, 1);
 	                	}
+					}
+					
+					private void move(DashboardListItem currentItem) {
+						Intent intent = new Intent(DashboardActivity.this,  FileChooserActivity.class);
+	                	if (intent != null) {
+		            		intent.putExtra(FileChooserActivity._Rootpath, (Parcelable) new LocalFile(Environment.getExternalStorageDirectory()));
+		            		intent.putExtra(FileChooserActivity._FilterMode, IFileProvider.FilterMode.DirectoriesOnly);
+		            		startActivityForResult(intent, 2);
+	                	}
+					}
+					
+					private void rename(final DashboardListItem currentItem) {
+						AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
+						LayoutInflater adbInflater = LayoutInflater.from(DashboardActivity.this);
+                	    View inputFilename = adbInflater.inflate(R.layout.dialog_input_filename, null);
+                	    userFilename = (TextView) inputFilename.findViewById(R.id.input_filename);
+                	    userFilename.setText(currentItem.getFilename());
+                	    adb.setView(inputFilename);
+                	    adb.setTitle(getString(R.string.rename_dialog_title));
+                	    adb.setMessage(getString(R.string.rename_dialog_msg));
+                	    
+                	    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                	    	public void onClick(DialogInterface dialog, int which) {
+                	    		String input = userFilename.getText().toString();
+                	    		File in = new File(currentItem.getPath(), currentItem.getFilename());
+                	    		File renamed = new File(currentItem.getPath(), input);
+                	    		if (in.renameTo(renamed)) {
+                	    			// set new name to the list item
+                	    			currentItem.setFilename(input);
+                	    			
+                	    			// update the JSON file entry
+                	    			Utils.addEntryToJsonFile(
+                							DashboardActivity.this, 
+                							currentItem.getId(), 
+                							currentItem.getStatus(), 
+                							currentItem.getPath(), 
+                							input, 
+                							currentItem.getSize());
+                	    			
+                	    			// remove references for the old file
+                	    			String mediaUriString = YTD.videoinfo.getString(in.getAbsolutePath(), "non-ext");
+                	    			Utils.logger("d", "mediaString: " + mediaUriString, DEBUG_TAG);
+                	    			
+                	    			// check if it actually exists (for video on-extSdCard/copied/renamed mediaUriString is not stored)
+                	    			if (mediaUriString.equals("non-ext")) {
+                	    				DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                	    				long id = Long.parseLong(currentItem.getId());
+                	    				if (dm.remove(id) > 0) {
+                	    					Utils.logger("d", id + " (DownloadManager) removed", DEBUG_TAG);
+                	    					// remove entries from videoinfo shared pref
+                	    					YTD.videoinfo.edit().remove(id + "_F").remove(id + "_P").remove(in.getName()).apply();
+                	    				}
+                	    			} else {
+                	    				Uri mediaUri = Uri.parse(mediaUriString);
+                	    				// remove media file reference from MediaStore library via ContentResolver
+                	    				if (getContentResolver().delete(mediaUri, null, null) > 0) {
+                	    					Utils.logger("d", mediaUri.toString() + " (ContentResolver) removed", DEBUG_TAG);
+                	    				} else {
+                	    					Utils.logger("w", mediaUri.toString() + " (ContentResolver) NOT removed", DEBUG_TAG);
+                	    				}
+                	    				// remove entry from videoinfo shared pref (dm video)
+                	    				YTD.videoinfo.edit().remove(in.getAbsolutePath()).apply();
+                	    			}
+                	    			
+                	    			// scan the new file
+                	    			Utils.scanMedia(DashboardActivity.this, 
+                							new String[]{ renamed.getAbsolutePath() }, 
+                							new String[]{ "video/*" });
+                	    			
+                	    			// refresh the dashboard
+                	    			refreshlist();
+                	    			
+                	    			Utils.logger("d", in.getName() + " _renamed to_ " + input, DEBUG_TAG);
+                	    		} else {
+                	    			Log.e(DEBUG_TAG, in.getName() + " NOT renamed");
+                	    		}
+                	    	}
+                	    });
+                	    
+                	    adb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
+            	        	public void onClick(DialogInterface dialog, int which) {
+            	                // cancel
+            	            }
+            	        });
+                	    
+                	    if (! ((Activity) DashboardActivity.this).isFinishing()) {
+                	    	adb.show();
+                	    }
 					}
 
 					public void delete(final DashboardListItem currentItem) {
@@ -229,9 +307,8 @@ public class DashboardActivity extends Activity{
 			    		del.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
 							public void onClick(DialogInterface dialog, int which) {
-								File fileToDel = new File(currentItem.getPath(), currentItem.getFilename());
-								
-								doDelete(currentItem, fileToDel);
+								final File fileToDel = new File(currentItem.getPath(), currentItem.getFilename());
+								new AsyncDelete().execute(fileToDel);
 			    			}
 			    		});
 			    		
@@ -257,62 +334,87 @@ public class DashboardActivity extends Activity{
     	});
 	}
 	
-	private void doDelete(final DashboardListItem currentItem, File fileToDel) {
-		Utils.logger("v", "----------> BEGIN delete", DEBUG_TAG);
+	private class AsyncDelete extends AsyncTask<File, Void, Boolean> {
+
+		File fileToDelete;
 		
+		protected Boolean doInBackground(File... fileToDel) {
+			fileToDelete = fileToDel[0];
+			return doDelete(currentItem, fileToDel[0], true);
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean success) {
+			if (success) {
+				notifyDeletionOk(currentItem, fileToDelete);
+			} else {
+				notifyDeletionUnsuccessful(currentItem, fileToDelete);
+			}
+		}
+	}
+	
+	private boolean doDelete(final DashboardListItem currentItem, File fileToDel, boolean removeFromJsonAlso) {
+		Utils.logger("v", "----------> BEGIN delete", DEBUG_TAG);
+		boolean res = false;
 		if (currentItem.getStatus().equals(getString(R.string.json_status_completed))) {
 			
 			// get media Uri string stored in "videoinfo" prefs
 			String mediaUriString = YTD.videoinfo.getString(fileToDel.getAbsolutePath(), "non-ext");
 			Utils.logger("d", "mediaString: " + mediaUriString, DEBUG_TAG);
 			
-			// check if it actually exists (for video stored on extSdCard mediaUriString is not stored)
+			// check if it actually exists (for video on-extSdCard/copied/renamed mediaUriString is not stored)
 			if (mediaUriString.equals("non-ext")) {
 				// video NOT on extSdCard -> use DownloadManager to remove file and delete MediaStore ref.
-				removeViaDm(currentItem, fileToDel);
+				res = removeViaDm(currentItem, fileToDel);
 			} else {
 				// video on extSdCard -> manually delete file 
-				removeManually(currentItem, fileToDel, mediaUriString);
+				res = removeManually(currentItem, fileToDel, mediaUriString);
 			}
 		} else if (currentItem.getStatus().equals(getString(R.string.json_status_in_progress))) {
 			// video download in progress -> use DownloadManager anyway to remove file
-			removeViaDm(currentItem, fileToDel);
+			res = removeViaDm(currentItem, fileToDel);
 		}
 		
-		// remove entry from JSON and reload Dashboard
-		Utils.removeEntryFromJsonFile(DashboardActivity.this, currentItem.getId());
+		if (removeFromJsonAlso) {
+			// remove entry from JSON and reload Dashboard
+			Utils.removeEntryFromJsonFile(DashboardActivity.this, currentItem.getId());
+		}
 		
 		refreshlist();
 		Utils.logger("v", "----------> END delete", DEBUG_TAG);
+		
+		return res;
 	}
 
-	public void removeManually(final DashboardListItem currentItem, File fileToDel, String mediaUriString) {
-		if (fileToDel.delete()) {
-			notifyDeletionOk(currentItem, fileToDel);
-			
+	public boolean removeManually(final DashboardListItem currentItem, File fileToDel, String mediaUriString) {
+		if (fileToDel.delete()) {			
 			// parse media Uri
 			Uri mediaUri = Uri.parse(mediaUriString);
-			
 			// remove media file reference from MediaStore library via ContentResolver
 			if (getContentResolver().delete(mediaUri, null, null) > 0) {
 				Utils.logger("d", mediaUri.toString() + " (ContentResolver) removed", DEBUG_TAG);
 			} else {
 				Utils.logger("w", mediaUri.toString() + " (ContentResolver) NOT removed", DEBUG_TAG);
 			}
+			// remove entry from videoinfo shared pref
+			YTD.videoinfo.edit().remove(fileToDel.getAbsolutePath()).apply();
+			return true;
 		} else {
-			notifyDeletionUnsuccessful(currentItem, fileToDel);
+			return false;
 		}
 	}
 
-	public void removeViaDm(final DashboardListItem currentItem, File fileToDel) {
+	public boolean removeViaDm(final DashboardListItem currentItem, File fileToDel) {
 		DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
 		long id = Long.parseLong(currentItem.getId());
 		if (dm.remove(id) > 0) {
 			Utils.logger("d", id + " (DownloadManager) removed", DEBUG_TAG);
-			notifyDeletionOk(currentItem, fileToDel);
+			// remove entries from videoinfo shared pref
+			YTD.videoinfo.edit().remove(id + "_F").remove(id + "_P").remove(fileToDel.getName()).apply();
+			return true;
 		} else {
 			Utils.logger("w", id + " (DownloadManager) NOT removed", DEBUG_TAG);
-			notifyDeletionUnsuccessful(currentItem, fileToDel);
+			return false;
 		}
 	}
 
@@ -455,91 +557,167 @@ public class DashboardActivity extends Activity{
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
-                @SuppressWarnings("unchecked")
-				List<LocalFile> files = (List<LocalFile>) data.getSerializableExtra(FileChooserActivity._Results);
-                	
-            	File chooserFolder = files.get(0);
-				selectedFolder = chooserFolder.toString();
-            	Utils.logger("d", "file-chooser selection: " + selectedFolder, DEBUG_TAG);
+		if (resultCode == RESULT_OK) {
+            @SuppressWarnings("unchecked")
+			List<LocalFile> files = (List<LocalFile>) data.getSerializableExtra(FileChooserActivity._Results);
             	
-            	switch (Utils.pathCheck(chooserFolder)) {
-            		case 0:
-            			// Path on standard sdcard
-            			doCopy(chooserFolder);
-                		break;
-            		case 1:
-            			// Path not writable
-            			chooserFolder = ShareActivity.dir_Downloads;
-            			doCopy(chooserFolder);
-            			
-            			PopUps.showPopUp(getString(R.string.system_warning_title), getString(R.string.system_warning_msg), "alert", DashboardActivity.this);
-            			//Toast.makeText(getActivity(), getString(R.string.system_warning_title), Toast.LENGTH_SHORT).show();
-            			break;
-            		case 2:
-            			// Path not mounted
-            			Toast.makeText(DashboardActivity.this, getString(R.string.sdcard_unmounted_warning), Toast.LENGTH_SHORT).show();
-            	}
-            }
-        }
+        	File chooserFolder = files.get(0);
+        	Utils.logger("d", "file-chooser selection: " + chooserFolder.getPath(), DEBUG_TAG);
+        	Utils.logger("d", "origin file's folder:   " + currentItem.getPath(), DEBUG_TAG);
+        	if (!chooserFolder.getPath().equals(currentItem.getPath())) {
+        	
+		        switch (requestCode) {
+		        
+		        case 1: // ------------- > COPY
+		        	
+		        	switch (Utils.pathCheck(chooserFolder)) {
+		    		case 0:
+		    			// Path on standard sdcard
+		    			File in = new File(currentItem.getPath(), currentItem.getFilename());
+		    			File out = new File(chooserFolder, "copy_" + currentItem.getFilename());
+		    			new AsyncCopy().execute(in, out);
+		        		break;
+		    		case 1:
+		    			// Path not writable
+		    			PopUps.showPopUp(getString(R.string.system_warning_title), getString(R.string.system_warning_msg), "alert", DashboardActivity.this);
+		    			break;
+		    		case 2:
+		    			// Path not mounted
+		    			Toast.makeText(DashboardActivity.this, getString(R.string.sdcard_unmounted_warning), Toast.LENGTH_SHORT).show();
+		        	}
+		        	break;
+		        	
+		        case 2: // ------------- > MOVE
+		        	
+		        	switch (Utils.pathCheck(chooserFolder)) {
+		    		case 0:
+		    			// Path on standard sdcard
+		    			File in = new File(currentItem.getPath(), currentItem.getFilename());
+		    			File out = new File(chooserFolder, currentItem.getFilename());
+		    			new AsyncMove().execute(in, out);		
+		        		break;
+		    		case 1:
+		    			// Path not writable
+		    			PopUps.showPopUp(getString(R.string.system_warning_title), getString(R.string.system_warning_msg), "alert", DashboardActivity.this);
+		    			break;
+		    		case 2:
+		    			// Path not mounted
+		    			Toast.makeText(DashboardActivity.this, getString(R.string.sdcard_unmounted_warning), Toast.LENGTH_SHORT).show();
+		        	}
+		        }
+        	} else {
+        		PopUps.showPopUp(getString(R.string.long_press_warning_title), getString(R.string.long_press_warning_msg), "info", DashboardActivity.this);
+        	}
+		}
     }
-
-	public void doCopy(final File chooserFolder) {
+	
+	private class AsyncMove extends AsyncTask<File, Void, Integer> {
 		
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-
-				Looper.prepare();
-					
-				File in = new File(currentItem.getPath(), currentItem.getFilename());
-				File out = new File(chooserFolder, "copy_" + currentItem.getFilename());
-				try {
-					Utils.logger("v", "----------> BEGIN copy/move", DEBUG_TAG);
-					Toast.makeText(DashboardActivity.this, 
-							currentItem.getFilename() + ": " + getString(R.string.copy_progress), 
-							Toast.LENGTH_LONG).show();
-					Utils.logger("i", currentItem.getFilename() + ": Copy in progress...", DEBUG_TAG);
-					
-					Utils.copyFile(in, out);
-					
-					Toast.makeText(DashboardActivity.this, 
-							currentItem.getFilename() + ": " + getString(R.string.copy_ok), 
-							Toast.LENGTH_LONG).show();
-					Utils.logger("i", currentItem.getFilename() + ": Copy OK", DEBUG_TAG);
-					
-					Utils.scanMedia(DashboardActivity.this, 
-							new String[]{ out.getAbsolutePath() }, 
-							new String[]{ "video/*" });
-					
-					Utils.addEntryToJsonFile(
-							DashboardActivity.this, 
-							currentItem.getId() + "_copy", 
-							currentItem.getStatus(), 
-							out.getParent(), 
-							out.getName(), 
-							currentItem.getSize());
-					
-					if (moveEnabled) {
-						Utils.logger("i", "----------> move Enabled", DEBUG_TAG);
-						doDelete(currentItem, in);
-					}
-					
-				} catch (IOException e) {
-					Toast.makeText(DashboardActivity.this, 
-							currentItem.getFilename() + ": " + getString(R.string.copy_error), 
-							Toast.LENGTH_LONG).show();
-					Log.e(DEBUG_TAG, currentItem.getFilename() + ": Copy FAILED");
-				} finally {
-					refreshlist();
-					Utils.logger("v", "----------> END copy/move", DEBUG_TAG);
-				}
-				
-				Looper.loop();
+		File out;
+		
+		protected void onPreExecute() {
+			Utils.logger("d", currentItem.getFilename() + " ---> BEGIN move", DEBUG_TAG);
+			Toast.makeText(DashboardActivity.this, 
+					currentItem.getFilename() + ": " + getString(R.string.move_progress), 
+					Toast.LENGTH_SHORT).show();
+		}
+		
+		protected Integer doInBackground(File... file) {
+			out = file[1];
+			try {
+				Utils.copyFile(file[0], file[1]);
+				doDelete(currentItem, file[0], false);
+				return 0;
+			} catch (IOException e) {
+				return 1;
 			}
-		}).start();
+		}
+		
+		@Override
+		protected void onPostExecute(Integer res) {
+			switch (res) {
+			case 0:
+				Toast.makeText(DashboardActivity.this, 
+						currentItem.getFilename() + ": " + getString(R.string.move_ok), 
+						Toast.LENGTH_LONG).show();
+				Utils.logger("i", currentItem.getFilename() + " --> END move: OK", DEBUG_TAG);
+				
+				Utils.scanMedia(DashboardActivity.this, 
+						new String[]{ out.getAbsolutePath() }, 
+						new String[]{ "video/*" });
+				
+				Utils.addEntryToJsonFile(
+						DashboardActivity.this, 
+						currentItem.getId(), 
+						currentItem.getStatus(), 
+						out.getParent(), 
+						out.getName(), 
+						currentItem.getSize());
+				break;
+				
+			case 1:
+				Toast.makeText(DashboardActivity.this, 
+						currentItem.getFilename() + ": " + getString(R.string.move_error), 
+						Toast.LENGTH_LONG).show();
+				Log.e(DEBUG_TAG, currentItem.getFilename() + " --> END move: FAILED");
+			}
+			
+			refreshlist();
+		}
+	}
+	
+	private class AsyncCopy extends AsyncTask<File, Void, Integer> {
+		
+		File out;
+		
+		protected void onPreExecute() {
+			Utils.logger("d", currentItem.getFilename() + " ---> BEGIN copy", DEBUG_TAG);
+			Toast.makeText(DashboardActivity.this, 
+					currentItem.getFilename() + ": " + getString(R.string.copy_progress), 
+					Toast.LENGTH_SHORT).show();
+		}
+		
+		protected Integer doInBackground(File... file) {
+			out = file[1];
+			try {
+				Utils.copyFile(file[0], file[1]);
+				return 0;
+			} catch (IOException e) {
+				return 1;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(Integer res) {
+			switch (res) {
+			case 0:
+				Toast.makeText(DashboardActivity.this, 
+						currentItem.getFilename() + ": " + getString(R.string.copy_ok), 
+						Toast.LENGTH_LONG).show();
+				Utils.logger("i", currentItem.getFilename() + " --> END copy: OK", DEBUG_TAG);
+				
+				Utils.scanMedia(DashboardActivity.this, 
+						new String[]{ out.getAbsolutePath() }, 
+						new String[]{ "video/*" });
+				
+				Utils.addEntryToJsonFile(
+						DashboardActivity.this, 
+						currentItem.getId() + "_copy", 
+						currentItem.getStatus(), 
+						out.getParent(), 
+						out.getName(), 
+						currentItem.getSize());
+				break;
+			
+			case 1:
+				Toast.makeText(DashboardActivity.this, 
+						currentItem.getFilename() + ": " + getString(R.string.copy_error), 
+						Toast.LENGTH_LONG).show();
+				Log.e(DEBUG_TAG, currentItem.getFilename() + " --> END copy: FAILED");
+			}
+			
+			refreshlist();
+		}
 	}
 	
 	private void refreshlist() {
@@ -580,15 +758,15 @@ public class DashboardActivity extends Activity{
 		 */
 			
 		if (removeVideo && copyEnabled) {
-			in = new File(ShareActivity.dir_Downloads, vfilename);
+			videoIn = new File(ShareActivity.dir_Downloads, vfilename);
 		} else {
-			in = new File(ShareActivity.path, vfilename);
+			videoIn = new File(ShareActivity.path, vfilename);
 		}
 		
 		acodec = YTD.settings.getString(vfilename + "FFext", ".audio");
 		aBaseName = YTD.settings.getString(vfilename + "FFbase", ".audio");
 		aFileName = aBaseName + acodec;
-		out = new File(ShareActivity.path, aFileName);
+		audioOut = new File(ShareActivity.path, aFileName);
 	    
 		new Thread(new Runnable() {
 
@@ -622,7 +800,7 @@ public class DashboardActivity extends Activity{
 			    String mp3BitRate = YTD.settings.getString("mp3_bitrate", getString(R.string.mp3_bitrate_default));
 			    
 			    try {
-					ffmpeg.extractAudio(in, out, audio, mp3BitRate, shell);
+					ffmpeg.extractAudio(videoIn, audioOut, audio, mp3BitRate, shell);
 			    } catch (IOException e) {
 					Log.e(DEBUG_TAG, "IOException running ffmpeg" + e.getMessage());
 				} catch (InterruptedException e) {
@@ -662,7 +840,7 @@ public class DashboardActivity extends Activity{
 				}
 				Utils.logger("d", "_ID " + ID + " " + text, DEBUG_TAG);
 				
-				final File renamedAudioFilePath = renameAudioFile(aBaseName, out);
+				final File renamedAudioFilePath = renameAudioFile(aBaseName, audioOut);
 				Toast.makeText(DashboardActivity.this,  renamedAudioFilePath.getName() + ": " + text, Toast.LENGTH_LONG).show();
 				aBuilder.setContentTitle(renamedAudioFilePath.getName());
 				aBuilder.setContentText(text);			
@@ -686,7 +864,7 @@ public class DashboardActivity extends Activity{
 				if (copyEnabled) {
 					if (!removeVideo) {
 						Utils.scanMedia(getApplicationContext(), 
-								new String[] {in.getAbsolutePath(), renamedAudioFilePath.getAbsolutePath()}, 
+								new String[] {videoIn.getAbsolutePath(), renamedAudioFilePath.getAbsolutePath()}, 
 								new String[] {"video/*", "audio/*"});
 					} else {
 						Utils.scanMedia(getApplicationContext(), 

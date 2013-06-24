@@ -174,15 +174,15 @@ public class DownloadsService extends Service {
 				        	} else { 
 				        		Utils.logger("v", "temp download file removed", DEBUG_TAG);
 				        		
-				        		// TODO dm.addCompletedDownload to add the completed file on extSdCard into the dm list; NOT working
-				        		//Uri dstUri = Uri.fromFile(dst); // <-- tried also this; see (1)
+				        		// to add the completed file on extSdCard into the dm list;
+				        		//Uri dstUri = Uri.fromFile(dst);
 				        		
 				        		/*Utils.logger("i", "dst: " + dst.getAbsolutePath(), DEBUG_TAG);
 				        		ShareActivity.dm.addCompletedDownload(vfilename, 
 				        				getString(R.string.ytd_video), 
 				        				true, 
 				        				"video/mp4", 
-				        				dst.getAbsolutePath(), // <-- dstUri.getEncodedPath(), // (1) 
+				        				dst.getAbsolutePath(),
 				        				sizeRaw,
 				        				false);*/
 				        	}

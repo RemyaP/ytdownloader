@@ -545,6 +545,7 @@ public class ShareActivity extends Activity {
 		                    	    adb.setView(inputFilename);
 		                    	    adb.setTitle(getString(R.string.rename_dialog_title));
 		                    	    adb.setMessage(getString(R.string.rename_dialog_msg));
+		                    	    
 		                    	    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 		                    	    	public void onClick(DialogInterface dialog, int which) {
 		                    	    		title = userFilename.getText().toString();
@@ -553,6 +554,13 @@ public class ShareActivity extends Activity {
 											callDownloadManager(links.get(pos));
 		                    	    	}
 		                    	    });
+		                    	    
+		                    	    adb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
+		                	        	public void onClick(DialogInterface dialog, int which) {
+		                	                // cancel
+		                	            }
+		                	        });
+		                    	    
 		                    	    if (! ((Activity) ShareActivity.this).isFinishing()) {
 		                    	    	adb.show();
 		                    	    }
