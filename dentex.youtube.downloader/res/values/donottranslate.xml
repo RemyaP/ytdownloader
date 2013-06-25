@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v2.3 - Jun 25 2013
+        \n[x] vevo-like signature bug fixed
+        \n    (thanks Gantt@userscripts.org)
+        \n[x] other bug/stability fixes
+        \n
         \n v2.2 - May 12 2013
         \n-----------------------------------
         \n[x] fixed a bunch of BUUUUUGS !!!
@@ -257,6 +262,7 @@
         \n\nSectionedAdapter.java: GPL-3.0 - Copyright &#169; 2008-2010 CommonsWare, LLC - portions Copyright &#169; 2008 Jeffrey Sharkey
         \n\nUtils.getCpuInfo(): http://www.roman10.net/how-to-get-cpu-information-on-android/ - by Liu Feipeng
         \n\nUtils.scanMedia(&#8230;): http://www.grokkingandroid.com/adding-files-to-androids-media-library-using-the-mediascanner/ - by Wolfram Rittmeyer
+        \n\nparseSingleEsSig(&#8230;) method: adapted from the Javascript Greasemonkey script http://userscripts.org/scripts/show/25105 (MIT License) - by Gantt
     </string>
     
     <string name="translators_links">

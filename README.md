@@ -7,11 +7,11 @@ Android 3+ App to download videos from YouTube
 
 ################################################################
 
-`versionCode="50"`
+`versionCode="51"`
 
-`versionName="2.2"`
+`versionName="2.3"`
 
-MD5 checksum: `8bb84792b1fd3de791ee67f0080ca57d` dentex.youtube.downloader_v2.2.apk
+MD5 checksum: `1b3a3fecc50ef6ad79b8ec8e2030e6ad` dentex.youtube.downloader_v2.3.apk
 
 NOTICE
 ================================================================
@@ -99,6 +99,11 @@ OTHER LICENSES
 CHANGELOG
 ================================================================
     
+     v2.3 - Jun 25 2013 
+    [x] vevo-like signature bug fixed 
+     (thanks Gantt @userscripts.org) 
+    [x] other bug/stability fixes 
+     
      v2.2 - May 12 2013 
     ----------------------------------- 
     [x] fixed a bunch of BUUUUUGS !!! 
@@ -286,11 +291,12 @@ CHANGELOG
 TO-DO LIST
 ================================================================
 
-    [ ] downloads logs/dashboard
+    [v] downloads dashboard (WIP)
+    [v] new App's ICON (WIP)
     [ ] default format/filter selection for video download
     [ ] handle SourceForge servers down; fallback on GitHub for apk download:
 	    page: https://github.com/dentex/ytdownloader
 	    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v.*.apk?raw=true
     [ ] use icon/logo to identify codecs available
+	[ ] use resolutions to identify qualities
     [ ] make the App tablet friendly
-    [ ] new App's ICON [maybe not]

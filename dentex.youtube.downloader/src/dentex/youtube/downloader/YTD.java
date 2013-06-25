@@ -43,10 +43,10 @@ public class YTD extends Application {
 	
 	/* To anyone using this code:
 	 * PLEASE change the BugsenseApiKey below
-	 * (that is: register your own project OR disable all bugsense's calls) 
-	 * in order not to spam my bugsense dashboard with YOUR errors.
+	 * (that is: register your own project OR disable all Bugsense calls) 
+	 * in order not to spam my Bugsense account with YOUR errors.
 	 */
-	public static String BugsenseApiKey = "b9d46d82";  // <--- see comment above!
+	public static String BugsenseApiKey = "874942f2";  // <--- see comment above!
 
 	public static SharedPreferences settings;
 	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
