@@ -146,6 +146,13 @@
 	<string name="json_status_in_progress">In Progress</string>
 	<string name="menu_search">search&#8230;</string>
 	
+	<string-array name="dashboard_click_entries">
+	    <item>Extract audio (as defined in settings)</item>
+	    <item>-</item>
+        <item>--</item>
+        <item>---</item>
+    </string-array>
+	
 	<string name="dashboard_long_click_entry_0">Copy</string>
 	<string name="dashboard_long_click_entry_1">Move</string>
 	<string name="dashboard_long_click_entry_2">Delete</string>

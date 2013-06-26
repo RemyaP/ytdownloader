@@ -49,6 +49,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -74,10 +75,10 @@ public class DashboardActivity extends Activity{
 	protected String aBaseName;
 	public String aSuffix = ".audio";
 	public String vfilename;
-	private String acodec;
+	//private String acodec;
 	private boolean removeVideo;
 	private boolean copyEnabled;
-	private String aFileName;
+	//private String aFileName;
 	private String audio;
 	private ListView lv;
 	private Editable searchText;
@@ -101,8 +102,6 @@ public class DashboardActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		//BugSenseHandler.initAndStartSession(this, YTD.BugsenseApiKey);
-		
 		// Theme init
     	Utils.themeInit(this);
     	
@@ -125,6 +124,40 @@ public class DashboardActivity extends Activity{
     	}
     	
     	lv.setTextFilterEnabled(true);
+    	
+    	lv.setClickable(true);
+    	lv.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				
+				Utils.logger("d", itemsList.size() + " items.", DEBUG_TAG);
+				
+				AlertDialog.Builder builder = new AlertDialog.Builder(boxThemeContextWrapper);
+        		
+        		currentItem = da.getItem(position); // in order to refer to the filtered item
+        		
+        		builder.setTitle(currentItem.getFilename());
+        		builder.setItems(R.array.dashboard_click_entries, new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface dialog, int which) {
+			    		switch (which) {
+			    			case 0:
+			    				File in = new File (currentItem.getPath(), currentItem.getFilename());
+			    				ffmpegJob(in);
+			    				break;
+			    			case 1:
+			    				// TODO
+			    				break;
+			    			case 2:
+			    				//
+			    				break;
+			    			case 3:
+			    				//
+			    		}
+
+					}
+        		});
+			}
+    	});
     	
     	lv.setLongClickable(true);
     	lv.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -752,7 +785,10 @@ public class DashboardActivity extends Activity{
 	
 	// #####################################################################
 	
-	public void ffmpegJob(final int ID) {
+	public void ffmpegJob(File fileToConvert) {
+		
+		vfilename = currentItem.getFilename();
+		
 		// audio jobs notification init
 		aBuilder =  new NotificationCompat.Builder(this);
 		aNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -763,15 +799,15 @@ public class DashboardActivity extends Activity{
 		 *  Audio extraction/conversion
 		 */
 			
-		if (removeVideo && copyEnabled) {
-			videoIn = new File(ShareActivity.dir_Downloads, vfilename);
-		} else {
+		/*if (removeVideo && copyEnabled) {*/
+			videoIn = fileToConvert;
+		/*} else {
 			videoIn = new File(ShareActivity.path, vfilename);
-		}
+		}*/
 		
-		acodec = YTD.settings.getString(vfilename + "FFext", ".audio");
+		String acodec = YTD.settings.getString(vfilename + "FFext", ".audio");
 		aBaseName = YTD.settings.getString(vfilename + "FFbase", ".audio");
-		aFileName = aBaseName + acodec;
+		final String aFileName = aBaseName + acodec;
 		audioOut = new File(ShareActivity.path, aFileName);
 	    
 		new Thread(new Runnable() {
@@ -796,8 +832,8 @@ public class DashboardActivity extends Activity{
 			    	Toast.makeText(DashboardActivity.this,"YTD: " + text, Toast.LENGTH_LONG).show();
 			    	aBuilder.setContentTitle(aFileName);
 			        aBuilder.setContentText(text);
-					aNotificationManager.notify(ID*ID, aBuilder.build());
-					Utils.logger("i", "_ID " + ID + " " + text, DEBUG_TAG);
+					aNotificationManager.notify(2, aBuilder.build());
+					Utils.logger("i", vfilename + " " + text, DEBUG_TAG);
 			    } catch (IOException ioe) {
 			    	Log.e(DEBUG_TAG, "Error loading ffmpeg. " + ioe.getMessage());
 			    }
@@ -819,14 +855,12 @@ public class DashboardActivity extends Activity{
 	}
 	
 	private class ShellDummy implements ShellCallback {
-		
-		int ID;
 
 		@Override
 		public void shellOut(String shellLine) {
 			findAudioSuffix(shellLine);
 			if (audio.equals("conv")) {
-				getAudioJobProgress(shellLine, ID);
+				getAudioJobProgress(shellLine);
 			}
 			Utils.logger("d", shellLine, DEBUG_TAG);
 		}
@@ -844,7 +878,7 @@ public class DashboardActivity extends Activity{
 				} else {
 					text = getString(R.string.audio_conv_completed);
 				}
-				Utils.logger("d", "_ID " + ID + " " + text, DEBUG_TAG);
+				Utils.logger("d", vfilename + " " + text, DEBUG_TAG);
 				
 				final File renamedAudioFilePath = renameAudioFile(aBaseName, audioOut);
 				Toast.makeText(DashboardActivity.this,  renamedAudioFilePath.getName() + ": " + text, Toast.LENGTH_LONG).show();
@@ -885,14 +919,14 @@ public class DashboardActivity extends Activity{
 				
 				Utils.setNotificationDefaults(aBuilder);
 			} else {
-				setNotificationForAudioJobError(ID);
+				setNotificationForAudioJobError();
 			}
 			
 			aBuilder.setProgress(0, 0, false);
-			aNotificationManager.cancel(ID*ID);
-			aNotificationManager.notify(ID*ID, aBuilder.build());
+			aNotificationManager.cancel(2);
+			aNotificationManager.notify(2, aBuilder.build());
 			
-			deleteVideo(ID);
+			//deleteVideo(ID);
 		}
 		
 		@Override
@@ -901,9 +935,9 @@ public class DashboardActivity extends Activity{
 				Utils.logger("w", "FFmpeg process not started or not completed", DEBUG_TAG);
 
 				// Toast + Notification + Log ::: Audio job error
-				setNotificationForAudioJobError(ID);
+				setNotificationForAudioJobError();
 			}
-			aNotificationManager.notify(ID*ID, aBuilder.build());
+			aNotificationManager.notify(2, aBuilder.build());
 		}
     }
     
@@ -979,19 +1013,19 @@ public class DashboardActivity extends Activity{
 		}
 	}
 
-	public void setNotificationForAudioJobError(int ID) {
+	public void setNotificationForAudioJobError() {
 		String text;
 		if (audio.equals("extr")) {
 			text = getString(R.string.audio_extr_error);
 		} else {
 			text = getString(R.string.audio_conv_error);
 		}
-		Log.e(DEBUG_TAG, "_ID " + ID + " " + text);
+		Log.e(DEBUG_TAG, vfilename + " " + text);
 		Toast.makeText(DashboardActivity.this,  "YTD: " + text, Toast.LENGTH_LONG).show();
 		aBuilder.setContentText(text);
 	}
 	
-	private void getAudioJobProgress(String shellLine, int ID) {
+	private void getAudioJobProgress(String shellLine) {
 		Pattern totalTimePattern = Pattern.compile("Duration: (..):(..):(..)\\.(..)");
 		Matcher totalTimeMatcher = totalTimePattern.matcher(shellLine);
 		if (totalTimeMatcher.find()) {
@@ -1006,7 +1040,7 @@ public class DashboardActivity extends Activity{
 		
 		if (totSeconds != 0) {
 			aBuilder.setProgress(totSeconds, currentTime, false);
-			aNotificationManager.notify(ID*ID, aBuilder.build());
+			aNotificationManager.notify(2, aBuilder.build());
 		}
 	}
 

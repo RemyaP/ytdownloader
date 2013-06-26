@@ -205,9 +205,9 @@ public class SettingsActivity extends Activity {
             ownNot.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             	
                 public boolean onPreferenceClick(Preference preference) {
-                	if (!ownNot.isChecked() && ShareActivity.mId == 1) {
+                	if (!ownNot.isChecked()/* && ShareActivity.mId == 1*/) {
                 		ShareActivity.mNotificationManager.cancelAll();
-                		ShareActivity.mId = 0;
+                		//ShareActivity.mId = 0;
                 	}
 					return true;
                 }

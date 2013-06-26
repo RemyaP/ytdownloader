@@ -46,7 +46,7 @@ public class YTD extends Application {
 	 * (that is: register your own project OR disable all bugsense's calls) 
 	 * in order not to spam my bugsense dashboard with YOUR errors.
 	 */
-	public static String BugsenseApiKey = "b9d46d82";  // <--- see comment above!
+	public static String BugsenseApiKey = "874942f2";  // <--- see comment above!
 	
 	public static final String JSON_FILE = "dashboard.json";
 	public static final String JSON_FOLDER = "json";

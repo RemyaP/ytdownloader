@@ -160,7 +160,6 @@ public class ShareActivity extends Activity {
 	public static String pt2;
 	public static String noDownloads;
 	public static Observer.YtdFileObserver videoFileObserver;
-	public static int mId = 0;
 	public static NotificationManager mNotificationManager;
 	public static NotificationCompat.Builder mBuilder;
 	public static String onlineVersion;
@@ -502,7 +501,7 @@ public class ShareActivity extends Activity {
             aA = new ArrayAdapter<String>(ShareActivity.this, android.R.layout.simple_list_item_1, lv_arr);
             
             lv.setAdapter(aA);
-            lv.setLongClickable(true);
+            
             Utils.logger("d", "LISTview done with " + lv_arr.length + " items.", DEBUG_TAG);
 
             tv.setText(titleRaw);
@@ -629,6 +628,7 @@ public class ShareActivity extends Activity {
                 }
             });
             
+            lv.setLongClickable(true);
             lv.setOnItemLongClickListener(new OnItemLongClickListener() {
 
             	@Override
@@ -1006,8 +1006,7 @@ public class ShareActivity extends Activity {
     	Intent notificationIntent = new Intent(mContext, DashboardActivity.class);
     	PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0, notificationIntent, 0);
     	mBuilder.setContentIntent(contentIntent);
-    	mId = 1;
-    	mNotificationManager.notify(mId, mBuilder.build());
+    	mNotificationManager.notify(1, mBuilder.build());
 	}
 
 	// Given a URL, establishes an HttpUrlConnection and retrieves
