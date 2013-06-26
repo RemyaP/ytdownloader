@@ -7,7 +7,7 @@
     <string name="title_activity_donate">Bağışlar</string>
     <string name="title_activity_tutorials">Rehberler</string>
     <string name="title_activity_translators_show">Tercüme Edenler</string>
-    <string name="title_activity_dashboard">Dashboard</string>
+    <string name="title_activity_dashboard">Kontrol Paneli</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -22,7 +22,7 @@
     <string name="information">Bilgi</string>
     <string name="dialogs_negative">Iptal</string>
     <string name="wait">Lütfen bekleyiniz&#8230;</string>
-    <string name="no_downloads_sys_app">\"İndirmeler\" sistem uygulaması bulunamadı.</string>
+    <string name="no_downloads_sys_app">\"İndirme\" işlemi için sistem uygulaması bulunamadı.</string>
     <string name="ytd_useless">YTD bu cihaza dosya indiremez.</string>
     <string name="invalid_url">Web sayfası alınamadı. URL geçersiz olabilir.</string>
     <string name="invalid_url_short">Web sayfası alınamadı.</string>
@@ -65,6 +65,9 @@
     <string name="ffmpeg_ready">FFmpeg hazır.</string>
     <string name="confirm_audio_checkbox1">İndirmeden sonra sesi çıkart</string>
     <string name="confirm_audio_checkbox2">\n(ayarlarda belirlendiği gibi)</string>
+    <string name="login_required">Login to YouTube required.</string>
+    <string name="login_required_dialog_msg">YTD can\'t handle this video.</string>
+    <string name="no_video_available">No video available.</string>
     
     <string-array name="long_click_entries">
         <item>Panoya kopyala</item>
@@ -115,9 +118,9 @@
     <!-- ### DownloadsService ### -->
     
     <string name="ytd_video">YTD video</string>
-    <string name="copy_error">Kopyalama sırasında hata oluştu</string>
+    <string name="copy_error">Error during copy.</string>
     <string name="copy_progress">Dosya kopyalama devam ediyor&#8230;</string>
-    <string name="copy_ok">Kopyalama tamamlandı.</string>
+    <string name="copy_ok">File copy completed.</string>
     <string name="download_remove_failed">Hata: Geçici indirilen dosya silinemedi!</string>
     <string name="download_failed">İndirme Başarısız!</string>
     <string name="audio_extr_progress">Ses ayıklaması devam ediyor&#8230;</string>
@@ -135,11 +138,40 @@
 	
 	<!-- ### FfmpegDownloadService ### -->
 	<string name="ffmpeg_install_failed">FFmpeg yüklemesi başarısız oldu.</string>
+	
+	<!-- ### DashboardActivity ### -->
+	<string name="json_status_completed">Completed</string>
+	<string name="json_status_failed">Failed</string>
+	<string name="json_status_in_progress">In Progress</string>
+	<string name="menu_search">search&#8230;</string>
+	
+	<string name="dashboard_long_click_entry_0">Copy</string>
+	<string name="dashboard_long_click_entry_1">Move</string>
+	<string name="dashboard_long_click_entry_2">Delete</string>
+	
+	<string-array name="dashboard_long_click_entries">
+	    <item>Copy</item>
+	    <item>Move</item>
+        <item>Rename</item>
+        <item>Delete</item>
+    </string-array>
+    
+	<string name="move_error">Error during move.</string>
+    <string name="move_progress">File move in progress&#8230;</string>
+    <string name="move_ok">File move completed.</string>
+    <string name="long_press_warning_title">Operation not executed:</string>
+    <string name="long_press_warning_msg">Source and destination folders overlap.</string>
+
+	<string name="delete_video_confirm">Confirm you want to delete this video?</string>
+	<string name="delete_video_ok">%1$s successfully deleted.</string>
+	<string name="delete_video_failed">Error: %1$s not deleted.</string>
+	
+	<string name="empty_dashboard">No downloaded video.</string>
 
     <!-- ### preferences ### -->
 
     <!-- -->
-    <string name="dashboard_summary">Open YTD\'s Dashboard</string>
+    <string name="dashboard_summary">YTD Kontrol Panelini Aç</string>
 
     <!-- -->
     <string name="settings_cat_ui">Kullanıcı Arabirimi</string>

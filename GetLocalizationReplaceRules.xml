@@ -47,4 +47,8 @@
 		<from>zh-HK</from>
 		<to>zh-rHK</to>
 	</replaceItem>
+	<replaceItem>
+		<from>grk</from>
+		<to>el-rGR</to>
+	</replaceItem>
 </items>

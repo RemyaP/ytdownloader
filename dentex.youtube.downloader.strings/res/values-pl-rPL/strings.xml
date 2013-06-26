@@ -65,6 +65,9 @@ Wybierz profil w ConnectBot i kiedy będziesz na zdalnej maszynie, przejdź do w
     <string name="ffmpeg_ready">FFmpeg gotowy.</string>
     <string name="confirm_audio_checkbox1">Wyodrębnij dźwięk po pobraniu</string>
     <string name="confirm_audio_checkbox2">\n(zdefiniowane tak samo jak w ustawieniach)</string>
+    <string name="login_required">Login to YouTube required.</string>
+    <string name="login_required_dialog_msg">YTD can\'t handle this video.</string>
+    <string name="no_video_available">No video available.</string>
     
     <string-array name="long_click_entries">
         <item>Kopiuj do schowka</item>
@@ -116,9 +119,9 @@ Pobrać je teraz?</string>
     <!-- ### DownloadsService ### -->
     
     <string name="ytd_video">Filmy YTD</string>
-    <string name="copy_error">Błąd podczas kopiowania</string>
+    <string name="copy_error">Error during copy.</string>
     <string name="copy_progress">Kopiowanie pliku w toku&#8230;</string>
-    <string name="copy_ok">Skopiowano.</string>
+    <string name="copy_ok">File copy completed.</string>
     <string name="download_remove_failed">Błąd: tymczasowo pobrany plik nie został usunięty!</string>
     <string name="download_failed">Błąd pobierania!</string>
     <string name="audio_extr_progress">Kodowanie dźwięku w toku&#8230;</string>
@@ -136,6 +139,35 @@ Pobrać je teraz?</string>
 	
 	<!-- ### FfmpegDownloadService ### -->
 	<string name="ffmpeg_install_failed">Błąd instalacji FFmpeg.</string>
+	
+	<!-- ### DashboardActivity ### -->
+	<string name="json_status_completed">Completed</string>
+	<string name="json_status_failed">Failed</string>
+	<string name="json_status_in_progress">In Progress</string>
+	<string name="menu_search">search&#8230;</string>
+	
+	<string name="dashboard_long_click_entry_0">Copy</string>
+	<string name="dashboard_long_click_entry_1">Move</string>
+	<string name="dashboard_long_click_entry_2">Delete</string>
+	
+	<string-array name="dashboard_long_click_entries">
+	    <item>Copy</item>
+	    <item>Move</item>
+        <item>Rename</item>
+        <item>Delete</item>
+    </string-array>
+    
+	<string name="move_error">Error during move.</string>
+    <string name="move_progress">File move in progress&#8230;</string>
+    <string name="move_ok">File move completed.</string>
+    <string name="long_press_warning_title">Operation not executed:</string>
+    <string name="long_press_warning_msg">Source and destination folders overlap.</string>
+
+	<string name="delete_video_confirm">Confirm you want to delete this video?</string>
+	<string name="delete_video_ok">%1$s successfully deleted.</string>
+	<string name="delete_video_failed">Error: %1$s not deleted.</string>
+	
+	<string name="empty_dashboard">No downloaded video.</string>
 
     <!-- ### preferences ### -->
 

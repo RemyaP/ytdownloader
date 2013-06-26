@@ -7,6 +7,13 @@
         \n    with downloaded video
         \n[x] fixed a bug about downloads 
         \n    destination path availability
+        \n[x] Greek translation
+        \n
+        \n v2.3 - Jun 25 2013
+        \n[x] experimental YouTube signature 
+        \n    bug fixed (thanks to Gantt
+        \n    @userscripts.org)
+        \n[x] other bug/stability fixes
         \n
         \n v2.2 - May 12 2013
         \n-----------------------------------
@@ -377,6 +384,7 @@
         <item>Hungarian (Hungary)</item>
         <item>Italian</item>
         <item>German</item>
+        <item>Greek</item>
         <item>Korean</item>
         <item>Polish (Poland)</item>
         <item>Portuguese (Brazil)</item>
@@ -399,6 +407,7 @@
         <item>hu_HU</item>
         <item>it</item>
         <item>de</item>
+        <item>el</item>
         <item>ko</item>
         <item>pl_PL</item>
         <item>pt_BR</item>

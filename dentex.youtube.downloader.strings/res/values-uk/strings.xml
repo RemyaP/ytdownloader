@@ -11,35 +11,35 @@
 
     <!-- ### ShareActivity ### -->
 
-    <string name="tutorial_title">General App tutorial</string>
+    <string name="tutorial_title">Загальна інструкція</string>
 	<string name="tutorial_msg_new">Now you will see a list with all the codecs and qualities available for the selected video. You can:
 		\n\n*) Press an item to download the video locally (on the device) or to send the download via SSH to a remote PC.
 		\nDestination machine requirements: Bash and Wget. Additional SSH info further on;
 		\n\n*) Long-press an item and choose between copy to clipboard or share link as text (i.e. send to another app).
 		\nPlease note that such a link (differently from when you send it via SSH) can be only used from the same device where it has been created OR from the same LAN, if you share it to another machine.\n</string>
-    <string name="loading">読み込み中・・・</string>
-    <string name="error">Error!</string>
-    <string name="information">Information</string>
+    <string name="loading">Loading&#8230;</string>
+    <string name="error">Помилка...</string>
+    <string name="information">Інформація</string>
     <string name="dialogs_negative">Cancel</string>
     <string name="wait">Please wait&#8230;</string>
     <string name="no_downloads_sys_app">\"Downloads\" system App not found.</string>
     <string name="ytd_useless">YTD cannot download files on this device.</string>
-    <string name="invalid_url">Unable to retrieve web page. URL may be invalid.</string>
-    <string name="invalid_url_short">Unable to retrieve web page.</string>
+    <string name="invalid_url">Не можу знайти веб-сторінку. Перевірте адресу</string>
+    <string name="invalid_url_short">Не можу віднайти веб-сторінку</string>
     <string name="invalid_response">Invalid HTTP server response.</string>
     <string name="bad_link">Check the provided link.</string>
-    <string name="bad_link_dialog_msg">Not a valid YouTube link.</string>
-    <string name="no_net">No connection available.</string>
-    <string name="no_net_dialog_msg">Please, enable a network connection first.</string>
+    <string name="bad_link_dialog_msg">Неправильне або недійсне посилання YouTube</string>
+    <string name="no_net">Немає з\'єднання</string>
+    <string name="no_net_dialog_msg">Будь-ласка, спершу з\'єднайтеся з Інтернетом.</string>
     <string name="no_market">No market App available.</string>
-    <string name="no_market_dialog_msg">Please, install Google Play</string>
-    <string name="list_click_dialog_title">Confirm download for:</string>
-    <string name="list_click_download_local">Download here</string>
+    <string name="no_market_dialog_msg">Будь ласка, установіть Google Play</string>
+    <string name="list_click_dialog_title">Підтвердіть завантаження:</string>
+    <string name="list_click_download_local">Качайте звідси:</string>
     <string name="list_click_download_ssh">Send via SSH</string>
-    <string name="rename_dialog_title">New filename:</string>
-    <string name="rename_dialog_msg">Do not enter the file extension (like .mp4 or .flv).</string>
-    <string name="unable_save">Unable to save the video!</string>
-    <string name="unable_save_dialog_msg">Destination folder is NOT available and/or NOT writable.</string>
+    <string name="rename_dialog_title">Нова назва файлу:</string>
+    <string name="rename_dialog_msg">Не вводьте розширення файлу (наприклад, .mp4 або .flv)</string>
+    <string name="unable_save">Не можу зберегти відео...</string>
+    <string name="unable_save_dialog_msg">Цільова тека НЕ доступна і/або НЕ доступна для запису.</string>
     <string name="ssh_info_tutorial_title">Send via SSH How-To</string>
     <string name="ssh_info_tutorial_msg">A single long command has been loaded in the clipboard.
 		\n\nChoose a profile in ConnectBot and once in your remote shell, browse to the desired 
@@ -47,11 +47,11 @@
     <string name="callConnectBot_dialog_title">%1$s not installed!</string>
     <string name="callConnectBot_dialog_msg">You need this free App to send the video download via SSH.</string>
     <string name="callConnectBot_dialog_positive">Download</string>
-    <string name="download_complete_dialog_msg1">YouTube Video:\n</string>
-    <string name="download_complete_dialog_msg2">\nSuccessfully downloaded.</string>
-    <string name="download_complete_dialog_positive">Open</string>
+    <string name="download_complete_dialog_msg1">Відео YouTube:\n</string>
+    <string name="download_complete_dialog_msg2">\nУспішно закачався!</string>
+    <string name="download_complete_dialog_positive">Відкрити</string>
     <string name="downloading">Downloading&#8230;</string>
-    <string name="cancel_download_dialog_title">Cancel download?</string>
+    <string name="cancel_download_dialog_title">Дійсно скасувати це завантаження?</string>
     <string name="video_list_error_toast">Error in video list.</string>
     <string name="codec">\n\n\tCodec:</string>
     <string name="quality">\n\tQuality:</string>
@@ -82,7 +82,7 @@
     
     <!-- ### SettingsActivity ### -->
 
-    <string name="attention">Attention!</string>
+    <string name="attention">Увага!</string>
     <string name="extsdcard_warning">Unable to write files on the removable sdcard.\nFalling back on standard sdcard.</string>
     <string name="system_warning_title">This is a system folder</string>
     <string name="system_warning_msg">Chosen path will fall back on standard sdcard\'s Download folder.</string>
@@ -102,8 +102,8 @@
     
     <!-- ### UpgradeApkActivity ### -->
     
-    <string name="upgrade_button_init">Update</string>
-    <string name="upgrade_button_download">Download\nand install</string>
+    <string name="upgrade_button_init">Оновлення</string>
+    <string name="upgrade_button_download">Закачати\nта установити</string>
     <string name="upgrade_uppertext_searching">Searching&#8230;</string>
     <string name="upgrade_uppertext_init">Installed version:\n</string>
 
@@ -111,9 +111,9 @@
     <string name="upgrade_installed">\nInstalled:\t</string>
     <string name="upgraded_dialog_msg">New version stored in standard sdcard \'Download\' folder.\n\nInstall now?</string>
     <string name="upgraded_dialog_negative">Later\n(manually)</string>
-    <string name="upgrade_latest_installed">Latest version is already installed!</string>
+    <string name="upgrade_latest_installed">Маєте останню версію!</string>
     <string name="upgrade_network_error">Unable to retrieve update data.\nRetry later.</string>
-    <string name="upgrade_bad_md5_dialog_msg">Downloaded package corrupted.\nWill be deleted now.\nPress OK to download it again.</string>
+    <string name="upgrade_bad_md5_dialog_msg">Завантажений файл пошкоджено.\nБуде стерто.\nНатисніть OK щоб завантажити знову.</string>
     
     <!-- ### DownloadsService ### -->
     
@@ -184,15 +184,15 @@
     </string-array>
     
     <!-- -->
-    <string name="quick_start_title">Quick start</string>
-    <string name="quick_start_summ">Open a quick start tutorial</string>
+    <string name="quick_start_title">Швидкий запуск</string>
+    <string name="quick_start_summ">Відкрити підказку швидкого запуску?</string>
     <string name="quick_start_text">Here are just the preferences for \'YouTube Downloader\'.
 		\n\nThe actual App can be accessed via the share button in the YouTube App, while watching a video.
 		\n\nThen choose \'YouTube Downloader\' and you will have further usage info.
 		\n\nYou can also share any YouTube plain text link via any other App: i.e. your browser.</string>
     <string name="general_info_title">Enable General how-to</string>
-    <string name="general_info_summary">Show a general App tutorial on startup</string>
-    <string name="show_again_checkbox">Show again next time</string>
+    <string name="general_info_summary">Показувати інструкцію при запуску</string>
+    <string name="show_again_checkbox">Показати знову</string>
     <string name="ssh_info_title">Enable SSH how-to</string>
     <string name="ssh_info_summary">Show a quick tip about remote downloading via SSH</string>
     <string name="audio_tutorial_title">Audio extraction tutorial</string>
@@ -209,19 +209,19 @@
         \n\nChoose from settings if you want to remove the video file after a successful audio extraction.</string>
     
     <!-- -->
-    <string name="settings_cat_folder">Download folder</string>
-    <string name="standard_location_title">Choose standard folder</string>
+    <string name="settings_cat_folder">Тека завантажень</string>
+    <string name="standard_location_title">Виберіть стандартну теку</string>
     <string name="chooser_swap_title">Swap chooser</string>
-    <string name="chooser_location_title">Open file-chooser</string>
-    <string name="chooser_location_summary">Long-press to select a folder</string>
+    <string name="chooser_location_title">Відкрити менеджер файлів</string>
+    <string name="chooser_location_summary">Натисніть та утримуйте, щоб вибрати папку</string>
 	
     <!-- -->
-    <string name="settings_cat_files">Video files</string>
-    <string name="enable_q_suffix_title">Append quality suffix</string>
+    <string name="settings_cat_files">Відеофайли</string>
+    <string name="enable_q_suffix_title">Додати суфікс якості</string>
     <string name="enable_q_suffix_summary">Add the video quality at the end of the file name</string>
-    <string name="enable_rename_title">Enable file rename</string>
+    <string name="enable_rename_title">Дозволити перейменування файлів</string>
     <string name="enable_rename_summary">Rename the video file before downloading it (for the local download only)</string>
-    <string name="show_size_title">Show file size</string>
+    <string name="show_size_title">Показати розмір файлу</string>
     <string name="show_size_summary">Fetch the video file size on download confirmation message (slower)</string>
     <string name="show_size_list_title">Show all video sizes</string>
     <string name="show_size_list_summary">Fetch the file sizes for every item in the list of available video (much slower)</string>
@@ -272,7 +272,7 @@
     
     <!-- -->
     <string name="settings_cat_updates">Updates</string>
-    <string name="update_title">Check for updates</string>
+    <string name="update_title">Шукати оновлень</string>
     <string name="autoupdate_title">Enable auto-update</string>
     <string name="autoupdate_summary">Check for updates on first application\'s run of the day (the new package will be auto-downloaded)</string>
 

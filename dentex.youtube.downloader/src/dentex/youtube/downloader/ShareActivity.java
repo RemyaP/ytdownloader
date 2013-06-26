@@ -12,7 +12,7 @@
 	GNU General Public License for more details.
 	
 	You should have received a copy of the GNU General Public License
-	along with this program. If not, see <http>http://www.gnu.org/licenses
+	along with this program. If not, see http://www.gnu.org/licenses
 	
 	***
 	
@@ -37,6 +37,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -72,16 +73,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -342,6 +346,14 @@ public class ShareActivity extends Activity {
         	progressBar1.setVisibility(View.GONE);
         	tv.setText(getString(R.string.no_net));
         	PopUps.showPopUp(getString(R.string.no_net), getString(R.string.no_net_dialog_msg), "alert", this);
+        	Button retry = (Button) findViewById(R.id.share_activity_retry_button);
+        	retry.setVisibility(View.VISIBLE);
+        	retry.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Utils.reload(ShareActivity.this);					
+				}
+			});
         }
     }
 
@@ -480,6 +492,12 @@ public class ShareActivity extends Activity {
             }
 
             String[] lv_arr = listEntries.toArray(new String[0]);
+            
+            if (lv_arr.length == 0) {
+            	PopUps.showPopUp(getString(R.string.login_required), getString(R.string.login_required_dialog_msg), "info", ShareActivity.this);
+            	TextView info = (TextView) findViewById(R.id.share_activity_info);
+            	info.setVisibility(View.VISIBLE);
+            }
             
             aA = new ArrayAdapter<String>(ShareActivity.this, android.R.layout.simple_list_item_1, lv_arr);
             
@@ -831,23 +849,30 @@ public class ShareActivity extends Activity {
         Utils.logger("d", "videoUri: " + videoUri, DEBUG_TAG);
         
         dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-        Request request = new Request(Uri.parse(link));
-        request.setDestinationUri(videoUri);
-        request.allowScanningByMediaScanner();
-        request.setVisibleInDownloadsUi(false);
-        
-        String visValue = YTD.settings.getString("download_manager_notification", "VISIBLE");
-        int vis;
-		if (visValue.equals("VISIBLE_NOTIFY_COMPLETED")) {
-			vis = DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
-		} else if (visValue.equals("HIDDEN")) {
-			vis = DownloadManager.Request.VISIBILITY_HIDDEN;
-		} else {
-			vis = DownloadManager.Request.VISIBILITY_VISIBLE;
-		}
-        request.setNotificationVisibility(vis);
-        request.setTitle(videoFilename);
-        request.setDescription(getString(R.string.ytd_video));
+        Request request = null;
+		try {
+			request = new Request(Uri.parse(link));
+			request.setDestinationUri(videoUri);
+			request.allowScanningByMediaScanner();
+			request.setVisibleInDownloadsUi(false);
+			
+			String visValue = YTD.settings.getString("download_manager_notification", "VISIBLE");
+			int vis;
+			if (visValue.equals("VISIBLE_NOTIFY_COMPLETED")) {
+				vis = DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
+			} else if (visValue.equals("HIDDEN")) {
+				vis = DownloadManager.Request.VISIBILITY_HIDDEN;
+			} else {
+				vis = DownloadManager.Request.VISIBILITY_VISIBLE;
+			}
+			request.setNotificationVisibility(vis);
+			request.setTitle(videoFilename);
+			request.setDescription(getString(R.string.ytd_video));
+		} catch (IllegalArgumentException e) {
+	    	Log.e(DEBUG_TAG, "callDownloadManager: " + e.getMessage());
+	    	YTD.NoDownProvPopUp(this);
+	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> callDownloadManager: ", e.getMessage(), e);
+	    }
     	
     	Intent intent1 = new Intent(ShareActivity.this, DownloadsService.class);
     	intent1.putExtra("COPY", false);
@@ -1156,7 +1181,7 @@ public class ShareActivity extends Activity {
     	String sig = null;
 		if (sigMatcher.find()) {
     		sig = "signature=" + sigMatcher.group(1);
-    		Utils.logger("v", "sig found on step 1 (\u0026)", DEBUG_TAG);
+    		Utils.logger("d", "sig found on step 1 (\u0026)", DEBUG_TAG);
     	} else {
     		Pattern sigPattern2 = Pattern.compile("sig=(.+?)$");
     		Matcher sigMatcher2 = sigPattern2.matcher(block);
@@ -1168,13 +1193,15 @@ public class ShareActivity extends Activity {
         		Matcher sigMatcher3 = sigPattern3.matcher(block);
         		if (sigMatcher3.find()) {
         			sig = "signature=" + sigMatcher3.group(1);
-        			Utils.logger("i", "sig found on step 3 ([[0-9][A-Z]]{39,40})", DEBUG_TAG);
+        			Utils.logger("d", "sig found on step 3 ([[0-9][A-Z]]{39,40})", DEBUG_TAG);
         		} else {
-        			Pattern sigPattern4 = Pattern.compile("s=([[0-9][A-Z]]{43}\\.[[0-9][A-Z]]{40})");
+        			Pattern sigPattern4 = Pattern.compile("s=([[0-9][A-Z]]{40,44}\\.[[0-9][A-Z]]{40,44})");
         			Matcher sigMatcher4 = sigPattern4.matcher(block);
         			if (sigMatcher4.find()) {
-        				sig = "signature=" + sigMatcher4.group(1);
-        				Utils.logger("i", "sig found on step 4 (s=)", DEBUG_TAG);
+        				Utils.logger("d", "sig found on step 4 (s=)", DEBUG_TAG);
+        				Log.i(DEBUG_TAG, "(s=) signature length: " + sigMatcher4.group(1).length());
+        				String singleEs = parseSingleEsSig(sigMatcher4.group(1));
+        				sig = "signature=" + singleEs;
         			} else {
         				Log.e(DEBUG_TAG, "sig: " + sig);
         			}
@@ -1196,7 +1223,105 @@ public class ShareActivity extends Activity {
 		}
 	}
     
-    private class AsyncSizeQuery extends AsyncTask<String, Void, String> {
+    /*
+     * parseSingleEsSig(...) and initialSigTransformation(...) methods
+     * adapted from the Javascript Greasemonkey script 
+     * http://userscripts.org/scripts/show/25105 (released under the MIT License)
+     * by Gantt: http://userscripts.org/users/gantt
+     */
+    
+    private String parseSingleEsSig(String sig) {
+		if (sig.length() == 88) {
+    		String[] sigA = sig.split("");
+    		sigA = Arrays.copyOfRange(sigA, 2, sigA.length);
+    		sigA = swap(sigA, 1);
+    		sigA = swap(sigA, 10);
+    		sigA = reverseArray(sigA);
+    		sigA = Arrays.copyOfRange(sigA, 2, sigA.length);
+    		sigA = swap(sigA, 23);
+    		sigA = Arrays.copyOfRange(sigA, 3, sigA.length);
+    		sigA = swap(sigA, 15);
+    		sigA = swap(sigA, 34);
+    		sig = TextUtils.join("", sigA);
+    	}
+    	
+    	if (sig.length() == 87) {
+			String[] t = initialSigTransformation(sig, 44, 84, 3, 43);
+			sig = t[0].substring(21,22)+t[0].substring(1,21)+t[0].substring(0,1)+t[0].substring(22,31)+
+			        sig.substring(0,1)+t[0].substring(32,40)+sig.substring(43,44)+t[1];
+    	}
+    	
+    	if (sig.length() == 86) {
+			sig = sig.substring(2,17)+sig.substring(0,1)+sig.substring(18,41)+sig.substring(79,80)+
+			        sig.substring(42,43)+sig.substring(43,79)+sig.substring(82,83)+sig.substring(80,82)+sig.substring(41,42);
+    	}
+    	
+    	if (sig.length() == 85) {
+			String[] t = initialSigTransformation(sig, 44, 84, 3, 43);
+			sig=t[0].substring(7,8)+t[0].substring(1,7)+t[0].substring(0,1)+t[0].substring(8,23)+sig.substring(0,1)+
+			        t[0].substring(24,33)+sig.substring(1,2)+t[0].substring(34,40)+sig.substring(43,44)+t[1];
+    	}
+    	
+    	if (sig.length() == 84) {
+			String[] t = initialSigTransformation(sig, 44, 84, 3, 43);
+			sig=t[0]+sig.substring(43,1)+t[1].substring(0,6)+sig.substring(2,1)+t[1].substring(7,9)+
+					t[1].substring(39,1)+t[1].substring(17,22)+t[1].substring(16,1);
+    	}
+    	
+    	if (sig.length() == 83) {
+			String[] t = initialSigTransformation(sig, 43, 83, 2, 42);
+			sig=t[0].substring(30,1)+t[0].substring(1,26)+t[1].substring(39,1)+
+			        t[0].substring(28,2)+t[0].substring(0,1)+t[0].substring(31,9)+sig.substring(42,1)+
+			        t[1].substring(0,5)+t[0].substring(27,1)+t[1].substring(6,33)+t[1].substring(5,1);
+    	}
+    	
+    	if (sig.length() == 82) {
+			String[] t = initialSigTransformation(sig, 34, 82, 0, 33);
+			sig=t[0].substring(45,1)+t[0].substring(2,12)+t[0].substring(0,1)+t[0].substring(15,26)+
+			        sig.substring(33,1)+t[0].substring(42,1)+t[0].substring(43,1)+t[0].substring(44,1)+
+			        t[0].substring(41,1)+t[0].substring(46,1)+t[1].substring(32,1)+t[0].substring(14,1)+
+			        t[1].substring(0,32)+t[0].substring(47,1);
+    	}
+    	return sig;
+	}
+
+	private String[] initialSigTransformation(String sig, int a, int b, int c, int d) {
+		String[] sigA = sig.substring(a, b).split("");
+		sigA = reverseArray(sigA);
+		String sigAs = TextUtils.join("", sigA);
+		String[] sigB = sig.substring(c, d).split("");
+		sigB = reverseArray(sigB);
+		String sigBs = TextUtils.join("", sigB);
+		return new String[] { sigAs, sigBs };
+	}
+    
+	/*
+     * method reverseArray(String[] a) adapted from Stack Overflow:
+	 * http://stackoverflow.com/questions/13674466/reverse-the-contents-of-array
+	 * 
+	 * Q: http://stackoverflow.com/users/1871089/user1871089
+	 * A: http://stackoverflow.com/users/1870638/andreih
+	 */
+	
+    public static String[] reverseArray(String[] a) {
+    	int i = 0;
+    	int  j = a.length - 1;
+    	for (i = 0; i < a.length / 2; i++, j--) {
+    		String temp = a[i];
+    		a[i] = a[j];
+    		a[j] = temp;
+    	}
+    	return a;
+    }
+    
+    private String[] swap(String[] a, int b) {
+    	String c = a[0];
+    	a[0] = a[b%a.length];
+    	a[b] = c;
+    	return a;
+    }
+
+	private class AsyncSizeQuery extends AsyncTask<String, Void, String> {
     	
     	protected void onPreExecute() {
     		waitBuilder = new AlertDialog.Builder(boxThemeContextWrapper);

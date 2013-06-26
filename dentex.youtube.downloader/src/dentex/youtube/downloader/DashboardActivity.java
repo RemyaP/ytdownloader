@@ -112,7 +112,6 @@ public class DashboardActivity extends Activity{
     	Utils.langInit(this);
     	
     	readJson();
-    	
     	buildList();
     	
     	lv = (ListView) findViewById(R.id.dashboard_list);
@@ -120,9 +119,7 @@ public class DashboardActivity extends Activity{
     	da = new DashboardAdapter(itemsList, this);
     	
     	if (da.isEmpty()) {
-    		// TODO show TextView: "dashboard is empty"
-    		Utils.logger("v", "__dashboard is empty__", DEBUG_TAG);
-    		
+            showEmptyListInfo();
     	} else {
     		lv.setAdapter(da);
     	}
@@ -332,6 +329,12 @@ public class DashboardActivity extends Activity{
 			    return true;
         	}
     	});
+	}
+
+	public void showEmptyListInfo() {
+		TextView info = (TextView) findViewById(R.id.dashboard_activity_info);
+		info.setVisibility(View.VISIBLE);
+		Utils.logger("v", "__dashboard is empty__", DEBUG_TAG);
 	}
 	
 	private class AsyncDelete extends AsyncTask<File, Void, Boolean> {
@@ -737,13 +740,16 @@ public class DashboardActivity extends Activity{
 			    readJson();
 				buildList();
 				
+				if (da.isEmpty()) {
+		            showEmptyListInfo();
+		    	}
+				
 				// refresh the list view
 				da.notifyDataSetChanged();
 			}
 		});
 	}
 	
-
 	// #####################################################################
 	
 	public void ffmpegJob(final int ID) {

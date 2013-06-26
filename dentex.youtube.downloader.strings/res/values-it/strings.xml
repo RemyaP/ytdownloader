@@ -65,6 +65,9 @@
     <string name="ffmpeg_ready">FFmpeg pronto.</string>
     <string name="confirm_audio_checkbox1">Estrai l\'audio dopo il download</string>
     <string name="confirm_audio_checkbox2">\n(come definito nelle opzioni)</string>
+    <string name="login_required">E\' richiesto il login a YouTube</string>
+    <string name="login_required_dialog_msg">YTD non può gestire questo video.</string>
+    <string name="no_video_available">Nessun video disponibile.</string>
     
     <string-array name="long_click_entries">
         <item>Copia nella clipboard</item>
@@ -115,9 +118,9 @@
     <!-- ### DownloadsService ### -->
     
     <string name="ytd_video">YTD video</string>
-    <string name="copy_error">Errore durante la copia</string>
+    <string name="copy_error">Errore durante la copia.</string>
     <string name="copy_progress">Copia del file in corso&#8230;</string>
-    <string name="copy_ok">Copia completata.</string>
+    <string name="copy_ok">Copia del file completata.</string>
     <string name="download_remove_failed">Errore: file temporaneo scaricato non rimosso!</string>
     <string name="download_failed">Il download è fallito!</string>
     <string name="audio_extr_progress">Estrazione audio in corso&#8230;</string>
@@ -135,6 +138,35 @@
 	
 	<!-- ### FfmpegDownloadService ### -->
 	<string name="ffmpeg_install_failed">Installazione di FFmpeg non riuscita.</string>
+	
+	<!-- ### DashboardActivity ### -->
+	<string name="json_status_completed">Completo</string>
+	<string name="json_status_failed">Fallito</string>
+	<string name="json_status_in_progress">In corso</string>
+	<string name="menu_search">cerca&#8230;</string>
+	
+	<string name="dashboard_long_click_entry_0">Copia</string>
+	<string name="dashboard_long_click_entry_1">Sposta</string>
+	<string name="dashboard_long_click_entry_2">Cancella</string>
+	
+	<string-array name="dashboard_long_click_entries">
+	    <item>Copia</item>
+	    <item>Sposta</item>
+        <item>Rinomina</item>
+        <item>Cancella</item>
+    </string-array>
+    
+	<string name="move_error">Errore durante lo spostamento.</string>
+    <string name="move_progress">Spostamento del file in corso&#8230;</string>
+    <string name="move_ok">Spostamento del file completato.</string>
+    <string name="long_press_warning_title">Operazione non eseguita:</string>
+    <string name="long_press_warning_msg">Le cartelle di origine e destinazione coincidono.</string>
+
+	<string name="delete_video_confirm">Confermi che vuoi cancellare questo video?</string>
+	<string name="delete_video_ok">%1$s cancellato con successo.</string>
+	<string name="delete_video_failed">Errore: %1$s non cancellato.</string>
+	
+	<string name="empty_dashboard">Nessun video scaricato.</string>
 
     <!-- ### preferences ### -->
 
