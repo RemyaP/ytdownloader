@@ -1211,13 +1211,14 @@ public class ShareActivity extends Activity {
     	
     	if (sig.length() == 87) {
 			String[] t = initialSigTransformation(sig, 44, 84, 3, 43);
-			sig = t[0].substring(21,22)+t[0].substring(1,21)+t[0].substring(0,1)+t[0].substring(22,31)+
+			sig = t[0].substring(21,22)+t[0].substring(1,21)+t[0].substring(0,1)+t[1].substring(22,31)+
 			        sig.substring(0,1)+t[0].substring(32,40)+sig.substring(43,44)+t[1];
     	}
     	
     	if (sig.length() == 86) {
-			sig = sig.substring(2,17)+sig.substring(0,1)+sig.substring(18,41)+sig.substring(79,80)+
-			        sig.substring(42,43)+sig.substring(43,79)+sig.substring(82,83)+sig.substring(80,82)+sig.substring(41,42);
+    		String sigA = sig.substring(2, 42);
+    		String sigB = sig.substring(43, 83);
+    		sig = sigA + sig.substring(42,43)+sigB.substring(0,20)+sigB.substring(39,40)+sigB.substring(21,39)+sigB.substring(20,21);
     	}
     	
     	if (sig.length() == 85) {
@@ -1228,23 +1229,23 @@ public class ShareActivity extends Activity {
     	
     	if (sig.length() == 84) {
 			String[] t = initialSigTransformation(sig, 44, 84, 3, 43);
-			sig=t[0]+sig.substring(43,1)+t[1].substring(0,6)+sig.substring(2,1)+t[1].substring(7,9)+
-					t[1].substring(39,1)+t[1].substring(17,22)+t[1].substring(16,1);
+			sig=t[0]+sig.substring(43,44)+t[1].substring(0,6)+sig.substring(2,3)+t[1].substring(7,16)+
+					t[1].substring(39,40)+t[1].substring(17,39)+t[1].substring(16,17);
     	}
     	
     	if (sig.length() == 83) {
 			String[] t = initialSigTransformation(sig, 43, 83, 2, 42);
-			sig=t[0].substring(30,1)+t[0].substring(1,26)+t[1].substring(39,1)+
-			        t[0].substring(28,2)+t[0].substring(0,1)+t[0].substring(31,9)+sig.substring(42,1)+
-			        t[1].substring(0,5)+t[0].substring(27,1)+t[1].substring(6,33)+t[1].substring(5,1);
+			sig=t[0].substring(30,31)+t[0].substring(1,27)+t[1].substring(39,40)+
+			        t[0].substring(28,30)+t[0].substring(0,1)+t[0].substring(31,40)+sig.substring(42,43)+
+			        t[1].substring(0,5)+t[0].substring(27,28)+t[1].substring(6,39)+t[1].substring(5,6);
     	}
     	
     	if (sig.length() == 82) {
 			String[] t = initialSigTransformation(sig, 34, 82, 0, 33);
-			sig=t[0].substring(45,1)+t[0].substring(2,12)+t[0].substring(0,1)+t[0].substring(15,26)+
-			        sig.substring(33,1)+t[0].substring(42,1)+t[0].substring(43,1)+t[0].substring(44,1)+
-			        t[0].substring(41,1)+t[0].substring(46,1)+t[1].substring(32,1)+t[0].substring(14,1)+
-			        t[1].substring(0,32)+t[0].substring(47,1);
+			sig=t[0].substring(45,46)+t[0].substring(2,14)+t[0].substring(0,1)+t[0].substring(15,41)+
+			        sig.substring(33,34)+t[0].substring(42,43)+t[0].substring(43,44)+t[0].substring(44,45)+
+			        t[0].substring(41,42)+t[0].substring(46,47)+t[1].substring(32,33)+t[0].substring(14,15)+
+			        t[1].substring(0,32)+t[0].substring(47,48);
     	}
     	return sig;
 	}

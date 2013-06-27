@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v2.3.1 - Jun 27 2013
+        \n-----------------------------------
+        \n[x] experimantal signature patch
+        \n
         \n v2.3 - Jun 25 2013
-        \n[x] vevo-like signature bug fixed
+        \n-----------------------------------
+        \n[x] experimantal signature support
         \n    (thanks Gantt@userscripts.org)
         \n[x] other bug/stability fixes
         \n
