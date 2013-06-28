@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v2.3.2 - Jun 28 2013
+        \n-----------------------------------
+        \n[x] small bugs fixed
+        \n
         \n v2.3.1 - Jun 27 2013
         \n-----------------------------------
         \n[x] experimantal signature patch

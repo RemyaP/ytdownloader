@@ -82,10 +82,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -353,6 +355,14 @@ public class ShareActivity extends Activity {
         	progressBar1.setVisibility(View.GONE);
         	tv.setText(getString(R.string.no_net));
         	PopUps.showPopUp(getString(R.string.no_net), getString(R.string.no_net_dialog_msg), "alert", this);
+        	Button retry = (Button) findViewById(R.id.share_activity_retry_button);
+        	retry.setVisibility(View.VISIBLE);
+        	retry.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Utils.reload(ShareActivity.this);					
+				}
+			});
         }
     }
 
@@ -424,9 +434,24 @@ public class ShareActivity extends Activity {
         } else {
         	String cs = settings.getString("CHOOSER_FOLDER", "");
         	chooserFolder = new File(cs);
-        	Utils.logger("d", "chooserFolder: " + chooserFolder, DEBUG_TAG);
-        	path = chooserFolder;
+        	if (chooserFolder.exists()) {
+        		Utils.logger("d", "chooserFolder: " + chooserFolder, DEBUG_TAG);
+        		path = chooserFolder;
+        	} else {
+        		path = dir_Downloads;
+        		Utils.logger("w", "chooserFolder not found, falling back to Download path", DEBUG_TAG);
+        	}
         }
+        
+        if (!path.exists()) {
+        	if (new File(path.getAbsolutePath()).mkdirs()) {
+        		Utils.logger("w", "destination path not found, creating it now", DEBUG_TAG);
+        	} else {
+        		Log.e(DEBUG_TAG, "Something really bad happened with the download destination...");
+        	}
+        	
+        }
+        	
         Utils.logger("d", "path: " + path, DEBUG_TAG);
     }
 
@@ -478,6 +503,12 @@ public class ShareActivity extends Activity {
             }
 
             String[] lv_arr = listEntries.toArray(new String[0]);
+            
+            if (lv_arr.length == 0) {
+            	PopUps.showPopUp(getString(R.string.login_required), getString(R.string.login_required_dialog_msg), "info", ShareActivity.this);
+            	TextView info = (TextView) findViewById(R.id.share_activity_info);
+            	info.setVisibility(View.VISIBLE);
+            }
             
             aA = new ArrayAdapter<String>(ShareActivity.this, android.R.layout.simple_list_item_1, lv_arr);
             
@@ -551,6 +582,13 @@ public class ShareActivity extends Activity {
 											callDownloadManager(links.get(pos));
 		                    	    	}
 		                    	    });
+		                    	    
+		                    	    adb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
+		                	        	public void onClick(DialogInterface dialog, int which) {
+		                	                // cancel
+		                	            }
+		                	        });
+		                    	    
 		                    	    if (! ((Activity) ShareActivity.this).isFinishing()) {
 		                    	    	adb.show();
 		                    	    }
@@ -828,22 +866,30 @@ public class ShareActivity extends Activity {
         Utils.logger("d", "videoUri: " + videoUri, DEBUG_TAG);
         
         dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-        Request request = new Request(Uri.parse(link));
-        request.setDestinationUri(videoUri);
-        request.allowScanningByMediaScanner();
-        
-        String visValue = settings.getString("download_manager_notification", "VISIBLE");
-        int vis;
-		if (visValue.equals("VISIBLE_NOTIFY_COMPLETED")) {
-			vis = DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
-		} else if (visValue.equals("HIDDEN")) {
-			vis = DownloadManager.Request.VISIBILITY_HIDDEN;
-		} else {
-			vis = DownloadManager.Request.VISIBILITY_VISIBLE;
-		}
-        request.setNotificationVisibility(vis);
-        request.setTitle(videoFilename);
-        request.setDescription(getString(R.string.ytd_video));
+        Request request = null;
+		try {
+			request = new Request(Uri.parse(link));
+			request.setDestinationUri(videoUri);
+			request.allowScanningByMediaScanner();
+			request.setVisibleInDownloadsUi(false);
+			
+			String visValue = settings.getString("download_manager_notification", "VISIBLE");
+			int vis;
+			if (visValue.equals("VISIBLE_NOTIFY_COMPLETED")) {
+				vis = DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
+			} else if (visValue.equals("HIDDEN")) {
+				vis = DownloadManager.Request.VISIBILITY_HIDDEN;
+			} else {
+				vis = DownloadManager.Request.VISIBILITY_VISIBLE;
+			}
+			request.setNotificationVisibility(vis);
+			request.setTitle(videoFilename);
+			request.setDescription(getString(R.string.ytd_video));
+		} catch (IllegalArgumentException e) {
+	    	Log.e(DEBUG_TAG, "callDownloadManager: " + e.getMessage());
+	    	YTD.NoDownProvPopUp(this);
+	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> callDownloadManager: ", e.getMessage(), e);
+	    }
     	
     	Intent intent1 = new Intent(ShareActivity.this, DownloadsService.class);
     	intent1.putExtra("COPY", false);

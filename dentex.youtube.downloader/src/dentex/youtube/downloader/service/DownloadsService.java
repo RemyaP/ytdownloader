@@ -286,7 +286,11 @@ public class DownloadsService extends Service {
 									} else {
 										text = getString(R.string.audio_conv_progress);
 									}
-							    	Toast.makeText(context,"YTD: " + text, Toast.LENGTH_LONG).show();
+							    	try {
+										Toast.makeText(context,"YTD: " + text, Toast.LENGTH_LONG).show();
+									} catch (NullPointerException e) {
+										Log.e(DEBUG_TAG + "-> Toast.makeText npe: ", e.getMessage());
+									}
 							    	aBuilder.setContentTitle(aFileName);
 							        aBuilder.setContentText(text);
 									aNotificationManager.notify(ID*ID, aBuilder.build());

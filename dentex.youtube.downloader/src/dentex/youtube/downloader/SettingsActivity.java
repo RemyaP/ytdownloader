@@ -12,7 +12,7 @@
 	GNU General Public License for more details.
 	
 	You should have received a copy of the GNU General Public License
-	along with this program. If not, see <http>http://www.gnu.org/licenses
+	along with this program. If not, see http://www.gnu.org/licenses
 	
 	***
 	
@@ -236,7 +236,7 @@ public class SettingsActivity extends Activity {
 			    		getActivity().setTheme(R.style.AppThemeLight);
 			    	}
 			    	
-			    	if (!theme.equals(newValue)) reload();
+			    	if (!theme.equals(newValue)) Utils.reload(getActivity());
 					return true;
 				}
 			});
@@ -246,7 +246,7 @@ public class SettingsActivity extends Activity {
 				
 				public boolean onPreferenceChange(Preference preference, Object newValue) {
 					String language = settings.getString("lang", "default");
-					if (!language.equals(newValue)) reload();
+					if (!language.equals(newValue)) Utils.reload(getActivity());
 					return true;
 				}
 			});
@@ -393,15 +393,6 @@ public class SettingsActivity extends Activity {
 				return 0;
 			}
 		}
-
-		public void reload() {
-        	Intent intent = getActivity().getIntent();
-        	intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-    		getActivity().finish();
-    		getActivity().overridePendingTransition(0, 0);
-    		startActivity(intent);
-    		getActivity().overridePendingTransition(0, 0);
-        }
 
 		public void initUpdate() {
 			int prefSig = settings.getInt("APP_SIGNATURE", 0);

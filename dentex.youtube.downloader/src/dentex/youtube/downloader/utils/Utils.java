@@ -43,8 +43,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -68,6 +70,15 @@ public class Utils {
 	InputStream isFromString;
 	static MediaScannerConnection msc;
 	static String onlineVersion;
+	
+	public static void reload(Activity activity) {
+    	Intent intent = activity.getIntent();
+    	intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    	activity.finish();
+    	activity.overridePendingTransition(0, 0);
+    	activity.startActivity(intent);
+    	activity.overridePendingTransition(0, 0);
+    }
     
     public static void themeInit(Context context) {
     	settings = context.getSharedPreferences(PREFS_NAME, 0);

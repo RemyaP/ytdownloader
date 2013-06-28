@@ -64,6 +64,10 @@
     <string name="ffmpeg_ready">FFmpeg ready.</string>
     <string name="confirm_audio_checkbox1">Extract audio after download</string>
     <string name="confirm_audio_checkbox2">\n(as defined in settings)</string>
+    <string name="login_required">Login to YouTube required.</string>
+    <string name="login_required_dialog_msg">YTD can\'t handle this video.</string>
+    <string name="no_video_available">No video available.</string>
+    <string name="retry_button_text">Retry</string>
     
     <string-array name="long_click_entries">
         <item>Copy to clipboard</item>
@@ -114,9 +118,9 @@
     <!-- ### DownloadsService ### -->
     
     <string name="ytd_video">YTD video</string>
-    <string name="copy_error">Error during copy</string>
+    <string name="copy_error">Error during copy.</string>
     <string name="copy_progress">File copy in progress&#8230;</string>
-    <string name="copy_ok">Copy completed.</string>
+    <string name="copy_ok">File copy completed.</string>
     <string name="download_remove_failed">Error: temporary downloaded file not removed!</string>
     <string name="download_failed">Download failed!</string>
     <string name="audio_extr_progress">Audio extraction in progress&#8230;</string>
