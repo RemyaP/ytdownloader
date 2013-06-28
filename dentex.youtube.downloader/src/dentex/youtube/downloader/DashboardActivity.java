@@ -65,38 +65,40 @@ import dentex.youtube.downloader.utils.Utils;
 public class DashboardActivity extends Activity{
 	
 	private final static String DEBUG_TAG = "DashboardActivity";
+	public static boolean isDashboardRunning;
 	ContextThemeWrapper boxThemeContextWrapper = new ContextThemeWrapper(this, R.style.BoxTheme);
 	private NotificationCompat.Builder aBuilder;
 	public NotificationManager aNotificationManager;
 	private int totSeconds;
 	private int currentTime;
-	protected File videoIn;
-	protected File audioOut;
+	protected File fileAudio;
 	protected String aBaseName;
 	public String aSuffix = ".audio";
 	public String vfilename;
 	//private String acodec;
 	private boolean removeVideo;
-	private boolean copyEnabled;
 	//private String aFileName;
-	private String audio;
+	private String extrType;
 	private ListView lv;
 	private Editable searchText;
 	
 	//private int index;
 	
-	List<String> idEntries = new ArrayList<String>();
-	List<String> statusEntries = new ArrayList<String>();
-	List<String> pathEntries = new ArrayList<String>();
-	List<String> filenameEntries = new ArrayList<String>();
-	List<String> sizeEntries = new ArrayList<String>();
-	List<String> mediaIdEntries = new ArrayList<String>();
+	static List<String> idEntries = new ArrayList<String>();
+	static List<String> statusEntries = new ArrayList<String>();
+	static List<String> pathEntries = new ArrayList<String>();
+	static List<String> filenameEntries = new ArrayList<String>();
+	static List<String> audioFilenameEntries = new ArrayList<String>();
+	static List<String> sizeEntries = new ArrayList<String>();
+	static List<String> mediaIdEntries = new ArrayList<String>();
 	
-	private List<DashboardListItem> itemsList = new ArrayList<DashboardListItem>();
-	private DashboardAdapter da;
+	private static List<DashboardListItem> itemsList = new ArrayList<DashboardListItem>();
+	private static DashboardAdapter da;
 	private boolean isSearchBarVisible;
 	private DashboardListItem currentItem = null;
 	private TextView userFilename;
+	
+	public static Activity sDashboard;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +112,8 @@ public class DashboardActivity extends Activity{
 		// Language init
     	Utils.langInit(this);
     	
-    	readJson();
+    	if (da != null) clearAdapterAndLists();
+    	readJson(this);
     	buildList();
     	
     	lv = (ListView) findViewById(R.id.dashboard_list);
@@ -118,10 +121,12 @@ public class DashboardActivity extends Activity{
     	da = new DashboardAdapter(itemsList, this);
     	
     	if (da.isEmpty()) {
-            showEmptyListInfo();
+            showEmptyListInfo(this);
     	} else {
     		lv.setAdapter(da);
     	}
+    	
+    	sDashboard = DashboardActivity.this;
     	
     	lv.setTextFilterEnabled(true);
     	
@@ -129,11 +134,11 @@ public class DashboardActivity extends Activity{
     	lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				
-				Utils.logger("d", itemsList.size() + " items.", DEBUG_TAG);
-				
 				AlertDialog.Builder builder = new AlertDialog.Builder(boxThemeContextWrapper);
         		
         		currentItem = da.getItem(position); // in order to refer to the filtered item
+        		
+        		final boolean ffmpegEnabled = YTD.settings.getBoolean("enable_advanced_features", false);
         		
         		builder.setTitle(currentItem.getFilename());
         		builder.setItems(R.array.dashboard_click_entries, new DialogInterface.OnClickListener() {
@@ -142,20 +147,50 @@ public class DashboardActivity extends Activity{
 			    		switch (which) {
 			    			case 0:
 			    				File in = new File (currentItem.getPath(), currentItem.getFilename());
-			    				ffmpegJob(in);
-			    				break;
+			    				if (ffmpegEnabled) {
+			    					ffmpegJob(in);
+			    				} else {
+			    					Utils.logger("w", "FFmpeg not installed/enabled", DEBUG_TAG);
+
+			    					AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
+			    					adb.setTitle(getString(R.string.ffmpeg_not_enabled_title));
+			                	    adb.setMessage(getString(R.string.ffmpeg_not_enabled_msg));
+			                	    
+			                	    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			                	    	public void onClick(DialogInterface dialog, int which) {
+			                	    		startActivity(new Intent(DashboardActivity.this,  SettingsActivity.class));
+			                	    	}
+			    					
+			                	    });
+			                	    
+			                	    adb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
+			            	        	public void onClick(DialogInterface dialog, int which) {
+			            	                // cancel
+			            	            }
+			            	        });
+			                	    
+			                	    if (! ((Activity) DashboardActivity.this).isFinishing()) {
+			                	    	adb.show();
+			                	    }
+			    				}
+			    				/*break;
 			    			case 1:
-			    				// TODO
+
 			    				break;
 			    			case 2:
-			    				//
+
 			    				break;
 			    			case 3:
-			    				//
+			    				*/
 			    		}
 
 					}
         		});
+        		
+        		builder.create();
+	    		if (! ((Activity) DashboardActivity.this).isFinishing()) {
+	    			builder.show();
+	    		}
 			}
     	});
     	
@@ -164,6 +199,7 @@ public class DashboardActivity extends Activity{
 
         	@Override
         	public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+        		
         		AlertDialog.Builder builder = new AlertDialog.Builder(boxThemeContextWrapper);
         		
         		currentItem = da.getItem(position); // in order to refer to the filtered item
@@ -276,6 +312,7 @@ public class DashboardActivity extends Activity{
                 							currentItem.getStatus(), 
                 							currentItem.getPath(), 
                 							input, 
+                							currentItem.getAudioFilename(), 
                 							currentItem.getSize());
                 	    			
                 	    			// remove references for the old file
@@ -289,7 +326,12 @@ public class DashboardActivity extends Activity{
                 	    				if (dm.remove(id) > 0) {
                 	    					Utils.logger("d", id + " (DownloadManager) removed", DEBUG_TAG);
                 	    					// remove entries from videoinfo shared pref
-                	    					YTD.videoinfo.edit().remove(id + "_F").remove(id + "_P").remove(in.getName()).apply();
+                	    					YTD.videoinfo.edit()
+	                	    					.remove(id + YTD.VIDEOINFO_FILENAME)
+	                	    					.remove(id + YTD.VIDEOINFO_PATH)
+	                	    					.remove(id + YTD.VIDEOINFO_AUDIO_FILENAME)
+	                	    					.remove(in.getName())
+	                	    					.apply();
                 	    				}
                 	    			} else {
                 	    				Uri mediaUri = Uri.parse(mediaUriString);
@@ -309,7 +351,7 @@ public class DashboardActivity extends Activity{
                 							new String[]{ "video/*" });
                 	    			
                 	    			// refresh the dashboard
-                	    			refreshlist();
+                	    			refreshlist(DashboardActivity.this);
                 	    			
                 	    			Utils.logger("d", in.getName() + " _renamed to_ " + input, DEBUG_TAG);
                 	    		} else {
@@ -363,9 +405,23 @@ public class DashboardActivity extends Activity{
         	}
     	});
 	}
+	
+	@Override
+    public void onResume(){
+    	super.onResume();
+    	Utils.logger("v", "_onResume", DEBUG_TAG);
+    	isDashboardRunning = true;
+    }
+   
+    @Override
+    public void onPause() {
+    	super.onPause();
+    	Utils.logger("v", "_onPause", DEBUG_TAG);
+    	isDashboardRunning = false;
+    }
 
-	public void showEmptyListInfo() {
-		TextView info = (TextView) findViewById(R.id.dashboard_activity_info);
+	public static void showEmptyListInfo(Activity activity) {
+		TextView info = (TextView) activity.findViewById(R.id.dashboard_activity_info);
 		info.setVisibility(View.VISIBLE);
 		Utils.logger("v", "__dashboard is empty__", DEBUG_TAG);
 	}
@@ -416,7 +472,7 @@ public class DashboardActivity extends Activity{
 			Utils.removeEntryFromJsonFile(DashboardActivity.this, currentItem.getId());
 		}
 		
-		refreshlist();
+		refreshlist(DashboardActivity.this);
 		Utils.logger("v", "----------> END delete", DEBUG_TAG);
 		
 		return res;
@@ -446,7 +502,12 @@ public class DashboardActivity extends Activity{
 		if (dm.remove(id) > 0) {
 			Utils.logger("d", id + " (DownloadManager) removed", DEBUG_TAG);
 			// remove entries from videoinfo shared pref
-			YTD.videoinfo.edit().remove(id + "_F").remove(id + "_P").remove(fileToDel.getName()).apply();
+			YTD.videoinfo.edit()
+				.remove(id + YTD.VIDEOINFO_FILENAME)
+				.remove(id + YTD.VIDEOINFO_PATH)
+				.remove(id + YTD.VIDEOINFO_AUDIO_FILENAME)
+				.remove(fileToDel.getName())
+				.apply();
 			return true;
 		} else {
 			Utils.logger("w", id + " (DownloadManager) NOT removed", DEBUG_TAG);
@@ -548,12 +609,26 @@ public class DashboardActivity extends Activity{
         		return super.onOptionsItemSelected(item);
         }
     }
+	
+	public static void clearAdapterAndLists() {
+		// clear the adapter
+		da.clear();
+		
+		// empty the Lists
+		idEntries.clear();
+		statusEntries.clear();
+		pathEntries.clear();
+		filenameEntries.clear();
+		audioFilenameEntries.clear();
+		sizeEntries.clear();
+	}
 
-	private void buildList() {
+	private static void buildList() {
 		Iterator<String> idsIter = idEntries.iterator();
 		Iterator<String> statusesIter = statusEntries.iterator();
 		Iterator<String> pathsIter = pathEntries.iterator();
 		Iterator<String> filenamesIter = filenameEntries.iterator();
+		Iterator<String> audioFilenamesIter = audioFilenameEntries.iterator();
 		Iterator<String> sizesIter = sizeEntries.iterator();
 		
 		while (statusesIter.hasNext()) {
@@ -562,13 +637,14 @@ public class DashboardActivity extends Activity{
 					statusesIter.next(),
 					pathsIter.next(), 
 					filenamesIter.next(), 
+					audioFilenamesIter.next(), 
 					sizesIter.next()));
 		}
 	}
 	
-	private void readJson() {
+	private static void readJson(Context context) {
 		// parse existing/init new JSON 
-		String previousJson = Utils.parseJsonDashboardFile(this);
+		String previousJson = Utils.parseJsonDashboardFile(context);
 				
 		JSONObject jV = null;
 		try {
@@ -584,6 +660,7 @@ public class DashboardActivity extends Activity{
 				statusEntries.add(jO.getString(YTD.JSON_DATA_STATUS));
 				pathEntries.add(jO.getString(YTD.JSON_DATA_PATH));
 				filenameEntries.add(jO.getString(YTD.JSON_DATA_FILENAME));
+				audioFilenameEntries.add(jO.getString(YTD.JSON_DATA_AUDIO_FILENAME));
 				sizeEntries.add(jO.getString(YTD.JSON_DATA_SIZE));
 			}
 		} catch (JSONException e) {
@@ -600,17 +677,22 @@ public class DashboardActivity extends Activity{
         	File chooserFolder = files.get(0);
         	Utils.logger("d", "file-chooser selection: " + chooserFolder.getPath(), DEBUG_TAG);
         	Utils.logger("d", "origin file's folder:   " + currentItem.getPath(), DEBUG_TAG);
-        	if (!chooserFolder.getPath().equals(currentItem.getPath())) {
         	
-		        switch (requestCode) {
-		        
-		        case 1: // ------------- > COPY
-		        	
+        	File in = new File(currentItem.getPath(), currentItem.getFilename());
+			//File out = new File(chooserFolder, "copy_" + currentItem.getFilename());
+			File out = new File(chooserFolder, currentItem.getFilename());
+			
+	        switch (requestCode) {
+	        case 1: // ------------- > COPY
+	        	
+	        	if (chooserFolder.getPath().equals(currentItem.getPath())) {
+	        		out = new File(chooserFolder, "copy_" + currentItem.getFilename());
+	        	}
+
+    			if (!out.exists()) {
 		        	switch (Utils.pathCheck(chooserFolder)) {
 		    		case 0:
 		    			// Path on standard sdcard
-		    			File in = new File(currentItem.getPath(), currentItem.getFilename());
-		    			File out = new File(chooserFolder, "copy_" + currentItem.getFilename());
 		    			new AsyncCopy().execute(in, out);
 		        		break;
 		    		case 1:
@@ -621,29 +703,35 @@ public class DashboardActivity extends Activity{
 		    			// Path not mounted
 		    			Toast.makeText(DashboardActivity.this, getString(R.string.sdcard_unmounted_warning), Toast.LENGTH_SHORT).show();
 		        	}
-		        	break;
-		        	
-		        case 2: // ------------- > MOVE
-		        	
-		        	switch (Utils.pathCheck(chooserFolder)) {
-		    		case 0:
-		    			// Path on standard sdcard
-		    			File in = new File(currentItem.getPath(), currentItem.getFilename());
-		    			File out = new File(chooserFolder, currentItem.getFilename());
-		    			new AsyncMove().execute(in, out);		
-		        		break;
-		    		case 1:
-		    			// Path not writable
-		    			PopUps.showPopUp(getString(R.string.system_warning_title), getString(R.string.system_warning_msg), "alert", DashboardActivity.this);
-		    			break;
-		    		case 2:
-		    			// Path not mounted
-		    			Toast.makeText(DashboardActivity.this, getString(R.string.sdcard_unmounted_warning), Toast.LENGTH_SHORT).show();
+    			} else {
+	        		PopUps.showPopUp(getString(R.string.long_press_warning_title), getString(R.string.long_press_warning_msg2), "info", DashboardActivity.this);
+	        	}
+    			break;
+    			
+	        case 2: // ------------- > MOVE
+	        	
+	        	if (!chooserFolder.getPath().equals(currentItem.getPath())) {
+	        		if (!out.exists()) {
+			        	switch (Utils.pathCheck(chooserFolder)) {
+			    		case 0:
+			    			// Path on standard sdcard
+			    			new AsyncMove().execute(in, out);		
+			        		break;
+			    		case 1:
+			    			// Path not writable
+			    			PopUps.showPopUp(getString(R.string.system_warning_title), getString(R.string.system_warning_msg), "alert", DashboardActivity.this);
+			    			break;
+			    		case 2:
+			    			// Path not mounted
+			    			Toast.makeText(DashboardActivity.this, getString(R.string.sdcard_unmounted_warning), Toast.LENGTH_SHORT).show();
+			        	}
+	        		} else {
+		        		PopUps.showPopUp(getString(R.string.long_press_warning_title), getString(R.string.long_press_warning_msg2), "info", DashboardActivity.this);
 		        	}
-		        }
-        	} else {
-        		PopUps.showPopUp(getString(R.string.long_press_warning_title), getString(R.string.long_press_warning_msg), "info", DashboardActivity.this);
-        	}
+	        	} else {
+	        		PopUps.showPopUp(getString(R.string.long_press_warning_title), getString(R.string.long_press_warning_msg), "info", DashboardActivity.this);
+	        	}
+	        }
 		}
     }
 	
@@ -688,6 +776,7 @@ public class DashboardActivity extends Activity{
 						currentItem.getStatus(), 
 						out.getParent(), 
 						out.getName(), 
+						currentItem.getAudioFilename(), 
 						currentItem.getSize());
 				break;
 				
@@ -698,7 +787,7 @@ public class DashboardActivity extends Activity{
 				Log.e(DEBUG_TAG, currentItem.getFilename() + " --> END move: FAILED");
 			}
 			
-			refreshlist();
+			refreshlist(DashboardActivity.this);
 		}
 	}
 	
@@ -742,6 +831,7 @@ public class DashboardActivity extends Activity{
 						currentItem.getStatus(), 
 						out.getParent(), 
 						out.getName(), 
+						currentItem.getAudioFilename(), 
 						currentItem.getSize());
 				break;
 			
@@ -752,29 +842,22 @@ public class DashboardActivity extends Activity{
 				Log.e(DEBUG_TAG, currentItem.getFilename() + " --> END copy: FAILED");
 			}
 			
-			refreshlist();
+			refreshlist(DashboardActivity.this);
 		}
 	}
 	
-	private void refreshlist() {
-		DashboardActivity.this.runOnUiThread(new Runnable() {
+	public static void refreshlist(final Activity activity) {
+		activity.runOnUiThread(new Runnable() {
 			public void run() {
-				// clear the adapter
-				da.clear();
-			    
-			    // empty the Lists
-			    idEntries.clear();
-			    statusEntries.clear();
-				pathEntries.clear();
-				filenameEntries.clear();
-				sizeEntries.clear();
+				
+				clearAdapterAndLists();
 			    
 			    // refill the Lists and re-populate the adapter
-			    readJson();
+			    readJson((Context) activity);
 				buildList();
 				
 				if (da.isEmpty()) {
-		            showEmptyListInfo();
+		            showEmptyListInfo(activity);
 		    	}
 				
 				// refresh the list view
@@ -784,12 +867,12 @@ public class DashboardActivity extends Activity{
 	}
 	
 	// #####################################################################
-	
-	public void ffmpegJob(File fileToConvert) {
+
+	public void ffmpegJob(final File fileToConvert) {
 		
 		vfilename = currentItem.getFilename();
 		
-		// audio jobs notification init
+		// audio job notification init
 		aBuilder =  new NotificationCompat.Builder(this);
 		aNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		aBuilder.setSmallIcon(R.drawable.icon_nb);
@@ -798,33 +881,28 @@ public class DashboardActivity extends Activity{
 		/*
 		 *  Audio extraction/conversion
 		 */
-			
-		/*if (removeVideo && copyEnabled) {*/
-			videoIn = fileToConvert;
-		/*} else {
-			videoIn = new File(ShareActivity.path, vfilename);
-		}*/
 		
-		String acodec = YTD.settings.getString(vfilename + "FFext", ".audio");
-		aBaseName = YTD.settings.getString(vfilename + "FFbase", ".audio");
+		// "compose" the audio file
+		String acodec = currentItem.getAudioFilename();
+		aBaseName = currentItem.getFilename();
 		final String aFileName = aBaseName + acodec;
-		audioOut = new File(ShareActivity.path, aFileName);
+		fileAudio = new File(fileToConvert.getParent(), aFileName);
+		Utils.logger("i", "fileAudio: " + fileAudio.getPath(), DEBUG_TAG);
 	    
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
-				
 				Looper.prepare();
 				
 				FfmpegController ffmpeg = null;
-
 			    try {
 			    	ffmpeg = new FfmpegController(DashboardActivity.this);
 			    	
+			    	extrType = YTD.settings.getString("audio_extraction_type", "extr");
+			    	
 			    	// Toast + Notification + Log ::: Audio job in progress...
 			    	String text = null;
-			    	if (audio.equals("extr")) {
+			    	if (extrType.equals("extr")) {
 						text = getString(R.string.audio_extr_progress);
 					} else {
 						text = getString(R.string.audio_conv_progress);
@@ -842,13 +920,12 @@ public class DashboardActivity extends Activity{
 			    String mp3BitRate = YTD.settings.getString("mp3_bitrate", getString(R.string.mp3_bitrate_default));
 			    
 			    try {
-					ffmpeg.extractAudio(videoIn, audioOut, audio, mp3BitRate, shell);
+					ffmpeg.extractAudio(fileToConvert, fileAudio, extrType, mp3BitRate, shell);
 			    } catch (IOException e) {
 					Log.e(DEBUG_TAG, "IOException running ffmpeg" + e.getMessage());
 				} catch (InterruptedException e) {
 					Log.e(DEBUG_TAG, "InterruptedException running ffmpeg" + e.getMessage());
 				}
-			    
 	            Looper.loop();
 			}
     	}).start();
@@ -859,7 +936,7 @@ public class DashboardActivity extends Activity{
 		@Override
 		public void shellOut(String shellLine) {
 			findAudioSuffix(shellLine);
-			if (audio.equals("conv")) {
+			if (extrType.equals("conv")) {
 				getAudioJobProgress(shellLine);
 			}
 			Utils.logger("d", shellLine, DEBUG_TAG);
@@ -873,14 +950,14 @@ public class DashboardActivity extends Activity{
 			if (exitValue == 0) {
 
 				// Toast + Notification + Log ::: Audio job OK
-				if (audio.equals("extr")) {
+				if (extrType.equals("extr")) {
 					text = getString(R.string.audio_extr_completed);
 				} else {
 					text = getString(R.string.audio_conv_completed);
 				}
 				Utils.logger("d", vfilename + " " + text, DEBUG_TAG);
 				
-				final File renamedAudioFilePath = renameAudioFile(aBaseName, audioOut);
+				final File renamedAudioFilePath = renameAudioFile(aBaseName, fileAudio);
 				Toast.makeText(DashboardActivity.this,  renamedAudioFilePath.getName() + ": " + text, Toast.LENGTH_LONG).show();
 				aBuilder.setContentTitle(renamedAudioFilePath.getName());
 				aBuilder.setContentText(text);			
@@ -889,7 +966,7 @@ public class DashboardActivity extends Activity{
         		aBuilder.setContentIntent(contentIntent);
         		
         		// write id3 tags
-				if (audio.equals("conv")) {
+				if (extrType.equals("conv")) {
 					try {
 						Utils.logger("d", "writing ID3 tags...", DEBUG_TAG);
 						addId3Tags(renamedAudioFilePath);
@@ -900,22 +977,9 @@ public class DashboardActivity extends Activity{
 					}
 				}
 				
-				// calls to media scanner
-				if (copyEnabled) {
-					if (!removeVideo) {
-						Utils.scanMedia(getApplicationContext(), 
-								new String[] {videoIn.getAbsolutePath(), renamedAudioFilePath.getAbsolutePath()}, 
-								new String[] {"video/*", "audio/*"});
-					} else {
-						Utils.scanMedia(getApplicationContext(), 
-								new String[] {renamedAudioFilePath.getAbsolutePath()}, 
-								new String[] {"audio/*"});
-					}
-				} else {
-					Utils.scanMedia(getApplicationContext(), 
-							new String[] {renamedAudioFilePath.getAbsolutePath()}, 
-							new String[] {"audio/*"});
-				}
+				Utils.scanMedia(getApplicationContext(), 
+						new String[] {renamedAudioFilePath.getAbsolutePath()}, 
+						new String[] {"audio/*"});
 				
 				Utils.setNotificationDefaults(aBuilder);
 			} else {
@@ -944,7 +1008,7 @@ public class DashboardActivity extends Activity{
 	public File renameAudioFile(String aBaseName, File extractedAudioFile) {
 		// Rename audio file to add a more detailed suffix, 
 		// but only if it has been matched from the ffmpeg console output
-		if (audio.equals("extr") &&
+		if (extrType.equals("extr") &&
 				extractedAudioFile.exists() && 
 				!aSuffix.equals(".audio")) {
 			String newFileName = aBaseName + aSuffix;
@@ -986,7 +1050,7 @@ public class DashboardActivity extends Activity{
 	private void findAudioSuffix(String shellLine) {
 		Pattern audioPattern = Pattern.compile("#0:0.*: Audio: (.+), .+?(mono|stereo .default.|stereo)(, .+ kb|)"); 
 		Matcher audioMatcher = audioPattern.matcher(shellLine);
-		if (audioMatcher.find() && audio.equals("extr")) {
+		if (audioMatcher.find() && extrType.equals("extr")) {
 			String oggBr = "a";
 			String groupTwo = "n";
 			if (audioMatcher.group(2).equals("stereo (default)")) {
@@ -1015,7 +1079,7 @@ public class DashboardActivity extends Activity{
 
 	public void setNotificationForAudioJobError() {
 		String text;
-		if (audio.equals("extr")) {
+		if (extrType.equals("extr")) {
 			text = getString(R.string.audio_extr_error);
 		} else {
 			text = getString(R.string.audio_conv_error);

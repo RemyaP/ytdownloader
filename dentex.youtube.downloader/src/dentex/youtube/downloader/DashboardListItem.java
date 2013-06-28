@@ -25,14 +25,16 @@ public class DashboardListItem {
 	private String status;
 	private String path;
 	private String filename;
+	private String audioFilename;
 	private String size;
 
 
-	public DashboardListItem(String id, String status, String path, String filename, String size) {
+	public DashboardListItem(String id, String status, String path, String filename, String audioSuffix, String size) {
 		this.id = id;
 		this.status = status;
 		this.path = path;
 		this.filename = filename;
+		this.audioFilename = audioSuffix;
 		this.size = size;
 
 	}
@@ -60,8 +62,16 @@ public class DashboardListItem {
 		return filename;
 	}
 	
-	public void setFilename(String distance) {
-		this.filename = distance;
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	
+	public String getAudioFilename() {
+		return audioFilename;
+	}
+	
+	public void setAudioFilename(String audioFilename) {
+		this.audioFilename = audioFilename;
 	}
 
 	public String getSize() {

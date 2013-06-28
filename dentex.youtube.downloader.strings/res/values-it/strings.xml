@@ -68,6 +68,7 @@
     <string name="login_required">E\' richiesto il login a YouTube</string>
     <string name="login_required_dialog_msg">YTD non può gestire questo video.</string>
     <string name="no_video_available">Nessun video disponibile.</string>
+    <string name="retry_button_text">Riprova</string>
     
     <string-array name="long_click_entries">
         <item>Copia nella clipboard</item>
@@ -145,6 +146,13 @@
 	<string name="json_status_in_progress">In corso</string>
 	<string name="menu_search">cerca&#8230;</string>
 	
+	<string-array name="dashboard_click_entries">
+	    <item>Estrai l\'audio (come definito nelle preferenze)</item>
+    </string-array>
+    
+	<string name="ffmpeg_not_enabled_title">FFmpeg non installallato o abilitato:</string>
+	<string name="ffmpeg_not_enabled_msg">Aprire le preferenze?</string>
+	
 	<string name="dashboard_long_click_entry_0">Copia</string>
 	<string name="dashboard_long_click_entry_1">Sposta</string>
 	<string name="dashboard_long_click_entry_2">Cancella</string>
@@ -161,6 +169,7 @@
     <string name="move_ok">Spostamento del file completato.</string>
     <string name="long_press_warning_title">Operazione non eseguita:</string>
     <string name="long_press_warning_msg">Le cartelle di origine e destinazione coincidono.</string>
+    <string name="long_press_warning_msg2">Esiste già una copia in questa cartella.</string>
 
 	<string name="delete_video_confirm">Confermi che vuoi cancellare questo video?</string>
 	<string name="delete_video_ok">%1$s cancellato con successo.</string>
@@ -229,13 +238,11 @@ nella lista video di YTD. Quando spuntato, il lavoro di estrazione audio comince
     <string name="show_thumb_summary">Scarica un\'immagine di anteprima, insieme alla lista dei video</string>
     
     <!-- -->
-    <string name="settings_cat_audio">Audio</string>
-    <string name="enable_audio_extraction_title">Abilita estrazione dell\'audio</string>
-    <string name="enable_audio_extraction_summary">Estrai e converti l\'audio dai video scaricati (solo per i download in locale)</string>
+    <string name="settings_cat_advanced">Avanzate</string>
+    <string name="enable_advanced_features_title">Abilità funzionalità avanzate</string>
+    <string name="enable_advanced_features_summary">Scarica il \"plugin\" FFmpeg</string>
     <string name="mp3_bitrate_title">Bitrate per la codifica in mp3 (kbps)</string>
     <string name="audio_extraction_type_title">Tipo di estrazione</string>
-    <string name="enable_audio_q_suffix_title">Apponi suffisso qualità audio</string>
-    <string name="enable_audio_q_suffix_summary">Aggiungi la qualità dell\'audio alla fine del nome del file</string>
     <string name="remove_video_title">Rimozione del video</string>
     <string name="remove_video_summary">Abilita la cancellazione del file video dopo aver estratto l\'audio con successo (attenzione: nessuna conferma)</string>
 
@@ -246,8 +253,6 @@ nella lista video di YTD. Quando spuntato, il lavoro di estrazione audio comince
     
     <!-- -->
     <string name="settings_cat_notifications">Notifiche</string>
-    <string name="enable_own_notification_title">Abilita notifica propria</string>
-    <string name="enable_own_notification_summary">Mostra una notifica globale su tutti i download di YTD</string>
     <string name="download_manager_notification_title">Gestisci le notifiche di sistema</string>
     <string name="download_manager_notification_dialog_title">Mostra notifiche Download Manager di sistema:</string>
     
@@ -361,7 +366,7 @@ Per maggiori dettagli, cercare tra i commenti del codice Java di YTD.</string>
 	<string name="ssh_to_longpress_menu_summary">Sposta l\'azione \"Invio con SSH\" nel \"long-press\" menu disponibile dalla lista dei video</string>
 	
     <!-- -->
-	<string name="settings_cat_advanced">Avanzate</string>
+	<string name="settings_cat_system">Sistema</string>
 	<string name="enable_logging_title">Abilita logging</string>
 	<string name="enable_logging_summary">Include i messaggi di YTD nel log di sistema. Obbligatorio per l\'invio di un logcat allo sviluppatore.</string>
 </resources>

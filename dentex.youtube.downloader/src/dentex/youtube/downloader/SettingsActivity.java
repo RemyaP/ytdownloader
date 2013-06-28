@@ -130,14 +130,12 @@ public class SettingsActivity extends Activity {
 		private Preference dashboard;
 		private Preference filechooser;
 		private Preference up;
-		private CheckBoxPreference ownNot;
 		private Preference th;
 		private Preference lang;
-		private static CheckBoxPreference audio;
+		private static CheckBoxPreference advanced;
 		protected int cpuVers;
 		public static String link;
 		public CheckBoxPreference bs;
-		//public WebView webview;
 
 		public static final int YTD_SIG_HASH = -1892118308; // final string
 		//public static final int YTD_SIG_HASH = -118685648; // dev test: desktop
@@ -151,8 +149,6 @@ public class SettingsActivity extends Activity {
             
             final ContextThemeWrapper boxThemeContextWrapper = new ContextThemeWrapper(getActivity(), R.style.BoxTheme);
             mActivity = getActivity();
-            
-            //webview = new WebView(getActivity());
 
             String cf = YTD.settings.getString("CHOOSER_FOLDER", "");
             if (cf.isEmpty() && cf != null) {
@@ -201,18 +197,6 @@ public class SettingsActivity extends Activity {
             
             initUpdate();
             
-            ownNot = (CheckBoxPreference) findPreference("enable_own_notification");
-            ownNot.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            	
-                public boolean onPreferenceClick(Preference preference) {
-                	if (!ownNot.isChecked()/* && ShareActivity.mId == 1*/) {
-                		ShareActivity.mNotificationManager.cancelAll();
-                		//ShareActivity.mId = 0;
-                	}
-					return true;
-                }
-            });
-            
             th = (Preference) findPreference("choose_theme");
 			th.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 				
@@ -239,11 +223,11 @@ public class SettingsActivity extends Activity {
 				}
 			});
 
-			audio = (CheckBoxPreference) findPreference("enable_audio_extraction");
-			audio.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+			advanced = (CheckBoxPreference) findPreference("enable_advanced_features");
+			advanced.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 				
 				public boolean onPreferenceChange(Preference preference, Object newValue) {
-					boolean audioExtrEnabled = YTD.settings.getBoolean("enable_audio_extraction", false);
+					boolean audioExtrEnabled = YTD.settings.getBoolean("enable_advanced_features", false);
 					File binDir = getActivity().getDir("bin", 0);
 					boolean ffmpegInstalled = new File(binDir, "ffmpeg").exists();
 					if (!audioExtrEnabled) {
@@ -252,8 +236,8 @@ public class SettingsActivity extends Activity {
 						Utils.logger("d", "isCpuSupported: " + isCpuSupported, DEBUG_TAG);
 						
 						if (!isCpuSupported) {
-							audio.setEnabled(false);
-							audio.setChecked(false);
+							advanced.setEnabled(false);
+							advanced.setChecked(false);
 							YTD.settings.edit().putBoolean("FFMPEG_SUPPORTED", false).commit();
 
 							AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
@@ -570,8 +554,8 @@ public class SettingsActivity extends Activity {
 			mActivity.runOnUiThread(new Runnable() {
 				public void run() {
 					Utils.logger("d", "audio-extraction-checkbox: " + "enabled: " + enable + " / checked: " + check, DEBUG_TAG);
-					audio.setEnabled(enable);
-					audio.setChecked(check);
+					advanced.setEnabled(enable);
+					advanced.setChecked(check);
 			    }
 			});
 		}

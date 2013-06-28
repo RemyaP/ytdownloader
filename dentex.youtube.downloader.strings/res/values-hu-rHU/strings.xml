@@ -68,6 +68,7 @@ illeszd be a parancsot (a menü gombal), és nyomd meg az ENTER-t.</string>
     <string name="login_required">Login to YouTube required.</string>
     <string name="login_required_dialog_msg">YTD can\'t handle this video.</string>
     <string name="no_video_available">No video available.</string>
+    <string name="retry_button_text">Retry</string>
     
     <string-array name="long_click_entries">
         <item>Másolás a vágólapra</item>
@@ -145,6 +146,13 @@ illeszd be a parancsot (a menü gombal), és nyomd meg az ENTER-t.</string>
 	<string name="json_status_in_progress">In Progress</string>
 	<string name="menu_search">search&#8230;</string>
 	
+	<string-array name="dashboard_click_entries">
+	    <item>Extract audio (as defined in settings)</item>
+    </string-array>
+    
+	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
+	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
+	
 	<string name="dashboard_long_click_entry_0">Copy</string>
 	<string name="dashboard_long_click_entry_1">Move</string>
 	<string name="dashboard_long_click_entry_2">Delete</string>
@@ -161,6 +169,7 @@ illeszd be a parancsot (a menü gombal), és nyomd meg az ENTER-t.</string>
     <string name="move_ok">File move completed.</string>
     <string name="long_press_warning_title">Operation not executed:</string>
     <string name="long_press_warning_msg">Source and destination folders overlap.</string>
+    <string name="long_press_warning_msg2">A copy already exists in this folder.</string>
 
 	<string name="delete_video_confirm">Confirm you want to delete this video?</string>
 	<string name="delete_video_ok">%1$s successfully deleted.</string>
@@ -228,13 +237,11 @@ MP4, 3GPP és közepes/nagy FLV videókat  \"AAC\" formátumuként; a kis FLV f�
     <string name="show_thumb_summary">Előzetes kép letöltése a videólistával</string>
     
     <!-- -->
-    <string name="settings_cat_audio">Hang</string>
-    <string name="enable_audio_extraction_title">Hang kicsomagolásának engedélyezése</string>
-    <string name="enable_audio_extraction_summary">Hang kicsomagolása és konvertálása a letöltött videóból (csak helyi letöltés esetén)</string>
+    <string name="settings_cat_advanced">Speciális beállítások</string>
+    <string name="enable_advanced_features_title">Enable Advanced Features</string>
+    <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
     <string name="mp3_bitrate_title">MP3 bitráta (kbps)</string>
     <string name="audio_extraction_type_title">Kicsomagolás típúsa</string>
-    <string name="enable_audio_q_suffix_title">Hangminőség utótag mellékelése</string>
-    <string name="enable_audio_q_suffix_summary">Hangminőség hozzáadása a fájlnévhez</string>
     <string name="remove_video_title">Videó eltávolítás</string>
     <string name="remove_video_summary">Videó törlésének engedélyezése sikeres hang kicsomagoláskor (figyelem: nincs megerősítés)</string>
 
@@ -245,8 +252,6 @@ MP4, 3GPP és közepes/nagy FLV videókat  \"AAC\" formátumuként; a kis FLV f�
     
     <!-- -->
     <string name="settings_cat_notifications">Értesítések</string>
-    <string name="enable_own_notification_title">Saját értesítés engedélyezése</string>
-    <string name="enable_own_notification_summary">Átfogó értesítés mutatása minden letöltésről</string>
     <string name="download_manager_notification_title">Rendszerértesítések kezelése</string>
     <string name="download_manager_notification_dialog_title">A rendszer letöltéskezelőjének értesítéseinek mutatása</string>
     
@@ -360,7 +365,7 @@ SSH-n való küldéshez (csak akkor működik, ha a céleszköz ugyanazon a hál
 	<string name="ssh_to_longpress_menu_summary">\"Send via SSH\" művelet áthelyezése a hosszan nyomva előjövő menübe.</string>
 	
     <!-- -->
-	<string name="settings_cat_advanced">Speciális beállítások</string>
+	<string name="settings_cat_system">System</string>
 	<string name="enable_logging_title">Naplózás engedélyezése</string>
 	<string name="enable_logging_summary">YTD üzeneteinek felvétele a rendszernaplóba. Kötelező logcat küldéséhez a fejlesztőnek.</string>
 </resources>

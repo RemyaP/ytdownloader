@@ -68,6 +68,7 @@
     <string name="login_required">Login to YouTube required.</string>
     <string name="login_required_dialog_msg">YTD can\'t handle this video.</string>
     <string name="no_video_available">No video available.</string>
+    <string name="retry_button_text">Retry</string>
     
     <string-array name="long_click_entries">
         <item>Copiar para a área de transferência</item>
@@ -145,6 +146,13 @@
 	<string name="json_status_in_progress">In Progress</string>
 	<string name="menu_search">search&#8230;</string>
 	
+	<string-array name="dashboard_click_entries">
+	    <item>Extract audio (as defined in settings)</item>
+    </string-array>
+    
+	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
+	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
+	
 	<string name="dashboard_long_click_entry_0">Copy</string>
 	<string name="dashboard_long_click_entry_1">Move</string>
 	<string name="dashboard_long_click_entry_2">Delete</string>
@@ -161,6 +169,7 @@
     <string name="move_ok">File move completed.</string>
     <string name="long_press_warning_title">Operation not executed:</string>
     <string name="long_press_warning_msg">Source and destination folders overlap.</string>
+    <string name="long_press_warning_msg2">A copy already exists in this folder.</string>
 
 	<string name="delete_video_confirm">Confirm you want to delete this video?</string>
 	<string name="delete_video_ok">%1$s successfully deleted.</string>
@@ -229,13 +238,11 @@
     <string name="show_thumb_summary">Baixar a imagem de visualização junto com a lista de vídeos.</string>
     
     <!-- -->
-    <string name="settings_cat_audio">Áudio</string>
-    <string name="enable_audio_extraction_title">Habilitar extração de áudio</string>
-    <string name="enable_audio_extraction_summary">Extrair e converter o áudio do vídeo baixado (apenas para downloads locais).</string>
+    <string name="settings_cat_advanced">Avançado</string>
+    <string name="enable_advanced_features_title">Enable Advanced Features</string>
+    <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
     <string name="mp3_bitrate_title">Taxa de bits para codificação de .mp3 (kbps)</string>
     <string name="audio_extraction_type_title">Tipo de extração</string>
-    <string name="enable_audio_q_suffix_title">Acrescentar a qualidade de áudio no título do arquivo</string>
-    <string name="enable_audio_q_suffix_summary">Adicionar a qualidade do áudio no fim do nome do arquivo</string>
     <string name="remove_video_title">Remover o vídeo</string>
     <string name="remove_video_summary">Enable video file deletion after successful audio extraction (warning: no confirmation)</string>
 
@@ -246,8 +253,6 @@
     
     <!-- -->
     <string name="settings_cat_notifications">Notificações</string>
-    <string name="enable_own_notification_title">Habilitar notificação própria</string>
-    <string name="enable_own_notification_summary">Exibe uma notificação a cada download efetuado com o YTD.</string>
     <string name="download_manager_notification_title">Gerenciar notificações do sistema\'s</string>
     <string name="download_manager_notification_dialog_title">Exibe notificações do gerenciador de download do sistema.</string>
     
@@ -362,7 +367,7 @@ colar no shell remoto (só irá funcionar se o PC de destino estiver dentro da m
 	<string name="ssh_to_longpress_menu_summary">Insere a ação \"Enviar via SSH\" dentro do menu de tocar e manter pressionado, disponível na lista de vídeos</string>
 	
     <!-- -->
-	<string name="settings_cat_advanced">Avançado</string>
+	<string name="settings_cat_system">System</string>
 	<string name="enable_logging_title">Habilitar registro</string>
 	<string name="enable_logging_summary">Incluir mensagens do YTD\'s nos registros do sistema. Obrigatório para o envio de um logcat para o desenvolvedor.</string>
 </resources>

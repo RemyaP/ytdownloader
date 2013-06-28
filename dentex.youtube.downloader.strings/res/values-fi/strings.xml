@@ -68,6 +68,7 @@
     <string name="login_required">Login to YouTube required.</string>
     <string name="login_required_dialog_msg">YTD can\'t handle this video.</string>
     <string name="no_video_available">No video available.</string>
+    <string name="retry_button_text">Retry</string>
     
     <string-array name="long_click_entries">
         <item>Kopioi leikepöydälle</item>
@@ -145,6 +146,13 @@
 	<string name="json_status_in_progress">In Progress</string>
 	<string name="menu_search">search&#8230;</string>
 	
+	<string-array name="dashboard_click_entries">
+	    <item>Extract audio (as defined in settings)</item>
+    </string-array>
+    
+	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
+	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
+	
 	<string name="dashboard_long_click_entry_0">Copy</string>
 	<string name="dashboard_long_click_entry_1">Move</string>
 	<string name="dashboard_long_click_entry_2">Delete</string>
@@ -161,6 +169,7 @@
     <string name="move_ok">File move completed.</string>
     <string name="long_press_warning_title">Operation not executed:</string>
     <string name="long_press_warning_msg">Source and destination folders overlap.</string>
+    <string name="long_press_warning_msg2">A copy already exists in this folder.</string>
 
 	<string name="delete_video_confirm">Confirm you want to delete this video?</string>
 	<string name="delete_video_ok">%1$s successfully deleted.</string>
@@ -229,13 +238,11 @@
     <string name="show_thumb_summary">Lataa esikatselu kuva yhdessä video listan kanssa</string>
     
     <!-- -->
-    <string name="settings_cat_audio">Ääni</string>
-    <string name="enable_audio_extraction_title">Enable audio extraction</string>
-    <string name="enable_audio_extraction_summary">Extract and convert audio from downloaded video (for the local download only)</string>
+    <string name="settings_cat_advanced">Lisäasetukset</string>
+    <string name="enable_advanced_features_title">Enable Advanced Features</string>
+    <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
     <string name="mp3_bitrate_title">Bitrate for mp3 encoding (kbps)</string>
     <string name="audio_extraction_type_title">Extraction type</string>
-    <string name="enable_audio_q_suffix_title">Append audio quality suffix</string>
-    <string name="enable_audio_q_suffix_summary">Add the audio quality at the end of the file name</string>
     <string name="remove_video_title">Video removal</string>
     <string name="remove_video_summary">Enable video file deletion after successful audio extraction (warning: no confirmation)</string>
 
@@ -246,8 +253,6 @@
     
     <!-- -->
     <string name="settings_cat_notifications">ilmoitukset</string>
-    <string name="enable_own_notification_title">Enable own notification</string>
-    <string name="enable_own_notification_summary">Show a comprehensive notification about all YTD downloads</string>
     <string name="download_manager_notification_title">Manage system\'s notifications</string>
     <string name="download_manager_notification_dialog_title">Show system\'s Download Manager notifications:</string>
     
@@ -362,7 +367,7 @@
 	<string name="ssh_to_longpress_menu_summary">Move \"Send via SSH\" action into the long-press menu available from the video list</string>
 	
     <!-- -->
-	<string name="settings_cat_advanced">Lisäasetukset</string>
+	<string name="settings_cat_system">System</string>
 	<string name="enable_logging_title">Hyväksy lokitiedot</string>
 	<string name="enable_logging_summary">Include YTD\'s messages into the system log. Mandatory for sending a logcat to the developer.</string>
 </resources>

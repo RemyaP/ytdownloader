@@ -45,6 +45,7 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
+import dentex.youtube.downloader.DashboardActivity;
 import dentex.youtube.downloader.R;
 import dentex.youtube.downloader.ShareActivity;
 import dentex.youtube.downloader.YTD;
@@ -104,6 +105,7 @@ public class DownloadsService extends Service {
     		int ID = (int) id;
     		String vfilename = YTD.videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_FILENAME, "video");
     		String path = YTD.videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_PATH, ShareActivity.path.getAbsolutePath());
+    		String afilename = YTD.videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_AUDIO_FILENAME, "audio");
     		
 			Query query = new Query();
 			query.setFilterById(id);
@@ -137,12 +139,10 @@ public class DownloadsService extends Service {
 						File in = new File(ShareActivity.dir_Downloads, vfilename);
 						File dst = new File(path, vfilename);
 						
-						if (YTD.settings.getBoolean("enable_own_notification", true) == true) {
-							try {
-								removeIdUpdateNotification(id);
-							} catch (NullPointerException e) {
-								Log.e(DEBUG_TAG, "NullPointerException on removeIdUpdateNotification(id)");
-							}
+						try {
+							removeIdUpdateNotification(id);
+						} catch (NullPointerException e) {
+							Log.e(DEBUG_TAG, "NullPointerException on removeIdUpdateNotification(id)");
 						}
 							
 						Intent intent2 = new Intent(Intent.ACTION_VIEW);
@@ -199,7 +199,9 @@ public class DownloadsService extends Service {
 						}
 					}
 					
-					Utils.addEntryToJsonFile(nContext, String.valueOf(id), getString(R.string.json_status_completed), path, vfilename, size);
+					Utils.addEntryToJsonFile(nContext, String.valueOf(id), getString(R.string.json_status_completed), path, vfilename, afilename, size);
+					if (DashboardActivity.isDashboardRunning)
+						DashboardActivity.refreshlist(DashboardActivity.sDashboard);
 					
 					break;
 					
@@ -208,7 +210,9 @@ public class DownloadsService extends Service {
 					Log.e(DEBUG_TAG, " Reason: " + reason);
 					Toast.makeText(context,  vfilename + ": " + getString(R.string.download_failed), Toast.LENGTH_LONG).show();
 					
-					Utils.addEntryToJsonFile(nContext, String.valueOf(id), getString(R.string.json_status_failed), path, vfilename, size);
+					Utils.addEntryToJsonFile(nContext, String.valueOf(id), getString(R.string.json_status_failed), path, vfilename, afilename, size);
+					if (DashboardActivity.isDashboardRunning)
+						DashboardActivity.refreshlist(DashboardActivity.sDashboard);
 					
 					break;
 					
@@ -216,12 +220,10 @@ public class DownloadsService extends Service {
 					Utils.logger("w", "_ID " + id + " completed with status " + status, DEBUG_TAG);
 				}
 				
-				if (YTD.settings.getBoolean("enable_own_notification", true) == true) {
-					try {
-						removeIdUpdateNotification(id);
-					} catch (NullPointerException e) {
-						Log.e(DEBUG_TAG, "NullPointerException on removeIdUpdateNotification(id)");
-					}
+				try {
+					removeIdUpdateNotification(id);
+				} catch (NullPointerException e) {
+					Log.e(DEBUG_TAG, "NullPointerException on removeIdUpdateNotification(id)");
 				}
 	        }
     	}

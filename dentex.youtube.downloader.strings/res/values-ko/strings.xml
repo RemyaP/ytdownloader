@@ -64,9 +64,10 @@
     <string name="ffmpeg_ready">FFmpeg 이 준비됨</string>
     <string name="confirm_audio_checkbox1">다운로드 후 오디오 추출</string>
     <string name="confirm_audio_checkbox2">\n(세부 사항은 추출 설정을 따릅니다)</string>
-    <string name="login_required">Login to YouTube required.</string>
-    <string name="login_required_dialog_msg">YTD can\'t handle this video.</string>
-    <string name="no_video_available">No video available.</string>
+    <string name="login_required">유튜브에 로그인해야 합니다.</string>
+    <string name="login_required_dialog_msg">YTD가 이 비디오를 처리할 수 없습니다.</string>
+    <string name="no_video_available">비디오가 없습니다.</string>
+    <string name="retry_button_text">Retry</string>
     
     <string-array name="long_click_entries">
         <item>클립보드에 복사</item>
@@ -117,9 +118,9 @@
     <!-- ### DownloadsService ### -->
     
     <string name="ytd_video">유튜브 다운로더 비디오</string>
-    <string name="copy_error">Error during copy.</string>
+    <string name="copy_error">복사 중 에러가 발생하였습니다.</string>
     <string name="copy_progress">파일 복사 진행 중&#8230;</string>
-    <string name="copy_ok">File copy completed.</string>
+    <string name="copy_ok">파일 복사가 완료되었습니다.</string>
     <string name="download_remove_failed">에러: 임시 다운로드파일이 삭제되지 않았습니다!</string>
     <string name="download_failed">다운로드 실패!</string>
     <string name="audio_extr_progress">오디오 추출 진행 중&#8230;</string>
@@ -139,33 +140,41 @@
 	<string name="ffmpeg_install_failed">FFmpeg 설치 실패.</string>
 	
 	<!-- ### DashboardActivity ### -->
-	<string name="json_status_completed">Completed</string>
-	<string name="json_status_failed">Failed</string>
-	<string name="json_status_in_progress">In Progress</string>
-	<string name="menu_search">search&#8230;</string>
+	<string name="json_status_completed">완료</string>
+	<string name="json_status_failed">실패</string>
+	<string name="json_status_in_progress">진행 중</string>
+	<string name="menu_search">검색&#8230;</string>
 	
-	<string name="dashboard_long_click_entry_0">Copy</string>
-	<string name="dashboard_long_click_entry_1">Move</string>
-	<string name="dashboard_long_click_entry_2">Delete</string>
-	
-	<string-array name="dashboard_long_click_entries">
-	    <item>Copy</item>
-	    <item>Move</item>
-        <item>Rename</item>
-        <item>Delete</item>
+	<string-array name="dashboard_click_entries">
+	    <item>Extract audio (as defined in settings)</item>
     </string-array>
     
-	<string name="move_error">Error during move.</string>
-    <string name="move_progress">File move in progress&#8230;</string>
-    <string name="move_ok">File move completed.</string>
-    <string name="long_press_warning_title">Operation not executed:</string>
-    <string name="long_press_warning_msg">Source and destination folders overlap.</string>
-
-	<string name="delete_video_confirm">Confirm you want to delete this video?</string>
-	<string name="delete_video_ok">%1$s successfully deleted.</string>
-	<string name="delete_video_failed">Error: %1$s not deleted.</string>
+	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
+	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
 	
-	<string name="empty_dashboard">No downloaded video.</string>
+	<string name="dashboard_long_click_entry_0">복사</string>
+	<string name="dashboard_long_click_entry_1">이동</string>
+	<string name="dashboard_long_click_entry_2">삭제</string>
+	
+	<string-array name="dashboard_long_click_entries">
+	    <item>복사</item>
+	    <item>이동</item>
+        <item>이름 변경</item>
+        <item>삭제</item>
+    </string-array>
+    
+	<string name="move_error">이동 중 에러가 발생하였습니다.</string>
+    <string name="move_progress">파일 이동 진행 중&#8230;</string>
+    <string name="move_ok">파일 이동이 완료되었습니다.</string>
+    <string name="long_press_warning_title">명령 실행 불가:</string>
+    <string name="long_press_warning_msg">소스 폴더와 목적 폴더가 겹칩니다.</string>
+    <string name="long_press_warning_msg2">A copy already exists in this folder.</string>
+
+	<string name="delete_video_confirm">이 비디오를 삭제하시겠습니까?</string>
+	<string name="delete_video_ok">%1$s 이(가) 성공적으로 삭제되었습니다.</string>
+	<string name="delete_video_failed">에러: %1$s 을(를) 삭제 실패하였습니다.</string>
+	
+	<string name="empty_dashboard">다운로드한 비디오 없음.</string>
 
     <!-- ### preferences ### -->
 
@@ -227,13 +236,11 @@
     <string name="show_thumb_summary">비디오와 함께 미리보기 이미지도 다운로드</string>
     
     <!-- -->
-    <string name="settings_cat_audio">오디오</string>
-    <string name="enable_audio_extraction_title">오디오 추출 기능 켜기</string>
-    <string name="enable_audio_extraction_summary">다운로드한 비디오에서 오디오 추출 및 변환 (로컬 다운로드의 경우에만 가능)</string>
+    <string name="settings_cat_advanced">고급설정</string>
+    <string name="enable_advanced_features_title">Enable Advanced Features</string>
+    <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
     <string name="mp3_bitrate_title">mp3 음질 설정 (kbps)</string>
     <string name="audio_extraction_type_title">오디오 추출 형식</string>
-    <string name="enable_audio_q_suffix_title">음질 정보 추가</string>
-    <string name="enable_audio_q_suffix_summary">파일 끝에 음질 정보를 추가합니다</string>
     <string name="remove_video_title">비디오 제거</string>
     <string name="remove_video_summary">오디오 추출이 끝난 후 비디오 파일을 삭제합니다 (주의: 별도의 확인 메세지 없음)</string>
 
@@ -244,8 +251,6 @@
     
     <!-- -->
     <string name="settings_cat_notifications">알림</string>
-    <string name="enable_own_notification_title">자체 알림 활성화</string>
-    <string name="enable_own_notification_summary">YTD가 다운로드하는 비디오에 대한 보다 상세한 알림을 보입니다.</string>
     <string name="download_manager_notification_title">시스템 알림 설정</string>
     <string name="download_manager_notification_dialog_title">다운로드 관리자 알림 설정</string>
     
@@ -353,7 +358,7 @@ the content is CC BY-SA 3.0 licensed (see <http>http://creativecommons.org/licen
 	<string name="ssh_to_longpress_menu_summary">비디오 목록에서 오래 누르기를 했을 때 \"SSH로 보내기\"가 보이도록 합니다</string>
 	
     <!-- -->
-	<string name="settings_cat_advanced">고급설정</string>
+	<string name="settings_cat_system">System</string>
 	<string name="enable_logging_title">로깅 활성화</string>
 	<string name="enable_logging_summary">유튜브 다운로더의 로그를 시스템 로그에 남깁니다. 개발자에게 디버깅 정보를 보내려면 반드시 필요합니다.</string>
 </resources>

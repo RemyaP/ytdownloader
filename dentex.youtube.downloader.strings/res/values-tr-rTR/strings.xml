@@ -65,9 +65,10 @@
     <string name="ffmpeg_ready">FFmpeg hazır.</string>
     <string name="confirm_audio_checkbox1">İndirmeden sonra sesi çıkart</string>
     <string name="confirm_audio_checkbox2">\n(ayarlarda belirlendiği gibi)</string>
-    <string name="login_required">Login to YouTube required.</string>
-    <string name="login_required_dialog_msg">YTD can\'t handle this video.</string>
-    <string name="no_video_available">No video available.</string>
+    <string name="login_required">YouTube girişi yapmalısınız.</string>
+    <string name="login_required_dialog_msg">YDT bu videoyu işleyemiyor.</string>
+    <string name="no_video_available">Video yok.</string>
+    <string name="retry_button_text">Retry</string>
     
     <string-array name="long_click_entries">
         <item>Panoya kopyala</item>
@@ -118,9 +119,9 @@
     <!-- ### DownloadsService ### -->
     
     <string name="ytd_video">YTD video</string>
-    <string name="copy_error">Error during copy.</string>
+    <string name="copy_error">Kopyalama hatası.</string>
     <string name="copy_progress">Dosya kopyalama devam ediyor&#8230;</string>
-    <string name="copy_ok">File copy completed.</string>
+    <string name="copy_ok">Kopyalama tamamlandı.</string>
     <string name="download_remove_failed">Hata: Geçici indirilen dosya silinemedi!</string>
     <string name="download_failed">İndirme Başarısız!</string>
     <string name="audio_extr_progress">Ses ayıklaması devam ediyor&#8230;</string>
@@ -140,33 +141,41 @@
 	<string name="ffmpeg_install_failed">FFmpeg yüklemesi başarısız oldu.</string>
 	
 	<!-- ### DashboardActivity ### -->
-	<string name="json_status_completed">Completed</string>
-	<string name="json_status_failed">Failed</string>
-	<string name="json_status_in_progress">In Progress</string>
-	<string name="menu_search">search&#8230;</string>
+	<string name="json_status_completed">Tamamlandı</string>
+	<string name="json_status_failed">Başarısız</string>
+	<string name="json_status_in_progress">Devam ediyor</string>
+	<string name="menu_search">ara&#8230;</string>
 	
-	<string name="dashboard_long_click_entry_0">Copy</string>
-	<string name="dashboard_long_click_entry_1">Move</string>
-	<string name="dashboard_long_click_entry_2">Delete</string>
-	
-	<string-array name="dashboard_long_click_entries">
-	    <item>Copy</item>
-	    <item>Move</item>
-        <item>Rename</item>
-        <item>Delete</item>
+	<string-array name="dashboard_click_entries">
+	    <item>Extract audio (as defined in settings)</item>
     </string-array>
     
-	<string name="move_error">Error during move.</string>
-    <string name="move_progress">File move in progress&#8230;</string>
-    <string name="move_ok">File move completed.</string>
-    <string name="long_press_warning_title">Operation not executed:</string>
-    <string name="long_press_warning_msg">Source and destination folders overlap.</string>
-
-	<string name="delete_video_confirm">Confirm you want to delete this video?</string>
-	<string name="delete_video_ok">%1$s successfully deleted.</string>
-	<string name="delete_video_failed">Error: %1$s not deleted.</string>
+	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
+	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
 	
-	<string name="empty_dashboard">No downloaded video.</string>
+	<string name="dashboard_long_click_entry_0">Kopyala</string>
+	<string name="dashboard_long_click_entry_1">Taşı</string>
+	<string name="dashboard_long_click_entry_2">Sil</string>
+	
+	<string-array name="dashboard_long_click_entries">
+	    <item>Kopyala</item>
+	    <item>Taşı</item>
+        <item>Yeniden Adlandır</item>
+        <item>Sil</item>
+    </string-array>
+    
+	<string name="move_error">Taşıma hatası.</string>
+    <string name="move_progress">Dosya taşıma devam ediyor&#8230;</string>
+    <string name="move_ok">Dosya taşıma tamamlandı.</string>
+    <string name="long_press_warning_title">Yürütülemeyen işlemler:</string>
+    <string name="long_press_warning_msg">Kaynak ve hedef dizinleri aynı.</string>
+    <string name="long_press_warning_msg2">A copy already exists in this folder.</string>
+
+	<string name="delete_video_confirm">Bu dosyayı silmek istiyor musunuz?</string>
+	<string name="delete_video_ok">%1$s silindi.</string>
+	<string name="delete_video_failed">Hata: %1$s silinemedi.</string>
+	
+	<string name="empty_dashboard">İndirilmiş video yok.</string>
 
     <!-- ### preferences ### -->
 
@@ -230,13 +239,11 @@ Onay verildikten sonra video indirme işlemi bittikten sonra ses aıyklama başl
     <string name="show_thumb_summary">Video listesi ile birlikte bir önizleme resmi indir</string>
     
     <!-- -->
-    <string name="settings_cat_audio">Ses</string>
-    <string name="enable_audio_extraction_title">Ses ayıklamayı etkinleştir</string>
-    <string name="enable_audio_extraction_summary">İndirilen videodan sesi çıkart ve çevir (sadece lokal indirmeler için geçerlidir)</string>
+    <string name="settings_cat_advanced">Advanced</string>
+    <string name="enable_advanced_features_title">Enable Advanced Features</string>
+    <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
     <string name="mp3_bitrate_title">Mp3 için bithızı kodlaması (kbps)</string>
     <string name="audio_extraction_type_title">Çıkarma türü</string>
-    <string name="enable_audio_q_suffix_title">Ses kalitesi soneki ekleyin</string>
-    <string name="enable_audio_q_suffix_summary">Ses dosyasının adında kalitesini belirt</string>
     <string name="remove_video_title">Video removal</string>
     <string name="remove_video_summary">Başarılı ses ayıklama ardından video dosyasını sil (dikkat: onay istemeden video silinir)</string>
 
@@ -247,8 +254,6 @@ Onay verildikten sonra video indirme işlemi bittikten sonra ses aıyklama başl
     
     <!-- -->
     <string name="settings_cat_notifications">Bildirimler</string>
-    <string name="enable_own_notification_title">Kendi bildirimlerini etkinleştir</string>
-    <string name="enable_own_notification_summary">Tüm YTD indirmeleri hakkında kapsamlı bildirimler göster</string>
     <string name="download_manager_notification_title">Sistem bildirimlerini yönet</string>
     <string name="download_manager_notification_dialog_title">Sistem İndirme Yöneticisi Bildirimlerini göster:</string>
     
@@ -362,7 +367,7 @@ For more details, look for comments in YTD\'s Java code.</string>
 	<string name="ssh_to_longpress_menu_summary">\"SSH ile Gönder\" eylemini uzun tıklama menüsüne taşı</string>
 	
     <!-- -->
-	<string name="settings_cat_advanced">Advanced</string>
+	<string name="settings_cat_system">System</string>
 	<string name="enable_logging_title">Günlük tutmayı etkinleştir</string>
 	<string name="enable_logging_summary">YTD\'s mesajlarını sistem günlüğüne ekle. Geliştiriciye sistem günlüğünü göndermek gereklidir.</string>
 </resources>

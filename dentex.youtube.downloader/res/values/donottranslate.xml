@@ -5,14 +5,16 @@
         \n-----------------------------------
         \n[x] Dashboard for interaction
         \n    with downloaded video
-        \n[x] fixed a bug about downloads 
-        \n    destination path availability
         \n[x] Greek translation
         \n
+        \n v2.3.1 - Jun 27 2013
+        \n-----------------------------------
+        \n[x] experimantal signature patch
+        \n
         \n v2.3 - Jun 25 2013
-        \n[x] experimental YouTube signature 
-        \n    bug fixed (thanks to Gantt
-        \n    @userscripts.org)
+        \n-----------------------------------
+        \n[x] experimantal signature support
+        \n    (thanks Gantt@userscripts.org)
         \n[x] other bug/stability fixes
         \n
         \n v2.2 - May 12 2013

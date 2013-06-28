@@ -164,18 +164,18 @@ public class ShareActivity extends Activity {
 	public static NotificationCompat.Builder mBuilder;
 	public static String onlineVersion;
 	public static List<Long> sequence = new ArrayList<Long>();
-	//String audioFilename = "audio";
-	//public static String audioCodec = "";
+	String audioFilename = "audio";
+	public static String audioCodec = "";
 	//private boolean audioExtractionEnabled;
 	public static Context mContext;
 	boolean showSizesInVideoList;
 	boolean showSingleSize;
 	ContextThemeWrapper boxThemeContextWrapper = new ContextThemeWrapper(this, R.style.BoxTheme);
 	public int count;
-	//public String acodec = "";
-	//public String extrType;
-	//public String aquality;
-	//public boolean audioExtrEnabled = false;
+	public String acodec = "";
+	public String extrType;
+	public String aquality;
+	public boolean audioExtrEnabled = false;
 	//public CheckBox audioConfirm;
 
 	@Override
@@ -435,7 +435,7 @@ public class ShareActivity extends Activity {
         	if (new File(path.getAbsolutePath()).mkdirs()) {
         		Utils.logger("w", "destination path not found, creating it now", DEBUG_TAG);
         	} else {
-        		Log.e(DEBUG_TAG, "Something really BAD went wrong with the download destination...");
+        		Log.e(DEBUG_TAG, "Something really bad happened with the download destination...");
         	}
         	
         }
@@ -592,7 +592,7 @@ public class ShareActivity extends Activity {
                         }
 
 						/*public void manageAudioFeature() {
-							audioExtractionEnabled = YTD.settings.getBoolean("enable_audio_extraction", false);
+							audioExtractionEnabled = YTD.settings.getBoolean("enable_advanced_features", false);
 							if (audioExtractionEnabled == true) {
 								audioCodec = findAudioCodec();
 								YTD.settings.edit().putString(composedVideoFilename + "FFext", audioCodec).apply();
@@ -689,7 +689,7 @@ public class ShareActivity extends Activity {
 		}
 		
 		/*private void insertAudioConfirmation() {
-			boolean fromPrefs = YTD.settings.getBoolean("enable_audio_extraction", false);
+			boolean fromPrefs = YTD.settings.getBoolean("enable_advanced_features", false);
 			if (fromPrefs) {
 				LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
 				View handleAudio = adbInflater.inflate(R.layout.dialog_confirm_download, null);
@@ -715,29 +715,6 @@ public class ShareActivity extends Activity {
     	    Utils.logger("d", "videoFilename: " + videoFilename, DEBUG_TAG);
     	    return videoFilename;
         }
-
-		/*private String findAudioCodec() {
-        	//CODEC [file EXTENSION]
-        	extrType = YTD.settings.getString("audio_extraction_type", "extr");
-    		if (extrType.equals("conv")) {
-    			acodec = ".mp3";
-    		} else {
-    			if (codecs.get(pos).equals("webm")) acodec = ".ogg";
-    		    if (codecs.get(pos).equals("mp4")) acodec = ".aac";
-    		    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("small")) acodec = ".mp3";
-    		    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("medium")) acodec = ".aac";
-    		    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("large")) acodec = ".aac";
-    		    if (codecs.get(pos).equals("3gpp")) acodec = ".aac";
-    		}
-    		//QUALITY
-        	if (extrType.equals("conv")) {
-        		aquality = "_" + YTD.settings.getString("mp3_bitrate", "192k");
-        	} else { 
-        		aquality = "";
-        	}
-        	//FINALLY
-        	return aquality + acodec;
-        }*/
 
 		private void callConnectBot() {
         	Context context = getApplicationContext();
@@ -877,7 +854,7 @@ public class ShareActivity extends Activity {
     	Intent intent1 = new Intent(ShareActivity.this, DownloadsService.class);
     	intent1.putExtra("COPY", false);
     	
-    	/*audioExtrEnabled = YTD.settings.getBoolean("enable_audio_extraction", false);
+    	/*audioExtrEnabled = YTD.settings.getBoolean("enable_advanced_features", false);
     	if (audioExtractionEnabled && audioConfirm.isChecked()) {
     		intent1.putExtra("AUDIO", extrType);
     	} else {
@@ -908,13 +885,18 @@ public class ShareActivity extends Activity {
 		
 		startService(intent1);
 		
+		String audioFilename = findAudioCodec();
+		
 		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_FILENAME, composedVideoFilename).apply();
 		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_PATH, path.getAbsolutePath()).apply();
+		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_AUDIO_FILENAME, title + acodec).apply();
 		
-		Utils.addEntryToJsonFile(mContext,
+		Utils.addEntryToJsonFile(mContext, 
 				String.valueOf(enqueue), 
 				getString(R.string.json_status_in_progress), 
-				path.getAbsolutePath(), composedVideoFilename, 
+				path.getAbsolutePath(), 
+				composedVideoFilename, 
+				audioFilename, 
 				"-");
 		
 		/*YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_TITLE , title).apply();
@@ -936,6 +918,29 @@ public class ShareActivity extends Activity {
 			
 			//NotificationHelper();
 		}
+    }
+    
+    private String findAudioCodec() {
+    	//CODEC [file EXTENSION]
+    	extrType = YTD.settings.getString("audio_extraction_type", "extr");
+		if (extrType.equals("conv")) {
+			acodec = ".mp3";
+		} else {
+			if (codecs.get(pos).equals("webm")) acodec = ".ogg";
+		    if (codecs.get(pos).equals("mp4")) acodec = ".aac";
+		    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("small")) acodec = ".mp3";
+		    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("medium")) acodec = ".aac";
+		    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("large")) acodec = ".aac";
+		    if (codecs.get(pos).equals("3gpp")) acodec = ".aac";
+		}
+		//QUALITY
+    	if (extrType.equals("conv")) {
+    		aquality = "_" + YTD.settings.getString("mp3_bitrate", "192k");
+    	} else { 
+    		aquality = "";
+    	}
+    	//FINALLY
+    	return aquality + acodec;
     }
     
     private String generateThumbUrl() {
@@ -1246,13 +1251,14 @@ public class ShareActivity extends Activity {
     	
     	if (sig.length() == 87) {
 			String[] t = initialSigTransformation(sig, 44, 84, 3, 43);
-			sig = t[0].substring(21,22)+t[0].substring(1,21)+t[0].substring(0,1)+t[0].substring(22,31)+
+			sig = t[0].substring(21,22)+t[0].substring(1,21)+t[0].substring(0,1)+t[1].substring(22,31)+
 			        sig.substring(0,1)+t[0].substring(32,40)+sig.substring(43,44)+t[1];
     	}
     	
     	if (sig.length() == 86) {
-			sig = sig.substring(2,17)+sig.substring(0,1)+sig.substring(18,41)+sig.substring(79,80)+
-			        sig.substring(42,43)+sig.substring(43,79)+sig.substring(82,83)+sig.substring(80,82)+sig.substring(41,42);
+    		String sigA = sig.substring(2, 42);
+    		String sigB = sig.substring(43, 83);
+    		sig = sigA + sig.substring(42,43)+sigB.substring(0,20)+sigB.substring(39,40)+sigB.substring(21,39)+sigB.substring(20,21);
     	}
     	
     	if (sig.length() == 85) {
@@ -1263,23 +1269,23 @@ public class ShareActivity extends Activity {
     	
     	if (sig.length() == 84) {
 			String[] t = initialSigTransformation(sig, 44, 84, 3, 43);
-			sig=t[0]+sig.substring(43,1)+t[1].substring(0,6)+sig.substring(2,1)+t[1].substring(7,9)+
-					t[1].substring(39,1)+t[1].substring(17,22)+t[1].substring(16,1);
+			sig=t[0]+sig.substring(43,44)+t[1].substring(0,6)+sig.substring(2,3)+t[1].substring(7,16)+
+					t[1].substring(39,40)+t[1].substring(17,39)+t[1].substring(16,17);
     	}
     	
     	if (sig.length() == 83) {
 			String[] t = initialSigTransformation(sig, 43, 83, 2, 42);
-			sig=t[0].substring(30,1)+t[0].substring(1,26)+t[1].substring(39,1)+
-			        t[0].substring(28,2)+t[0].substring(0,1)+t[0].substring(31,9)+sig.substring(42,1)+
-			        t[1].substring(0,5)+t[0].substring(27,1)+t[1].substring(6,33)+t[1].substring(5,1);
+			sig=t[0].substring(30,31)+t[0].substring(1,27)+t[1].substring(39,40)+
+			        t[0].substring(28,30)+t[0].substring(0,1)+t[0].substring(31,40)+sig.substring(42,43)+
+			        t[1].substring(0,5)+t[0].substring(27,28)+t[1].substring(6,39)+t[1].substring(5,6);
     	}
     	
     	if (sig.length() == 82) {
 			String[] t = initialSigTransformation(sig, 34, 82, 0, 33);
-			sig=t[0].substring(45,1)+t[0].substring(2,12)+t[0].substring(0,1)+t[0].substring(15,26)+
-			        sig.substring(33,1)+t[0].substring(42,1)+t[0].substring(43,1)+t[0].substring(44,1)+
-			        t[0].substring(41,1)+t[0].substring(46,1)+t[1].substring(32,1)+t[0].substring(14,1)+
-			        t[1].substring(0,32)+t[0].substring(47,1);
+			sig=t[0].substring(45,46)+t[0].substring(2,14)+t[0].substring(0,1)+t[0].substring(15,41)+
+			        sig.substring(33,34)+t[0].substring(42,43)+t[0].substring(43,44)+t[0].substring(44,45)+
+			        t[0].substring(41,42)+t[0].substring(46,47)+t[1].substring(32,33)+t[0].substring(14,15)+
+			        t[1].substring(0,32)+t[0].substring(47,48);
     	}
     	return sig;
 	}

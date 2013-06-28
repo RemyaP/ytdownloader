@@ -68,6 +68,7 @@ Wybierz profil w ConnectBot i kiedy będziesz na zdalnej maszynie, przejdź do w
     <string name="login_required">Login to YouTube required.</string>
     <string name="login_required_dialog_msg">YTD can\'t handle this video.</string>
     <string name="no_video_available">No video available.</string>
+    <string name="retry_button_text">Retry</string>
     
     <string-array name="long_click_entries">
         <item>Kopiuj do schowka</item>
@@ -146,6 +147,13 @@ Pobrać je teraz?</string>
 	<string name="json_status_in_progress">In Progress</string>
 	<string name="menu_search">search&#8230;</string>
 	
+	<string-array name="dashboard_click_entries">
+	    <item>Extract audio (as defined in settings)</item>
+    </string-array>
+    
+	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
+	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
+	
 	<string name="dashboard_long_click_entry_0">Copy</string>
 	<string name="dashboard_long_click_entry_1">Move</string>
 	<string name="dashboard_long_click_entry_2">Delete</string>
@@ -162,6 +170,7 @@ Pobrać je teraz?</string>
     <string name="move_ok">File move completed.</string>
     <string name="long_press_warning_title">Operation not executed:</string>
     <string name="long_press_warning_msg">Source and destination folders overlap.</string>
+    <string name="long_press_warning_msg2">A copy already exists in this folder.</string>
 
 	<string name="delete_video_confirm">Confirm you want to delete this video?</string>
 	<string name="delete_video_ok">%1$s successfully deleted.</string>
@@ -230,13 +239,11 @@ w YTD\'s . Kiedy zaznaczone, proces wyodrębniania ścieżki audio rozpocznie si
     <string name="show_thumb_summary">Pobierz obrazek podglądu razem z listą filmów</string>
     
     <!-- -->
-    <string name="settings_cat_audio">Dźwięk</string>
-    <string name="enable_audio_extraction_title">Włącz ekstrakcję dźwięku</string>
-    <string name="enable_audio_extraction_summary">Wyodrębnij i przetwórz dźwięk z pobranego filmu(tylko dla plików już pobranych)</string>
+    <string name="settings_cat_advanced">Zaawansowane</string>
+    <string name="enable_advanced_features_title">Enable Advanced Features</string>
+    <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
     <string name="mp3_bitrate_title">Bitrate w formacie MP3 (kbps)</string>
     <string name="audio_extraction_type_title">Rodzaj wyodrębniania</string>
-    <string name="enable_audio_q_suffix_title">Dołącz sufiks jakości dźwięku</string>
-    <string name="enable_audio_q_suffix_summary">Dodaj informację na temat jakości dźwięku na końcu nazwy pliku</string>
     <string name="remove_video_title">Usuwanie filmu</string>
     <string name="remove_video_summary">Włącz automatyczne usuwanie filmów, po zakończeniu wyodrębniania ścieżki dźwiękowej (ostrzeżenie: działanie nie potwierdzone)</string>
 
@@ -247,8 +254,6 @@ w YTD\'s . Kiedy zaznaczone, proces wyodrębniania ścieżki audio rozpocznie si
     
     <!-- -->
     <string name="settings_cat_notifications">Powiadomienia</string>
-    <string name="enable_own_notification_title">Włącz własne powiadomienia</string>
-    <string name="enable_own_notification_summary">Pokaż kompleksowe powiadomienia na temat wszystkich pobrać YTD</string>
     <string name="download_manager_notification_title">Zarządzaj systemowymi\'s powiadomieniami</string>
     <string name="download_manager_notification_dialog_title">Pokaż systemowe\'s powiadomienia menadżera pobierania:</string>
     
@@ -360,7 +365,7 @@ Dla uzyskania dokładniejszych informacji zajrzyj do kodu Java YTD\'s</string>
 	<string name="ssh_to_longpress_menu_summary">Przenieś akcję  \"Wyślij za pomocą SSH\"  ,  by była dostępna poprzez długie przytrzymanie na liście plików wideo.</string>
 	
     <!-- -->
-	<string name="settings_cat_advanced">Zaawansowane</string>
+	<string name="settings_cat_system">System</string>
 	<string name="enable_logging_title">Włącz zapis logów.</string>
 	<string name="enable_logging_summary">Załącz wiadomość YTD\'s do systemowego dziennika zdarzeń. Obowiązkowe, przy wysyłaniu logcat\'u do developera.</string>
 </resources>

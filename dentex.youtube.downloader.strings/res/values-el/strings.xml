@@ -65,9 +65,10 @@
     <string name="ffmpeg_ready">FFmpeg έτοιμος.</string>
     <string name="confirm_audio_checkbox1">Εξαγωγή ήχου μετά τη λήψη</string>
     <string name="confirm_audio_checkbox2">\n(όπως καθορίστηκε στις ρυθμίσεις)</string>
-    <string name="login_required">Login to YouTube required.</string>
-    <string name="login_required_dialog_msg">YTD can\'t handle this video.</string>
-    <string name="no_video_available">No video available.</string>
+    <string name="login_required">Η σύνδεση στο YouTube είναι απαραίτητη.</string>
+    <string name="login_required_dialog_msg">Το YTD δεν μπορεί να διαχειριστεί αυτό το βίντεο.</string>
+    <string name="no_video_available">Κανένα βίντεο διαθέσιμο.</string>
+    <string name="retry_button_text">Retry</string>
     
     <string-array name="long_click_entries">
         <item>Αντιγραφή στο πρόχειρο</item>
@@ -118,9 +119,9 @@
     <!-- ### DownloadsService ### -->
     
     <string name="ytd_video">Βίντεο YTD</string>
-    <string name="copy_error">Error during copy.</string>
+    <string name="copy_error">Σφάλμα κατά την αντιγραφή.</string>
     <string name="copy_progress">Αντιγραφή αρχείου σε εξέλιξη&#8230;</string>
-    <string name="copy_ok">File copy completed.</string>
+    <string name="copy_ok">Η αντιγραφή αρχείων ολοκληρώθηκε.</string>
     <string name="download_remove_failed">Σφάλμα: το προσωρινά ληφθέν αρχείο δε διαγράφηκε!</string>
     <string name="download_failed">Αποτυχία λήψης!</string>
     <string name="audio_extr_progress">Εξαγωγή ήχου σε εξέλιξη&#8230;</string>
@@ -140,33 +141,41 @@
 	<string name="ffmpeg_install_failed">Αποτυχία εγκατάστασης FFmpeg.</string>
 	
 	<!-- ### DashboardActivity ### -->
-	<string name="json_status_completed">Completed</string>
-	<string name="json_status_failed">Failed</string>
-	<string name="json_status_in_progress">In Progress</string>
-	<string name="menu_search">search&#8230;</string>
+	<string name="json_status_completed">Ολοκληρώθηκε</string>
+	<string name="json_status_failed">Αποτυχία</string>
+	<string name="json_status_in_progress">Σε εξέλιξη</string>
+	<string name="menu_search">αναζήτηση&#8230;</string>
 	
-	<string name="dashboard_long_click_entry_0">Copy</string>
-	<string name="dashboard_long_click_entry_1">Move</string>
-	<string name="dashboard_long_click_entry_2">Delete</string>
-	
-	<string-array name="dashboard_long_click_entries">
-	    <item>Copy</item>
-	    <item>Move</item>
-        <item>Rename</item>
-        <item>Delete</item>
+	<string-array name="dashboard_click_entries">
+	    <item>Extract audio (as defined in settings)</item>
     </string-array>
     
-	<string name="move_error">Error during move.</string>
-    <string name="move_progress">File move in progress&#8230;</string>
-    <string name="move_ok">File move completed.</string>
-    <string name="long_press_warning_title">Operation not executed:</string>
-    <string name="long_press_warning_msg">Source and destination folders overlap.</string>
-
-	<string name="delete_video_confirm">Confirm you want to delete this video?</string>
-	<string name="delete_video_ok">%1$s successfully deleted.</string>
-	<string name="delete_video_failed">Error: %1$s not deleted.</string>
+	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
+	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
 	
-	<string name="empty_dashboard">No downloaded video.</string>
+	<string name="dashboard_long_click_entry_0">Αντιγραφή</string>
+	<string name="dashboard_long_click_entry_1">Μετακίνηση</string>
+	<string name="dashboard_long_click_entry_2">Διαγραφή</string>
+	
+	<string-array name="dashboard_long_click_entries">
+	    <item>Αντιγραφή</item>
+	    <item>Μετακίνηση</item>
+        <item>Μετονομασία</item>
+        <item>Διαγραφή</item>
+    </string-array>
+    
+	<string name="move_error">Σφάλμα κατά τη μετακίνηση.</string>
+    <string name="move_progress">Μετακίνηση αρχείου σε εξέλιξη&#8230;</string>
+    <string name="move_ok">Η μετακίνηση αρχείων ολοκληρώθηκε.</string>
+    <string name="long_press_warning_title">Η διεργασία δεν εκτελέστηκε:</string>
+    <string name="long_press_warning_msg">Οι φάκελοι προέλευσης και προορισμού συμπίπτουν.</string>
+    <string name="long_press_warning_msg2">A copy already exists in this folder.</string>
+
+	<string name="delete_video_confirm">Είστε σίγουρος ότι θέλετε να διαγράψετε αυτό το βίντεο;</string>
+	<string name="delete_video_ok">%1$s διαγράφτηκε επιτυχώς.</string>
+	<string name="delete_video_failed">Σφάλμα: %1$s δε διαγράφτηκε.</string>
+	
+	<string name="empty_dashboard">Κανένα ληφθέν βίντεο.</string>
 
     <!-- ### preferences ### -->
 
@@ -229,13 +238,11 @@
     <string name="show_thumb_summary">Λήψη εικόνας προεπισκόπησης μαζί με τη λίστα βίντεο</string>
     
     <!-- -->
-    <string name="settings_cat_audio">Ήχος</string>
-    <string name="enable_audio_extraction_title">Ενεργοποίηση εξαγωγής ήχου</string>
-    <string name="enable_audio_extraction_summary">Εξαγωγή και μετατροπή ήχου από το ληφθέν βίντεο (μόνο για τις τοπικές λήψεις)</string>
+    <string name="settings_cat_advanced">Για προχωρημένους</string>
+    <string name="enable_advanced_features_title">Enable Advanced Features</string>
+    <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
     <string name="mp3_bitrate_title">Bitrate κωδικοποίησης mp3 (kbps)</string>
     <string name="audio_extraction_type_title">Τύπος εξαγωγής</string>
-    <string name="enable_audio_q_suffix_title">Επισύναψη κατάληξης ποιότητας ήχου </string>
-    <string name="enable_audio_q_suffix_summary">Προσθήκη της ποιότητας ήχου στο τέλος του ονόματος αρχείου</string>
     <string name="remove_video_title">Αφαίρεση βίντεο</string>
     <string name="remove_video_summary">Ενεργοποίηση διαγραφής του αρχείου βίντεο μετά από επιτυχημένη εξαγωγή ήχου (προσοχή: χωρίς επιβεβαίωση!)</string>
 
@@ -246,8 +253,6 @@
     
     <!-- -->
     <string name="settings_cat_notifications">Ειδοποιήσεις</string>
-    <string name="enable_own_notification_title">Ενεργοποίηση ειδοποιήσεων εφαρμογής</string>
-    <string name="enable_own_notification_summary">Εμφάνιση αναλυτικής ειδοποίησης για όλες τις λήψεις του YTD</string>
     <string name="download_manager_notification_title">Διαχείριση ειδοποιήσεων συστήματος</string>
     <string name="download_manager_notification_dialog_title">Εμφάνιση ειδοποιήσεων διαχειριστή λήψεων συστήματος:</string>
     
@@ -361,7 +366,7 @@ A GitHub project, <http>https://github.com/intervigilium/liblame</http>,
 	<string name="ssh_to_longpress_menu_summary">Μεταφορά της εντολής \"Αποστολή μέσω SSH\" στο μενού παρατεταμένης πίεσης στη λίστα βίντεο</string>
 	
     <!-- -->
-	<string name="settings_cat_advanced">Για προχωρημένους</string>
+	<string name="settings_cat_system">System</string>
 	<string name="enable_logging_title">Ενεργοποίηση καταγραφής</string>
 	<string name="enable_logging_summary">Συμπερίληψη μηνυμάτων του YTD στο αρχείο καταγραφής συστήματος. Υποχρεωτικό για αποστολή logcat στον προγραμματιστή.</string>
 </resources>

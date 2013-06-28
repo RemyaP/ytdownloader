@@ -65,9 +65,10 @@
     <string name="ffmpeg_ready">FFmpeg готов.</string>
     <string name="confirm_audio_checkbox1">Извлекать аудио после загрузки</string>
     <string name="confirm_audio_checkbox2">\n(как определено в настройках)</string>
-    <string name="login_required">Login to YouTube required.</string>
-    <string name="login_required_dialog_msg">YTD can\'t handle this video.</string>
-    <string name="no_video_available">No video available.</string>
+    <string name="login_required">Необходимо войти в YouTube.</string>
+    <string name="login_required_dialog_msg">YTD не может обработать данное видео.</string>
+    <string name="no_video_available">Нет доступных видео.</string>
+    <string name="retry_button_text">Повторить</string>
     
     <string-array name="long_click_entries">
         <item>Скопировать в буфер обмена</item>
@@ -118,9 +119,9 @@
     <!-- ### DownloadsService ### -->
     
     <string name="ytd_video">Видео YTD</string>
-    <string name="copy_error">Error during copy.</string>
+    <string name="copy_error">Ошибка при копировании.</string>
     <string name="copy_progress">Копирование файла в процессе&#8230;</string>
-    <string name="copy_ok">File copy completed.</string>
+    <string name="copy_ok">Копирование файла выполнено.</string>
     <string name="download_remove_failed">Ошибка: временно загруженный файл не удалён!</string>
     <string name="download_failed">Загрузка не удалась!</string>
     <string name="audio_extr_progress">Извлечение аудио в процессе&#8230;</string>
@@ -140,33 +141,41 @@
 	<string name="ffmpeg_install_failed">Установка FFmpeg не удалась.</string>
 	
 	<!-- ### DashboardActivity ### -->
-	<string name="json_status_completed">Completed</string>
-	<string name="json_status_failed">Failed</string>
-	<string name="json_status_in_progress">In Progress</string>
-	<string name="menu_search">search&#8230;</string>
+	<string name="json_status_completed">Выполнено</string>
+	<string name="json_status_failed">Не удалось</string>
+	<string name="json_status_in_progress">В процессе</string>
+	<string name="menu_search">поиск&#8230;</string>
 	
-	<string name="dashboard_long_click_entry_0">Copy</string>
-	<string name="dashboard_long_click_entry_1">Move</string>
-	<string name="dashboard_long_click_entry_2">Delete</string>
-	
-	<string-array name="dashboard_long_click_entries">
-	    <item>Copy</item>
-	    <item>Move</item>
-        <item>Rename</item>
-        <item>Delete</item>
+	<string-array name="dashboard_click_entries">
+	    <item>Извлечь аудио (как определено в настройках)</item>
     </string-array>
     
-	<string name="move_error">Error during move.</string>
-    <string name="move_progress">File move in progress&#8230;</string>
-    <string name="move_ok">File move completed.</string>
-    <string name="long_press_warning_title">Operation not executed:</string>
-    <string name="long_press_warning_msg">Source and destination folders overlap.</string>
-
-	<string name="delete_video_confirm">Confirm you want to delete this video?</string>
-	<string name="delete_video_ok">%1$s successfully deleted.</string>
-	<string name="delete_video_failed">Error: %1$s not deleted.</string>
+	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
+	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
 	
-	<string name="empty_dashboard">No downloaded video.</string>
+	<string name="dashboard_long_click_entry_0">Копировать</string>
+	<string name="dashboard_long_click_entry_1">Переместить</string>
+	<string name="dashboard_long_click_entry_2">Удалить</string>
+	
+	<string-array name="dashboard_long_click_entries">
+	    <item>Копировать</item>
+	    <item>Переместить</item>
+        <item>Переименовать</item>
+        <item>Удалить</item>
+    </string-array>
+    
+	<string name="move_error">Ошибка при перемещении.</string>
+    <string name="move_progress">Перемещение файла в процессе&#8230;</string>
+    <string name="move_ok">Перемещение файла выполнено.</string>
+    <string name="long_press_warning_title">Операция не выполнена:</string>
+    <string name="long_press_warning_msg">Папки источника и назначения совпадают.</string>
+    <string name="long_press_warning_msg2">Копия уже существует в этой папке.</string>
+
+	<string name="delete_video_confirm">Подтвердить удаление видео?</string>
+	<string name="delete_video_ok">%1$s успешно удалено.</string>
+	<string name="delete_video_failed">Ошибка: %1$s не удалено.</string>
+	
+	<string name="empty_dashboard">Нет загруженных видео.</string>
 
     <!-- ### preferences ### -->
 
@@ -229,13 +238,11 @@
     <string name="show_thumb_summary">Загружать изображение предварительного просмотра вместе со списком видео</string>
     
     <!-- -->
-    <string name="settings_cat_audio">Аудио</string>
-    <string name="enable_audio_extraction_title">Включить извлечение аудио</string>
-    <string name="enable_audio_extraction_summary">Извлекать и конвертировать аудио из загруженного видео (только для локальных загрузок)</string>
+    <string name="settings_cat_advanced">Дополнительно</string>
+    <string name="enable_advanced_features_title">Enable Advanced Features</string>
+    <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
     <string name="mp3_bitrate_title">Битрейт кодирования mp3 (кб/с)</string>
     <string name="audio_extraction_type_title">Тип извлечения</string>
-    <string name="enable_audio_q_suffix_title">Прикрепить суффикс качества аудио</string>
-    <string name="enable_audio_q_suffix_summary">Добавить качество аудио в конце имени файла</string>
     <string name="remove_video_title">Удаление видео</string>
     <string name="remove_video_summary">Включить удаление видео после успешного извлечения аудио (предупреждение: без подтверждения)</string>
 
@@ -246,8 +253,6 @@
     
     <!-- -->
     <string name="settings_cat_notifications">Уведомления</string>
-    <string name="enable_own_notification_title">Включить своё уведомление</string>
-    <string name="enable_own_notification_summary">Показать полную информацию о всех загрузках программы</string>
     <string name="download_manager_notification_title">Управление системными уведомлениями</string>
     <string name="download_manager_notification_dialog_title">Показать уведомления системного диспетчера загрузки:</string>
     
@@ -361,7 +366,7 @@ YTD mp3 теги написаны  с MyID3: библиотека тегов Jav
 	<string name="ssh_to_longpress_menu_summary">Поместить действие \"Послать через SSH\" в меню длительного нажатия в списке видео</string>
 	
     <!-- -->
-	<string name="settings_cat_advanced">Дополнительно</string>
+	<string name="settings_cat_system">System</string>
 	<string name="enable_logging_title">Включить журнал</string>
 	<string name="enable_logging_summary">Включать сообщения YTD в журнал системы. Обязательно при отправке логката разработчику.</string>
 </resources>
