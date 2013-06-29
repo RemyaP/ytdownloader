@@ -75,10 +75,8 @@ public class DashboardActivity extends Activity{
 	protected String basename;
 	public String aSuffix = ".audio";
 	public String vfilename;
-	//private String acodec;
 	private boolean removeVideo;
-	//private String aFileName;
-	private String extrType;
+	//private String extrType;
 	private ListView lv;
 	private Editable searchText;
 	
@@ -98,6 +96,7 @@ public class DashboardActivity extends Activity{
 	private boolean isSearchBarVisible;
 	private DashboardListItem currentItem = null;
 	private TextView userFilename;
+	private boolean extrType;
 	
 	public static Activity sDashboard;
 
@@ -142,48 +141,71 @@ public class DashboardActivity extends Activity{
         		final boolean ffmpegEnabled = YTD.settings.getBoolean("enable_advanced_features", false);
         		
         		builder.setTitle(currentItem.getFilename());
-        		builder.setItems(R.array.dashboard_click_entries, new DialogInterface.OnClickListener() {
+        		builder.setItems(R.array.audio_extraction_type_entries, new DialogInterface.OnClickListener() {
 
 					public void onClick(DialogInterface dialog, int which) {
-			    		switch (which) {
+
+	    				final File in = new File (currentItem.getPath(), currentItem.getFilename());
+	    				if (ffmpegEnabled) {
+	    					switch (which) {
 			    			case 0:
-			    				File in = new File (currentItem.getPath(), currentItem.getFilename());
-			    				if (ffmpegEnabled) {
-			    					ffmpegJob(in);
-			    				} else {
-			    					Utils.logger("w", "FFmpeg not installed/enabled", DEBUG_TAG);
-
-			    					AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
-			    					adb.setTitle(getString(R.string.ffmpeg_not_enabled_title));
-			                	    adb.setMessage(getString(R.string.ffmpeg_not_enabled_msg));
-			                	    
-			                	    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			                	    	public void onClick(DialogInterface dialog, int which) {
-			                	    		startActivity(new Intent(DashboardActivity.this,  SettingsActivity.class));
-			                	    	}
-			    					
-			                	    });
-			                	    
-			                	    adb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
-			            	        	public void onClick(DialogInterface dialog, int which) {
-			            	                // cancel
-			            	            }
-			            	        });
-			                	    
-			                	    if (! ((Activity) DashboardActivity.this).isFinishing()) {
-			                	    	adb.show();
-			                	    }
-			    				}
-			    				/*break;
+	    						ffmpegJob(in, false, null);
+	    						break;
 			    			case 1:
+			    				//TODO: finish, wip.
+			    				AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
+			    			    LayoutInflater inflater = getLayoutInflater();
+			    			    // Inflate and set the layout for the dialog
+			    			    // Pass null as the parent view because its going in the dialog layout
+			    			    builder.setView(inflater.inflate(R.layout.dialog_mp3_encode, null))
+			    			           .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			    			               @Override
+			    			               public void onClick(DialogInterface dialog, int id) {
+			    			            	   ffmpegJob(in, true, "temp");
+			    			               }
+			    			           })
+			    			           .setNegativeButton(R.string.dialogs_negative, new DialogInterface.OnClickListener() {
+			    			               public void onClick(DialogInterface dialog, int id) {
+			    			                   //
+			    			               }
+			    			           });      
+			    			    
+			    			    builder.create();
+			    			    if (! ((Activity) DashboardActivity.this).isFinishing()) {
+			    	    			builder.show();
+			    	    		}
 
-			    				break;
+			    				/*break;
 			    			case 2:
-
+	
 			    				break;
 			    			case 3:
-			    				*/
-			    		}
+			    				*/		
+	    					}
+	    				} else {
+	    					Utils.logger("w", "FFmpeg not installed/enabled", DEBUG_TAG);
+
+	    					AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
+	    					adb.setTitle(getString(R.string.ffmpeg_not_enabled_title));
+	                	    adb.setMessage(getString(R.string.ffmpeg_not_enabled_msg));
+	                	    
+	                	    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	                	    	public void onClick(DialogInterface dialog, int which) {
+	                	    		startActivity(new Intent(DashboardActivity.this,  SettingsActivity.class));
+	                	    	}
+	    					
+	                	    });
+	                	    
+	                	    adb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
+	            	        	public void onClick(DialogInterface dialog, int which) {
+	            	                // cancel
+	            	            }
+	            	        });
+	                	    
+	                	    if (! ((Activity) DashboardActivity.this).isFinishing()) {
+	                	    	adb.show();
+	                	    }
+	    				}
 
 					}
         		});
@@ -884,7 +906,7 @@ public class DashboardActivity extends Activity{
 	
 	// #####################################################################
 
-	public void ffmpegJob(final File fileToConvert) {
+	public void ffmpegJob(final File fileToConvert, boolean extrEnabled, final String mp3BitRate) {
 		
 		vfilename = currentItem.getFilename();
 		
@@ -913,11 +935,9 @@ public class DashboardActivity extends Activity{
 			    try {
 			    	ffmpeg = new FfmpegController(DashboardActivity.this);
 			    	
-			    	extrType = YTD.settings.getString("audio_extraction_type", "extr");
-			    	
 			    	// Toast + Notification + Log ::: Audio job in progress...
 			    	String text = null;
-			    	if (extrType.equals("extr")) {
+			    	if (!extrType) {
 						text = getString(R.string.audio_extr_progress);
 					} else {
 						text = getString(R.string.audio_conv_progress);
@@ -932,7 +952,7 @@ public class DashboardActivity extends Activity{
 			    }
 			    
 			    ShellDummy shell = new ShellDummy();
-			    String mp3BitRate = YTD.settings.getString("mp3_bitrate", getString(R.string.mp3_bitrate_default));
+			    //String mp3BitRate = YTD.settings.getString("mp3_bitrate", getString(R.string.mp3_bitrate_default));
 			    
 			    try {
 					ffmpeg.extractAudio(fileToConvert, audioFile, extrType, mp3BitRate, shell);
@@ -951,7 +971,7 @@ public class DashboardActivity extends Activity{
 		@Override
 		public void shellOut(String shellLine) {
 			findAudioSuffix(shellLine);
-			if (extrType.equals("conv")) {
+			if (extrType) {
 				getAudioJobProgress(shellLine);
 			}
 			Utils.logger("d", shellLine, DEBUG_TAG);
@@ -965,7 +985,7 @@ public class DashboardActivity extends Activity{
 			if (exitValue == 0) {
 
 				// Toast + Notification + Log ::: Audio job OK
-				if (extrType.equals("extr")) {
+				if (!extrType) {
 					text = getString(R.string.audio_extr_completed);
 				} else {
 					text = getString(R.string.audio_conv_completed);
@@ -981,7 +1001,7 @@ public class DashboardActivity extends Activity{
         		aBuilder.setContentIntent(contentIntent);
         		
         		// write id3 tags
-				if (extrType.equals("conv")) {
+				if (extrType) {
 					try {
 						Utils.logger("d", "writing ID3 tags...", DEBUG_TAG);
 						addId3Tags(renamedAudioFilePath);
@@ -1023,7 +1043,7 @@ public class DashboardActivity extends Activity{
 	public File renameAudioFile(String aBaseName, File extractedAudioFile) {
 		// Rename audio file to add a more detailed suffix, 
 		// but only if it has been matched from the ffmpeg console output
-		if (extrType.equals("extr") &&
+		if (!extrType &&
 				extractedAudioFile.exists() && 
 				!aSuffix.equals(".audio")) {
 			String newFileName = aBaseName + aSuffix;
@@ -1065,7 +1085,7 @@ public class DashboardActivity extends Activity{
 	private void findAudioSuffix(String shellLine) {
 		Pattern audioPattern = Pattern.compile("#0:0.*: Audio: (.+), .+?(mono|stereo .default.|stereo)(, .+ kb|)"); 
 		Matcher audioMatcher = audioPattern.matcher(shellLine);
-		if (audioMatcher.find() && extrType.equals("extr")) {
+		if (audioMatcher.find() && !extrType) {
 			String oggBr = "a";
 			String groupTwo = "n";
 			if (audioMatcher.group(2).equals("stereo (default)")) {
@@ -1094,7 +1114,7 @@ public class DashboardActivity extends Activity{
 
 	public void setNotificationForAudioJobError() {
 		String text;
-		if (extrType.equals("extr")) {
+		if (!extrType) {
 			text = getString(R.string.audio_extr_error);
 		} else {
 			text = getString(R.string.audio_conv_error);
