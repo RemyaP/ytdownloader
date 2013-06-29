@@ -119,14 +119,14 @@ public class ShareActivity extends Activity {
     List<String> sizes = new ArrayList<String>();
     List<String> listEntries = new ArrayList<String>();
     private String titleRaw;
-    private String title;
+    private String basename;
     public int pos;
     public static File path;
     public String validatedLink;
     public static DownloadManager dm;
     public static long enqueue;
 	String videoFilename = "video";
-	public static String composedVideoFilename = "";
+	public String vFilename = "";
     public static Uri videoUri;
 	public boolean videoOnExt;
     private int icon;
@@ -172,7 +172,7 @@ public class ShareActivity extends Activity {
 	boolean showSingleSize;
 	ContextThemeWrapper boxThemeContextWrapper = new ContextThemeWrapper(this, R.style.BoxTheme);
 	public int count;
-	public String acodec = "";
+	//public String acodec = "";
 	public String extrType;
 	public String aquality;
 	public boolean audioExtrEnabled = false;
@@ -558,15 +558,15 @@ public class ShareActivity extends Activity {
 	                            	LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
 		                    	    View inputFilename = adbInflater.inflate(R.layout.dialog_input_filename, null);
 		                    	    userFilename = (TextView) inputFilename.findViewById(R.id.input_filename);
-		                    	    userFilename.setText(title);
+		                    	    userFilename.setText(basename);
 		                    	    adb.setView(inputFilename);
 		                    	    adb.setTitle(getString(R.string.rename_dialog_title));
 		                    	    adb.setMessage(getString(R.string.rename_dialog_msg));
 		                    	    
 		                    	    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 		                    	    	public void onClick(DialogInterface dialog, int which) {
-		                    	    		title = userFilename.getText().toString();
-		                    	    		composedVideoFilename = composeVideoFilename();
+		                    	    		basename = userFilename.getText().toString();
+		                    	    		vFilename = composeVideoFilename();
 		                    	    		//manageAudioFeature();
 											callDownloadManager(links.get(pos));
 		                    	    	}
@@ -582,7 +582,7 @@ public class ShareActivity extends Activity {
 		                    	    	adb.show();
 		                    	    }
 	                            } else {
-	                            	composedVideoFilename = composeVideoFilename();
+	                            	vFilename = composeVideoFilename();
 	                            	//manageAudioFeature();
 	                            	callDownloadManager(links.get(pos));
 	                            }
@@ -638,7 +638,7 @@ public class ShareActivity extends Activity {
             		if (!YTD.settings.getBoolean("ssh_to_longpress_menu", false)) {
 	            		builder.setTitle(R.string.long_click_title).setItems(R.array.long_click_entries, new DialogInterface.OnClickListener() {
 					    	public void onClick(DialogInterface dialog, int which) {
-					    		composedVideoFilename = composeVideoFilename();
+					    		vFilename = composeVideoFilename();
 					    		switch (which) {
 					    			case 0: // copy
 					    				copy(position);
@@ -651,7 +651,7 @@ public class ShareActivity extends Activity {
             		} else {
             			builder.setTitle(R.string.long_click_title).setItems(R.array.long_click_entries2, new DialogInterface.OnClickListener() {
 					    	public void onClick(DialogInterface dialog, int which) {
-					    		composedVideoFilename = composeVideoFilename();
+					    		vFilename = composeVideoFilename();
 					    		switch (which) {
 					    			case 0: // copy
 					    				copy(position);
@@ -677,7 +677,7 @@ public class ShareActivity extends Activity {
         private void share(final int position) {
 			Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
 			sharingIntent.setType("text/plain");
-			sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, composedVideoFilename);
+			sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, vFilename);
 			sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, links.get(position));
 			startActivity(Intent.createChooser(sharingIntent, "Share YouTube link:"));
 		}
@@ -708,9 +708,9 @@ public class ShareActivity extends Activity {
         
 		private String composeVideoFilename() {
         	if (useQualitySuffix()) {
-        		videoFilename = title + "_" + qualities.get(pos) + stereo.get(pos) + "." + codecs.get(pos);
+        		videoFilename = basename + "_" + qualities.get(pos) + stereo.get(pos) + "." + codecs.get(pos);
         	} else {
-    	    	videoFilename = title + stereo.get(pos) + "." + codecs.get(pos);
+    	    	videoFilename = basename + stereo.get(pos) + "." + codecs.get(pos);
         	}
     	    Utils.logger("d", "videoFilename: " + videoFilename, DEBUG_TAG);
     	    return videoFilename;
@@ -764,12 +764,12 @@ public class ShareActivity extends Activity {
 		private void sendViaSsh() {
 			try {
 				String wgetCmd;
-				composedVideoFilename = composeVideoFilename();
+				vFilename = composeVideoFilename();
 				
 				Boolean shortSshCmdEnabled = YTD.settings.getBoolean("enable_connectbot_short_cmd", false);
 				if (shortSshCmdEnabled) {
 					wgetCmd = "wget -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --no-check-certificate \'" + 
-							links.get(pos) + "\' -O " + composedVideoFilename;
+							links.get(pos) + "\' -O " + vFilename;
 				} else {
 					wgetCmd = "REQ=`wget -q -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --no-check-certificate \'" + 
 							validatedLink + "\' -O-` && urlblock=`echo $REQ | grep -oE \'url_encoded_fmt_stream_map\": \".*\' | sed -e \'s/\", \".*//\'" + 
@@ -780,7 +780,7 @@ public class ShareActivity extends Activity {
 							" -e \'s/&signature=.*//\' -e \'s/&quality=.*//\' -e \'s/&fallback_host=.*//\'` && sig=`echo $block | " +
 							"grep -oE \'signature=.{81}\'` && downloadurl=`echo $url\\&$sig | sed \'s/&itag=[0-9][0-9]&signature/\\&signature/\'` && " +
 							"wget -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --tries=5 --timeout=45 --no-check-certificate " +
-							"\"$downloadurl\" -O " + composedVideoFilename;
+							"\"$downloadurl\" -O " + vFilename;
 				}
 				
 				Utils.logger("d", "wgetCmd: " + wgetCmd, DEBUG_TAG);
@@ -822,7 +822,7 @@ public class ShareActivity extends Activity {
 	}
     
     private void callDownloadManager(String link) {
-		videoUri = Uri.parse(path.toURI() + composedVideoFilename);
+		videoUri = Uri.parse(path.toURI() + vFilename);
         Utils.logger("d", "videoUri: " + videoUri, DEBUG_TAG);
         
         dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -885,62 +885,64 @@ public class ShareActivity extends Activity {
 		
 		startService(intent1);
 		
-		String audioFilename = findAudioCodec();
+		String aExt = findAudioCodec();
 		
-		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_FILENAME, composedVideoFilename).apply();
+		/*YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_FILENAME, composedVideoFilename).apply();
 		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_PATH, path.getAbsolutePath()).apply();
-		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_AUDIO_FILENAME, title + acodec).apply();
+		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_AUDIO_FILENAME, title + acodec).apply();*/
 		
-		Utils.addEntryToJsonFile(mContext, 
+		Utils.addEntryToJsonFile(
+				mContext, 
 				String.valueOf(enqueue), 
 				getString(R.string.json_status_in_progress), 
 				path.getAbsolutePath(), 
-				composedVideoFilename, 
-				audioFilename, 
-				"-");
+				vFilename, 
+				basename, 
+				aExt, 
+				"-", 
+				false);
 		
 		/*YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_TITLE , title).apply();
 		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_CODEC, codecs.get(pos)).apply();
 		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_QUALITY, qualities.get(pos)).apply();
 		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_3D, stereo.get(pos)).apply();*/
     	
-    	if (YTD.settings.getBoolean("enable_own_notification", true) == true) {
-    		Utils.logger("i", "enable_own_notification: true", DEBUG_TAG);
-			sequence.add(enqueue);
-			YTD.videoinfo.edit().putLong(composedVideoFilename, enqueue).apply();
-			
-			if (videoOnExt == true) {
-				videoFileObserver = new Observer.YtdFileObserver(dir_Downloads.getAbsolutePath());
-			} else {
-				videoFileObserver = new Observer.YtdFileObserver(path.getAbsolutePath());
-			}
-			videoFileObserver.startWatching();
-			
-			//NotificationHelper();
+		sequence.add(enqueue);
+		YTD.videoinfo.edit().putLong(vFilename, enqueue).apply();
+		
+		if (videoOnExt == true) {
+			videoFileObserver = new Observer.YtdFileObserver(dir_Downloads.getAbsolutePath());
+		} else {
+			videoFileObserver = new Observer.YtdFileObserver(path.getAbsolutePath());
 		}
+		videoFileObserver.startWatching();
+		
+		//NotificationHelper();
     }
     
     private String findAudioCodec() {
     	//CODEC [file EXTENSION]
-    	extrType = YTD.settings.getString("audio_extraction_type", "extr");
+    	/*extrType = YTD.settings.getString("audio_extraction_type", "extr");
 		if (extrType.equals("conv")) {
 			acodec = ".mp3";
-		} else {
-			if (codecs.get(pos).equals("webm")) acodec = ".ogg";
-		    if (codecs.get(pos).equals("mp4")) acodec = ".aac";
-		    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("small")) acodec = ".mp3";
-		    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("medium")) acodec = ".aac";
-		    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("large")) acodec = ".aac";
-		    if (codecs.get(pos).equals("3gpp")) acodec = ".aac";
-		}
+		} else {*/
+    	String aExt = null;
+    	
+			if (codecs.get(pos).equals("webm")) aExt = ".ogg";
+		    if (codecs.get(pos).equals("mp4")) aExt = ".aac";
+		    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("small")) aExt = ".mp3";
+		    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("medium")) aExt = ".aac";
+		    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("large")) aExt = ".aac";
+		    if (codecs.get(pos).equals("3gpp")) aExt = ".aac";
+		/*}
 		//QUALITY
     	if (extrType.equals("conv")) {
     		aquality = "_" + YTD.settings.getString("mp3_bitrate", "192k");
     	} else { 
     		aquality = "";
-    	}
+    	}*/
     	//FINALLY
-    	return aquality + acodec;
+    	return /*aquality + */aExt;
     }
     
     private String generateThumbUrl() {
@@ -980,7 +982,7 @@ public class ShareActivity extends Activity {
     }
       
     private void tempDownloadToSdcard(Request request) {
-    	videoUri = Uri.parse(dir_Downloads.toURI() + composedVideoFilename);
+    	videoUri = Uri.parse(dir_Downloads.toURI() + vFilename);
         Utils.logger("d", "** NEW ** videoUri: " + videoUri, DEBUG_TAG);
         request.setDestinationUri(videoUri);
         try {
@@ -1129,11 +1131,11 @@ public class ShareActivity extends Activity {
             		.replaceAll("&quot;", "\"")
             		.replaceAll("&amp;", "&")
             		.replaceAll("&#39;", "'");
-            title = titleRaw.replaceAll("\\W", "_");
+            basename = titleRaw.replaceAll("\\W", "_");
         } else {
-            title = "Youtube Video";
+            basename = "Youtube Video";
         }
-        Utils.logger("d", "findVideoFilenameBase: " + title, DEBUG_TAG);
+        Utils.logger("d", "findVideoFilenameBase: " + basename, DEBUG_TAG);
     }
 
     private void listEntriesBuilder() {

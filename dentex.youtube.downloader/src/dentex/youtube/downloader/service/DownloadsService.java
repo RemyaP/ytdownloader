@@ -30,6 +30,9 @@ package dentex.youtube.downloader.service;
 import java.io.File;
 import java.io.IOException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.DownloadManager;
 import android.app.DownloadManager.Query;
 import android.app.NotificationManager;
@@ -98,14 +101,34 @@ public class DownloadsService extends Service {
 
 	BroadcastReceiver downloadComplete = new BroadcastReceiver() {
 
+		String vFilename;
+		String absolutePath;
+		String aExt;
+		String basename;
+
 		@Override
     	public void onReceive(final Context context, Intent intent) {
     		Utils.logger("d", "downloadComplete: onReceive CALLED", DEBUG_TAG);
     		long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
     		int ID = (int) id;
-    		String vfilename = YTD.videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_FILENAME, "video");
+    		/*String vfilename = YTD.videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_FILENAME, "video");
     		String path = YTD.videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_PATH, ShareActivity.path.getAbsolutePath());
-    		String afilename = YTD.videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_AUDIO_FILENAME, "audio");
+    		String afilename = YTD.videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_AUDIO_FILENAME, "audio");*/
+    		
+    		String previousJson = Utils.parseJsonDashboardFile(context);
+    		JSONObject mO = null;
+    		try {
+    			mO = new JSONObject(previousJson);
+    			JSONObject obj = mO.optJSONObject(String.valueOf(id));
+    			
+    			absolutePath = obj.getString(YTD.JSON_DATA_PATH);
+    			vFilename = obj.getString(YTD.JSON_DATA_FILENAME);
+    			basename = obj.getString(YTD.JSON_DATA_BASENAME);
+    			aExt = obj.getString(YTD.JSON_DATA_AUDIO_EXT);
+    		} catch (JSONException e1) {
+    			Log.e(DEBUG_TAG, e1.getMessage());
+    		}
+    		
     		
 			Query query = new Query();
 			query.setFilterById(id);
@@ -130,14 +153,14 @@ public class DownloadsService extends Service {
 					NotificationCompat.Builder cBuilder =  new NotificationCompat.Builder(context);
 					NotificationManager cNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 			    	cBuilder.setSmallIcon(R.drawable.icon_nb);
-					cBuilder.setContentTitle(vfilename);
+					cBuilder.setContentTitle(vFilename);
 
 					/*
 					 *  Copy to extSdCard
 					 */
 					if (copyEnabled) {
-						File in = new File(ShareActivity.dir_Downloads, vfilename);
-						File dst = new File(path, vfilename);
+						File in = new File(ShareActivity.dir_Downloads, vFilename);
+						File dst = new File(absolutePath, vFilename);
 						
 						try {
 							removeIdUpdateNotification(id);
@@ -157,7 +180,7 @@ public class DownloadsService extends Service {
 							Utils.copyFile(in, dst);
 							
 							// Toast + Notification + Log ::: Copy OK
-							Toast.makeText(context,  vfilename + ": " + context.getString(R.string.copy_ok), Toast.LENGTH_LONG).show();
+							Toast.makeText(context,  vFilename + ": " + context.getString(R.string.copy_ok), Toast.LENGTH_LONG).show();
 					        cBuilder.setContentText(context.getString(R.string.copy_ok));
 					        intent2.setDataAndType(Uri.fromFile(dst), "video/*");
 							Utils.logger("i", "_ID " + ID + " Copy OK", DEBUG_TAG);
@@ -188,7 +211,7 @@ public class DownloadsService extends Service {
 				        	}
 						} catch (IOException e) {
 							// Toast + Notification + Log ::: Copy FAILED
-							Toast.makeText(context, vfilename + ": " + getString(R.string.copy_error), Toast.LENGTH_LONG).show();
+							Toast.makeText(context, vFilename + ": " + getString(R.string.copy_error), Toast.LENGTH_LONG).show();
 							cBuilder.setContentText(getString(R.string.copy_error));
 							intent2.setDataAndType(Uri.fromFile(in), "video/*");
 							Log.e(DEBUG_TAG, "_ID " + ID + "Copy to extSdCard FAILED");
@@ -199,7 +222,17 @@ public class DownloadsService extends Service {
 						}
 					}
 					
-					Utils.addEntryToJsonFile(nContext, String.valueOf(id), getString(R.string.json_status_completed), path, vfilename, afilename, size);
+					Utils.addEntryToJsonFile(
+							nContext, 
+							String.valueOf(id), 
+							getString(R.string.json_status_completed), 
+							absolutePath, 
+							vFilename, 
+							basename, 
+							aExt, 
+							size, 
+							false);
+					
 					if (DashboardActivity.isDashboardRunning)
 						DashboardActivity.refreshlist(DashboardActivity.sDashboard);
 					
@@ -208,9 +241,19 @@ public class DownloadsService extends Service {
 				case DownloadManager.STATUS_FAILED:
 					Log.e(DEBUG_TAG, "_ID " + id + " FAILED (status " + status + ")");
 					Log.e(DEBUG_TAG, " Reason: " + reason);
-					Toast.makeText(context,  vfilename + ": " + getString(R.string.download_failed), Toast.LENGTH_LONG).show();
+					Toast.makeText(context,  vFilename + ": " + getString(R.string.download_failed), Toast.LENGTH_LONG).show();
 					
-					Utils.addEntryToJsonFile(nContext, String.valueOf(id), getString(R.string.json_status_failed), path, vfilename, afilename, size);
+					Utils.addEntryToJsonFile(
+							nContext, 
+							String.valueOf(id), 
+							getString(R.string.json_status_failed), 
+							absolutePath, 
+							vFilename, 
+							basename, 
+							aExt, 
+							size, 
+							false);
+					
 					if (DashboardActivity.isDashboardRunning)
 						DashboardActivity.refreshlist(DashboardActivity.sDashboard);
 					

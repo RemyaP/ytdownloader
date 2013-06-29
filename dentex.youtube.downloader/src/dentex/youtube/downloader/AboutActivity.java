@@ -218,7 +218,9 @@ public class AboutActivity extends Activity {
             
             cl = (Preference) findPreference("changelog");
             try {
-				cl.setSummary("v" + AboutFragment.this.getActivity().getPackageManager().getPackageInfo(AboutFragment.this.getActivity().getPackageName(), 0).versionName);
+				String version = "v" + AboutFragment.this.getActivity().getPackageManager().getPackageInfo(AboutFragment.this.getActivity().getPackageName(), 0).versionName;
+				cl.setSummary(version);
+				Utils.logger("v", "YTD " + version, DEBUG_TAG);			
 			} catch (NameNotFoundException e1) {
 				Log.e(DEBUG_TAG, "version not read: " + e1.getMessage());
 				cl.setSummary("");

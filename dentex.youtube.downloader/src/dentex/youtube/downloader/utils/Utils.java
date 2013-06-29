@@ -202,7 +202,8 @@ public class Utils {
     	}
     }
     
-    public static void addEntryToJsonFile(Context context, String id, String status, String path, String filename, String audioFilename, String size) {    	
+    public static void addEntryToJsonFile(Context context, String id, String status, String path, String filename, 
+    		String basename, String audioExt, String size, boolean forceCopy) {    	
 		// parse existing/init new JSON 
     	String previousJson = parseJsonDashboardFile(context);
 		
@@ -213,15 +214,25 @@ public class Utils {
 		try {
 			mO = new JSONObject(previousJson);
 			
-			JSONObject copy = mO.optJSONObject(id);
-			if (copy != null) {
-				Log.i(DEBUG_TAG, "updating...");
+			JSONObject obj = mO.optJSONObject(id);
+			if (obj != null) {
+				if (forceCopy) {
+					Log.i(DEBUG_TAG, "JsonFile: copying existent id");
+					String newId = id + System.currentTimeMillis();
+					id = newId;
+					logger("v", "new Id is: "+ newId, DEBUG_TAG);
+				} else {
+					Log.i(DEBUG_TAG, "JsonFile: updating existent id");
+				}
+			} else {
+				Log.i(DEBUG_TAG, "JsonFile: addind new entry");
 			}
 			
 			jO.put(YTD.JSON_DATA_STATUS, status);
 			jO.put(YTD.JSON_DATA_PATH, path);
 			jO.put(YTD.JSON_DATA_FILENAME, filename);
-			jO.put(YTD.JSON_DATA_AUDIO_FILENAME, audioFilename);
+			jO.put(YTD.JSON_DATA_BASENAME, basename);
+			jO.put(YTD.JSON_DATA_AUDIO_EXT, audioExt);
 			jO.put(YTD.JSON_DATA_SIZE, size);
 			mO.put(id, jO);
 		} catch (JSONException e1) {
@@ -238,26 +249,8 @@ public class Utils {
 
 		// write back JSON file
 		File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
-		logger("v", "updated (via addition) json:\n" + jsonString, DEBUG_TAG);
+		logger("v", "addEntryToJsonFile:\n" + jsonString, DEBUG_TAG);
 		writeToFile(jsonFile, jsonString);
-	}
-
-	public static String[] checkForCopies(String json, String id, String filename) {  // TODO find working solution
-		// in case of copy/move, check if is a subsequent copy
-    	if (json.contains(id)) {
-    		logger("d", "json already contains provided id", DEBUG_TAG);
-    		id.concat("_2");
-    		filename = "2_" + filename;
-    		logger("d", "id: " + id + " - filename: " + filename, DEBUG_TAG);
-    	} else if (json.matches(id + "_[0-9]")){
-    		logger("d", "numerical match into id", DEBUG_TAG);
-    		int numSuffix = id.charAt(id.length() - 1);
-    		logger("d", "numSuffix: " + numSuffix, DEBUG_TAG);
-    		numSuffix++;
-    		id.replaceFirst("[0-9]", String.valueOf(numSuffix));
-    		logger("d", "new id: " + id, DEBUG_TAG);
-    	}
-		return new String[] { id, filename };
 	}
     
     public static void removeEntryFromJsonFile(Context context, String id) {
@@ -279,7 +272,7 @@ public class Utils {
 		}
 
 		File jsonFile = new File(context.getDir(YTD.JSON_FOLDER, 0), YTD.JSON_FILE);
-		logger("v", "updated (via removal) json:\n" + jsonString, DEBUG_TAG);
+		logger("v", "removeEntryFromJsonFile:\n" + jsonString, DEBUG_TAG);
 		writeToFile(jsonFile, jsonString);
     }
     

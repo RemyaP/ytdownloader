@@ -71,8 +71,8 @@ public class DashboardActivity extends Activity{
 	public NotificationManager aNotificationManager;
 	private int totSeconds;
 	private int currentTime;
-	protected File fileAudio;
-	protected String aBaseName;
+	protected File audioFile;
+	protected String basename;
 	public String aSuffix = ".audio";
 	public String vfilename;
 	//private String acodec;
@@ -88,7 +88,8 @@ public class DashboardActivity extends Activity{
 	static List<String> statusEntries = new ArrayList<String>();
 	static List<String> pathEntries = new ArrayList<String>();
 	static List<String> filenameEntries = new ArrayList<String>();
-	static List<String> audioFilenameEntries = new ArrayList<String>();
+	static List<String> basenameEntries = new ArrayList<String>();
+	static List<String> audioExtEntries = new ArrayList<String>();
 	static List<String> sizeEntries = new ArrayList<String>();
 	static List<String> mediaIdEntries = new ArrayList<String>();
 	
@@ -294,7 +295,7 @@ public class DashboardActivity extends Activity{
                 	    userFilename.setText(currentItem.getFilename());
                 	    adb.setView(inputFilename);
                 	    adb.setTitle(getString(R.string.rename_dialog_title));
-                	    adb.setMessage(getString(R.string.rename_dialog_msg));
+                	    //adb.setMessage(getString(R.string.rename_dialog_msg));
                 	    
                 	    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 	    	public void onClick(DialogInterface dialog, int which) {
@@ -312,8 +313,10 @@ public class DashboardActivity extends Activity{
                 							currentItem.getStatus(), 
                 							currentItem.getPath(), 
                 							input, 
-                							currentItem.getAudioFilename(), 
-                							currentItem.getSize());
+                							currentItem.getBasename(), 
+                							currentItem.getAudioExt(), 
+                							currentItem.getSize(),
+                							false);
                 	    			
                 	    			// remove references for the old file
                 	    			String mediaUriString = YTD.videoinfo.getString(in.getAbsolutePath(), "non-ext");
@@ -326,12 +329,12 @@ public class DashboardActivity extends Activity{
                 	    				if (dm.remove(id) > 0) {
                 	    					Utils.logger("d", id + " (DownloadManager) removed", DEBUG_TAG);
                 	    					// remove entries from videoinfo shared pref
-                	    					YTD.videoinfo.edit()
+                	    					/*YTD.videoinfo.edit()
 	                	    					.remove(id + YTD.VIDEOINFO_FILENAME)
 	                	    					.remove(id + YTD.VIDEOINFO_PATH)
 	                	    					.remove(id + YTD.VIDEOINFO_AUDIO_FILENAME)
 	                	    					.remove(in.getName())
-	                	    					.apply();
+	                	    					.apply();*/
                 	    				}
                 	    			} else {
                 	    				Uri mediaUri = Uri.parse(mediaUriString);
@@ -357,6 +360,10 @@ public class DashboardActivity extends Activity{
                 	    		} else {
                 	    			Log.e(DEBUG_TAG, in.getName() + " NOT renamed");
                 	    		}
+                	    		
+                	    		// hide keyboard
+                	    		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                	    		imm.hideSoftInputFromWindow(userFilename.getWindowToken(), 0);
                 	    	}
                 	    });
                 	    
@@ -478,7 +485,7 @@ public class DashboardActivity extends Activity{
 		return res;
 	}
 
-	public boolean removeManually(final DashboardListItem currentItem, File fileToDel, String mediaUriString) {
+	public boolean removeManually(DashboardListItem currentItem, File fileToDel, String mediaUriString) {
 		if (fileToDel.delete()) {			
 			// parse media Uri
 			Uri mediaUri = Uri.parse(mediaUriString);
@@ -502,12 +509,13 @@ public class DashboardActivity extends Activity{
 		if (dm.remove(id) > 0) {
 			Utils.logger("d", id + " (DownloadManager) removed", DEBUG_TAG);
 			// remove entries from videoinfo shared pref
-			YTD.videoinfo.edit()
+			/*YTD.videoinfo.edit()
 				.remove(id + YTD.VIDEOINFO_FILENAME)
 				.remove(id + YTD.VIDEOINFO_PATH)
 				.remove(id + YTD.VIDEOINFO_AUDIO_FILENAME)
 				.remove(fileToDel.getName())
-				.apply();
+				.apply();*/
+			YTD.videoinfo.edit().remove(fileToDel.getName());
 			return true;
 		} else {
 			Utils.logger("w", id + " (DownloadManager) NOT removed", DEBUG_TAG);
@@ -619,7 +627,8 @@ public class DashboardActivity extends Activity{
 		statusEntries.clear();
 		pathEntries.clear();
 		filenameEntries.clear();
-		audioFilenameEntries.clear();
+		basenameEntries.clear();
+		audioExtEntries.clear();
 		sizeEntries.clear();
 	}
 
@@ -628,7 +637,8 @@ public class DashboardActivity extends Activity{
 		Iterator<String> statusesIter = statusEntries.iterator();
 		Iterator<String> pathsIter = pathEntries.iterator();
 		Iterator<String> filenamesIter = filenameEntries.iterator();
-		Iterator<String> audioFilenamesIter = audioFilenameEntries.iterator();
+		Iterator<String> basenamesIter = basenameEntries.iterator();
+		Iterator<String> audioExtIter = audioExtEntries.iterator();
 		Iterator<String> sizesIter = sizeEntries.iterator();
 		
 		while (statusesIter.hasNext()) {
@@ -637,7 +647,8 @@ public class DashboardActivity extends Activity{
 					statusesIter.next(),
 					pathsIter.next(), 
 					filenamesIter.next(), 
-					audioFilenamesIter.next(), 
+					basenamesIter.next(),
+					audioExtIter.next(), 
 					sizesIter.next()));
 		}
 	}
@@ -660,7 +671,8 @@ public class DashboardActivity extends Activity{
 				statusEntries.add(jO.getString(YTD.JSON_DATA_STATUS));
 				pathEntries.add(jO.getString(YTD.JSON_DATA_PATH));
 				filenameEntries.add(jO.getString(YTD.JSON_DATA_FILENAME));
-				audioFilenameEntries.add(jO.getString(YTD.JSON_DATA_AUDIO_FILENAME));
+				basenameEntries.add(jO.getString(YTD.JSON_DATA_BASENAME));
+				audioExtEntries.add(jO.getString(YTD.JSON_DATA_AUDIO_EXT));
 				sizeEntries.add(jO.getString(YTD.JSON_DATA_SIZE));
 			}
 		} catch (JSONException e) {
@@ -776,8 +788,10 @@ public class DashboardActivity extends Activity{
 						currentItem.getStatus(), 
 						out.getParent(), 
 						out.getName(), 
-						currentItem.getAudioFilename(), 
-						currentItem.getSize());
+						currentItem.getBasename(), 
+						currentItem.getAudioExt(), 
+						currentItem.getSize(), 
+						false);
 				break;
 				
 			case 1:
@@ -827,12 +841,14 @@ public class DashboardActivity extends Activity{
 				
 				Utils.addEntryToJsonFile(
 						DashboardActivity.this, 
-						currentItem.getId() + "_copy", 
+						currentItem.getId(), 
 						currentItem.getStatus(), 
 						out.getParent(), 
 						out.getName(), 
-						currentItem.getAudioFilename(), 
-						currentItem.getSize());
+						currentItem.getBasename(), 
+						currentItem.getAudioExt(), 
+						currentItem.getSize(), 
+						true);
 				break;
 			
 			case 1:
@@ -883,12 +899,11 @@ public class DashboardActivity extends Activity{
 		 */
 		
 		// "compose" the audio file
-		String acodec = currentItem.getAudioFilename();
-		aBaseName = currentItem.getFilename();
-		final String aFileName = aBaseName + acodec;
-		fileAudio = new File(fileToConvert.getParent(), aFileName);
-		Utils.logger("i", "fileAudio: " + fileAudio.getPath(), DEBUG_TAG);
-	    
+		String aExt = currentItem.getAudioExt();
+		basename = currentItem.getBasename();
+		final String audioFileName = basename + aExt;
+		audioFile = new File(fileToConvert.getParent(), audioFileName);
+		
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -908,7 +923,7 @@ public class DashboardActivity extends Activity{
 						text = getString(R.string.audio_conv_progress);
 					}
 			    	Toast.makeText(DashboardActivity.this,"YTD: " + text, Toast.LENGTH_LONG).show();
-			    	aBuilder.setContentTitle(aFileName);
+			    	aBuilder.setContentTitle(audioFileName);
 			        aBuilder.setContentText(text);
 					aNotificationManager.notify(2, aBuilder.build());
 					Utils.logger("i", vfilename + " " + text, DEBUG_TAG);
@@ -920,7 +935,7 @@ public class DashboardActivity extends Activity{
 			    String mp3BitRate = YTD.settings.getString("mp3_bitrate", getString(R.string.mp3_bitrate_default));
 			    
 			    try {
-					ffmpeg.extractAudio(fileToConvert, fileAudio, extrType, mp3BitRate, shell);
+					ffmpeg.extractAudio(fileToConvert, audioFile, extrType, mp3BitRate, shell);
 			    } catch (IOException e) {
 					Log.e(DEBUG_TAG, "IOException running ffmpeg" + e.getMessage());
 				} catch (InterruptedException e) {
@@ -957,7 +972,7 @@ public class DashboardActivity extends Activity{
 				}
 				Utils.logger("d", vfilename + " " + text, DEBUG_TAG);
 				
-				final File renamedAudioFilePath = renameAudioFile(aBaseName, fileAudio);
+				final File renamedAudioFilePath = renameAudioFile(basename, audioFile);
 				Toast.makeText(DashboardActivity.this,  renamedAudioFilePath.getName() + ": " + text, Toast.LENGTH_LONG).show();
 				aBuilder.setContentTitle(renamedAudioFilePath.getName());
 				aBuilder.setContentText(text);			
@@ -1039,7 +1054,7 @@ public class DashboardActivity extends Activity{
 	        MusicMetadata meta = new MusicMetadata("ytd");
 	        meta.setAlbum("YTD Extracted Audio");
 	        meta.setArtist("YTD");
-	        meta.setSongTitle(aBaseName);
+	        meta.setSongTitle(basename);
 	        Calendar cal = Calendar.getInstance();
 	        int year = cal.get(Calendar.YEAR);
 	        meta.setYear(String.valueOf(year));

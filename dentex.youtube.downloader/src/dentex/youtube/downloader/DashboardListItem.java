@@ -25,55 +25,47 @@ public class DashboardListItem {
 	private String status;
 	private String path;
 	private String filename;
-	private String audioFilename;
+	private String basename;
+	private String audioExt;
 	private String size;
 
-
-	public DashboardListItem(String id, String status, String path, String filename, String audioSuffix, String size) {
+	public DashboardListItem(String id, String status, String path, String filename, String basename, String audioExt, String size) {
 		this.id = id;
 		this.status = status;
 		this.path = path;
 		this.filename = filename;
-		this.audioFilename = audioSuffix;
+		this.basename =  basename;
+		this.audioExt = audioExt;
 		this.size = size;
 
 	}
-	
 	public String getId() {
 		return id;
 	}
-	
 	public String getStatus() {
 		return status;
 	}
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 	public String getPath() {
 		return path;
 	}
-	
 	public void setPath(String name) {
 		this.path = name;
 	}
 	public String getFilename() {
 		return filename;
 	}
-	
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	
-	public String getAudioFilename() {
-		return audioFilename;
+	public String getBasename() {
+		return basename;
 	}
-	
-	public void setAudioFilename(String audioFilename) {
-		this.audioFilename = audioFilename;
+	public String getAudioExt() {
+		return audioExt;
 	}
-
 	public String getSize() {
 		return size;
 	}

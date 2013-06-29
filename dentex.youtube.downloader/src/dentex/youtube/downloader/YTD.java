@@ -54,7 +54,8 @@ public class YTD extends Application {
 	public static final String JSON_DATA_STATUS = "status";
 	public static final String JSON_DATA_PATH = "path";
 	public static final String JSON_DATA_FILENAME = "filename";
-	public static final String JSON_DATA_AUDIO_FILENAME = "audio_filename";
+	public static final String JSON_DATA_BASENAME = "basename";
+	public static final String JSON_DATA_AUDIO_EXT = "audio_ext";
 	public static final String JSON_DATA_SIZE = "size";
 	
 	public static SharedPreferences settings;
@@ -63,9 +64,9 @@ public class YTD extends Application {
 	public static String PREFS_NAME = "dentex.youtube.downloader_preferences";
 	public static String VIDEOINFO_NAME = "dentex.youtube.downloader_videoinfo";
 	
-	public static String VIDEOINFO_FILENAME = "_F";
+	/*public static String VIDEOINFO_FILENAME = "_F";
 	public static String VIDEOINFO_PATH = "_P";
-	public static String VIDEOINFO_AUDIO_FILENAME = "_A";
+	public static String VIDEOINFO_AUDIO_FILENAME = "_A";*/
 	
 	/*public static String VIDEOINFO_TITLE = "_T";
 	public static String VIDEOINFO_CODEC = "_C";
