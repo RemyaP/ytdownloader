@@ -54,6 +54,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -96,7 +97,7 @@ public class DashboardActivity extends Activity{
 	private boolean isSearchBarVisible;
 	private DashboardListItem currentItem = null;
 	private TextView userFilename;
-	private boolean extrType;
+	private boolean extrTypeIsMp3Conv;
 	
 	public static Activity sDashboard;
 
@@ -141,7 +142,7 @@ public class DashboardActivity extends Activity{
         		final boolean ffmpegEnabled = YTD.settings.getBoolean("enable_advanced_features", false);
         		
         		builder.setTitle(currentItem.getFilename());
-        		builder.setItems(R.array.audio_extraction_type_entries, new DialogInterface.OnClickListener() {
+        		builder.setItems(R.array.dashboard_click_entries, new DialogInterface.OnClickListener() {
 
 					public void onClick(DialogInterface dialog, int which) {
 
@@ -149,7 +150,7 @@ public class DashboardActivity extends Activity{
 	    				if (ffmpegEnabled) {
 	    					switch (which) {
 			    			case 0:
-	    						ffmpegJob(in, false, null);
+	    						ffmpegJob(in, null);
 	    						break;
 			    			case 1:
 			    				//TODO: finish, wip.
@@ -161,7 +162,9 @@ public class DashboardActivity extends Activity{
 			    			           .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			    			               @Override
 			    			               public void onClick(DialogInterface dialog, int id) {
-			    			            	   ffmpegJob(in, true, "temp");
+			    			            	   ListPopupWindow lpw; // TODO: usare al posto dello spinner?
+
+			    			            	   ffmpegJob(in, "192");
 			    			               }
 			    			           })
 			    			           .setNegativeButton(R.string.dialogs_negative, new DialogInterface.OnClickListener() {
@@ -180,7 +183,7 @@ public class DashboardActivity extends Activity{
 	
 			    				break;
 			    			case 3:
-			    				*/		
+			    				*/
 	    					}
 	    				} else {
 	    					Utils.logger("w", "FFmpeg not installed/enabled", DEBUG_TAG);
@@ -906,7 +909,7 @@ public class DashboardActivity extends Activity{
 	
 	// #####################################################################
 
-	public void ffmpegJob(final File fileToConvert, boolean extrEnabled, final String mp3BitRate) {
+	public void ffmpegJob(final File fileToConvert, final String mp3BitRate) {
 		
 		vfilename = currentItem.getFilename();
 		
@@ -915,6 +918,12 @@ public class DashboardActivity extends Activity{
 		aNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		aBuilder.setSmallIcon(R.drawable.icon_nb);
 		aBuilder.setContentTitle(vfilename);
+		if (mp3BitRate != null) {
+			extrTypeIsMp3Conv = true;
+		} else {
+			extrTypeIsMp3Conv = false;
+		}
+		
 		
 		/*
 		 *  Audio extraction/conversion
@@ -937,7 +946,7 @@ public class DashboardActivity extends Activity{
 			    	
 			    	// Toast + Notification + Log ::: Audio job in progress...
 			    	String text = null;
-			    	if (!extrType) {
+			    	if (!extrTypeIsMp3Conv) {
 						text = getString(R.string.audio_extr_progress);
 					} else {
 						text = getString(R.string.audio_conv_progress);
@@ -955,7 +964,7 @@ public class DashboardActivity extends Activity{
 			    //String mp3BitRate = YTD.settings.getString("mp3_bitrate", getString(R.string.mp3_bitrate_default));
 			    
 			    try {
-					ffmpeg.extractAudio(fileToConvert, audioFile, extrType, mp3BitRate, shell);
+					ffmpeg.extractAudio(fileToConvert, audioFile, mp3BitRate, shell);
 			    } catch (IOException e) {
 					Log.e(DEBUG_TAG, "IOException running ffmpeg" + e.getMessage());
 				} catch (InterruptedException e) {
@@ -971,7 +980,7 @@ public class DashboardActivity extends Activity{
 		@Override
 		public void shellOut(String shellLine) {
 			findAudioSuffix(shellLine);
-			if (extrType) {
+			if (extrTypeIsMp3Conv) {
 				getAudioJobProgress(shellLine);
 			}
 			Utils.logger("d", shellLine, DEBUG_TAG);
@@ -985,26 +994,26 @@ public class DashboardActivity extends Activity{
 			if (exitValue == 0) {
 
 				// Toast + Notification + Log ::: Audio job OK
-				if (!extrType) {
+				if (!extrTypeIsMp3Conv) {
 					text = getString(R.string.audio_extr_completed);
 				} else {
 					text = getString(R.string.audio_conv_completed);
 				}
 				Utils.logger("d", vfilename + " " + text, DEBUG_TAG);
 				
-				final File renamedAudioFilePath = renameAudioFile(basename, audioFile);
-				Toast.makeText(DashboardActivity.this,  renamedAudioFilePath.getName() + ": " + text, Toast.LENGTH_LONG).show();
-				aBuilder.setContentTitle(renamedAudioFilePath.getName());
+				final File renamedAudioFile = addSuffixToAudioFile(basename, audioFile);
+				Toast.makeText(DashboardActivity.this,  renamedAudioFile.getName() + ": " + text, Toast.LENGTH_LONG).show();
+				aBuilder.setContentTitle(renamedAudioFile.getName());
 				aBuilder.setContentText(text);			
-				audioIntent.setDataAndType(Uri.fromFile(renamedAudioFilePath), "audio/*");
+				audioIntent.setDataAndType(Uri.fromFile(renamedAudioFile), "audio/*");
 				PendingIntent contentIntent = PendingIntent.getActivity(DashboardActivity.this, 0, audioIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         		aBuilder.setContentIntent(contentIntent);
         		
         		// write id3 tags
-				if (extrType) {
+				if (extrTypeIsMp3Conv) {
 					try {
 						Utils.logger("d", "writing ID3 tags...", DEBUG_TAG);
-						addId3Tags(renamedAudioFilePath);
+						addId3Tags(renamedAudioFile);
 					} catch (ID3WriteException e) {
 						Log.e(DEBUG_TAG, "Unable to write id3 tags", e);
 					} catch (IOException e) {
@@ -1013,7 +1022,7 @@ public class DashboardActivity extends Activity{
 				}
 				
 				Utils.scanMedia(getApplicationContext(), 
-						new String[] {renamedAudioFilePath.getAbsolutePath()}, 
+						new String[] {renamedAudioFile.getAbsolutePath()}, 
 						new String[] {"audio/*"});
 				
 				Utils.setNotificationDefaults(aBuilder);
@@ -1040,17 +1049,17 @@ public class DashboardActivity extends Activity{
 		}
     }
     
-	public File renameAudioFile(String aBaseName, File extractedAudioFile) {
+	public File addSuffixToAudioFile(String aBaseName, File extractedAudioFile) {
 		// Rename audio file to add a more detailed suffix, 
 		// but only if it has been matched from the ffmpeg console output
-		if (!extrType &&
+		if (!extrTypeIsMp3Conv &&
 				extractedAudioFile.exists() && 
 				!aSuffix.equals(".audio")) {
-			String newFileName = aBaseName + aSuffix;
-			File newFileNamePath = new File(ShareActivity.path, newFileName);
-			if (extractedAudioFile.renameTo(newFileNamePath)) {
-				Utils.logger("i", extractedAudioFile.getName() + " renamed to: " + newFileName, DEBUG_TAG);
-				return newFileNamePath;
+			String newName = aBaseName + aSuffix;
+			File newFile = new File(currentItem.getPath(), newName);
+			if (extractedAudioFile.renameTo(newFile)) {
+				Utils.logger("i", extractedAudioFile.getName() + " renamed to: " + newName, DEBUG_TAG);
+				return newFile;
 			} else {
 				Log.e(DEBUG_TAG, "Unable to rename " + extractedAudioFile.getName() + " to: " + aSuffix);
 			}
@@ -1085,7 +1094,7 @@ public class DashboardActivity extends Activity{
 	private void findAudioSuffix(String shellLine) {
 		Pattern audioPattern = Pattern.compile("#0:0.*: Audio: (.+), .+?(mono|stereo .default.|stereo)(, .+ kb|)"); 
 		Matcher audioMatcher = audioPattern.matcher(shellLine);
-		if (audioMatcher.find() && !extrType) {
+		if (audioMatcher.find() && !extrTypeIsMp3Conv) {
 			String oggBr = "a";
 			String groupTwo = "n";
 			if (audioMatcher.group(2).equals("stereo (default)")) {
@@ -1108,13 +1117,13 @@ public class DashboardActivity extends Activity{
 					"." +
 					audioMatcher.group(1).replaceFirst(" (.*/.*)", "").replace("vorbis", "ogg");
 			
-			Utils.logger("i", "AudioSuffix: " + aSuffix, DEBUG_TAG);
+			Utils.logger("i", "Audio suffix found: " + aSuffix, DEBUG_TAG);
 		}
 	}
 
 	public void setNotificationForAudioJobError() {
 		String text;
-		if (!extrType) {
+		if (!extrTypeIsMp3Conv) {
 			text = getString(R.string.audio_extr_error);
 		} else {
 			text = getString(R.string.audio_conv_error);

@@ -147,11 +147,14 @@
 	<string name="menu_search">cerca&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Estrai l\'audio (come definito nelle preferenze)</item>
+	    <item>Solo estrazione audio</item>
+        <item>Estrazione e codifica audio in mp3</item>
     </string-array>
     
 	<string name="ffmpeg_not_enabled_title">FFmpeg non installallato o abilitato:</string>
 	<string name="ffmpeg_not_enabled_msg">Aprire le preferenze?</string>
+	<string name="remove_video">Cancella il video dopo aver estratto l\'audio (nessuna conferma!)</string>
+	<string name="edit_id3_tags">Modifica le tag ID3</string>
 	
 	<string name="dashboard_long_click_entry_0">Copia</string>
 	<string name="dashboard_long_click_entry_1">Sposta</string>
@@ -185,7 +188,7 @@
     <!-- -->
     <string name="settings_cat_ui">Interfaccia utente</string>
     <string name="lang_title">Lingua</string>
-    <string name="lang_dialog_title">Lingua (richiede riavvio dell\'applicazione):</string>
+    <string name="lang_dialog_title">Scegli la lingua dell\'interfaccia utente:</string>
     <string name="choose_theme_title">Scegli il tema</string>
     <string-array name="choose_theme_entries">
         <item>Scuro</item>
@@ -241,15 +244,10 @@ nella lista video di YTD. Quando spuntato, il lavoro di estrazione audio comince
     <string name="settings_cat_advanced">Avanzate</string>
     <string name="enable_advanced_features_title">Abilità funzionalità avanzate</string>
     <string name="enable_advanced_features_summary">Scarica il \"plugin\" FFmpeg</string>
-    <string name="mp3_bitrate_title">Bitrate per la codifica in mp3 (kbps)</string>
+    <string name="mp3_bitrate_title">Bitrate di codifica per l\'mp3 (kbps)</string>
     <string name="audio_extraction_type_title">Tipo di estrazione</string>
     <string name="remove_video_title">Rimozione del video</string>
     <string name="remove_video_summary">Abilita la cancellazione del file video dopo aver estratto l\'audio con successo (attenzione: nessuna conferma)</string>
-
-    <string-array name="audio_extraction_type_entries">
-        <item>Solo estrazione</item>
-        <item>Estrazione e codifica in mp3</item>
-    </string-array>
     
     <!-- -->
     <string name="settings_cat_notifications">Notifiche</string>

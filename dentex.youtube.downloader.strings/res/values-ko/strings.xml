@@ -67,7 +67,7 @@
     <string name="login_required">유튜브에 로그인해야 합니다.</string>
     <string name="login_required_dialog_msg">YTD가 이 비디오를 처리할 수 없습니다.</string>
     <string name="no_video_available">비디오가 없습니다.</string>
-    <string name="retry_button_text">Retry</string>
+    <string name="retry_button_text">재시도</string>
     
     <string-array name="long_click_entries">
         <item>클립보드에 복사</item>
@@ -146,11 +146,14 @@
 	<string name="menu_search">검색&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Extract audio (as defined in settings)</item>
+	    <item>Extract audio only</item>
+        <item>Extract and encode audio to mp3</item>
     </string-array>
     
-	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
-	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
+	<string name="ffmpeg_not_enabled_title">FFmpeg 이 설치되지 않았거나 활성화되지 않았습니다:</string>
+	<string name="ffmpeg_not_enabled_msg">설정화면으로 가시겠습니까?</string>
+	<string name="remove_video">Delete video after audio extraction (no confirmation!)</string>
+	<string name="edit_id3_tags">Edit ID3 tags</string>
 	
 	<string name="dashboard_long_click_entry_0">복사</string>
 	<string name="dashboard_long_click_entry_1">이동</string>
@@ -168,7 +171,7 @@
     <string name="move_ok">파일 이동이 완료되었습니다.</string>
     <string name="long_press_warning_title">명령 실행 불가:</string>
     <string name="long_press_warning_msg">소스 폴더와 목적 폴더가 겹칩니다.</string>
-    <string name="long_press_warning_msg2">A copy already exists in this folder.</string>
+    <string name="long_press_warning_msg2">복사본이 이미 이 폴더에 있습니다.</string>
 
 	<string name="delete_video_confirm">이 비디오를 삭제하시겠습니까?</string>
 	<string name="delete_video_ok">%1$s 이(가) 성공적으로 삭제되었습니다.</string>
@@ -184,7 +187,7 @@
     <!-- -->
     <string name="settings_cat_ui">사용자 인터페이스</string>
     <string name="lang_title">언어</string>
-    <string name="lang_dialog_title">언어 선택 (앱 재시작 필요)</string>
+    <string name="lang_dialog_title">Choose UI language:</string>
     <string name="choose_theme_title">테마</string>
     <string-array name="choose_theme_entries">
         <item>어두운 테마</item>
@@ -237,17 +240,12 @@
     
     <!-- -->
     <string name="settings_cat_advanced">고급설정</string>
-    <string name="enable_advanced_features_title">Enable Advanced Features</string>
-    <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
-    <string name="mp3_bitrate_title">mp3 음질 설정 (kbps)</string>
+    <string name="enable_advanced_features_title">고급 기능 켜기</string>
+    <string name="enable_advanced_features_summary">FFmpeg \"플러그인\" 다운로드</string>
+    <string name="mp3_bitrate_title">Mp3 encoding bitrate (kbps)</string>
     <string name="audio_extraction_type_title">오디오 추출 형식</string>
     <string name="remove_video_title">비디오 제거</string>
     <string name="remove_video_summary">오디오 추출이 끝난 후 비디오 파일을 삭제합니다 (주의: 별도의 확인 메세지 없음)</string>
-
-    <string-array name="audio_extraction_type_entries">
-        <item>오디오 추출만 하기</item>
-        <item>오디오 추출 후 mp3로 변환</item>
-    </string-array>
     
     <!-- -->
     <string name="settings_cat_notifications">알림</string>
@@ -358,7 +356,7 @@ the content is CC BY-SA 3.0 licensed (see <http>http://creativecommons.org/licen
 	<string name="ssh_to_longpress_menu_summary">비디오 목록에서 오래 누르기를 했을 때 \"SSH로 보내기\"가 보이도록 합니다</string>
 	
     <!-- -->
-	<string name="settings_cat_system">System</string>
+	<string name="settings_cat_system">시스템</string>
 	<string name="enable_logging_title">로깅 활성화</string>
 	<string name="enable_logging_summary">유튜브 다운로더의 로그를 시스템 로그에 남깁니다. 개발자에게 디버깅 정보를 보내려면 반드시 필요합니다.</string>
 </resources>

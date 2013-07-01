@@ -65,10 +65,10 @@ Verzeichnis, füge den Befehl ein (verwende den Menü-Knopf) und drücke ENTER.<
     <string name="ffmpeg_ready">FFmpeg bereit.</string>
     <string name="confirm_audio_checkbox1">Extrahiere Tonspur nach dem Download</string>
     <string name="confirm_audio_checkbox2">\n(wie in den Einstellungen definiert)</string>
-    <string name="login_required">Login to YouTube required.</string>
-    <string name="login_required_dialog_msg">YTD can\'t handle this video.</string>
-    <string name="no_video_available">No video available.</string>
-    <string name="retry_button_text">Retry</string>
+    <string name="login_required">Anmeldung auf YouTube notwendig.</string>
+    <string name="login_required_dialog_msg">YTD kann dieses Video nicht wiedergegebe!</string>
+    <string name="no_video_available">Video nicht verfügbar!</string>
+    <string name="retry_button_text">Wiederholen</string>
     
     <string-array name="long_click_entries">
         <item>In die Zwischenablage kopieren</item>
@@ -119,9 +119,9 @@ Du kannst alle Daten in deiner E-Mail App einsehen, bevor sie gesendet werden.</
     <!-- ### DownloadsService ### -->
     
     <string name="ytd_video">YTD-Video</string>
-    <string name="copy_error">Error during copy.</string>
+    <string name="copy_error">Fehler beim Kopieren!</string>
     <string name="copy_progress">Dateien werden kopiert&#8230;</string>
-    <string name="copy_ok">File copy completed.</string>
+    <string name="copy_ok">Datei vollständig kopiert.</string>
     <string name="download_remove_failed">Fehler: temporäre Download-Datei wurde nicht gelöscht!</string>
     <string name="download_failed">Download fehlgeschlagen!</string>
     <string name="audio_extr_progress">Tonspur wird extrahiert&#8230;</string>
@@ -141,41 +141,44 @@ Du kannst alle Daten in deiner E-Mail App einsehen, bevor sie gesendet werden.</
 	<string name="ffmpeg_install_failed">FFmpeg Installation fehlgeschlagen.</string>
 	
 	<!-- ### DashboardActivity ### -->
-	<string name="json_status_completed">Completed</string>
-	<string name="json_status_failed">Failed</string>
-	<string name="json_status_in_progress">In Progress</string>
-	<string name="menu_search">search&#8230;</string>
+	<string name="json_status_completed">Beendet</string>
+	<string name="json_status_failed">Fehlgeschlagen</string>
+	<string name="json_status_in_progress">In Bearbeitung</string>
+	<string name="menu_search">Suche&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Extract audio (as defined in settings)</item>
+	    <item>Extract audio only</item>
+        <item>Extract and encode audio to mp3</item>
     </string-array>
     
-	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
-	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
+	<string name="ffmpeg_not_enabled_title">FFmpeg nicht installiert oder aktiviert!</string>
+	<string name="ffmpeg_not_enabled_msg">Einstellungen offenen?</string>
+	<string name="remove_video">Delete video after audio extraction (no confirmation!)</string>
+	<string name="edit_id3_tags">Edit ID3 tags</string>
 	
-	<string name="dashboard_long_click_entry_0">Copy</string>
-	<string name="dashboard_long_click_entry_1">Move</string>
-	<string name="dashboard_long_click_entry_2">Delete</string>
+	<string name="dashboard_long_click_entry_0">Kopieren</string>
+	<string name="dashboard_long_click_entry_1">Verschieben</string>
+	<string name="dashboard_long_click_entry_2">Löschen</string>
 	
 	<string-array name="dashboard_long_click_entries">
-	    <item>Copy</item>
-	    <item>Move</item>
-        <item>Rename</item>
-        <item>Delete</item>
+	    <item>Kopieren</item>
+	    <item>Verschieben</item>
+        <item>Umbenennen</item>
+        <item>Löschen</item>
     </string-array>
     
-	<string name="move_error">Error during move.</string>
-    <string name="move_progress">File move in progress&#8230;</string>
-    <string name="move_ok">File move completed.</string>
-    <string name="long_press_warning_title">Operation not executed:</string>
-    <string name="long_press_warning_msg">Source and destination folders overlap.</string>
-    <string name="long_press_warning_msg2">A copy already exists in this folder.</string>
+	<string name="move_error">Fehler beim Verschieben!</string>
+    <string name="move_progress">Datei wird verschoben&#8230;</string>
+    <string name="move_ok">Verschieben der Datei abgeschlossen.</string>
+    <string name="long_press_warning_title">Nicht ausgeführt:</string>
+    <string name="long_press_warning_msg">Quelle- &amp; Zielordner sind gleich!</string>
+    <string name="long_press_warning_msg2">Datei in diesem Ordner bereits vorhanden!</string>
 
-	<string name="delete_video_confirm">Confirm you want to delete this video?</string>
-	<string name="delete_video_ok">%1$s successfully deleted.</string>
-	<string name="delete_video_failed">Error: %1$s not deleted.</string>
+	<string name="delete_video_confirm">Möchten Sie das Video wirklich löschen?</string>
+	<string name="delete_video_ok">%1$s erfolgreich gelöscht!</string>
+	<string name="delete_video_failed">Fehler: %1$s nicht gelöscht!</string>
 	
-	<string name="empty_dashboard">No downloaded video.</string>
+	<string name="empty_dashboard">Keine heruntergeladenen Videos!</string>
 
     <!-- ### preferences ### -->
 
@@ -185,7 +188,7 @@ Du kannst alle Daten in deiner E-Mail App einsehen, bevor sie gesendet werden.</
     <!-- -->
     <string name="settings_cat_ui">Benutzeroberfläche</string>
     <string name="lang_title">Sprache</string>
-    <string name="lang_dialog_title">Sprache (benötigt App-Neustart):</string>
+    <string name="lang_dialog_title">Choose UI language:</string>
     <string name="choose_theme_title">Thema auswählen</string>
     <string-array name="choose_theme_entries">
         <item>Dunkel</item>
@@ -239,17 +242,12 @@ in der YTD\'s Video Liste angeklickt wird. Ist der Haken gesetzt, wird die Tonsp
     
     <!-- -->
     <string name="settings_cat_advanced">Erweitert</string>
-    <string name="enable_advanced_features_title">Enable Advanced Features</string>
-    <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
-    <string name="mp3_bitrate_title">Bitrate für MP3 Kodierung (kbps)</string>
+    <string name="enable_advanced_features_title">Erweiterte Funktionen aktivieren</string>
+    <string name="enable_advanced_features_summary">FFmpeg-\"Plugin\" herunterladen</string>
+    <string name="mp3_bitrate_title">Mp3 encoding bitrate (kbps)</string>
     <string name="audio_extraction_type_title">Extraktionstyp</string>
     <string name="remove_video_title">Video entfernen</string>
     <string name="remove_video_summary">Aktiviere Videodatei-Löschung nach erfolgreicher Tonspur-Extraktion (Achtung: ohne Bestätigung)</string>
-
-    <string-array name="audio_extraction_type_entries">
-        <item>Nur extrahieren</item>
-        <item>Extrahieren und als MP3 kodieren</item>
-    </string-array>
     
     <!-- -->
     <string name="settings_cat_notifications">Benachrichtigungen</string>

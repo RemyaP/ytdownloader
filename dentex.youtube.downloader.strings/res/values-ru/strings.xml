@@ -147,11 +147,14 @@
 	<string name="menu_search">поиск&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Извлечь аудио (как определено в настройках)</item>
+	    <item>Extract audio only</item>
+        <item>Extract and encode audio to mp3</item>
     </string-array>
     
-	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
-	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
+	<string name="ffmpeg_not_enabled_title">FFmpeg не установлен или не включён:</string>
+	<string name="ffmpeg_not_enabled_msg">Открыть настройки?</string>
+	<string name="remove_video">Delete video after audio extraction (no confirmation!)</string>
+	<string name="edit_id3_tags">Edit ID3 tags</string>
 	
 	<string name="dashboard_long_click_entry_0">Копировать</string>
 	<string name="dashboard_long_click_entry_1">Переместить</string>
@@ -185,7 +188,7 @@
     <!-- -->
     <string name="settings_cat_ui">Пользовательский интерфейс</string>
     <string name="lang_title">Язык</string>
-    <string name="lang_dialog_title">Язык (необходима перезагрузка приложения):</string>
+    <string name="lang_dialog_title">Choose UI language:</string>
     <string name="choose_theme_title">Выбрать тему</string>
     <string-array name="choose_theme_entries">
         <item>Тёмная</item>
@@ -239,17 +242,12 @@
     
     <!-- -->
     <string name="settings_cat_advanced">Дополнительно</string>
-    <string name="enable_advanced_features_title">Enable Advanced Features</string>
-    <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
-    <string name="mp3_bitrate_title">Битрейт кодирования mp3 (кб/с)</string>
+    <string name="enable_advanced_features_title">Включить дополнительные функции</string>
+    <string name="enable_advanced_features_summary">Скачать \"плагин\" FFmpeg</string>
+    <string name="mp3_bitrate_title">Mp3 encoding bitrate (kbps)</string>
     <string name="audio_extraction_type_title">Тип извлечения</string>
     <string name="remove_video_title">Удаление видео</string>
     <string name="remove_video_summary">Включить удаление видео после успешного извлечения аудио (предупреждение: без подтверждения)</string>
-
-    <string-array name="audio_extraction_type_entries">
-        <item>Только извлечение</item>
-        <item>Извлечение и кодирование в mp3</item>
-    </string-array>
     
     <!-- -->
     <string name="settings_cat_notifications">Уведомления</string>
@@ -366,7 +364,7 @@ YTD mp3 теги написаны  с MyID3: библиотека тегов Jav
 	<string name="ssh_to_longpress_menu_summary">Поместить действие \"Послать через SSH\" в меню длительного нажатия в списке видео</string>
 	
     <!-- -->
-	<string name="settings_cat_system">System</string>
+	<string name="settings_cat_system">Система</string>
 	<string name="enable_logging_title">Включить журнал</string>
 	<string name="enable_logging_summary">Включать сообщения YTD в журнал системы. Обязательно при отправке логката разработчику.</string>
 </resources>

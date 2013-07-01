@@ -147,11 +147,14 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
 	<string name="menu_search">search&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Extract audio (as defined in settings)</item>
+	    <item>Extract audio only</item>
+        <item>Extract and encode audio to mp3</item>
     </string-array>
     
 	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
 	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
+	<string name="remove_video">Delete video after audio extraction (no confirmation!)</string>
+	<string name="edit_id3_tags">Edit ID3 tags</string>
 	
 	<string name="dashboard_long_click_entry_0">Copy</string>
 	<string name="dashboard_long_click_entry_1">Move</string>
@@ -185,7 +188,7 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
     <!-- -->
     <string name="settings_cat_ui">Interface utilisateur</string>
     <string name="lang_title">Langue</string>
-    <string name="lang_dialog_title">Langue (nécessite un redémarrage de l\'application):</string>
+    <string name="lang_dialog_title">Choose UI language:</string>
     <string name="choose_theme_title">Choisir le thème</string>
     <string-array name="choose_theme_entries">
         <item>Sombre</item>
@@ -241,15 +244,10 @@ in the YTD\'s video list. When checked, the audio extraction job will start upon
     <string name="settings_cat_advanced">Paramètres avancés</string>
     <string name="enable_advanced_features_title">Enable Advanced Features</string>
     <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
-    <string name="mp3_bitrate_title">Débit binaire pour l\'encodage MP3 (kbps)</string>
+    <string name="mp3_bitrate_title">Mp3 encoding bitrate (kbps)</string>
     <string name="audio_extraction_type_title">Type d\'extraction</string>
     <string name="remove_video_title">Suppression vidéo</string>
     <string name="remove_video_summary">Activer la suppression du fichier vidéo après avoir correctement extrait l\'audio (attention : pas de confirmation)</string>
-
-    <string-array name="audio_extraction_type_entries">
-        <item>Extraire seulement</item>
-        <item>Extraire et encoder en MP3</item>
-    </string-array>
     
     <!-- -->
     <string name="settings_cat_notifications">Notifications</string>

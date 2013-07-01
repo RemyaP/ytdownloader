@@ -145,11 +145,14 @@
 	<string name="menu_search">search&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Extract audio (as defined in settings)</item>
+	    <item>Extract audio only</item>
+        <item>Extract and encode audio to mp3</item>
     </string-array>
     
 	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
 	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
+	<string name="remove_video">Delete video after audio extraction (no confirmation!)</string>
+	<string name="edit_id3_tags">Edit ID3 tags</string>
 	
 	<string name="dashboard_long_click_entry_0">Copy</string>
 	<string name="dashboard_long_click_entry_1">Move</string>
@@ -183,7 +186,7 @@
     <!-- -->
     <string name="settings_cat_ui">واجهة المستخدم</string>
     <string name="lang_title">اللغة</string>
-    <string name="lang_dialog_title">Language (needs application\'s restart):</string>
+    <string name="lang_dialog_title">Choose UI language:</string>
     <string name="choose_theme_title">اختر سمة</string>
     <string-array name="choose_theme_entries">
         <item>غامق</item>
@@ -193,10 +196,10 @@
     <!-- -->
     <string name="quick_start_title">بداية سريعة</string>
     <string name="quick_start_summ">فتح عرض تعليم سريع</string>
-    <string name="quick_start_text">Here are just the preferences for \'YouTube Downloader\'.
-		\n\nThe actual App can be accessed via the share button in the YouTube App, while watching a video.
-		\n\nThen choose \'YouTube Downloader\' and you will have further usage info.
-		\n\nYou can also share any YouTube plain text link via any other App: i.e. your browser.</string>
+    <string name="quick_start_text">هاهي فقط التفضيلات الخاصة بـ \'YouTube Downloader\'.
+\n\nالتطبيق بذاته يمكن الوصول اليه عبر زر المشاركة في تطبيق اليوتيوب، بينما تشاهدون مقطع الفيديو.
+\n\nثم اختيار \'YouTube Downloader\' وسوف تحصلون على معلومات اضافية للاستخدام.
+\n\nتستطيعون ايضاً مشاركة أي نص رابط لليوتيوب عبر تطبيقات آخرى:متصفح الانترنت.</string>
     <string name="general_info_title">تفعيل الكيفيات العامة</string>
     <string name="general_info_summary">عرض البرنامج التعليمي في بداية التشغيل</string>
     <string name="show_again_checkbox">عرض في المرات القادمة</string>
@@ -218,8 +221,8 @@
     <!-- -->
     <string name="settings_cat_folder">مجلد التحميل</string>
     <string name="standard_location_title">اختر المجلد الاساسي</string>
-    <string name="chooser_swap_title">Swap chooser</string>
-    <string name="chooser_location_title">Open file-chooser</string>
+    <string name="chooser_swap_title">تبديل المنتقي</string>
+    <string name="chooser_location_title">فتح منتقي-الملف</string>
     <string name="chooser_location_summary">ضغطة طويلة لاختيار مجلد</string>
 	
     <!-- -->
@@ -239,15 +242,10 @@
     <string name="settings_cat_advanced">Advanced</string>
     <string name="enable_advanced_features_title">Enable Advanced Features</string>
     <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
-    <string name="mp3_bitrate_title">Bitrate for mp3 encoding (kbps)</string>
+    <string name="mp3_bitrate_title">Mp3 encoding bitrate (kbps)</string>
     <string name="audio_extraction_type_title">Extraction type</string>
     <string name="remove_video_title">Video removal</string>
     <string name="remove_video_summary">Enable video file deletion after successful audio extraction (warning: no confirmation)</string>
-
-    <string-array name="audio_extraction_type_entries">
-        <item>Extract only</item>
-        <item>Extract and encode to mp3</item>
-    </string-array>
     
     <!-- -->
     <string name="settings_cat_notifications">إشعارات</string>

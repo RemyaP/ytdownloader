@@ -147,11 +147,14 @@ illeszd be a parancsot (a menü gombal), és nyomd meg az ENTER-t.</string>
 	<string name="menu_search">search&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Extract audio (as defined in settings)</item>
+	    <item>Extract audio only</item>
+        <item>Extract and encode audio to mp3</item>
     </string-array>
     
 	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
 	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
+	<string name="remove_video">Delete video after audio extraction (no confirmation!)</string>
+	<string name="edit_id3_tags">Edit ID3 tags</string>
 	
 	<string name="dashboard_long_click_entry_0">Copy</string>
 	<string name="dashboard_long_click_entry_1">Move</string>
@@ -185,7 +188,7 @@ illeszd be a parancsot (a menü gombal), és nyomd meg az ENTER-t.</string>
     <!-- -->
     <string name="settings_cat_ui">Felhasználói felület</string>
     <string name="lang_title">Nyelv</string>
-    <string name="lang_dialog_title">Nyelv (újraindítást igényel):</string>
+    <string name="lang_dialog_title">Choose UI language:</string>
     <string name="choose_theme_title">Téma választása</string>
     <string-array name="choose_theme_entries">
         <item>Sötét</item>
@@ -240,15 +243,10 @@ MP4, 3GPP és közepes/nagy FLV videókat  \"AAC\" formátumuként; a kis FLV f�
     <string name="settings_cat_advanced">Speciális beállítások</string>
     <string name="enable_advanced_features_title">Enable Advanced Features</string>
     <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
-    <string name="mp3_bitrate_title">MP3 bitráta (kbps)</string>
+    <string name="mp3_bitrate_title">Mp3 encoding bitrate (kbps)</string>
     <string name="audio_extraction_type_title">Kicsomagolás típúsa</string>
     <string name="remove_video_title">Videó eltávolítás</string>
     <string name="remove_video_summary">Videó törlésének engedélyezése sikeres hang kicsomagoláskor (figyelem: nincs megerősítés)</string>
-
-    <string-array name="audio_extraction_type_entries">
-        <item>Csak kicsomagolás</item>
-        <item>Kicsomagolás és konvertálás mp3-ba</item>
-    </string-array>
     
     <!-- -->
     <string name="settings_cat_notifications">Értesítések</string>

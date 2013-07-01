@@ -68,7 +68,7 @@
     <string name="login_required">Η σύνδεση στο YouTube είναι απαραίτητη.</string>
     <string name="login_required_dialog_msg">Το YTD δεν μπορεί να διαχειριστεί αυτό το βίντεο.</string>
     <string name="no_video_available">Κανένα βίντεο διαθέσιμο.</string>
-    <string name="retry_button_text">Retry</string>
+    <string name="retry_button_text">Επανάληψη</string>
     
     <string-array name="long_click_entries">
         <item>Αντιγραφή στο πρόχειρο</item>
@@ -147,11 +147,14 @@
 	<string name="menu_search">αναζήτηση&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Extract audio (as defined in settings)</item>
+	    <item>Extract audio only</item>
+        <item>Extract and encode audio to mp3</item>
     </string-array>
     
-	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
-	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
+	<string name="ffmpeg_not_enabled_title">Το FFmpeg δεν είναι εγκατεστημένο ή ενεργοποιημένο:</string>
+	<string name="ffmpeg_not_enabled_msg">Άνοιγμα ρυθμίσεων;</string>
+	<string name="remove_video">Delete video after audio extraction (no confirmation!)</string>
+	<string name="edit_id3_tags">Edit ID3 tags</string>
 	
 	<string name="dashboard_long_click_entry_0">Αντιγραφή</string>
 	<string name="dashboard_long_click_entry_1">Μετακίνηση</string>
@@ -169,7 +172,7 @@
     <string name="move_ok">Η μετακίνηση αρχείων ολοκληρώθηκε.</string>
     <string name="long_press_warning_title">Η διεργασία δεν εκτελέστηκε:</string>
     <string name="long_press_warning_msg">Οι φάκελοι προέλευσης και προορισμού συμπίπτουν.</string>
-    <string name="long_press_warning_msg2">A copy already exists in this folder.</string>
+    <string name="long_press_warning_msg2">Υπάρχει ήδη ένα αντίγραφο σε αυτό το φάκελο.</string>
 
 	<string name="delete_video_confirm">Είστε σίγουρος ότι θέλετε να διαγράψετε αυτό το βίντεο;</string>
 	<string name="delete_video_ok">%1$s διαγράφτηκε επιτυχώς.</string>
@@ -185,7 +188,7 @@
     <!-- -->
     <string name="settings_cat_ui">Διεπαφή χρήστη</string>
     <string name="lang_title">Γλώσσα</string>
-    <string name="lang_dialog_title">Γλώσσα (χρειάζεται επανεκκίνηση):</string>
+    <string name="lang_dialog_title">Choose UI language:</string>
     <string name="choose_theme_title">Επιλογή θέματος</string>
     <string-array name="choose_theme_entries">
         <item>Σκοτεινό</item>
@@ -239,17 +242,12 @@
     
     <!-- -->
     <string name="settings_cat_advanced">Για προχωρημένους</string>
-    <string name="enable_advanced_features_title">Enable Advanced Features</string>
-    <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
-    <string name="mp3_bitrate_title">Bitrate κωδικοποίησης mp3 (kbps)</string>
+    <string name="enable_advanced_features_title">Ενεργοποίηση Προχωρημένων Χαρακτηριστικών</string>
+    <string name="enable_advanced_features_summary">Λήψη \"πρόσθετου\" FFmpeg</string>
+    <string name="mp3_bitrate_title">Mp3 encoding bitrate (kbps)</string>
     <string name="audio_extraction_type_title">Τύπος εξαγωγής</string>
     <string name="remove_video_title">Αφαίρεση βίντεο</string>
     <string name="remove_video_summary">Ενεργοποίηση διαγραφής του αρχείου βίντεο μετά από επιτυχημένη εξαγωγή ήχου (προσοχή: χωρίς επιβεβαίωση!)</string>
-
-    <string-array name="audio_extraction_type_entries">
-        <item>Μόνο εξαγωγή</item>
-        <item>Εξαγωγή και κωδικοποίηση σε mp3</item>
-    </string-array>
     
     <!-- -->
     <string name="settings_cat_notifications">Ειδοποιήσεις</string>
@@ -366,7 +364,7 @@ A GitHub project, <http>https://github.com/intervigilium/liblame</http>,
 	<string name="ssh_to_longpress_menu_summary">Μεταφορά της εντολής \"Αποστολή μέσω SSH\" στο μενού παρατεταμένης πίεσης στη λίστα βίντεο</string>
 	
     <!-- -->
-	<string name="settings_cat_system">System</string>
+	<string name="settings_cat_system">Σύστημα</string>
 	<string name="enable_logging_title">Ενεργοποίηση καταγραφής</string>
 	<string name="enable_logging_summary">Συμπερίληψη μηνυμάτων του YTD στο αρχείο καταγραφής συστήματος. Υποχρεωτικό για αποστολή logcat στον προγραμματιστή.</string>
 </resources>

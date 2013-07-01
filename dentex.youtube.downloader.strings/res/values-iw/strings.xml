@@ -146,11 +146,14 @@ ssh ללחוץ על פריט בשביל להוריד את הווידיאו על 
 	<string name="menu_search">search&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Extract audio (as defined in settings)</item>
+	    <item>Extract audio only</item>
+        <item>Extract and encode audio to mp3</item>
     </string-array>
     
 	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
 	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
+	<string name="remove_video">Delete video after audio extraction (no confirmation!)</string>
+	<string name="edit_id3_tags">Edit ID3 tags</string>
 	
 	<string name="dashboard_long_click_entry_0">Copy</string>
 	<string name="dashboard_long_click_entry_1">Move</string>
@@ -184,7 +187,7 @@ ssh ללחוץ על פריט בשביל להוריד את הווידיאו על 
     <!-- -->
     <string name="settings_cat_ui">ממשק משתמש</string>
     <string name="lang_title">שפה</string>
-    <string name="lang_dialog_title">שפה (הפעלה מחדש של היישום)</string>
+    <string name="lang_dialog_title">Choose UI language:</string>
     <string name="choose_theme_title">בחר ערכת נושא</string>
     <string-array name="choose_theme_entries">
         <item>כהה</item>
@@ -241,15 +244,10 @@ ssh ללחוץ על פריט בשביל להוריד את הווידיאו על 
     <string name="settings_cat_advanced">מתקדם</string>
     <string name="enable_advanced_features_title">Enable Advanced Features</string>
     <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
-    <string name="mp3_bitrate_title">קצב הסיביות לקידוד MP3 (kbps)</string>
+    <string name="mp3_bitrate_title">Mp3 encoding bitrate (kbps)</string>
     <string name="audio_extraction_type_title">סוג החילוץ</string>
     <string name="remove_video_title">הסרת וידאו</string>
     <string name="remove_video_summary">לאפשר מחיקת קובץ וידאו לאחר חילוץ אודיו מוצלח (אזהרה: ללא אישור)</string>
-
-    <string-array name="audio_extraction_type_entries">
-        <item>חלץ בלבד</item>
-        <item>לחלץ ולקודד ל-MP3</item>
-    </string-array>
     
     <!-- -->
     <string name="settings_cat_notifications">התראות</string>

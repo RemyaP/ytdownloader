@@ -68,7 +68,7 @@
     <string name="login_required">YouTube girişi yapmalısınız.</string>
     <string name="login_required_dialog_msg">YDT bu videoyu işleyemiyor.</string>
     <string name="no_video_available">Video yok.</string>
-    <string name="retry_button_text">Retry</string>
+    <string name="retry_button_text">Yeniden dene</string>
     
     <string-array name="long_click_entries">
         <item>Panoya kopyala</item>
@@ -147,11 +147,14 @@
 	<string name="menu_search">ara&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Extract audio (as defined in settings)</item>
+	    <item>Extract audio only</item>
+        <item>Extract and encode audio to mp3</item>
     </string-array>
     
-	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
-	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
+	<string name="ffmpeg_not_enabled_title">FFmpeg yüklü ya da aktif değil:</string>
+	<string name="ffmpeg_not_enabled_msg">Ayarlar açılsın mı?</string>
+	<string name="remove_video">Delete video after audio extraction (no confirmation!)</string>
+	<string name="edit_id3_tags">Edit ID3 tags</string>
 	
 	<string name="dashboard_long_click_entry_0">Kopyala</string>
 	<string name="dashboard_long_click_entry_1">Taşı</string>
@@ -169,7 +172,7 @@
     <string name="move_ok">Dosya taşıma tamamlandı.</string>
     <string name="long_press_warning_title">Yürütülemeyen işlemler:</string>
     <string name="long_press_warning_msg">Kaynak ve hedef dizinleri aynı.</string>
-    <string name="long_press_warning_msg2">A copy already exists in this folder.</string>
+    <string name="long_press_warning_msg2">Bu klasörde zaten bir kopya var.</string>
 
 	<string name="delete_video_confirm">Bu dosyayı silmek istiyor musunuz?</string>
 	<string name="delete_video_ok">%1$s silindi.</string>
@@ -185,7 +188,7 @@
     <!-- -->
     <string name="settings_cat_ui">Kullanıcı Arabirimi</string>
     <string name="lang_title">Lisan</string>
-    <string name="lang_dialog_title">Lisan (uygulama yeniden başlatılmalıdır):</string>
+    <string name="lang_dialog_title">Choose UI language:</string>
     <string name="choose_theme_title">Tema seç</string>
     <string-array name="choose_theme_entries">
         <item>Koyu</item>
@@ -240,17 +243,12 @@ Onay verildikten sonra video indirme işlemi bittikten sonra ses aıyklama başl
     
     <!-- -->
     <string name="settings_cat_advanced">Advanced</string>
-    <string name="enable_advanced_features_title">Enable Advanced Features</string>
-    <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
-    <string name="mp3_bitrate_title">Mp3 için bithızı kodlaması (kbps)</string>
+    <string name="enable_advanced_features_title">Gelişmiş Özellikleri Aktif et</string>
+    <string name="enable_advanced_features_summary">FFmpeg \"eklenti\" indir</string>
+    <string name="mp3_bitrate_title">Mp3 encoding bitrate (kbps)</string>
     <string name="audio_extraction_type_title">Çıkarma türü</string>
     <string name="remove_video_title">Video removal</string>
     <string name="remove_video_summary">Başarılı ses ayıklama ardından video dosyasını sil (dikkat: onay istemeden video silinir)</string>
-
-    <string-array name="audio_extraction_type_entries">
-        <item>Sadece ayıkla</item>
-        <item>Ayıkla ve mp3 dosyasına kodla</item>
-    </string-array>
     
     <!-- -->
     <string name="settings_cat_notifications">Bildirimler</string>
@@ -367,7 +365,7 @@ For more details, look for comments in YTD\'s Java code.</string>
 	<string name="ssh_to_longpress_menu_summary">\"SSH ile Gönder\" eylemini uzun tıklama menüsüne taşı</string>
 	
     <!-- -->
-	<string name="settings_cat_system">System</string>
+	<string name="settings_cat_system">Sistem</string>
 	<string name="enable_logging_title">Günlük tutmayı etkinleştir</string>
 	<string name="enable_logging_summary">YTD\'s mesajlarını sistem günlüğüne ekle. Geliştiriciye sistem günlüğünü göndermek gereklidir.</string>
 </resources>

@@ -351,7 +351,7 @@ public class SettingsActivity extends Activity {
 				}
 			});
 			
-			initAudioPreference();
+			//initAudioPreference();
 		}
         
         private int armCpuVersion() {
@@ -424,7 +424,7 @@ public class SettingsActivity extends Activity {
             }
 		}
 		
-		private void initAudioPreference() {
+		/*private void initAudioPreference() {
 			boolean ffmpegSupported = YTD.settings.getBoolean("FFMPEG_SUPPORTED", true);
 			if (ffmpegSupported) {
 				String encode = YTD.settings.getString("audio_extraction_type", "extr");
@@ -437,7 +437,7 @@ public class SettingsActivity extends Activity {
 			} else {
 				touchAudioExtrPref(false, false);
 			}
-		}
+		}*/
         
 		/*@Override
 	    public void onStart() {
@@ -471,7 +471,7 @@ public class SettingsActivity extends Activity {
         	updatePrefSummary(findPreference(key));
         	initSwapPreference();
         	initSizePreference();
-        	initAudioPreference();
+        	//initAudioPreference();
         }
 
 		private void initSummary(Preference p){

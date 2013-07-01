@@ -145,11 +145,14 @@
 	<string name="menu_search">search&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Extract audio (as defined in settings)</item>
+	    <item>Extract audio only</item>
+        <item>Extract and encode audio to mp3</item>
     </string-array>
     
 	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
 	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
+	<string name="remove_video">Delete video after audio extraction (no confirmation!)</string>
+	<string name="edit_id3_tags">Edit ID3 tags</string>
 	
 	<string name="dashboard_long_click_entry_0">Copy</string>
 	<string name="dashboard_long_click_entry_1">Move</string>
@@ -183,7 +186,7 @@
     <!-- -->
     <string name="settings_cat_ui">用户界面</string>
     <string name="lang_title">语言</string>
-    <string name="lang_dialog_title">语言（需要重新启动程式）：</string>
+    <string name="lang_dialog_title">Choose UI language:</string>
     <string name="choose_theme_title">选择主题</string>
     <string-array name="choose_theme_entries">
         <item>黑暗</item>
@@ -236,15 +239,10 @@
     <string name="settings_cat_advanced">高级</string>
     <string name="enable_advanced_features_title">Enable Advanced Features</string>
     <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
-    <string name="mp3_bitrate_title">编码 MP3 码率 (kbps)</string>
+    <string name="mp3_bitrate_title">Mp3 encoding bitrate (kbps)</string>
     <string name="audio_extraction_type_title">提取类型</string>
     <string name="remove_video_title">移除影片</string>
     <string name="remove_video_summary">允许在音效提取成功后删除影片档案（警告：没有确认）</string>
-
-    <string-array name="audio_extraction_type_entries">
-        <item>只提取</item>
-        <item>提取并编码至 mp3</item>
-    </string-array>
     
     <!-- -->
     <string name="settings_cat_notifications">通知</string>

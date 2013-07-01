@@ -147,11 +147,14 @@
 	<string name="menu_search">search&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Extract audio (as defined in settings)</item>
+	    <item>Extract audio only</item>
+        <item>Extract and encode audio to mp3</item>
     </string-array>
     
 	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
 	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
+	<string name="remove_video">Delete video after audio extraction (no confirmation!)</string>
+	<string name="edit_id3_tags">Edit ID3 tags</string>
 	
 	<string name="dashboard_long_click_entry_0">Copy</string>
 	<string name="dashboard_long_click_entry_1">Move</string>
@@ -185,7 +188,7 @@
     <!-- -->
     <string name="settings_cat_ui">Interface de Usuário</string>
     <string name="lang_title">Idioma</string>
-    <string name="lang_dialog_title">Idioma (requer a reinicialização\'s do aplicativo):</string>
+    <string name="lang_dialog_title">Choose UI language:</string>
     <string name="choose_theme_title">Escolha o tema</string>
     <string-array name="choose_theme_entries">
         <item>Escuro</item>
@@ -241,15 +244,10 @@
     <string name="settings_cat_advanced">Avançado</string>
     <string name="enable_advanced_features_title">Enable Advanced Features</string>
     <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
-    <string name="mp3_bitrate_title">Taxa de bits para codificação de .mp3 (kbps)</string>
+    <string name="mp3_bitrate_title">Mp3 encoding bitrate (kbps)</string>
     <string name="audio_extraction_type_title">Tipo de extração</string>
     <string name="remove_video_title">Remover o vídeo</string>
     <string name="remove_video_summary">Enable video file deletion after successful audio extraction (warning: no confirmation)</string>
-
-    <string-array name="audio_extraction_type_entries">
-        <item>Apenas extrair</item>
-        <item>Extrair e codificar para .mp3</item>
-    </string-array>
     
     <!-- -->
     <string name="settings_cat_notifications">Notificações</string>

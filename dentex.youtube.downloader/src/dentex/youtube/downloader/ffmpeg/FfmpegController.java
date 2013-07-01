@@ -101,7 +101,7 @@ public class FfmpegController {
         return exitVal;
 	}
 	
-	public void extractAudio (File videoIn, File audioOut, boolean mp3ConvEnabled, String mp3BitRate, 
+	public void extractAudio (File videoIn, File audioOut, String mp3BitRate, 
 			ShellUtils.ShellCallback sc) throws IOException, InterruptedException {
 		
 		List<String> cmd = new ArrayList<String>();
@@ -113,7 +113,7 @@ public class FfmpegController {
 		cmd.add("-vn");
 		cmd.add("-acodec");
 		
-		if (mp3ConvEnabled) {
+		if (mp3BitRate != null) {
 			cmd.add("libmp3lame"); 
 			cmd.add("-ab"); 
 			cmd.add(mp3BitRate);
