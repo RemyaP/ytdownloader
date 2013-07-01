@@ -171,7 +171,7 @@ public class DownloadsService extends Service {
 					// copy job notification init
 					cBuilder =  new NotificationCompat.Builder(context);
 					cNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-			    	cBuilder.setSmallIcon(R.drawable.icon_nb);
+			    	cBuilder.setSmallIcon(R.drawable.ic_stat_ytd);
 					cBuilder.setContentTitle(vfilename);
 
 					/*
@@ -248,7 +248,7 @@ public class DownloadsService extends Service {
 					// audio jobs notification init
 					aBuilder =  new NotificationCompat.Builder(context);
 					aNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-			    	aBuilder.setSmallIcon(R.drawable.icon_nb);
+			    	aBuilder.setSmallIcon(R.drawable.ic_stat_ytd);
 					aBuilder.setContentTitle(vfilename);
 					
 					/*

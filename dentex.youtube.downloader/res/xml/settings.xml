@@ -150,7 +150,7 @@
         <ListPreference 
         	android:key="lang"
 			android:title="@string/lang_title" 
-			android:dialogTitle="@string/lang_dialog_title" 
+			android:dialogTitle="@string/lang_title" 
 			android:entries="@array/lang_entries"
             android:entryValues="@array/lang_entry_values"
             android:defaultValue="@string/lang_default"/>

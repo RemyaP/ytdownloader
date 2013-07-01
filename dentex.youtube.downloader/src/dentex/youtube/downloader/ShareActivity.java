@@ -1002,7 +1002,7 @@ public class ShareActivity extends Activity {
     	
     	mBuilder =  new NotificationCompat.Builder(mContext);
     	
-    	mBuilder.setSmallIcon(R.drawable.icon_nb)
+    	mBuilder.setSmallIcon(R.drawable.ic_stat_ytd)
     	        .setContentTitle(mContext.getString(R.string.title_activity_share))
     	        .setContentText(mContext.getString(R.string.notification_downloading_pt1) + " " + sequence.size() + " " + mContext.getString(R.string.notification_downloading_pt2));
     	

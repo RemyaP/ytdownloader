@@ -40,13 +40,8 @@ import dentex.youtube.downloader.utils.PopUps;
 public class YTD extends Application {
 	
 	static String DEBUG_TAG = "YTD";
-	
-	/* To anyone using this code:
-	 * PLEASE change the BugsenseApiKey below
-	 * (that is: register your own project OR disable all Bugsense calls) 
-	 * in order not to spam my Bugsense account with YOUR errors.
-	 */
-	public static String BugsenseApiKey = "874942f2";  // <--- see comment above!
+
+	public static String BugsenseApiKey = "00000000";
 
 	public static SharedPreferences settings;
 	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
