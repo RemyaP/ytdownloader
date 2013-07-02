@@ -51,11 +51,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.ListPopupWindow;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import dentex.youtube.downloader.ffmpeg.FfmpegController;
@@ -98,6 +99,7 @@ public class DashboardActivity extends Activity{
 	private DashboardListItem currentItem = null;
 	private TextView userFilename;
 	private boolean extrTypeIsMp3Conv;
+	int posX;
 	
 	public static Activity sDashboard;
 
@@ -153,18 +155,40 @@ public class DashboardActivity extends Activity{
 	    						ffmpegJob(in, null);
 	    						break;
 			    			case 1:
-			    				//TODO: finish, wip.
-			    				AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
+			    				//TODO: FIX. 
+			    				//FC with NPE.
+			    				AlertDialog.Builder builder = new AlertDialog.Builder(boxThemeContextWrapper);
 			    			    LayoutInflater inflater = getLayoutInflater();
 			    			    // Inflate and set the layout for the dialog
 			    			    // Pass null as the parent view because its going in the dialog layout
+
 			    			    builder.setView(inflater.inflate(R.layout.dialog_mp3_encode, null))
 			    			           .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			    			               @Override
 			    			               public void onClick(DialogInterface dialog, int id) {
-			    			            	   ListPopupWindow lpw; // TODO: usare al posto dello spinner?
-
-			    			            	   ffmpegJob(in, "192");
+			    			            	   
+			    			            	   final Spinner sp = (Spinner) findViewById(R.id.mp3_spinner);
+				   			    			   
+											   /*sp.setOnItemSelectedListener(new OnItemSelectedListener() {
+				   			    			    	
+				   			    				   public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
+				   			    			    		Utils.logger("d", "OnItemSelectedListener : " + 
+				   			    			    				parent.getItemAtPosition(pos).toString(), DEBUG_TAG);
+				   			    			    		
+				   			    				   }
+	
+				   			    				   @Override
+				   			    				   public void onNothingSelected(AdapterView<?> arg0) {
+				   										// TODO Auto-generated method stub
+				   			    				   }
+				   			    			   });*/
+				   			    			    
+											   int p = sp.getSelectedItemPosition();
+				   			    			   
+				   			    			   String[] bitrateValues = getResources().getStringArray(R.array.mp3_bitrate_entry_values);
+				   			    			   final String bitrate = bitrateValues[p];
+			   			    			    
+			    			            	   ffmpegJob(in, bitrate);
 			    			               }
 			    			           })
 			    			           .setNegativeButton(R.string.dialogs_negative, new DialogInterface.OnClickListener() {
@@ -916,7 +940,7 @@ public class DashboardActivity extends Activity{
 		// audio job notification init
 		aBuilder =  new NotificationCompat.Builder(this);
 		aNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		aBuilder.setSmallIcon(R.drawable.icon_nb);
+		aBuilder.setSmallIcon(R.drawable.ic_stat_ytd);
 		aBuilder.setContentTitle(vfilename);
 		if (mp3BitRate != null) {
 			extrTypeIsMp3Conv = true;

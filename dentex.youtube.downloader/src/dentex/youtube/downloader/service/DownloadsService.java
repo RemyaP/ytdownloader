@@ -152,7 +152,7 @@ public class DownloadsService extends Service {
 					// copy job notification init
 					NotificationCompat.Builder cBuilder =  new NotificationCompat.Builder(context);
 					NotificationManager cNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-			    	cBuilder.setSmallIcon(R.drawable.icon_nb);
+			    	cBuilder.setSmallIcon(R.drawable.ic_stat_ytd);
 					cBuilder.setContentTitle(vFilename);
 
 					/*

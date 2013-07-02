@@ -317,7 +317,11 @@ public class FileChooserActivity extends Activity {
     		this.setTheme(R.style.AppThemeLight);
     	}
 
-        super.onCreate(savedInstanceState);
+        try {
+			super.onCreate(savedInstanceState);
+		} catch (RuntimeException e) {
+			Log.e(_ClassName, "RuntimeException @ super.onCreate(savedInstanceState)");
+		}
         setContentView(R.layout.afc_file_chooser);
 
         initGestureDetector();

@@ -7,6 +7,15 @@
         \n    with downloaded video
         \n[x] Greek translation
         \n
+        \n v2.4 - Jul 02 2013
+        \n-----------------------------------
+        \n[x] new launcher and notification
+        \n    icons by Sam Plane
+        \n
+        \n v2.3.2 - Jun 28 2013
+        \n-----------------------------------
+        \n[x] small bugs fixed
+        \n
         \n v2.3.1 - Jun 27 2013
         \n-----------------------------------
         \n[x] experimantal signature patch
@@ -337,11 +346,11 @@
     <string name="choose_theme_default">D</string>
     
     <string-array name="mp3_bitrate_entries">
-        <item>128</item>
-        <item>160</item>
-        <item>192</item>
-        <item>256</item>
-        <item>320</item>
+        <item>   128    </item>
+        <item>   160    </item>
+        <item>   192    </item>
+        <item>   256    </item>
+        <item>   320    </item>
     </string-array>
     
     <string-array name="mp3_bitrate_entry_values">
