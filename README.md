@@ -7,11 +7,11 @@ Android 3+ App to download videos from YouTube
 
 ################################################################
 
-`versionCode="53"`
+`versionCode="54"`
 
-`versionName="2.3.2"`
+`versionName="2.4"`
 
-MD5 checksum: `98785a95e1bbd2f152a3b6a366075d81` dentex.youtube.downloader_v2.3.2.apk
+MD5 checksum: `4e69d8b012f614d18dc5433c27e2767c` dentex.youtube.downloader_v2.4.apk
 
 NOTICE
 ================================================================
@@ -87,18 +87,30 @@ OTHER LICENSES
      For more details, look for comments in YTD`s Java code.
 
      
-    Furthermore, the device-framed screenshots in the project's directory have been 
-    generated with the "Device Frame Generator" Android App by Prateek 
-    Srivastava, available at 
+    Furthermore:
+    1) the device-framed screenshots in the project's directory have 
+    been generated with the "Device Frame Generator" Android App by 
+    Prateek Srivastava, available at 
     <https://github.com/f2prateek/Device-Frame-Generator/>.
     The generated artwork is released ander the "Creative Commons 
-    Attribution 3.0 Unported License". 
-    For further details, <http://creativecommons.org/licenses/by/3.0/>.
+    Attribution 3.0 Unported" license (CC BY).
+
+    2) the launcher and the status icons for YTD have been created by
+    Sam Plane, <http://samplane123.deviantart.com/>, released under the 
+    "Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported" 
+    license (CC BY-NC-ND).
+
+    For further details, <http://creativecommons.org/licenses/>.
 
 
 CHANGELOG
 ================================================================
     
+     v2.4 - Jul 02 2013 
+    ----------------------------------- 
+    [x] new launcher and notification 
+     icons by Sam Plane 
+     
      v2.3.2 - Jun 28 2013 
     ----------------------------------- 
     [x] small bugs fixed 
@@ -301,7 +313,6 @@ TO-DO LIST
 ================================================================
 
     [v] downloads dashboard (WIP)
-    [v] new App's ICON (WIP)
     [ ] default format/filter selection for video download
     [ ] handle SourceForge servers down; fallback on GitHub for apk download:
 	    page: https://github.com/dentex/ytdownloader

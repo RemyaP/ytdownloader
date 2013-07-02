@@ -289,7 +289,7 @@ public class DownloadsService extends Service {
 							    	try {
 										Toast.makeText(context,"YTD: " + text, Toast.LENGTH_LONG).show();
 									} catch (NullPointerException e) {
-										Log.e(DEBUG_TAG + "-> Toast.makeText npe: ", e.getMessage());
+										Log.e(DEBUG_TAG, "-> Toast.makeText npe");
 									}
 							    	aBuilder.setContentTitle(aFileName);
 							        aBuilder.setContentText(text);

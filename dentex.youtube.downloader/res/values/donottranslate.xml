@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
-        \n v2.3.3 - Jun 28 2013
+        \n v2.4 - Jul 02 2013
         \n-----------------------------------
         \n[x] new launcher and notification
         \n    icons by Sam Plane
@@ -277,6 +277,7 @@
         \n\nUtils.getCpuInfo(): http://www.roman10.net/how-to-get-cpu-information-on-android/ - by Liu Feipeng
         \n\nUtils.scanMedia(&#8230;): http://www.grokkingandroid.com/adding-files-to-androids-media-library-using-the-mediascanner/ - by Wolfram Rittmeyer
         \n\nparseSingleEsSig(&#8230;) method: adapted from the Javascript Greasemonkey script http://userscripts.org/scripts/show/25105 (MIT License) - by Gantt
+        \n\nNew icons by Sam Plane (http://samplane123.deviantart.com/), released under the CC BY-NC-ND (http://creativecommons.org/licenses/by-nc-nd/3.0/)
     </string>
     
     <string name="translators_links">

@@ -63,13 +63,20 @@ echo -e $text1 | sed -e 's/^/    /' -e 's/&#169;/(C)/g' -e 's/<http>//g' -e 's/<
 
 echo "
      
-    Furthermore, the device-framed screenshots in the project's directory have been 
-    generated with the \"Device Frame Generator\" Android App by Prateek 
-    Srivastava, available at 
+    Furthermore:
+    1) the device-framed screenshots in the project's directory have 
+    been generated with the \"Device Frame Generator\" Android App by 
+    Prateek Srivastava, available at 
     <https://github.com/f2prateek/Device-Frame-Generator/>.
     The generated artwork is released ander the \"Creative Commons 
-    Attribution 3.0 Unported License\". 
-    For further details, <http://creativecommons.org/licenses/by/3.0/>.
+    Attribution 3.0 Unported\" license (CC BY).
+
+    2) the launcher and the status icons for YTD have been created by
+    Sam Plane, <http://samplane123.deviantart.com/>, released under the 
+    \"Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported\" 
+    license (CC BY-NC-ND).
+
+    For further details, <http://creativecommons.org/licenses/>.
 " >> $dest
 
 echo "
