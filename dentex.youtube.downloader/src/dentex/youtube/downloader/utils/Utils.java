@@ -202,8 +202,9 @@ public class Utils {
     	}
     }
     
-    public static void addEntryToJsonFile(Context context, String id, String status, String path, String filename, 
-    		String basename, String audioExt, String size, boolean forceCopy) {    	
+    public static void addEntryToJsonFile(Context context, String id, String type, String status, 
+    		String path, String filename, String basename, String audioExt, String size, boolean forceCopy) {
+    	
 		// parse existing/init new JSON 
     	String previousJson = parseJsonDashboardFile(context);
 		
@@ -228,6 +229,7 @@ public class Utils {
 				Log.i(DEBUG_TAG, "JsonFile: addind new entry");
 			}
 			
+			jO.put(YTD.JSON_DATA_TYPE, type);
 			jO.put(YTD.JSON_DATA_STATUS, status);
 			jO.put(YTD.JSON_DATA_PATH, path);
 			jO.put(YTD.JSON_DATA_FILENAME, filename);
@@ -538,4 +540,14 @@ public class Utils {
     		}
     	});
     }
+    
+    //-----------
+    
+    public static String getFileNameWithoutExt(String filename) {
+    	int index = filename.lastIndexOf('.');
+    	if (index > 0 && index <= filename.length() - 2) {
+    		return filename.substring(0, index);
+    	}  
+    	return filename;
+	}
 }

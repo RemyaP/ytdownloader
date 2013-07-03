@@ -225,6 +225,7 @@ public class DownloadsService extends Service {
 					Utils.addEntryToJsonFile(
 							nContext, 
 							String.valueOf(id), 
+							getString(R.string.json_type_video), 
 							getString(R.string.json_status_completed), 
 							absolutePath, 
 							vFilename, 
@@ -246,6 +247,7 @@ public class DownloadsService extends Service {
 					Utils.addEntryToJsonFile(
 							nContext, 
 							String.valueOf(id), 
+							getString(R.string.json_type_video), 
 							getString(R.string.json_status_failed), 
 							absolutePath, 
 							vFilename, 

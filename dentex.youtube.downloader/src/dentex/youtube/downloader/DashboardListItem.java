@@ -22,6 +22,7 @@ package dentex.youtube.downloader;
 public class DashboardListItem {
 	
 	private String id;
+	private String type;
 	private String status;
 	private String path;
 	private String filename;
@@ -29,8 +30,9 @@ public class DashboardListItem {
 	private String audioExt;
 	private String size;
 
-	public DashboardListItem(String id, String status, String path, String filename, String basename, String audioExt, String size) {
+	public DashboardListItem(String id, String type, String status, String path, String filename, String basename, String audioExt, String size) {
 		this.id = id;
+		this.type = type;
 		this.status = status;
 		this.path = path;
 		this.filename = filename;
@@ -41,6 +43,12 @@ public class DashboardListItem {
 	}
 	public String getId() {
 		return id;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	public String getStatus() {
 		return status;

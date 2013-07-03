@@ -894,6 +894,7 @@ public class ShareActivity extends Activity {
 		Utils.addEntryToJsonFile(
 				mContext, 
 				String.valueOf(enqueue), 
+				getString(R.string.json_type_video), 
 				getString(R.string.json_status_in_progress), 
 				path.getAbsolutePath(), 
 				vFilename, 

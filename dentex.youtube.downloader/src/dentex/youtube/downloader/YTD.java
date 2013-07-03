@@ -46,6 +46,7 @@ public class YTD extends Application {
 	public static final String JSON_FILE = "dashboard.json";
 	public static final String JSON_FOLDER = "json";
 	public static final String JSON_DATA_ID = "id";
+	public static final String JSON_DATA_TYPE = "type";
 	public static final String JSON_DATA_STATUS = "status";
 	public static final String JSON_DATA_PATH = "path";
 	public static final String JSON_DATA_FILENAME = "filename";

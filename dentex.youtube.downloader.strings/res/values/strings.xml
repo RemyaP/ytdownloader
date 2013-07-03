@@ -141,6 +141,8 @@
 	<string name="ffmpeg_install_failed">FFmpeg installation failed.</string>
 	
 	<!-- ### DashboardActivity ### -->
+	<string name="json_type_video">VIDEO</string>
+	<string name="json_type_audio">AUDIO</string>
 	<string name="json_status_completed">Completed</string>
 	<string name="json_status_failed">Failed</string>
 	<string name="json_status_in_progress">In Progress</string>
@@ -244,7 +246,7 @@
     <string name="settings_cat_advanced">Advanced</string>
     <string name="enable_advanced_features_title">Enable Advanced Features</string>
     <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
-    <string name="mp3_bitrate_title">Mp3 encoding \nbitrate (kbps)</string>
+    <string name="mp3_bitrate_title">Mp3 encoding bitrate:</string>
     <string name="audio_extraction_type_title">Extraction type</string>
     <string name="remove_video_title">Video removal</string>
     <string name="remove_video_summary">Enable video file deletion after successful audio extraction (warning: no confirmation)</string>

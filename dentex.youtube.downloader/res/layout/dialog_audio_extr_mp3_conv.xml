@@ -22,8 +22,9 @@
             android:id="@+id/mp3_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
             android:layout_gravity="right"
-            android:entries="@array/mp3_bitrate_entries" 
+            android:entries="@array/mp3_bitrate_entry_values" 
             android:saveEnabled="true"/>
             
         <!-- <TextView
@@ -39,7 +40,7 @@
     <!-- inserire gli EditText per le tag mp3 -->
     
     <CheckBox
-        android:id="@+id/video_del"
+        android:id="@+id/video_del_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/remove_video"/>
