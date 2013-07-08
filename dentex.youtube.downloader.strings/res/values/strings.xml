@@ -153,10 +153,15 @@
         <item>Extract and encode audio to mp3</item>
     </string-array>
     
+	<string-array name="dashboard_click_entries_audio">
+        <item>Encode to mp3</item>
+    </string-array>
+    
 	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
 	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
 	<string name="remove_video">Delete video after audio extraction (no confirmation!)</string>
 	<string name="edit_id3_tags">Edit ID3 tags</string>
+	<string name="remove_original_audio">Delete audio after conversion (no confirmation!)</string>
 	
 	<string name="dashboard_long_click_entry_0">Copy</string>
 	<string name="dashboard_long_click_entry_1">Move</string>

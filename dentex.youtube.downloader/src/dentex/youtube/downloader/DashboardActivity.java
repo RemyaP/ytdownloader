@@ -78,6 +78,7 @@ public class DashboardActivity extends Activity{
 	public String aSuffix = ".audio";
 	public String vfilename;
 	private boolean removeVideo;
+	private boolean removeAudio;
 	//private String extrType;
 	private ListView lv;
 	private Editable searchText;
@@ -139,29 +140,26 @@ public class DashboardActivity extends Activity{
     	lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				
-				AlertDialog.Builder builder = new AlertDialog.Builder(boxThemeContextWrapper);
-        		
         		currentItem = da.getItem(position); // in order to refer to the filtered item
+        		final boolean ffmpegEnabled = YTD.settings.getBoolean("enable_advanced_features", false);				
         		
-        		final boolean ffmpegEnabled = YTD.settings.getBoolean("enable_advanced_features", false);
-        		
+        		AlertDialog.Builder builder = new AlertDialog.Builder(boxThemeContextWrapper);
         		builder.setTitle(currentItem.getFilename());
         		
         		if (!currentItem.getStatus().equals(getString(R.string.json_status_in_progress))) {
         		
 	        		if (currentItem.getType().equals(getString(R.string.json_type_video))) {
 	        			
+	        			// handle click on a **VIDEO** file entry
 		        		builder.setItems(R.array.dashboard_click_entries, new DialogInterface.OnClickListener() {
-		
 							public void onClick(DialogInterface dialog, int which) {
 		
 			    				final File in = new File (currentItem.getPath(), currentItem.getFilename());
 			    				if (ffmpegEnabled) {
 			    					switch (which) {
-					    			case 0:
+					    			case 0: // extract audio only
 					    				AlertDialog.Builder builder0 = new AlertDialog.Builder(boxThemeContextWrapper);
 					    			    LayoutInflater inflater0 = getLayoutInflater();
-					    			    
 					    			    final View view0 = inflater0.inflate(R.layout.dialog_audio_extr_only, null);
 		
 					    			    builder0.setView(view0)
@@ -169,7 +167,7 @@ public class DashboardActivity extends Activity{
 					    			               @Override
 					    			               public void onClick(DialogInterface dialog, int id) {
 					    			            	   
-					    			            	   CheckBox cb0 = (CheckBox) view0.findViewById(R.id.video_del_0);
+					    			            	   CheckBox cb0 = (CheckBox) view0.findViewById(R.id.rem_video_0);
 					    			            	   removeVideo = cb0.isChecked();
 		
 					    			            	   Utils.logger("v", "Launching FFmpeg on: " + in +
@@ -185,13 +183,10 @@ public class DashboardActivity extends Activity{
 					    			               }
 					    			           });      
 					    			    
-					    			    builder0.create();
-					    			    if (! ((Activity) DashboardActivity.this).isFinishing()) {
-					    	    			builder0.show();
-					    	    		}
+					    			    secureShowDialog(builder0);
 					    			    
 			    						break;
-					    			case 1:
+					    			case 1: // extract audio and convert to mp3
 					    				AlertDialog.Builder builder1 = new AlertDialog.Builder(boxThemeContextWrapper);
 					    			    LayoutInflater inflater1 = getLayoutInflater();
 					    			    
@@ -205,7 +200,7 @@ public class DashboardActivity extends Activity{
 					    			            	   final Spinner sp = (Spinner) view1.findViewById(R.id.mp3_spinner);
 					    			            	   final String bitrate = String.valueOf(sp.getSelectedItem());
 					    			            	   
-					    			            	   CheckBox cb1 = (CheckBox) view1.findViewById(R.id.video_del_1);
+					    			            	   CheckBox cb1 = (CheckBox) view1.findViewById(R.id.rem_video_1);
 					    			            	   removeVideo = cb1.isChecked();
 					    			            	   
 					    			            	   Utils.logger("v", "Launching FFmpeg on: " + in +
@@ -221,10 +216,7 @@ public class DashboardActivity extends Activity{
 					    			               }
 					    			           });      
 					    			    
-					    			    builder1.create();
-					    			    if (! ((Activity) DashboardActivity.this).isFinishing()) {
-					    	    			builder1.show();
-					    	    		}
+					    			    secureShowDialog(builder1);
 		
 					    				/*break;
 					    			case 2:
@@ -234,41 +226,63 @@ public class DashboardActivity extends Activity{
 					    				*/
 			    					}
 			    				} else {
-			    					Utils.logger("w", "FFmpeg not installed/enabled", DEBUG_TAG);
-		
-			    					AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
-			    					adb.setTitle(getString(R.string.ffmpeg_not_enabled_title));
-			                	    adb.setMessage(getString(R.string.ffmpeg_not_enabled_msg));
-			                	    
-			                	    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			                	    	public void onClick(DialogInterface dialog, int which) {
-			                	    		startActivity(new Intent(DashboardActivity.this,  SettingsActivity.class));
-			                	    	}
-			    					
-			                	    });
-			                	    
-			                	    adb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
-			            	        	public void onClick(DialogInterface dialog, int which) {
-			            	                // cancel
-			            	            }
-			            	        });
-			                	    
-			                	    if (! ((Activity) DashboardActivity.this).isFinishing()) {
-			                	    	adb.show();
-			                	    }
+			    					notifyFfmpegNotInstalled();
 			    				}
 							}
 		        		});
 		        		
-		        		builder.create();
-			    		if (! ((Activity) DashboardActivity.this).isFinishing()) {
-			    			builder.show();
-			    		}
+		        		secureShowDialog(builder);
 			    		
 					} else if (currentItem.getType().equals(getString(R.string.json_type_audio))) {
-						Utils.logger("v", "...nothing to do with audio file yet...", DEBUG_TAG);
+						
+						// handle click on a **AUDIO** file entry
+						builder.setItems(R.array.dashboard_click_entries_audio, new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+		
+			    				final File in = new File (currentItem.getPath(), currentItem.getFilename());
+			    				if (ffmpegEnabled) {
+			    					switch (which) {
+					    			case 0: // convert to mp3
+					    				AlertDialog.Builder builder0 = new AlertDialog.Builder(boxThemeContextWrapper);
+					    			    LayoutInflater inflater0 = getLayoutInflater();
+					    			    final View view2 = inflater0.inflate(R.layout.dialog_audio_mp3_conv, null);
+		
+					    			    builder0.setView(view2)
+					    			           .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					    			               @Override
+					    			               public void onClick(DialogInterface dialog, int id) {
+					    			            	   
+					    			            	   final Spinner sp = (Spinner) view2.findViewById(R.id.mp3_spinner_a);
+					    			            	   final String bitrate = String.valueOf(sp.getSelectedItem());
+					    			            	   
+					    			            	   CheckBox cb2 = (CheckBox) view2.findViewById(R.id.rem_original_audio);
+					    			            	   removeAudio = cb2.isChecked();
+		
+					    			            	   Utils.logger("v", "Launching FFmpeg on: " + in +
+					    			            			   "\n-> mode: conversion to mp3 from audio file" +
+					    			            			   "\n-> remove audio: " + removeAudio, DEBUG_TAG);
+					    			            	   
+					    			            	   ffmpegJob(in, bitrate);
+					    			               }
+					    			           })
+					    			           .setNegativeButton(R.string.dialogs_negative, new DialogInterface.OnClickListener() {
+					    			               public void onClick(DialogInterface dialog, int id) {
+					    			                   //
+					    			               }
+					    			           });      
+					    			    
+					    			    secureShowDialog(builder0);
+			    					}
+		    					} else {
+		    						notifyFfmpegNotInstalled();
+			                	    
+			    				}
+							}
+		        		});
+		        		
+		        		secureShowDialog(builder);
 					}
-	        		
+		
         		} else {
         			Utils.logger("v", "...current Item in_progress...", DEBUG_TAG);
         		}
@@ -287,52 +301,8 @@ public class DashboardActivity extends Activity{
         		
         		currentItem = da.getItem(position); // in order to refer to the filtered item
         		
-        		/*final String[] items = {
-        				getString(R.string.dashboard_long_click_entry_0),
-        				getString(R.string.dashboard_long_click_entry_1),
-        				getString(R.string.dashboard_long_click_entry_2)
-        		};
-        		
-        		final int[] icons = {
-        				android.R.drawable.ic_menu_edit,
-        				android.R.drawable.ic_menu_send,
-        				android.R.drawable.ic_menu_delete
-        		};
-        		 
-        		ListAdapter adapter = new ArrayAdapter<String>(
-        		                getApplicationContext(), R.layout.activity_dashboard_longclick_list_item, items) {
-        		               
-    		        ViewHolder holder;
-    		 
-    		        class ViewHolder {
-    		            ImageView icon;
-    		            TextView title;
-    		        }
-    		 
-    		        public View getView(int position, View convertView, ViewGroup parent) {
-		                final LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		 
-		                if (convertView == null) {
-	                        convertView = inflater.inflate(R.layout.activity_dashboard_longclick_list_item, null);
-	 
-	                        holder = new ViewHolder();
-	                        holder.icon = (ImageView) convertView.findViewById(R.id.icon);
-	                        holder.title = (TextView) convertView.findViewById(R.id.title);
-	                        convertView.setTag(holder);
-		                } else {
-		                    // view already defined, retrieve view holder
-		                    holder = (ViewHolder) convertView.getTag();
-		                }              
-		               
-		                holder.title.setText(items[position]);
-		                holder.icon.setImageResource(icons[position]);
-		                return convertView;
-    		        }
-        		};*/
-        		
         		builder.setTitle(currentItem.getFilename());
         		builder.setItems(R.array.dashboard_long_click_entries, new DialogInterface.OnClickListener() {
-        		//builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
 
 					public void onClick(DialogInterface dialog, int which) {
 			    		switch (which) {
@@ -456,9 +426,7 @@ public class DashboardActivity extends Activity{
             	            }
             	        });
                 	    
-                	    if (! ((Activity) DashboardActivity.this).isFinishing()) {
-                	    	adb.show();
-                	    }
+                	    secureShowDialog(adb);
 					}
 
 					public void delete(final DashboardListItem currentItem) {
@@ -480,17 +448,11 @@ public class DashboardActivity extends Activity{
 			    			}
 			    		});
 			    		
-			    		AlertDialog delDialog = del.create();
-			    		if (! ((Activity) DashboardActivity.this).isFinishing()) {
-                        	delDialog.show();
-                        }
+			    		secureShowDialog(del);
 					}
         		});
         		
-	        	builder.create();
-	    		if (! ((Activity) DashboardActivity.this).isFinishing()) {
-	    			builder.show();
-	    		}
+	        	secureShowDialog(builder);
 			    return true;
         	}
     	});
@@ -1278,5 +1240,35 @@ public class DashboardActivity extends Activity{
 		
 		Utils.logger("i", "h=" + h + " m=" + m + " s=" + s + "." + f + " -> tot=" + tot,	DEBUG_TAG);
 		return tot;
+	}
+
+	public void secureShowDialog(AlertDialog.Builder adb) {
+		//builder.create();
+		if (! ((Activity) DashboardActivity.this).isFinishing()) {
+			adb.show();
+		}
+	}
+
+	public void notifyFfmpegNotInstalled() {
+		Utils.logger("w", "FFmpeg not installed/enabled", DEBUG_TAG);
+		
+		AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
+		adb.setTitle(getString(R.string.ffmpeg_not_enabled_title));
+		adb.setMessage(getString(R.string.ffmpeg_not_enabled_msg));
+		
+		adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				startActivity(new Intent(DashboardActivity.this,  SettingsActivity.class));
+			}
+		
+		});
+		
+		adb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+		        // cancel
+		    }
+		});
+		
+		secureShowDialog(adb);
 	}
 }
