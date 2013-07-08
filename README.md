@@ -85,8 +85,20 @@ OTHER LICENSES
     (see http://creativecommons.org/licenses/by-sa/3.0). 
     
      For more details, look for comments in YTD`s Java code.
-
      
+    i.e.:
+    *)  FfmpegController.java: GPL-3.0 - Copyright (C) 2009, Nathan Freitas, Orbot / The Guardian Project
+        http://openideals.com/guardian - https://github.com/guardianproject/android-ffmpeg-java
+    *)  Observer.java: reference - https://gist.github.com/shirou/659180
+    *)  SectionedAdapter.java: GPL-3.0 - Copyright (C) 2008-2010 CommonsWare, LLC
+        portions Copyright (C) 2008 Jeffrey Sharkey
+    *)  Utils.getCpuInfo(): http://www.roman10.net/how-to-get-cpu-information-on-android/ - by Liu Feipeng
+    *)  Utils.scanMedia(...): 
+        http://www.grokkingandroid.com/adding-files-to-androids-media-library-using-the-mediascanner/
+        by Wolfram Rittmeyer
+    *)  parseSingleEsSig(...) method: adapted from the Javascript Greasemonkey script 
+        http://userscripts.org/scripts/show/25105 (MIT License) - by Gantt
+          
     Furthermore:
     1) the device-framed screenshots in the project's directory have 
     been generated with the "Device Frame Generator" Android App by 
