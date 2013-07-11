@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout
+        android:id="@+id/bitrate_a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/mp3_info_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="@string/mp3_bitrate_title" />
+
+        <Spinner
+            android:id="@+id/mp3_spinner_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:layout_gravity="right"
+            android:entries="@array/mp3_bitrate_entry_values" 
+            android:saveEnabled="true"/>
+        
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/temp2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="---temp2---" />
+        
+    <CheckBox
+        android:id="@+id/rem_original_audio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remove_original_audio"/>
+
+</LinearLayout>
