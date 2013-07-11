@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v2.5 - Jul 11 2013
+        \n-----------------------------------
+        \n[x] experimantal signature patch
+        \n    (yes, again)
+        \n[x] other small bugs fixed
+        \n
         \n v2.4 - Jul 02 2013
         \n-----------------------------------
         \n[x] new launcher and notification
