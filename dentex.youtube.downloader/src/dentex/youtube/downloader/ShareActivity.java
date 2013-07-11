@@ -227,7 +227,7 @@ public class ShareActivity extends Activity {
                 	Utils.logger("d", "handling ACTION_SEND", DEBUG_TAG);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.e(DEBUG_TAG, "Error: " + e.toString(), e);
+                    Log.e(DEBUG_TAG, "Error: " + e.getMessage(), e);
                 }
             }
         }
@@ -238,7 +238,7 @@ public class ShareActivity extends Activity {
             	Utils.logger("d", "handling ACTION_VIEW", DEBUG_TAG);
             } catch (IOException e) {
                 e.printStackTrace();
-                Log.e(DEBUG_TAG, "Error: " + e.toString(), e);
+                Log.e(DEBUG_TAG, "Error: " + e.getMessage(), e);
             }
         }
     }
@@ -462,7 +462,14 @@ public class ShareActivity extends Activity {
             	
             	return downloadUrl(urls[0]);
             } catch (IOException e) {
+            	Log.e(DEBUG_TAG, "downloadUrl: " + e.getMessage());
+		    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> downloadUrl: ", e.getMessage(), e);
                 return "e";
+            } catch (RuntimeException re) {
+            	Log.e(DEBUG_TAG, "downloadUrl: " + re.getMessage());
+		    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> downloadUrl: ", re.getMessage(), re);
+		    	//Toast.makeText(ShareActivity.this, getString(R.string.error), Toast.LENGTH_LONG).show();
+		    	return "e";
             }
         }
     	
@@ -988,12 +995,16 @@ public class ShareActivity extends Activity {
         request.setDestinationUri(videoUri);
         try {
         	enqueue = dm.enqueue(request);
-        } catch (IllegalArgumentException e) { // probably useless try/catch
+        } catch (IllegalArgumentException e) {
 	    	Log.e(DEBUG_TAG, "tempDownloadToSdcard: " + e.getMessage());
 	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> tempDownloadToSdcard", e.getMessage(), e);
 	    } catch (NullPointerException ne) {
 	    	Log.e(DEBUG_TAG, "callDownloadApk: " + ne.getMessage());
-	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> callDownloadApk: ", ne.getMessage(), ne);
+	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> tempDownloadToSdcard: ", ne.getMessage(), ne);
+	    	Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show();
+	    }catch (SecurityException se) {
+	    	Log.e(DEBUG_TAG, "callDownloadApk: " + se.getMessage());
+	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> tempDownloadToSdcard: ", se.getMessage(), se);
 	    	Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show();
 	    }
     }
@@ -1019,7 +1030,7 @@ public class ShareActivity extends Activity {
 
 	// Given a URL, establishes an HttpUrlConnection and retrieves
     // the web page content as a InputStream, which it returns as a string.
-    private String downloadUrl(String myurl) throws IOException {
+    private String downloadUrl(String myurl) throws IOException, RuntimeException {
         InputStream is = null;
         // Only display the first "len" characters of the retrieved web page content.
         int len = 2000000;
@@ -1207,7 +1218,8 @@ public class ShareActivity extends Activity {
         			if (sigMatcher4.find()) {
         				Utils.logger("d", "sig found on step 4 (s=)", DEBUG_TAG);
         				Log.i(DEBUG_TAG, "(s=) signature length: " + sigMatcher4.group(1).length());
-        				String singleEs = parseSingleEsSig(sigMatcher4.group(1));
+        				//String singleEs = parseSingleEsSig(sigMatcher4.group(1));
+        				String singleEs = signatureDecipher(sigMatcher4.group(1));
         				sig = "signature=" + singleEs;
         			} else {
         				Log.e(DEBUG_TAG, "sig: " + sig);
@@ -1230,6 +1242,43 @@ public class ShareActivity extends Activity {
 		}
 	}
     
+    
+    /* 
+    class com.google.youtube.util.SignatureDecipher
+    {
+        function SignatureDecipher () {
+        }
+        static function decipher(str) {
+            var _local3 = str.split("");
+            _local3 = reverse_15888(_local3);
+            _local3 = clone_15888(_local3, 2);
+            _local3 = reverse_15888(_local3);
+            return(_local3.join(""));
+        }
+        static function clone_15888(arr, len) {
+            return(arr.slice(len));
+        }
+        static function reverse_15888(arr) {
+            arr.reverse();
+            return(arr);
+        }
+    }*/
+    
+    private String signatureDecipher(String sig) {
+    	
+    	String[] sigS = sig.split("");
+    	sigS = reverseArray(sigS);
+    	sigS = clone(sigS, 2);
+    	sigS = reverseArray(sigS);
+    	
+    	return TextUtils.join("", sigS);
+    }
+    
+    private String[] clone(String[] sig, int pos) {
+    	return Arrays.copyOfRange(sig, pos, sig.length);
+    }
+    
+    
     /*
      * parseSingleEsSig(...) and initialSigTransformation(...) methods
      * adapted from the Javascript Greasemonkey script 
@@ -1237,7 +1286,7 @@ public class ShareActivity extends Activity {
      * by Gantt: http://userscripts.org/users/gantt
      */
     
-    private String parseSingleEsSig(String sig) {
+    /*private String parseSingleEsSig(String sig) {
 		if (sig.length() == 88) {
     		String[] sigA = sig.split("");
     		sigA = Arrays.copyOfRange(sigA, 2, sigA.length);
@@ -1301,7 +1350,7 @@ public class ShareActivity extends Activity {
 		sigB = reverseArray(sigB);
 		String sigBs = TextUtils.join("", sigB);
 		return new String[] { sigAs, sigBs };
-	}
+	}*/
     
 	/*
      * method reverseArray(String[] a) adapted from Stack Overflow:
@@ -1322,12 +1371,12 @@ public class ShareActivity extends Activity {
     	return a;
     }
     
-    private String[] swap(String[] a, int b) {
+    /*private String[] swap(String[] a, int b) {
     	String c = a[0];
     	a[0] = a[b%a.length];
     	a[b] = c;
     	return a;
-    }
+    }*/
 
 	private class AsyncSizeQuery extends AsyncTask<String, Void, String> {
     	

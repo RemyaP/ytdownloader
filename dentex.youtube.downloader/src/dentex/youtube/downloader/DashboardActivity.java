@@ -102,6 +102,8 @@ public class DashboardActivity extends Activity{
 	private TextView userFilename;
 	private boolean extrTypeIsMp3Conv;
 	int posX;
+	public String type;
+	public boolean isFfmpegRunning = false;
 	
 	public static Activity sDashboard;
 
@@ -146,7 +148,7 @@ public class DashboardActivity extends Activity{
         		AlertDialog.Builder builder = new AlertDialog.Builder(boxThemeContextWrapper);
         		builder.setTitle(currentItem.getFilename());
         		
-        		if (!currentItem.getStatus().equals(getString(R.string.json_status_in_progress))) {
+        		if (!currentItem.getStatus().equals(getString(R.string.json_status_in_progress)) && !isFfmpegRunning) {
         		
 	        		if (currentItem.getType().equals(getString(R.string.json_type_video))) {
 	        			
@@ -233,7 +235,7 @@ public class DashboardActivity extends Activity{
 		        		
 		        		secureShowDialog(builder);
 			    		
-					} else if (currentItem.getType().equals(getString(R.string.json_type_audio))) {
+					} else if (currentItem.getType().equals(getString(R.string.json_type_audio_extr))) {
 						
 						// handle click on a **AUDIO** file entry
 						builder.setItems(R.array.dashboard_click_entries_audio, new DialogInterface.OnClickListener() {
@@ -282,13 +284,8 @@ public class DashboardActivity extends Activity{
 		        		
 		        		secureShowDialog(builder);
 					}
-		
-        		} else {
-        			Utils.logger("v", "...current Item in_progress...", DEBUG_TAG);
         		}
-        		
-			}
-        		
+			}	
     	});
     	
     	lv.setLongClickable(true);
@@ -515,8 +512,10 @@ public class DashboardActivity extends Activity{
 				res = removeManually(currentItem, fileToDel, mediaUriString);
 			}
 		} else if (currentItem.getStatus().equals(getString(R.string.json_status_in_progress))) {
-			// video download in progress -> use DownloadManager anyway to remove file
-			res = removeViaDm(currentItem, fileToDel);
+			if (currentItem.getType().equals(getString(R.string.json_type_video))) {
+				// video download in progress -> use DownloadManager anyway to remove file
+				res = removeViaDm(currentItem, fileToDel);
+			}
 		}
 		
 		if (removeFromJsonAlso) {
@@ -560,7 +559,7 @@ public class DashboardActivity extends Activity{
 				.remove(id + YTD.VIDEOINFO_AUDIO_FILENAME)
 				.remove(fileToDel.getName())
 				.apply();*/
-			YTD.videoinfo.edit().remove(fileToDel.getName());
+			YTD.videoinfo.edit().remove(fileToDel.getName()).apply();
 			return true;
 		} else {
 			Utils.logger("w", id + " (DownloadManager) NOT removed", DEBUG_TAG);
@@ -936,6 +935,7 @@ public class DashboardActivity extends Activity{
 	// #####################################################################
 
 	public void ffmpegJob(final File fileToConvert, final String mp3BitRate) {
+		isFfmpegRunning = true;
 		
 		vfilename = currentItem.getFilename();
 		
@@ -974,15 +974,17 @@ public class DashboardActivity extends Activity{
 			    	String text = null;
 			    	if (!extrTypeIsMp3Conv) {
 						text = getString(R.string.audio_extr_progress);
+						type = getString(R.string.json_type_audio_extr);
 					} else {
 						text = getString(R.string.audio_conv_progress);
+						type = getString(R.string.json_type_audio_mp3);
 					}
 			    	Toast.makeText(DashboardActivity.this,"YTD: " + text, Toast.LENGTH_LONG).show();
 			    	
-			    	Utils.addEntryToJsonFile(
+			    	/*Utils.addEntryToJsonFile(
 							DashboardActivity.this, 
 							currentItem.getId(), 
-							getString(R.string.json_type_audio), 
+							type, 
 							getString(R.string.json_status_in_progress),
 							currentItem.getPath(), 
 							audioFile.getName(), 
@@ -991,7 +993,7 @@ public class DashboardActivity extends Activity{
 							"-", 
 							true);
 					
-					refreshlist(DashboardActivity.this);
+					refreshlist(DashboardActivity.this);*/
 					
 			    	aBuilder.setContentTitle(audioFileName);
 			        aBuilder.setContentText(text);
@@ -1002,7 +1004,6 @@ public class DashboardActivity extends Activity{
 			    }
 			    
 			    ShellDummy shell = new ShellDummy();
-			    //String mp3BitRate = YTD.settings.getString("mp3_bitrate", getString(R.string.mp3_bitrate_default));
 			    
 			    try {
 					ffmpeg.extractAudio(fileToConvert, audioFile, mp3BitRate, shell);
@@ -1076,14 +1077,14 @@ public class DashboardActivity extends Activity{
 				Utils.addEntryToJsonFile(
 						DashboardActivity.this, 
 						currentItem.getId(), 
-						currentItem.getType(), 
+						type, 
 						getString(R.string.json_status_completed),
 						currentItem.getPath(), 
-						currentItem.getFilename(), 
+						audioFile.getName(), 
 						currentItem.getBasename(), 
 						"", 
 						Utils.MakeSizeHumanReadable((int) audioFile.length(), true), 
-						false);
+						true);
 				
 				refreshlist(DashboardActivity.this);
 				
@@ -1094,14 +1095,14 @@ public class DashboardActivity extends Activity{
 				Utils.addEntryToJsonFile(
 						DashboardActivity.this, 
 						currentItem.getId(), 
-						currentItem.getType(), 
+						type, 
 						getString(R.string.json_status_failed),
 						currentItem.getPath(), 
-						currentItem.getFilename(), 
+						audioFile.getName(), 
 						currentItem.getBasename(), 
 						"", 
 						"-", 
-						false);
+						true);
 				
 				refreshlist(DashboardActivity.this);
 			}
@@ -1109,6 +1110,8 @@ public class DashboardActivity extends Activity{
 			aBuilder.setProgress(0, 0, false);
 			aNotificationManager.cancel(2);
 			aNotificationManager.notify(2, aBuilder.build());
+			
+			isFfmpegRunning = false;
 		}
 		
 		@Override
@@ -1120,6 +1123,7 @@ public class DashboardActivity extends Activity{
 				setNotificationForAudioJobError();
 			}
 			aNotificationManager.notify(2, aBuilder.build());
+			isFfmpegRunning = false;
 		}
     }
     

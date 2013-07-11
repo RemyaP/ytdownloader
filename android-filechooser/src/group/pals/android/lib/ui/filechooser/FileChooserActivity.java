@@ -353,10 +353,15 @@ public class FileChooserActivity extends Activity {
         mBtnOk = (Button) findViewById(R.id.afc_filechooser_activity_button_ok);
 
         // history
-        if (savedInstanceState != null && savedInstanceState.get(_History) instanceof HistoryStore<?>)
-            mHistory = savedInstanceState.getParcelable(_History);
-        else
+        if (savedInstanceState != null && savedInstanceState.get(_History) instanceof HistoryStore<?>) {
+            try {
+				mHistory = savedInstanceState.getParcelable(_History);
+			} catch (RuntimeException re) {
+				Log.e(_ClassName, "mHistory error: " + re.getMessage());
+			}
+        } else {
             mHistory = new HistoryStore<IFile>(DisplayPrefs._DefHistoryCapacity);
+        }
         mHistory.addListener(new HistoryListener<IFile>() {
 
             @Override

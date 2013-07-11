@@ -7,11 +7,11 @@ Android 3+ App to download videos from YouTube
 
 ################################################################
 
-`versionCode="50"`
+`versionCode="55"`
 
-`versionName="2.2"`
+`versionName="2.5"`
 
-MD5 checksum: `8bb84792b1fd3de791ee67f0080ca57d` dentex.youtube.downloader_v2.2.apk
+MD5 checksum: `d93bd8dd8d57f9e49d9c3761d6f71545` dentex.youtube.downloader_v2.5.apk
 
 NOTICE
 ================================================================
@@ -85,20 +85,64 @@ OTHER LICENSES
     (see http://creativecommons.org/licenses/by-sa/3.0). 
     
      For more details, look for comments in YTD`s Java code.
-
      
-    Furthermore, the device-framed screenshots in the project's directory have been 
-    generated with the "Device Frame Generator" Android App by Prateek 
-    Srivastava, available at 
+    i.e.:
+    *)  FfmpegController.java: GPL-3.0 - Copyright (C) 2009, Nathan Freitas, Orbot / The Guardian Project
+        http://openideals.com/guardian - https://github.com/guardianproject/android-ffmpeg-java
+    *)  Observer.java: reference - https://gist.github.com/shirou/659180
+    *)  SectionedAdapter.java: GPL-3.0 - Copyright (C) 2008-2010 CommonsWare, LLC
+        portions Copyright (C) 2008 Jeffrey Sharkey
+    *)  Utils.getCpuInfo(): http://www.roman10.net/how-to-get-cpu-information-on-android/ - by Liu Feipeng
+    *)  Utils.scanMedia(...): 
+        http://www.grokkingandroid.com/adding-files-to-androids-media-library-using-the-mediascanner/
+        by Wolfram Rittmeyer
+    *)  parseSingleEsSig(...) method: adapted from the Javascript Greasemonkey script 
+        http://userscripts.org/scripts/show/25105 (MIT License) - by Gantt
+          
+    Furthermore:
+    1) the device-framed screenshots in the project's directory have 
+    been generated with the "Device Frame Generator" Android App by 
+    Prateek Srivastava, available at 
     <https://github.com/f2prateek/Device-Frame-Generator/>.
     The generated artwork is released ander the "Creative Commons 
-    Attribution 3.0 Unported License". 
-    For further details, <http://creativecommons.org/licenses/by/3.0/>.
+    Attribution 3.0 Unported" license (CC BY).
+
+    2) the launcher and the status icons for YTD have been created by
+    Sam Plane, <http://samplane123.deviantart.com/>, released under the 
+    "Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported" 
+    license (CC BY-NC-ND).
+
+    For further details, <http://creativecommons.org/licenses/>.
 
 
 CHANGELOG
 ================================================================
     
+     v2.5 - Jul 11 2013 
+    ----------------------------------- 
+    [x] experimantal signature patch 
+     (yes, again) 
+    [x] other small bugs fixed 
+     
+     v2.4 - Jul 02 2013 
+    ----------------------------------- 
+    [x] new launcher and notification 
+     icons by Sam Plane 
+     
+     v2.3.2 - Jun 28 2013 
+    ----------------------------------- 
+    [x] small bugs fixed 
+     
+     v2.3.1 - Jun 27 2013 
+    ----------------------------------- 
+    [x] experimantal signature patch 
+     
+     v2.3 - Jun 25 2013 
+    ----------------------------------- 
+    [x] experimantal signature support 
+     (thanks Gantt@userscripts.org) 
+    [x] other bug/stability fixes 
+     
      v2.2 - May 12 2013 
     ----------------------------------- 
     [x] fixed a bunch of BUUUUUGS !!! 
@@ -286,11 +330,11 @@ CHANGELOG
 TO-DO LIST
 ================================================================
 
-    [ ] downloads logs/dashboard
+    [v] downloads dashboard (WIP)
     [ ] default format/filter selection for video download
     [ ] handle SourceForge servers down; fallback on GitHub for apk download:
 	    page: https://github.com/dentex/ytdownloader
 	    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v.*.apk?raw=true
     [ ] use icon/logo to identify codecs available
+	[ ] use resolutions to identify qualities
     [ ] make the App tablet friendly
-    [ ] new App's ICON [maybe not]

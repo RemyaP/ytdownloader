@@ -285,7 +285,7 @@ public class Utils {
 			try {
 				jsonString = readFromFile(jsonFile);
 			} catch (IOException e1) {
-				jsonString = "[]";
+				jsonString = "{}";
 				Log.e(DEBUG_TAG, e1.getMessage());
 			}
 		} else {

@@ -76,14 +76,14 @@ public class YTD extends Application {
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		videoinfo = getSharedPreferences(VIDEOINFO_NAME, 0);
 		
-        //BugSenseHandler.initAndStartSession(getApplicationContext(), BugsenseApiKey);
+        BugSenseHandler.initAndStartSession(getApplicationContext(), BugsenseApiKey);
 		
 		checkDownloadProvider(".apk");
 		checkDownloadProvider("Ui.apk");
         	
         super.onCreate();
 	}
-	
+
 	private void checkDownloadProvider(String suffix) {
 		File downProvSysApp = new File("/system/app/DownloadProvider" + suffix);
 		if (downProvSysApp.exists()) {

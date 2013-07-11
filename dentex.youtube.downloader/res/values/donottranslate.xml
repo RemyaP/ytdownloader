@@ -7,6 +7,12 @@
         \n    with downloaded video
         \n[x] Greek translation
         \n
+        \n v2.5 - Jul 11 2013
+        \n-----------------------------------
+        \n[x] experimantal signature patch
+        \n    (yes, again)
+        \n[x] other small bugs fixed
+        \n
         \n v2.4 - Jul 02 2013
         \n-----------------------------------
         \n[x] new launcher and notification
@@ -362,6 +368,11 @@
     </string-array>
     
     <string name="mp3_bitrate_default">192k</string>
+    
+    <string name="json_type_video">VIDEO</string>
+	<string name="json_type_audio_extr">AUDIO-EXTR</string>
+	<string name="json_type_audio_mp3">AUDIO-MP3</string>
+	
     <string name="ffmpeg_download_dialog_msg_link">http://sourceforge.net/projects/ytdownloader/files/ffmpeg/ffmpeg_arm%1$s/download</string>
     <string name="ffmpeg_size_arm7">6.0 MB</string>
     <string name="ffmpeg_size_arm5">6.4 MB</string>
