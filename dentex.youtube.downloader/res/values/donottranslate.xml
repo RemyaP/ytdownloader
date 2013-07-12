@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v2.5.1 - Jul 12 2013
+        \n-----------------------------------
+        \n[x] experimantal signature patch
+        \n
         \n v2.5 - Jul 11 2013
         \n-----------------------------------
         \n[x] experimantal signature patch
@@ -282,8 +286,9 @@
         \n\nSectionedAdapter.java: GPL-3.0 - Copyright &#169; 2008-2010 CommonsWare, LLC - portions Copyright &#169; 2008 Jeffrey Sharkey
         \n\nUtils.getCpuInfo(): http://www.roman10.net/how-to-get-cpu-information-on-android/ - by Liu Feipeng
         \n\nUtils.scanMedia(&#8230;): http://www.grokkingandroid.com/adding-files-to-androids-media-library-using-the-mediascanner/ - by Wolfram Rittmeyer
-        \n\nparseSingleEsSig(&#8230;) method: adapted from the Javascript Greasemonkey script http://userscripts.org/scripts/show/25105 (MIT License) - by Gantt
         \n\nNew icons by Sam Plane (http://samplane123.deviantart.com/), released under the CC BY-NC-ND (http://creativecommons.org/licenses/by-nc-nd/3.0/)
+        \n\njs-14.jar - Rhino: open-source implementation of JavaScript written entirely in Java; https://developer.mozilla.org/en-US/docs/Rhino - license: http://www.mozilla.org/MPL/2.0/
+        \n\nJavascript function \"decryptSignature\" from the Greasemonkey script http://userscripts.org/scripts/show/25105 (MIT License) - by Gantt
     </string>
     
     <string name="translators_links">
