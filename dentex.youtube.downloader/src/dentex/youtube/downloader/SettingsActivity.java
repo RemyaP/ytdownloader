@@ -92,7 +92,7 @@ public class SettingsActivity extends Activity {
     	
         // Load default preferences values
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
-        
+
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new SettingsFragment())

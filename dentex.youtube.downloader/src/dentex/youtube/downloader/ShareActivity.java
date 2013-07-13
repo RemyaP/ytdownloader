@@ -97,6 +97,7 @@ import android.widget.Toast;
 import com.bugsense.trace.BugSenseHandler;
 
 import dentex.youtube.downloader.service.DownloadsService;
+import dentex.youtube.downloader.utils.FetchGanttFunction;
 import dentex.youtube.downloader.utils.Observer;
 import dentex.youtube.downloader.utils.PopUps;
 import dentex.youtube.downloader.utils.RhinoRunner;
@@ -179,8 +180,7 @@ public class ShareActivity extends Activity {
 	public String aquality;
 	public boolean audioExtrEnabled = false;
 	public CheckBox audioConfirm;
-	public static String s;
-	public static String sDeciphered;
+	public static String ganttFunction = null;
 
     @SuppressLint("CutPasteId")
 	@Override
@@ -481,7 +481,6 @@ public class ShareActivity extends Activity {
             } catch (RuntimeException re) {
             	Log.e(DEBUG_TAG, "downloadUrl: " + re.getMessage());
 		    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> downloadUrl: ", re.getMessage(), re);
-		    	//Toast.makeText(ShareActivity.this, getString(R.string.error), Toast.LENGTH_LONG).show();
 		    	return "e";
             }
         }
@@ -1105,6 +1104,7 @@ public class ShareActivity extends Activity {
                 Utils.logger("d", "number of entries found: " + count, DEBUG_TAG);
                 int index = 0;
                 progressBar1.setIndeterminate(false);
+                ganttFunction = null;
                 while ((index+1) < CQS.length) {
                 	try {
 						CQS[index] = URLDecoder.decode(CQS[index], "UTF-8");
@@ -1220,11 +1220,17 @@ public class ShareActivity extends Activity {
         			Pattern sigPattern4 = Pattern.compile("s=([[0-9][A-Z]]{40,44}\\.[[0-9][A-Z]]{40,44})");
         			Matcher sigMatcher4 = sigPattern4.matcher(block);
         			if (sigMatcher4.find()) {
-        				Utils.logger("d", "sig found on step 4 (s=)", DEBUG_TAG);
-        				Log.i(DEBUG_TAG, "(s=) signature length: " + sigMatcher4.group(1).length());
-        				s = sigMatcher4.group(1);
-        				RhinoRunner.runner();
-        				sig = "signature=" + sDeciphered;
+        				Utils.logger("d", "sig found on step 4 (s=); length is " + sigMatcher4.group(1).length(), DEBUG_TAG);
+
+        				if (ganttFunction == null) {
+        					Utils.logger("i", "Fetching gantt's function online...", DEBUG_TAG);
+        					
+        					FetchGanttFunction ff = new FetchGanttFunction();
+        					ff.doFetch("http://userscripts.org/scripts/review/25105");
+        				}
+
+        				String decipheredSig = RhinoRunner.decipher(sigMatcher4.group(1));
+        				sig = "signature=" + decipheredSig;
         			} else {
         				Log.e(DEBUG_TAG, "sig: " + sig);
         			}
