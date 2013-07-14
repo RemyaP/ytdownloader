@@ -48,6 +48,9 @@ public class YTD extends Application {
 	public static final String JSON_DATA_ID = "id";
 	public static final String JSON_DATA_TYPE = "type";
 	public static final String JSON_DATA_STATUS = "status";
+	public static final String JSON_DATA_STATUS_C = "COMPLETED";
+	public static final String JSON_DATA_STATUS_I = "IN_PROGRESS";
+	public static final String JSON_DATA_STATUS_F = "FAILED";
 	public static final String JSON_DATA_PATH = "path";
 	public static final String JSON_DATA_FILENAME = "filename";
 	public static final String JSON_DATA_BASENAME = "basename";

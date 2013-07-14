@@ -142,11 +142,11 @@ public class FfmpegDownloadService extends Service {
 			Utils.copyFile(src, dst);
 			
 			Toast.makeText(context, "YTD: " + context.getString(R.string.ffmpeg_ready), Toast.LENGTH_LONG).show();
-			SettingsActivity.SettingsFragment.touchAudioExtrPref(true, true);
+			SettingsActivity.SettingsFragment.touchAdvPref(true, true);
 		} catch (IOException e) {
 			Toast.makeText(context, "YTD: " + context.getString(R.string.ffmpeg_install_failed), Toast.LENGTH_LONG).show();
 			Log.e(DEBUG_TAG, "ffmpeg copy to app_bin failed. " + e.getMessage());
-			SettingsActivity.SettingsFragment.touchAudioExtrPref(true, false);
+			SettingsActivity.SettingsFragment.touchAdvPref(true, false);
 		}
 	}
 
@@ -182,7 +182,7 @@ public class FfmpegDownloadService extends Service {
 						if (Utils.checkMD5(md5, src)) {
 							copyFfmpegToAppDataDir(context, src, dst);
 						} else {
-							SettingsActivity.SettingsFragment.touchAudioExtrPref(true, false);
+							SettingsActivity.SettingsFragment.touchAdvPref(true, false);
 							deleteBadDownload(id);
 						}
 						break;
@@ -192,7 +192,7 @@ public class FfmpegDownloadService extends Service {
 						Log.e(DEBUG_TAG, " Reason: " + reason);
 						Toast.makeText(nContext,  ffmpegBinName + ": " + getString(R.string.download_failed), Toast.LENGTH_LONG).show();
 						
-						SettingsActivity.SettingsFragment.touchAudioExtrPref(true, false);
+						SettingsActivity.SettingsFragment.touchAdvPref(true, false);
 						deleteBadDownload(id);
 						break;
 						

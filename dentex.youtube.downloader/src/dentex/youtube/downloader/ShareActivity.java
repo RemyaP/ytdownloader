@@ -37,7 +37,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -73,7 +72,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -97,8 +95,10 @@ import android.widget.Toast;
 import com.bugsense.trace.BugSenseHandler;
 
 import dentex.youtube.downloader.service.DownloadsService;
+import dentex.youtube.downloader.utils.FetchGanttFunction;
 import dentex.youtube.downloader.utils.Observer;
 import dentex.youtube.downloader.utils.PopUps;
+import dentex.youtube.downloader.utils.RhinoRunner;
 import dentex.youtube.downloader.utils.Utils;
 
 public class ShareActivity extends Activity {
@@ -177,6 +177,7 @@ public class ShareActivity extends Activity {
 	public String aquality;
 	public boolean audioExtrEnabled = false;
 	//public CheckBox audioConfirm;
+	public String ganttFunction = null;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -902,7 +903,7 @@ public class ShareActivity extends Activity {
 				mContext, 
 				String.valueOf(enqueue), 
 				getString(R.string.json_type_video), 
-				getString(R.string.json_status_in_progress), 
+				YTD.JSON_DATA_STATUS_I, 
 				path.getAbsolutePath(), 
 				vFilename, 
 				basename, 
@@ -1101,6 +1102,7 @@ public class ShareActivity extends Activity {
                 Utils.logger("d", "number of entries found: " + count, DEBUG_TAG);
                 int index = 0;
                 progressBar1.setIndeterminate(false);
+                ganttFunction = null;
                 while ((index+1) < CQS.length) {
                 	try {
 						CQS[index] = URLDecoder.decode(CQS[index], "UTF-8");
@@ -1216,11 +1218,54 @@ public class ShareActivity extends Activity {
         			Pattern sigPattern4 = Pattern.compile("s=([[0-9][A-Z]]{40,44}\\.[[0-9][A-Z]]{40,44})");
         			Matcher sigMatcher4 = sigPattern4.matcher(block);
         			if (sigMatcher4.find()) {
-        				Utils.logger("d", "sig found on step 4 (s=)", DEBUG_TAG);
-        				Log.i(DEBUG_TAG, "(s=) signature length: " + sigMatcher4.group(1).length());
-        				//String singleEs = parseSingleEsSig(sigMatcher4.group(1));
-        				String singleEs = signatureDecipher(sigMatcher4.group(1));
-        				sig = "signature=" + singleEs;
+        				Utils.logger("d", "sig found on step 4 (s=); length is " + sigMatcher4.group(1).length(), DEBUG_TAG);
+
+        				if (ganttFunction == null) {
+        					Utils.logger("i", "gantt's function: Fetching it online...", DEBUG_TAG);
+        					
+        					/*String hardcoded = "function decryptSignature(sig) " +
+        							"{ function swap(a,b){var c=a[0];a[0]=a[b%a.length];a[b]=c;return a}; " +
+        							"if (sig.length==88) { var sigA=sig.split(''); sigA=sigA.slice(2);" +
+        							"sigA=swap(sigA,1);sigA=swap(sigA,10); sigA=sigA.reverse();sigA=sigA.slice(2);" +
+        							"sigA=swap(sigA,23); sigA=sigA.slice(3);sigA=swap(sigA,15);sigA=swap(sigA,34); " +
+        							"sig=sigA.join(''); } else if (sig.length==87) { var sigA=sig.substr(44,40)." +
+        							"split('').reverse().join(''); var sigB=sig.substr(3,40).split('').reverse().join(''); " +
+        							"sig=sigA.substr(21,1)+sigA.substr(1,20)+sigA.substr(0,1)+sigB.substr(22,9)+ " +
+        							"sig.substr(0,1)+sigA.substr(32,8)+sig.substr(43,1)+sigB; } else if (sig.length==86) " +
+        							"{ var sigA=sig.substr(2,40); var sigB=sig.substr(43,40); sig=sigA+sig.substr(42,1)+" +
+        							"sigB.substr(0,20)+sigB.substr(39,1)+sigB.substr(21,18)+sigB.substr(20,1); } else if " +
+        							"(sig.length==85) { var sigA=sig.substr(44,40).split('').reverse().join(''); var " +
+        							"sigB=sig.substr(3,40).split('').reverse().join(''); sig=sigA.substr(7,1)+sigA." +
+        							"substr(1,6)+sigA.substr(0,1)+sigA.substr(8,15)+sig.substr(0,1)+ sigA.substr(24,9)+" +
+        							"sig.substr(1,1)+sigA.substr(34,6)+sig.substr(43,1)+sigB; } else if (sig.length==84) " +
+        							"{ var sigA=sig.substr(44,40).split('').reverse().join(''); var sigB=sig.substr(3,40)." +
+        							"split('').reverse().join(''); sig=sigA+sig.substr(43,1)+sigB.substr(0,6)+sig." +
+        							"substr(2,1)+sigB.substr(7,9)+ sigB.substr(39,1)+sigB.substr(17,22)+sigB.substr(16,1);" +
+        							" } else if (sig.length==83) { var sigA=sig.substr(2,40); var sigB=sig.substr(43,40); " +
+        							"sig=sigA.substr(4,1)+sigA.substr(1,3)+sigA.substr(31,1)+sigA.substr(5,17)+ sig." +
+        							"substr(0,1)+sigA.substr(23,8)+sigB.substr(10,1)+sigA.substr(32,8)+ sig.substr(42,1)+" +
+        							"sigB.substr(0,10)+sigA.substr(22,1)+sigB.substr(11,29); } else if (sig.length==82) { " +
+        							"var sigA=sig.substr(34,48).split('').reverse().join(''); var sigB=sig.substr(0,33)." +
+        							"split('').reverse().join(''); sig=sigA.substr(45,1)+sigA.substr(2,12)+sigA.substr(0,1)+" +
+        							"sigA.substr(15,26)+ sig.substr(33,1)+sigA.substr(42,1)+sigA.substr(43,1)+sigA.substr(44,1)+ " +
+        							"sigA.substr(41,1)+sigA.substr(46,1)+sigB.substr(32,1)+sigA.substr(14,1)+ sigB.substr(0,32)+" +
+        							"sigA.substr(47,1); } return sig; }"; */
+        					
+        					FetchGanttFunction ff = new FetchGanttFunction();
+        					ganttFunction = ff.doFetch(false, "http://userscripts.org/scripts/review/25105");
+        					
+        					if (ganttFunction == null) {
+        						Utils.logger("w", "gantt's function: switching from 'userscripts.org' to 'sourceforge.net'", DEBUG_TAG);
+        						ganttFunction = ff.doFetch(true, "http://sourceforge.net/projects/ytdownloader/files/utils/function_decryptSignature/download");
+        					
+        						/*if (ganttFunction == null) {
+        							ganttFunction = hardcoded;
+        						}*/
+        					}
+        				}
+
+        				String decipheredSig = RhinoRunner.decipher(sigMatcher4.group(1), ganttFunction);
+        				sig = "signature=" + decipheredSig;
         			} else {
         				Log.e(DEBUG_TAG, "sig: " + sig);
         			}
@@ -1241,142 +1286,6 @@ public class ShareActivity extends Activity {
         	Utils.logger("d", "size " + i + ": " + size, DEBUG_TAG);
 		}
 	}
-    
-    
-    /* 
-    class com.google.youtube.util.SignatureDecipher
-    {
-        function SignatureDecipher () {
-        }
-        static function decipher(str) {
-            var _local3 = str.split("");
-            _local3 = reverse_15888(_local3);
-            _local3 = clone_15888(_local3, 2);
-            _local3 = reverse_15888(_local3);
-            return(_local3.join(""));
-        }
-        static function clone_15888(arr, len) {
-            return(arr.slice(len));
-        }
-        static function reverse_15888(arr) {
-            arr.reverse();
-            return(arr);
-        }
-    }*/
-    
-    private String signatureDecipher(String sig) {
-    	
-    	String[] sigS = sig.split("");
-    	sigS = reverseArray(sigS);
-    	sigS = clone(sigS, 2);
-    	sigS = reverseArray(sigS);
-    	
-    	return TextUtils.join("", sigS);
-    }
-    
-    private String[] clone(String[] sig, int pos) {
-    	return Arrays.copyOfRange(sig, pos, sig.length);
-    }
-    
-    
-    /*
-     * parseSingleEsSig(...) and initialSigTransformation(...) methods
-     * adapted from the Javascript Greasemonkey script 
-     * http://userscripts.org/scripts/show/25105 (released under the MIT License)
-     * by Gantt: http://userscripts.org/users/gantt
-     */
-    
-    /*private String parseSingleEsSig(String sig) {
-		if (sig.length() == 88) {
-    		String[] sigA = sig.split("");
-    		sigA = Arrays.copyOfRange(sigA, 2, sigA.length);
-    		sigA = swap(sigA, 1);
-    		sigA = swap(sigA, 10);
-    		sigA = reverseArray(sigA);
-    		sigA = Arrays.copyOfRange(sigA, 2, sigA.length);
-    		sigA = swap(sigA, 23);
-    		sigA = Arrays.copyOfRange(sigA, 3, sigA.length);
-    		sigA = swap(sigA, 15);
-    		sigA = swap(sigA, 34);
-    		sig = TextUtils.join("", sigA);
-    	}
-    	
-    	if (sig.length() == 87) {
-			String[] t = initialSigTransformation(sig, 44, 84, 3, 43);
-			sig = t[0].substring(21,22)+t[0].substring(1,21)+t[0].substring(0,1)+t[1].substring(22,31)+
-			        sig.substring(0,1)+t[0].substring(32,40)+sig.substring(43,44)+t[1];
-    	}
-    	
-    	if (sig.length() == 86) {
-    		String sigA = sig.substring(2, 42);
-    		String sigB = sig.substring(43, 83);
-    		sig = sigA + sig.substring(42,43)+sigB.substring(0,20)+sigB.substring(39,40)+sigB.substring(21,39)+sigB.substring(20,21);
-    	}
-    	
-    	if (sig.length() == 85) {
-			String[] t = initialSigTransformation(sig, 44, 84, 3, 43);
-			sig=t[0].substring(7,8)+t[0].substring(1,7)+t[0].substring(0,1)+t[0].substring(8,23)+sig.substring(0,1)+
-			        t[0].substring(24,33)+sig.substring(1,2)+t[0].substring(34,40)+sig.substring(43,44)+t[1];
-    	}
-    	
-    	if (sig.length() == 84) {
-			String[] t = initialSigTransformation(sig, 44, 84, 3, 43);
-			sig=t[0]+sig.substring(43,44)+t[1].substring(0,6)+sig.substring(2,3)+t[1].substring(7,16)+
-					t[1].substring(39,40)+t[1].substring(17,39)+t[1].substring(16,17);
-    	}
-    	
-    	if (sig.length() == 83) {
-			String[] t = initialSigTransformation(sig, 43, 83, 2, 42);
-			sig=t[0].substring(30,31)+t[0].substring(1,27)+t[1].substring(39,40)+
-			        t[0].substring(28,30)+t[0].substring(0,1)+t[0].substring(31,40)+sig.substring(42,43)+
-			        t[1].substring(0,5)+t[0].substring(27,28)+t[1].substring(6,39)+t[1].substring(5,6);
-    	}
-    	
-    	if (sig.length() == 82) {
-			String[] t = initialSigTransformation(sig, 34, 82, 0, 33);
-			sig=t[0].substring(45,46)+t[0].substring(2,14)+t[0].substring(0,1)+t[0].substring(15,41)+
-			        sig.substring(33,34)+t[0].substring(42,43)+t[0].substring(43,44)+t[0].substring(44,45)+
-			        t[0].substring(41,42)+t[0].substring(46,47)+t[1].substring(32,33)+t[0].substring(14,15)+
-			        t[1].substring(0,32)+t[0].substring(47,48);
-    	}
-    	return sig;
-	}
-
-	private String[] initialSigTransformation(String sig, int a, int b, int c, int d) {
-		String[] sigA = sig.substring(a, b).split("");
-		sigA = reverseArray(sigA);
-		String sigAs = TextUtils.join("", sigA);
-		String[] sigB = sig.substring(c, d).split("");
-		sigB = reverseArray(sigB);
-		String sigBs = TextUtils.join("", sigB);
-		return new String[] { sigAs, sigBs };
-	}*/
-    
-	/*
-     * method reverseArray(String[] a) adapted from Stack Overflow:
-	 * http://stackoverflow.com/questions/13674466/reverse-the-contents-of-array
-	 * 
-	 * Q: http://stackoverflow.com/users/1871089/user1871089
-	 * A: http://stackoverflow.com/users/1870638/andreih
-	 */
-	
-    public static String[] reverseArray(String[] a) {
-    	int i = 0;
-    	int  j = a.length - 1;
-    	for (i = 0; i < a.length / 2; i++, j--) {
-    		String temp = a[i];
-    		a[i] = a[j];
-    		a[j] = temp;
-    	}
-    	return a;
-    }
-    
-    /*private String[] swap(String[] a, int b) {
-    	String c = a[0];
-    	a[0] = a[b%a.length];
-    	a[b] = c;
-    	return a;
-    }*/
 
 	private class AsyncSizeQuery extends AsyncTask<String, Void, String> {
     	

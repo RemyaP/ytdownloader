@@ -65,7 +65,7 @@ public class Observer {
 				Utils.logger("d", TAG + "file " + path + " CREATED", DEBUG_TAG);
 				
 				if (observedPath.equals(FfmpegDownloadService.DIR)) {
-					SettingsActivity.SettingsFragment.touchAudioExtrPref(false, false);
+					SettingsActivity.SettingsFragment.touchAdvPref(false, false);
 				} else {
 					ShareActivity.NotificationHelper();
 				}
@@ -75,7 +75,7 @@ public class Observer {
 				Utils.logger("d", TAG + "file " + path + " DELETED", DEBUG_TAG);
 
 				if (observedPath.equals(FfmpegDownloadService.DIR)) {
-					SettingsActivity.SettingsFragment.touchAudioExtrPref(true, false);
+					SettingsActivity.SettingsFragment.touchAdvPref(true, false);
 				} else {
 					long id = YTD.videoinfo.getLong(path, 0);
 					Utils.logger("d", TAG + "Retrieved ID: " +  id, DEBUG_TAG);

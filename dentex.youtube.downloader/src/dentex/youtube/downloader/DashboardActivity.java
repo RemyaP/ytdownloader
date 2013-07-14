@@ -119,6 +119,8 @@ public class DashboardActivity extends Activity{
 		// Language init
     	Utils.langInit(this);
     	
+    	sDashboard = DashboardActivity.this;
+    	
     	if (da != null) clearAdapterAndLists();
     	readJson(this);
     	buildList();
@@ -132,8 +134,6 @@ public class DashboardActivity extends Activity{
     	} else {
     		lv.setAdapter(da);
     	}
-    	
-    	sDashboard = DashboardActivity.this;
     	
     	lv.setTextFilterEnabled(true);
     	
@@ -691,7 +691,10 @@ public class DashboardActivity extends Activity{
 			itemsList.add(new DashboardListItem(
 					idsIter.next(),
 					typesIter.next(),
-					statusesIter.next(),
+					statusesIter.next()
+						.replace(YTD.JSON_DATA_STATUS_C, sDashboard.getString(R.string.json_status_completed))
+						.replace(YTD.JSON_DATA_STATUS_I, sDashboard.getString(R.string.json_status_in_progress))
+						.replace(YTD.JSON_DATA_STATUS_F, sDashboard.getString(R.string.json_status_failed)),
 					pathsIter.next(), 
 					filenamesIter.next(), 
 					basenamesIter.next(),
@@ -933,6 +936,27 @@ public class DashboardActivity extends Activity{
 	}
 	
 	// #####################################################################
+	
+	public void editId3Tags(View view) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(boxThemeContextWrapper);
+	    LayoutInflater inflater0 = getLayoutInflater();
+	    final View id3s = inflater0.inflate(R.layout.dialog_edit_id3, null);
+
+	    builder.setView(id3s)
+	           .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	               @Override
+	               public void onClick(DialogInterface dialog, int id) {
+	            	   // TODO
+	               }
+	           })
+	           .setNegativeButton(R.string.dialogs_negative, new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int id) {
+	                   // cancel
+	               }
+	           });      
+	    
+	    secureShowDialog(builder);
+	}
 
 	public void ffmpegJob(final File fileToConvert, final String mp3BitRate) {
 		isFfmpegRunning = true;
@@ -985,7 +1009,7 @@ public class DashboardActivity extends Activity{
 							DashboardActivity.this, 
 							currentItem.getId(), 
 							type, 
-							getString(R.string.json_status_in_progress),
+							YTD.JSON_DATA_STATUS_I,
 							currentItem.getPath(), 
 							audioFile.getName(), 
 							currentItem.getBasename(), 
@@ -1078,7 +1102,7 @@ public class DashboardActivity extends Activity{
 						DashboardActivity.this, 
 						currentItem.getId(), 
 						type, 
-						getString(R.string.json_status_completed),
+						YTD.JSON_DATA_STATUS_C,
 						currentItem.getPath(), 
 						audioFile.getName(), 
 						currentItem.getBasename(), 
@@ -1096,7 +1120,7 @@ public class DashboardActivity extends Activity{
 						DashboardActivity.this, 
 						currentItem.getId(), 
 						type, 
-						getString(R.string.json_status_failed),
+						YTD.JSON_DATA_STATUS_F,
 						currentItem.getPath(), 
 						audioFile.getName(), 
 						currentItem.getBasename(), 

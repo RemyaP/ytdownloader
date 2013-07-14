@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="author" />
+
+        <EditText
+            android:id="@+id/et_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textCapWords"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tv_album"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="album" />
+
+        <EditText
+            android:id="@+id/et_album"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textCapWords"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="title" />
+
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textCapWords" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tv_year"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="year" />
+
+        <EditText
+            android:id="@+id/et_year"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="2013"
+            android:inputType="number" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tv_genre"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="genre" />
+
+        <EditText
+            android:id="@+id/et_genre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10" 
+            android:inputType="textCapWords"/>
+
+    </LinearLayout>
+
+</LinearLayout>

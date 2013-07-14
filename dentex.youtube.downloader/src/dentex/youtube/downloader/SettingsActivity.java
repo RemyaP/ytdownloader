@@ -70,9 +70,7 @@ import dentex.youtube.downloader.utils.Utils;
 public class SettingsActivity extends Activity {
 	
 	public static final String DEBUG_TAG = "SettingsActivity";
-	//private static final int _ReqChooseFile = 0;
 	public static String chooserSummary;
-	//static SharedPreferences settings = YTD.settings;
 	public static Activity mActivity;
 	
     @Override
@@ -80,8 +78,6 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         
         this.setTitle(R.string.title_activity_settings);
-        
-    	//settings = getSharedPreferences(YTD.PREFS_NAME, 0);
 
     	// Theme init
     	Utils.themeInit(this);
@@ -350,8 +346,6 @@ public class SettingsActivity extends Activity {
 					}
 				}
 			});
-			
-			//initAudioPreference();
 		}
         
         private int armCpuVersion() {
@@ -423,21 +417,6 @@ public class SettingsActivity extends Activity {
             	s.setEnabled(true);
             }
 		}
-		
-		/*private void initAudioPreference() {
-			boolean ffmpegSupported = YTD.settings.getBoolean("FFMPEG_SUPPORTED", true);
-			if (ffmpegSupported) {
-				String encode = YTD.settings.getString("audio_extraction_type", "extr");
-				Preference p = (Preference) findPreference("mp3_bitrate");
-				if (encode.equals("conv") == true) {
-					p.setEnabled(true);
-				} else {
-					p.setEnabled(false);
-				}
-			} else {
-				touchAudioExtrPref(false, false);
-			}
-		}*/
         
 		/*@Override
 	    public void onStart() {
@@ -471,7 +450,6 @@ public class SettingsActivity extends Activity {
         	updatePrefSummary(findPreference(key));
         	initSwapPreference();
         	initSizePreference();
-        	//initAudioPreference();
         }
 
 		private void initSummary(Preference p){
@@ -550,10 +528,10 @@ public class SettingsActivity extends Activity {
 	        if (YTD.settings.edit().putLong("time", time).commit()) Utils.logger("i", "time written in prefs", DEBUG_TAG);
 		}
 
-		public static void touchAudioExtrPref(final boolean enable, final boolean check) {
+		public static void touchAdvPref(final boolean enable, final boolean check) {
 			mActivity.runOnUiThread(new Runnable() {
 				public void run() {
-					Utils.logger("d", "audio-extraction-checkbox: " + "enabled: " + enable + " / checked: " + check, DEBUG_TAG);
+					Utils.logger("d", "adv-features-checkbox: " + "enabled: " + enable + " / checked: " + check, DEBUG_TAG);
 					advanced.setEnabled(enable);
 					advanced.setChecked(check);
 			    }
