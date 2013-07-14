@@ -11,7 +11,7 @@ Android 3+ App to download videos from YouTube
 
 `versionName="2.5.2"`
 
-MD5 checksum: `50532d455ab78ed558f71061145e13e6` dentex.youtube.downloader_v2.5.2.apk
+MD5 checksum: `3b17256b7c915d7a0ea61fc0ab74d0cf` dentex.youtube.downloader_v2.5.2.apk
 
 NOTICE
 ================================================================
@@ -123,7 +123,7 @@ CHANGELOG
      v2.5.2 - Jul 14 2013 
     ----------------------------------- 
     [x] auto-fetch gantt\'s script to 
-     parse experimantal signatures 
+     parse experimental signatures 
      
      v2.5.1 - Jul 12 2013 
     ----------------------------------- 
