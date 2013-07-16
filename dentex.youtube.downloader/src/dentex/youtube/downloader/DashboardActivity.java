@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -105,6 +106,13 @@ public class DashboardActivity extends Activity{
 	public String type;
 	public boolean isFfmpegRunning = false;
 	
+	private Editable tagAuthor;
+	private Editable tagAlbum;
+	private Editable tagTitle;
+	private Editable tagYear;
+	private Editable tagGenre;
+	private boolean newClick;
+	
 	public static Activity sDashboard;
 
 	@Override
@@ -143,12 +151,13 @@ public class DashboardActivity extends Activity{
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				
         		currentItem = da.getItem(position); // in order to refer to the filtered item
+        		newClick = true;
         		final boolean ffmpegEnabled = YTD.settings.getBoolean("enable_advanced_features", false);				
         		
         		AlertDialog.Builder builder = new AlertDialog.Builder(boxThemeContextWrapper);
         		builder.setTitle(currentItem.getFilename());
         		
-        		if (!currentItem.getStatus().equals(getString(R.string.json_status_in_progress)) && !isFfmpegRunning) {
+        		if (currentItem.getStatus().equals(getString(R.string.json_status_completed)) && !isFfmpegRunning) {
         		
 	        		if (currentItem.getType().equals(getString(R.string.json_type_video))) {
 	        			
@@ -159,7 +168,12 @@ public class DashboardActivity extends Activity{
 			    				final File in = new File (currentItem.getPath(), currentItem.getFilename());
 			    				if (ffmpegEnabled) {
 			    					switch (which) {
-					    			case 0: // extract audio only
+			    					case 0: // open
+			    						Intent openIntent = new Intent(Intent.ACTION_VIEW);
+			    						openIntent.setDataAndType(Uri.fromFile(in), "video/*");
+			    						startActivity(Intent.createChooser(openIntent,"dialog title"));
+			    						break;
+					    			case 1: // extract audio only
 					    				AlertDialog.Builder builder0 = new AlertDialog.Builder(boxThemeContextWrapper);
 					    			    LayoutInflater inflater0 = getLayoutInflater();
 					    			    final View view0 = inflater0.inflate(R.layout.dialog_audio_extr_only, null);
@@ -188,7 +202,7 @@ public class DashboardActivity extends Activity{
 					    			    secureShowDialog(builder0);
 					    			    
 			    						break;
-					    			case 1: // extract audio and convert to mp3
+					    			case 2: // extract audio and convert to mp3
 					    				AlertDialog.Builder builder1 = new AlertDialog.Builder(boxThemeContextWrapper);
 					    			    LayoutInflater inflater1 = getLayoutInflater();
 					    			    
@@ -244,7 +258,12 @@ public class DashboardActivity extends Activity{
 			    				final File in = new File (currentItem.getPath(), currentItem.getFilename());
 			    				if (ffmpegEnabled) {
 			    					switch (which) {
-					    			case 0: // convert to mp3
+			    					case 0: // open
+			    						Intent openIntent = new Intent(Intent.ACTION_VIEW);
+			    						openIntent.setDataAndType(Uri.fromFile(in), "audio/*");
+			    						startActivity(Intent.createChooser(openIntent,"dialog title"));
+			    						break;
+					    			case 1: // convert to mp3
 					    				AlertDialog.Builder builder0 = new AlertDialog.Builder(boxThemeContextWrapper);
 					    			    LayoutInflater inflater0 = getLayoutInflater();
 					    			    final View view2 = inflater0.inflate(R.layout.dialog_audio_mp3_conv, null);
@@ -313,6 +332,9 @@ public class DashboardActivity extends Activity{
 			    				rename(currentItem);
 			    				break;
 			    			case 3:
+			    				removeFromDashboard(currentItem);
+			    				break;
+			    			case 4:
 			    				delete(currentItem);
 			    		}
 
@@ -424,6 +446,11 @@ public class DashboardActivity extends Activity{
             	        });
                 	    
                 	    secureShowDialog(adb);
+					}
+					
+					public void  removeFromDashboard(final DashboardListItem currentItem) {
+						Utils.removeEntryFromJsonFile(DashboardActivity.this, currentItem.getId());
+						refreshlist(DashboardActivity.this);
 					}
 
 					public void delete(final DashboardListItem currentItem) {
@@ -937,26 +964,66 @@ public class DashboardActivity extends Activity{
 	
 	// #####################################################################
 	
-	public void editId3Tags(View view) {
+	public void editId3Tags(View view) {		
 		AlertDialog.Builder builder = new AlertDialog.Builder(boxThemeContextWrapper);
 	    LayoutInflater inflater0 = getLayoutInflater();
 	    final View id3s = inflater0.inflate(R.layout.dialog_edit_id3, null);
-
-	    builder.setView(id3s)
+	    
+	    final EditText authorEt = (EditText) id3s.findViewById(R.id.id3_et_author);
+	    final EditText titleEt = (EditText) id3s.findViewById(R.id.id3_et_title);	
+	    final EditText albumEt = (EditText) id3s.findViewById(R.id.id3_et_album);
+	    final EditText genreEt = (EditText) id3s.findViewById(R.id.id3_et_genre);
+	    final EditText yearEt = (EditText) id3s.findViewById(R.id.id3_et_year);
+	    
+	    if (tagTitle == null || newClick) {
+			titleEt.setText(currentItem.getBasename());
+		} else {
+			titleEt.setText(tagTitle);
+		}
+	    
+	    if (tagYear == null || newClick) {
+			Calendar cal = new GregorianCalendar();
+			int y = cal.get(Calendar.YEAR);
+			yearEt.setText(String.valueOf(y));
+		} else {
+			yearEt.setText(tagYear);
+		}
+	    
+	    if (!newClick) {
+			authorEt.setText(tagAuthor);
+			albumEt.setText(tagAlbum);
+			genreEt.setText(tagGenre);
+		}
+	    
+		builder.setView(id3s)
 	           .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 	               @Override
 	               public void onClick(DialogInterface dialog, int id) {
 	            	   // TODO
+	            	   tempStoreTags(authorEt, titleEt, albumEt, genreEt, yearEt);
 	               }
 	           })
 	           .setNegativeButton(R.string.dialogs_negative, new DialogInterface.OnClickListener() {
 	               public void onClick(DialogInterface dialog, int id) {
 	                   // cancel
+	            	   tempStoreTags(authorEt, titleEt, albumEt, genreEt, yearEt);
 	               }
 	           });      
 	    
 	    secureShowDialog(builder);
+	    newClick = false;
 	}
+	
+	public void tempStoreTags(final EditText authorEt, final EditText titleEt, 
+			final EditText albumEt, final EditText genreEt, final EditText yearEt) {
+		tagAlbum = albumEt.getText();
+		tagAuthor = authorEt.getText();
+		tagTitle = titleEt.getText();
+		tagYear = yearEt.getText();
+		tagGenre = genreEt.getText();
+	}
+	
+	
 
 	public void ffmpegJob(final File fileToConvert, final String mp3BitRate) {
 		isFfmpegRunning = true;
@@ -1056,7 +1123,7 @@ public class DashboardActivity extends Activity{
 		public void processComplete(int exitValue) {
 			Utils.logger("i", "FFmpeg process exit value: " + exitValue, DEBUG_TAG);
 			String text = null;
-			Intent audioIntent =  new Intent(Intent.ACTION_VIEW);
+			Intent audioIntent = new Intent(Intent.ACTION_VIEW);
 			if (exitValue == 0) {
 
 				// Toast + Notification + Log ::: Audio job OK

@@ -6,59 +6,59 @@
     <string name="title_activity_about">About</string>
     <string name="title_activity_donate">Donations</string>
     <string name="title_activity_tutorials">Tutorials</string>
-    <string name="title_activity_translators_show">Перекладачі</string>
+    <string name="title_activity_translators_show">Translators</string>
     <string name="title_activity_dashboard">Dashboard</string>
 
     <!-- ### ShareActivity ### -->
 
-    <string name="tutorial_title">Загальна інструкція</string>
+    <string name="tutorial_title">Obecný návod</string>
 	<string name="tutorial_msg_new">Now you will see a list with all the codecs and qualities available for the selected video. You can:
 		\n\n*) Press an item to download the video locally (on the device) or to send the download via SSH to a remote PC.
 		\nDestination machine requirements: Bash and Wget. Additional SSH info further on;
 		\n\n*) Long-press an item and choose between copy to clipboard or share link as text (i.e. send to another app).
 		\nPlease note that such a link (differently from when you send it via SSH) can be only used from the same device where it has been created OR from the same LAN, if you share it to another machine.\n</string>
-    <string name="loading">Loading&#8230;</string>
-    <string name="error">Помилка...</string>
-    <string name="information">Інформація</string>
-    <string name="dialogs_negative">Cancel</string>
-    <string name="wait">Please wait&#8230;</string>
+    <string name="loading">Nahrávám&#8230;</string>
+    <string name="error">Chyba!</string>
+    <string name="information">Informace</string>
+    <string name="dialogs_negative">Storno</string>
+    <string name="wait">Prosím čekejte#8230;</string>
     <string name="no_downloads_sys_app">\"Downloads\" system App not found.</string>
-    <string name="ytd_useless">Не можу завантажити файли на цей пристрій</string>
-    <string name="invalid_url">Не можу знайти веб-сторінку. Перевірте адресу</string>
-    <string name="invalid_url_short">Не можу віднайти веб-сторінку</string>
+    <string name="ytd_useless">YTD cannot download files on this device.</string>
+    <string name="invalid_url">Unable to retrieve web page. URL may be invalid.</string>
+    <string name="invalid_url_short">Unable to retrieve web page.</string>
     <string name="invalid_response">Invalid HTTP server response.</string>
     <string name="bad_link">Check the provided link.</string>
-    <string name="bad_link_dialog_msg">Неправильне або недійсне посилання YouTube</string>
-    <string name="no_net">Немає з\'єднання</string>
-    <string name="no_net_dialog_msg">Будь-ласка, спершу з\'єднайтеся з Інтернетом.</string>
-    <string name="no_market">No market App available.</string>
-    <string name="no_market_dialog_msg">Будь ласка, установіть Google Play</string>
-    <string name="list_click_dialog_title">Підтвердіть завантаження:</string>
-    <string name="list_click_download_local">Качайте звідси:</string>
-    <string name="list_click_download_ssh">Send via SSH</string>
-    <string name="rename_dialog_title">Нова назва файлу:</string>
-    <string name="rename_dialog_msg">Не вводьте розширення файлу (наприклад, .mp4 або .flv)</string>
-    <string name="unable_save">Не можу зберегти відео...</string>
-    <string name="unable_save_dialog_msg">Цільова тека НЕ доступна і/або НЕ доступна для запису.</string>
-    <string name="ssh_info_tutorial_title">Send via SSH How-To</string>
+    <string name="bad_link_dialog_msg">Not a valid YouTube link.</string>
+    <string name="no_net">Není k dispozici žádné připojení.</string>
+    <string name="no_net_dialog_msg">Please, enable a network connection first.</string>
+    <string name="no_market">Není dostupná aplikace pro nákup.</string>
+    <string name="no_market_dialog_msg">Prosím nainstalujte Google Play</string>
+    <string name="list_click_dialog_title">Confirm download for:</string>
+    <string name="list_click_download_local">Stáhnout zde</string>
+    <string name="list_click_download_ssh">Odeslat přes SSH</string>
+    <string name="rename_dialog_title">Nový název souboru:</string>
+    <string name="rename_dialog_msg">Do not enter the file extension (like .mp4 or .flv).</string>
+    <string name="unable_save">Nepodařilo se uložit video!</string>
+    <string name="unable_save_dialog_msg">Destination folder is NOT available and/or NOT writable.</string>
+    <string name="ssh_info_tutorial_title">Jak stáhnout přes SSH</string>
     <string name="ssh_info_tutorial_msg">A single long command has been loaded in the clipboard.
 		\n\nChoose a profile in ConnectBot and once in your remote shell, browse to the desired 
 		directory, PASTE the command (use the menu button) and push ENTER.</string>
     <string name="callConnectBot_dialog_title">%1$s not installed!</string>
     <string name="callConnectBot_dialog_msg">You need this free App to send the video download via SSH.</string>
     <string name="callConnectBot_dialog_positive">Download</string>
-    <string name="download_complete_dialog_msg1">Відео YouTube:\n</string>
-    <string name="download_complete_dialog_msg2">\nУспішно закачався!</string>
-    <string name="download_complete_dialog_positive">Відкрити</string>
+    <string name="download_complete_dialog_msg1">YouTube Video:\n</string>
+    <string name="download_complete_dialog_msg2">\nSuccessfully downloaded.</string>
+    <string name="download_complete_dialog_positive">Otevřít</string>
     <string name="downloading">Downloading&#8230;</string>
-    <string name="cancel_download_dialog_title">Дійсно скасувати це завантаження?</string>
+    <string name="cancel_download_dialog_title">Cancel download?</string>
     <string name="video_list_error_toast">Error in video list.</string>
     <string name="codec">\n\n\tCodec:</string>
     <string name="quality">\n\tQuality:</string>
     <string name="size">\n\tSize:</string>
-    <string name="notification_downloading_pt1">Завантаження</string>
+    <string name="notification_downloading_pt1">Downloading</string>
     <string name="notification_downloading_pt2">video files</string>
-    <string name="notification_no_downloads">Зараз нічого не качається</string>
+    <string name="notification_no_downloads">No downloads in progress</string>
     <string name="long_click_title">Handle selected link:</string>
     <string name="extsdcard_info_title">Non standard destination path</string>
     <string name="extsdcard_info_msg">File is being downloaded initially in the standard Download folder and then will be moved to the selected destination.</string>
@@ -72,7 +72,7 @@
     
     <string-array name="long_click_entries">
         <item>Copy to clipboard</item>
-        <item>Поділитись у вигляді тексту</item>
+        <item>Share as text</item>
     </string-array>
     
     <string-array name="long_click_entries2">
@@ -83,18 +83,18 @@
     
     <!-- ### SettingsActivity ### -->
 
-    <string name="attention">Увага!</string>
+    <string name="attention">Upozornění!</string>
     <string name="extsdcard_warning">Unable to write files on the removable sdcard.\nFalling back on standard sdcard.</string>
-    <string name="system_warning_title">Це системна папка</string>
+    <string name="system_warning_title">This is a system folder</string>
     <string name="system_warning_msg">Chosen path will fall back on standard sdcard\'s Download folder.</string>
     <string name="sdcard_unmounted_warning">Sdcard NOT mounted</string>
     <string name="update_disabled_summary">Found different signature (F-Droid?)</string>
     <string name="failed_download">Failed download removed</string>
     <string name="new_v_download">found. Downloading&#8230;</string>
     <string name="new_v_install">downloaded. Click to install.</string>
-    <string name="ffmpeg_download_dialog_title">Треба ще один файл. Завантажити зараз?</string>
+    <string name="ffmpeg_download_dialog_title">An additional file is needed. Download it now?</string>
     <string name="ffmpeg_download_dialog_msg">Web link:</string>
-    <string name="ffmpeg_device_not_supported">Поки що цей пристрій не підтримується.</string>
+    <string name="ffmpeg_device_not_supported">Device not supported yet.</string>
     <string name="ffmpeg_support_mail">Send email to the developer?
         \nYou will review all information in your email application before sending any data.</string>
     <string name="ffmpeg_download_notification">Downloading FFmpeg</string>
@@ -103,8 +103,8 @@
     
     <!-- ### UpgradeApkActivity ### -->
     
-    <string name="upgrade_button_init">Оновлення</string>
-    <string name="upgrade_button_download">Закачати\nта установити</string>
+    <string name="upgrade_button_init">Update</string>
+    <string name="upgrade_button_download">Download\nand install</string>
     <string name="upgrade_uppertext_searching">Searching&#8230;</string>
     <string name="upgrade_uppertext_init">Installed version:\n</string>
 
@@ -112,18 +112,18 @@
     <string name="upgrade_installed">\nInstalled:\t</string>
     <string name="upgraded_dialog_msg">New version stored in standard sdcard \'Download\' folder.\n\nInstall now?</string>
     <string name="upgraded_dialog_negative">Later\n(manually)</string>
-    <string name="upgrade_latest_installed">Маєте останню версію!</string>
+    <string name="upgrade_latest_installed">Latest version is already installed!</string>
     <string name="upgrade_network_error">Unable to retrieve update data.\nRetry later.</string>
-    <string name="upgrade_bad_md5_dialog_msg">Завантажений файл пошкоджено.\nБуде стерто.\nНатисніть OK щоб завантажити знову.</string>
+    <string name="upgrade_bad_md5_dialog_msg">Downloaded package corrupted.\nWill be deleted now.\nPress OK to download it again.</string>
     
     <!-- ### DownloadsService ### -->
     
     <string name="ytd_video">YTD video</string>
-    <string name="copy_error">Помилка під час копіювання</string>
+    <string name="copy_error">Error during copy.</string>
     <string name="copy_progress">File copy in progress&#8230;</string>
-    <string name="copy_ok">Копіювання завершено.</string>
-    <string name="download_remove_failed">Помилка: тимчасовий файл завантаження не був видалений!</string>
-    <string name="download_failed">Завантаження зазнало краху...</string>
+    <string name="copy_ok">File copy completed.</string>
+    <string name="download_remove_failed">Error: temporary downloaded file not removed!</string>
+    <string name="download_failed">Download failed!</string>
     <string name="audio_extr_progress">Audio extraction in progress&#8230;</string>
     <string name="audio_conv_progress">Audio encoding to mp3 in progress&#8230;</string>
     <string name="audio_extr_completed">Audio extraction completed.</string>
@@ -141,9 +141,9 @@
 	<string name="ffmpeg_install_failed">FFmpeg installation failed.</string>
 	
 	<!-- ### DashboardActivity ### -->
-	<string name="json_status_completed">Завершено</string>
-	<string name="json_status_failed">Не вдалося</string>
-	<string name="json_status_in_progress">Триває</string>
+	<string name="json_status_completed">Completed</string>
+	<string name="json_status_failed">Failed</string>
+	<string name="json_status_in_progress">In Progress</string>
 	<string name="menu_search">search&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
@@ -163,9 +163,9 @@
 	<string name="edit_id3_tags">Edit ID3 tags</string>
 	<string name="remove_original_audio">Delete audio after conversion (no confirmation!)</string>
 	
-	<string name="dashboard_long_click_entry_0">Копіювати</string>
-	<string name="dashboard_long_click_entry_1">Перемістити</string>
-	<string name="dashboard_long_click_entry_2">Видалити</string>
+	<string name="dashboard_long_click_entry_0">Copy</string>
+	<string name="dashboard_long_click_entry_1">Move</string>
+	<string name="dashboard_long_click_entry_2">Delete</string>
 	
 	<string-array name="dashboard_long_click_entries">
 	    <item>Copy</item>
@@ -194,25 +194,25 @@
     <string name="dashboard_summary">Open YTD\'s Dashboard</string>
 
     <!-- -->
-    <string name="settings_cat_ui">Інтерфейс коистувача</string>
-    <string name="lang_title">Мова</string>
+    <string name="settings_cat_ui">User Interface</string>
+    <string name="lang_title">Language</string>
     <string name="lang_dialog_title">Choose UI language:</string>
-    <string name="choose_theme_title">Виберіть тему</string>
+    <string name="choose_theme_title">Choose theme</string>
     <string-array name="choose_theme_entries">
-        <item>Темна</item>
-        <item>Світла</item>
+        <item>Dark</item>
+        <item>Light</item>
     </string-array>
     
     <!-- -->
-    <string name="quick_start_title">Швидкий запуск</string>
-    <string name="quick_start_summ">Відкрити підказку швидкого запуску?</string>
+    <string name="quick_start_title">Quick start</string>
+    <string name="quick_start_summ">Open a quick start tutorial</string>
     <string name="quick_start_text">Here are just the preferences for \'YouTube Downloader\'.
 		\n\nThe actual App can be accessed via the share button in the YouTube App, while watching a video.
 		\n\nThen choose \'YouTube Downloader\' and you will have further usage info.
 		\n\nYou can also share any YouTube plain text link via any other App: i.e. your browser.</string>
     <string name="general_info_title">Enable General how-to</string>
-    <string name="general_info_summary">Показувати інструкцію при запуску</string>
-    <string name="show_again_checkbox">Показати знову</string>
+    <string name="general_info_summary">Show a general App tutorial on startup</string>
+    <string name="show_again_checkbox">Show again next time</string>
     <string name="ssh_info_title">Enable SSH how-to</string>
     <string name="ssh_info_summary">Show a quick tip about remote downloading via SSH</string>
     <string name="audio_tutorial_title">Audio extraction tutorial</string>
@@ -229,23 +229,23 @@
         \n\nChoose from settings if you want to remove the video file after a successful audio extraction.</string>
     
     <!-- -->
-    <string name="settings_cat_folder">Тека завантажень</string>
-    <string name="standard_location_title">Виберіть стандартну теку</string>
+    <string name="settings_cat_folder">Download folder</string>
+    <string name="standard_location_title">Choose standard folder</string>
     <string name="chooser_swap_title">Swap chooser</string>
-    <string name="chooser_location_title">Відкрити менеджер файлів</string>
-    <string name="chooser_location_summary">Натисніть та утримуйте, щоб вибрати папку</string>
+    <string name="chooser_location_title">Open file-chooser</string>
+    <string name="chooser_location_summary">Long-press to select a folder</string>
 	
     <!-- -->
-    <string name="settings_cat_files">Відеофайли</string>
-    <string name="enable_q_suffix_title">Додати суфікс якості</string>
+    <string name="settings_cat_files">Video files</string>
+    <string name="enable_q_suffix_title">Append quality suffix</string>
     <string name="enable_q_suffix_summary">Add the video quality at the end of the file name</string>
-    <string name="enable_rename_title">Дозволити перейменування файлів</string>
+    <string name="enable_rename_title">Enable file rename</string>
     <string name="enable_rename_summary">Rename the video file before downloading it (for the local download only)</string>
-    <string name="show_size_title">Показати розмір файлу</string>
+    <string name="show_size_title">Show file size</string>
     <string name="show_size_summary">Fetch the video file size on download confirmation message (slower)</string>
-    <string name="show_size_list_title">Показувати усі розміри відео</string>
+    <string name="show_size_list_title">Show all video sizes</string>
     <string name="show_size_list_summary">Fetch the file sizes for every item in the list of available video (much slower)</string>
-    <string name="show_thumb_title">Показати іконку</string>
+    <string name="show_thumb_title">Show preview image</string>
     <string name="show_thumb_summary">Download a preview image together with the video list</string>
     
     <!-- -->
@@ -258,43 +258,43 @@
     <string name="remove_video_summary">Enable video file deletion after successful audio extraction (warning: no confirmation)</string>
     
     <!-- -->
-    <string name="settings_cat_notifications">Notifications</string>
+    <string name="settings_cat_notifications">Oznámení</string>
     <string name="download_manager_notification_title">Manage system\'s notifications</string>
     <string name="download_manager_notification_dialog_title">Show system\'s Download Manager notifications:</string>
     
     <string-array name="download_manager_notification_entries">
-        <item>Коли триває та після завершення</item>
-        <item>Лише коли триває</item>
-        <item>Ніколи</item>
+        <item>While in progress and after completion</item>
+        <item>While in progress only</item>
+        <item>Never</item>
     </string-array>
     
     <string name="notification_defaults_title">Notification defaults</string>
     <string name="notification_defaults_dialog_title">YTD\'s own notification defaults</string>
     <string-array name="notification_defaults_entries">
-        <item>Звук та вібрація</item>
+        <item>Sound and Vibration</item>
         <item>Sound and Lights</item>
-        <item>Вібрація та світло</item>
-        <item>Звук, вібрація та світло.</item>
-        <item>Звук</item>
-        <item>Вібрація</item>
+        <item>Vibration and Lights</item>
+        <item>Sound, Vibration and Lights</item>
+        <item>Sound</item>
+        <item>Vibration</item>
         <item>Lights</item>
-        <item>Нічого</item>
+        <item>Nothing</item>
     </string-array>   
     
     <!-- -->
-    <string name="settings_cat_updates">Оновлення</string>
-    <string name="update_title">Шукати оновлень</string>
-    <string name="autoupdate_title">Дозволити авто-оновлення</string>
+    <string name="settings_cat_updates">Updates</string>
+    <string name="update_title">Check for updates</string>
+    <string name="autoupdate_title">Enable auto-update</string>
     <string name="autoupdate_summary">Check for updates on first application\'s run of the day (the new package will be auto-downloaded)</string>
 
     <!-- -->
-    <string name="settings_cat_app">Програма</string>
-    <string name="settings_cat_about_condensed">Про</string>
-    <string name="title_changelog">Changelog</string>
+    <string name="settings_cat_app">Application</string>
+    <string name="settings_cat_about_condensed">About</string>
+    <string name="title_changelog">Seznam změn</string>
     <string name="screen_licences_code_title">Licenses and Code</string>
 
     <!-- -->
-    <string name="settings_cat_licenses">Ліцензійні угоди</string>
+    <string name="settings_cat_licenses">Licence</string>
 
     <string name="credits_title">Credits</string>
     <string name="title_activity_credits_show">Other licenses and translations</string>
@@ -347,19 +347,19 @@
     <string name="translators_info">\nFor more info:</string>
         
     <!-- -->
-    <string name="settings_cat_code">Код джерела</string>
-    <string name="ytd_code_git_title">YTD на GitHub</string>
+    <string name="settings_cat_code">Zdrojový kód</string>
+    <string name="ytd_code_git_title">YTD at GitHub</string>
     <string name="ytd_code_hg_title">YTD at Sourceforge</string>
 
     <!-- -->
-    <string name="settings_cat_social">Social</string>
-    <string name="share_title">Поділитись цією програмою</string>
+    <string name="settings_cat_social">Sociální</string>
+    <string name="share_title">Share this App</string>
     <string name="share_summary">via Twitter, Facebook, Gmail, etc&#8230;</string>
     <string name="share_warning">No suitable Apps found.</string>
     <string name="share_message">#YouTubeDownloader
 	 	\nFree and Open-Source Android App to download YouTube video!
 	 	\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
-	<string name="help_translate_title">Допоможіть перекласти цю програму!</string>
+	<string name="help_translate_title">Help translate this App</string>
     <string name="help_translate_summary">Go to www.getlocalization.com/ytdownloader</string>
     
     <!-- -->

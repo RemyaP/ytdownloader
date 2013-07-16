@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,18 +11,18 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/tv_author"
+            android:id="@+id/id3_tv_author"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
-            android:text="author" />
+            android:text="@string/id3_author" />
 
         <EditText
-            android:id="@+id/et_author"
+            android:id="@+id/id3_et_author"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textCapWords"/>
+            android:inputType="textCapWords|textNoSuggestions"/>
     </LinearLayout>
 
     <LinearLayout
@@ -30,18 +31,18 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/tv_album"
+            android:id="@+id/id3_tv_album"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
-            android:text="album" />
+            android:text="@string/id3_album" />
 
         <EditText
-            android:id="@+id/et_album"
+            android:id="@+id/id3_et_album"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textCapWords"/>
+            android:inputType="textCapWords|textNoSuggestions"/>
     </LinearLayout>
 
     <LinearLayout
@@ -50,18 +51,18 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/id3_tv_title"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
-            android:text="title" />
+            android:text="@string/id3_title" />
 
         <EditText
-            android:id="@+id/et_title"
+            android:id="@+id/id3_et_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textCapWords" />
+            android:inputType="textCapWords|textNoSuggestions" />
 
     </LinearLayout>
 
@@ -71,18 +72,17 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/tv_year"
+            android:id="@+id/id3_tv_year"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
-            android:text="year" />
+            android:text="@string/id3_year" />
 
         <EditText
-            android:id="@+id/et_year"
+            android:id="@+id/id3_et_year"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="2013"
             android:inputType="number" />
 
     </LinearLayout>
@@ -93,18 +93,18 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/tv_genre"
+            android:id="@+id/id3_tv_genre"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
-            android:text="genre" />
+            android:text="@string/id3_genre" />
 
         <EditText
-            android:id="@+id/et_genre"
+            android:id="@+id/id3_et_genre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10" 
-            android:inputType="textCapWords"/>
+            android:inputType="textCapWords|textNoSuggestions"/>
 
     </LinearLayout>
 

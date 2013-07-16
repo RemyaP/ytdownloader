@@ -6,7 +6,7 @@
     <string name="title_activity_about">درباره</string>
     <string name="title_activity_donate">کمکهای مالی</string>
     <string name="title_activity_tutorials">آموختارها</string>
-    <string name="title_activity_translators_show">Translators</string>
+    <string name="title_activity_translators_show">ترجمه کننده ها</string>
     <string name="title_activity_dashboard">Dashboard</string>
 
     <!-- ### ShareActivity ### -->
@@ -140,14 +140,21 @@
 	<string name="menu_search">search&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
+	    <item>Open</item>
 	    <item>Extract audio only</item>
         <item>Extract and encode audio to mp3</item>
+    </string-array>
+    
+	<string-array name="dashboard_click_entries_audio">
+	    <item>Open</item>
+        <item>Encode to mp3</item>
     </string-array>
     
 	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
 	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
 	<string name="remove_video">Delete video after audio extraction (no confirmation!)</string>
 	<string name="edit_id3_tags">Edit ID3 tags</string>
+	<string name="remove_original_audio">Delete audio after conversion (no confirmation!)</string>
 	
 	<string name="dashboard_long_click_entry_0">Copy</string>
 	<string name="dashboard_long_click_entry_1">Move</string>
@@ -157,7 +164,8 @@
 	    <item>Copy</item>
 	    <item>Move</item>
         <item>Rename</item>
-        <item>Delete</item>
+        <item>Remove from Dashboard</item>
+        <item>Remove and delete file</item>
     </string-array>
     
 	<string name="move_error">Error during move.</string>
@@ -199,16 +207,8 @@
     <string name="ssh_info_summary">یک نکته سریع درباره دانلود از راه دور از طریق SSH نمایش بده</string>
     <string name="audio_tutorial_title">آموختار استخراج صدا</string>
     <string name="audio_tutorial_summary">درباره ویژگی استخراج صدا یک راهنمایی خلاصه را باز کن</string>
-    <string name="audio_tutorial_text">To extract or convert to mp3 the audio from a downloaded video:
-        \n\n*) Enable the audio preference and download FFmpeg;
-        \n\n*) Choose the extraction type: 
-        \n\n\"extract only\" will conserve the audio stream from the video as is (WebM files contain an \"Ogg Vorbis\" 
-        audio; MP4, 3GPP and large/medium FLV video hold an \"AAC\" audio stream; FLV small holds an \"mp3\");
-        \n\n\"extract and encode to mp3\" will convert the extracted audio in an mp3, encoding it with the selected bitrate.
-        \n\nFrom now on, a checkbox will appear in the download confirmation box visible when you click an item 
-        in the YTD\'s video list. When checked, the audio extraction job will start upon video download completion 
-        (to hide the checkbox, disable the audio extraction option).
-        \n\nChoose from settings if you want to remove the video file after a successful audio extraction.</string>
+    <string name="audio_tutorial_text">برای استخراج یا تبدیل صدا به فایل mp3 از ویدئوی دانلود شده:\n\n*)
+در قسمت تنظیمات صدا فعال کنید و FFmpeg را دانلود کنید;\n\n*)C...</string>
     
     <!-- -->
     <string name="settings_cat_folder">پوشه دانلود</string>
@@ -234,7 +234,7 @@
     <string name="settings_cat_advanced">پیشرفته</string>
     <string name="enable_advanced_features_title">Enable Advanced Features</string>
     <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
-    <string name="mp3_bitrate_title">Mp3 encoding bitrate (kbps)</string>
+    <string name="mp3_bitrate_title">Mp3 encoding bitrate:</string>
     <string name="audio_extraction_type_title">نوع استخراج</string>
     <string name="remove_video_title">حذف کردن ویدئو</string>
     <string name="remove_video_summary">حذف ویدئو پس از استخراج موفقیت آمیز صدا را فعال کن(اخطار: بدون تأیید)</string>
@@ -345,11 +345,11 @@ For more details, look for comments in YTD\'s Java code.</string>
     
     <!-- -->
     <string name="settings_cat_ssh">SSH</string>
-    <string name="connectbot_flavour_title">ConnectBot version to use</string>
-	<string name="connectbot_flavour_dialog_title">Choose ConnectBot fork to send video via SSH</string>
+    <string name="connectbot_flavour_title">نسخه مورد استفاده ConnectBot</string>
+	<string name="connectbot_flavour_dialog_title">Connectbot را انتخاب کنید تا ویدئو از طریق پروتکل امن فرستاده شود
+</string>
 	<string name="enable_connectbot_short_cmd_title">فعال کردن فرمانهای کوتاه SSH</string>
-	<string name="enable_connectbot_short_cmd_summary">Use a slightly shorter but faster command to 
-	    paste into the remote shell (will ONLY work if the destination PC resides within the same LAN)</string>
+	<string name="enable_connectbot_short_cmd_summary">از یک فرمان کوتاه تر اما سریعتربرای چسباندن به پوسته راه دور  استفاده کنید(تنها زمانی کار می کند که کامپیوتر راه دور روی شبکه Lan مشابهی باشد)</string>
 	<string name="ssh_to_longpress_menu_title">SSH-send to long-press menu</string>
 	<string name="ssh_to_longpress_menu_summary">Move \"Send via SSH\" action into the long-press menu available from the video list</string>
 	

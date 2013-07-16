@@ -51,4 +51,8 @@
 		<from>grk</from>
 		<to>el-rGR</to>
 	</replaceItem>
+	<replaceItem>
+		<from>cs-CZ</from>
+		<to>cs-rCZ</to>
+	</replaceItem>
 </items>

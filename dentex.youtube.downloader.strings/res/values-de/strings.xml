@@ -92,11 +92,11 @@ Verzeichnis, füge den Befehl ein (verwende den Menü-Knopf) und drücke ENTER.<
     <string name="failed_download">Fehlgeschlagener Download gelöscht.</string>
     <string name="new_v_download">gefunden. Herunterladen&#8230;</string>
     <string name="new_v_install">heruntergeladen. Drücken, um zu installieren.</string>
-    <string name="ffmpeg_download_dialog_title">Weitere Dateien werden benötigt. Sollen diese nun heruntergeladen werden?</string>
+    <string name="ffmpeg_download_dialog_title">Weitere Dateien werden benötigt. Möchten Sie diese nun heruntergeladen?</string>
     <string name="ffmpeg_download_dialog_msg">Web link:</string>
     <string name="ffmpeg_device_not_supported">Dieses Gerät wird zurzeit nicht unterstützt.</string>
     <string name="ffmpeg_support_mail">E-Mail an den Entwickler schicken?
-Du kannst alle Daten in deiner E-Mail App einsehen, bevor sie gesendet werden.</string>
+Sie können alle Daten in Ihrer E-Mail einsehen, bevor sie gesendet werden.</string>
     <string name="ffmpeg_download_notification">FFmpeg herunterladen</string>
     <string name="ffmpeg_install">Installiere FFmpeg Daten&#8230;</string>
     <string name="email_via">Senden per Mail:</string>
@@ -147,14 +147,21 @@ Du kannst alle Daten in deiner E-Mail App einsehen, bevor sie gesendet werden.</
 	<string name="menu_search">Suche&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Extract audio only</item>
-        <item>Extract and encode audio to mp3</item>
+	    <item>Öffnen</item>
+	    <item>Nur Audio extrahieren</item>
+        <item>Audio extrahieren und in MP3 umwandeln</item>
+    </string-array>
+    
+	<string-array name="dashboard_click_entries_audio">
+	    <item>Öffnen</item>
+        <item>In Mp3 umwandeln</item>
     </string-array>
     
 	<string name="ffmpeg_not_enabled_title">FFmpeg nicht installiert oder aktiviert!</string>
 	<string name="ffmpeg_not_enabled_msg">Einstellungen offenen?</string>
-	<string name="remove_video">Delete video after audio extraction (no confirmation!)</string>
-	<string name="edit_id3_tags">Edit ID3 tags</string>
+	<string name="remove_video">Videodatei-Löschung nach Tonspur-Extraktion (Ohne Bestätigung!)</string>
+	<string name="edit_id3_tags">ID3-Tags bearbeiten</string>
+	<string name="remove_original_audio">Audiodatei-Löschung nach Umwandlung (Ohne Bestätigung!)</string>
 	
 	<string name="dashboard_long_click_entry_0">Kopieren</string>
 	<string name="dashboard_long_click_entry_1">Verschieben</string>
@@ -164,7 +171,8 @@ Du kannst alle Daten in deiner E-Mail App einsehen, bevor sie gesendet werden.</
 	    <item>Kopieren</item>
 	    <item>Verschieben</item>
         <item>Umbenennen</item>
-        <item>Löschen</item>
+        <item>Remove from Dashboard</item>
+        <item>Remove and delete file</item>
     </string-array>
     
 	<string name="move_error">Fehler beim Verschieben!</string>
@@ -188,11 +196,11 @@ Du kannst alle Daten in deiner E-Mail App einsehen, bevor sie gesendet werden.</
     <!-- -->
     <string name="settings_cat_ui">Benutzeroberfläche</string>
     <string name="lang_title">Sprache</string>
-    <string name="lang_dialog_title">Choose UI language:</string>
+    <string name="lang_dialog_title">UI-Sprache auswählen:</string>
     <string name="choose_theme_title">Thema auswählen</string>
     <string-array name="choose_theme_entries">
         <item>Dunkel</item>
-        <item>Licht</item>
+        <item>Hell</item>
     </string-array>
     
     <!-- -->
@@ -207,7 +215,7 @@ Du kannst alle Daten in deiner E-Mail App einsehen, bevor sie gesendet werden.</
     <string name="show_again_checkbox">Nächstes Mal nochmal anzeigen.</string>
     <string name="ssh_info_title">Aktiviere SSH Anleitung</string>
     <string name="ssh_info_summary">Zeige einen Hinweis über Remote Downloads via SSH</string>
-    <string name="audio_tutorial_title">Tonspur Extraktions-Anleitung</string>
+    <string name="audio_tutorial_title">Tonspur-Extraktionsanleitung</string>
     <string name="audio_tutorial_summary">Öffne eine kurze Anleitung über die Tonspur Extraktionsfunktion</string>
     <string name="audio_tutorial_text">Um die Tonspur aus der Videodatei zu extrahieren oder in MP3 zu konvertieren:
 \n\n*) Aktiviere die Tonspur-Einstellungen und lade FFmpeg herunter;
@@ -244,7 +252,7 @@ in der YTD\'s Video Liste angeklickt wird. Ist der Haken gesetzt, wird die Tonsp
     <string name="settings_cat_advanced">Erweitert</string>
     <string name="enable_advanced_features_title">Erweiterte Funktionen aktivieren</string>
     <string name="enable_advanced_features_summary">FFmpeg-\"Plugin\" herunterladen</string>
-    <string name="mp3_bitrate_title">Mp3 encoding bitrate (kbps)</string>
+    <string name="mp3_bitrate_title">Mp3-Encoding Bitrate:</string>
     <string name="audio_extraction_type_title">Extraktionstyp</string>
     <string name="remove_video_title">Video entfernen</string>
     <string name="remove_video_summary">Aktiviere Videodatei-Löschung nach erfolgreicher Tonspur-Extraktion (Achtung: ohne Bestätigung)</string>
@@ -274,7 +282,7 @@ in der YTD\'s Video Liste angeklickt wird. Ist der Haken gesetzt, wird die Tonsp
     </string-array>   
     
     <!-- -->
-    <string name="settings_cat_updates">Aktualisieren</string>
+    <string name="settings_cat_updates">Aktualisierungen</string>
     <string name="update_title">Nach Update suchen</string>
     <string name="autoupdate_title">Auto-Update aktivieren</string>
     <string name="autoupdate_summary">Beim ersten Start der App nach Updates suchen (neue Version wird automatisch heruntergeladen)</string>

@@ -147,14 +147,21 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
 	<string name="menu_search">search&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
+	    <item>Open</item>
 	    <item>Extract audio only</item>
         <item>Extract and encode audio to mp3</item>
+    </string-array>
+    
+	<string-array name="dashboard_click_entries_audio">
+	    <item>Open</item>
+        <item>Encode to mp3</item>
     </string-array>
     
 	<string name="ffmpeg_not_enabled_title">FFmpeg not installed or enabled:</string>
 	<string name="ffmpeg_not_enabled_msg">Open settings?</string>
 	<string name="remove_video">Delete video after audio extraction (no confirmation!)</string>
 	<string name="edit_id3_tags">Edit ID3 tags</string>
+	<string name="remove_original_audio">Delete audio after conversion (no confirmation!)</string>
 	
 	<string name="dashboard_long_click_entry_0">Copy</string>
 	<string name="dashboard_long_click_entry_1">Move</string>
@@ -164,7 +171,8 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
 	    <item>Copy</item>
 	    <item>Move</item>
         <item>Rename</item>
-        <item>Delete</item>
+        <item>Remove from Dashboard</item>
+        <item>Remove and delete file</item>
     </string-array>
     
 	<string name="move_error">Error during move.</string>
@@ -244,7 +252,7 @@ in the YTD\'s video list. When checked, the audio extraction job will start upon
     <string name="settings_cat_advanced">Paramètres avancés</string>
     <string name="enable_advanced_features_title">Enable Advanced Features</string>
     <string name="enable_advanced_features_summary">Download FFmpeg \"plugin\"</string>
-    <string name="mp3_bitrate_title">Mp3 encoding bitrate (kbps)</string>
+    <string name="mp3_bitrate_title">Mp3 encoding bitrate:</string>
     <string name="audio_extraction_type_title">Type d\'extraction</string>
     <string name="remove_video_title">Suppression vidéo</string>
     <string name="remove_video_summary">Activer la suppression du fichier vidéo après avoir correctement extrait l\'audio (attention : pas de confirmation)</string>
