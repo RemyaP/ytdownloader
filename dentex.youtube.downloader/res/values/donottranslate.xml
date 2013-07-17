@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v2.6 - Jul 17 2013
+        \n-----------------------------------
+        \n[x] fix for exp. signature parsing
+        \n[x] new translations:
+        \n    - Arabic
+        \n    - Danish
+        \n    - Greek
+        \n
         \n v2.5.2 - Jul 14 2013
         \n-----------------------------------
         \n[x] auto-fetch gantt\'s script to
@@ -161,8 +169,8 @@
 		\n
 		\n v1.5.1 - Feb 24 2013
 		\n-----------------------------------
-		\n[x] fix crash if no net is avail.
-		\n[x] fix crash on bad video list
+		\n[x] fixed crash if no net is avail.
+		\n[x] fixed crash on bad video list
 		\n
 		\n v1.5 - Feb 22 2013
 		\n-----------------------------------
@@ -291,6 +299,7 @@
         \n\nSectionedAdapter.java: GPL-3.0 - Copyright &#169; 2008-2010 CommonsWare, LLC - portions Copyright &#169; 2008 Jeffrey Sharkey
         \n\nUtils.getCpuInfo(): http://www.roman10.net/how-to-get-cpu-information-on-android/ - by Liu Feipeng
         \n\nUtils.scanMedia(&#8230;): http://www.grokkingandroid.com/adding-files-to-androids-media-library-using-the-mediascanner/ - by Wolfram Rittmeyer
+        \n\nDashboardAdapter.java &amp; DashboardListItem.java: code adapted from https://github.com/survivingwithandroid/Surviving-with-android/ - by Francesco Azzola (JFrankie)
         \n\nNew icons by Sam Plane (http://samplane123.deviantart.com/), released under the CC BY-NC-ND (http://creativecommons.org/licenses/by-nc-nd/3.0/)
         \n\njs-14.jar - Rhino: open-source implementation of JavaScript written entirely in Java; https://developer.mozilla.org/en-US/docs/Rhino - license: http://www.mozilla.org/MPL/2.0/
         \n\nJavascript function \"decryptSignature\" from the Greasemonkey script http://userscripts.org/scripts/show/25105 (MIT License) - by Gantt
@@ -399,12 +408,15 @@
     <string-array name="lang_entries">
         <item>Default</item>
         <item>English</item>
+        <item>Arabic</item>
+        <item>Danish</item>
         <item>Dutch</item>
         <item>French</item>
         <item>Hebrew</item>
         <item>Hungarian (Hungary)</item>
         <item>Italian</item>
         <item>German</item>
+        <item>Greek</item>
         <item>Korean</item>
         <item>Polish (Poland)</item>
         <item>Portuguese (Brazil)</item>
@@ -421,12 +433,15 @@
     <string-array name="lang_entry_values">
         <item>default</item>
         <item>en</item>
+        <item>ar</item>
+        <item>da</item>
         <item>nl</item>
         <item>fr</item>
         <item>iw</item>
         <item>hu_HU</item>
         <item>it</item>
         <item>de</item>
+        <item>el_GR</item>
         <item>ko</item>
         <item>pl_PL</item>
         <item>pt_BR</item>

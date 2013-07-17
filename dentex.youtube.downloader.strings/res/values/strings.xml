@@ -148,7 +148,7 @@
     <!-- -->
     <string name="settings_cat_ui">User Interface</string>
     <string name="lang_title">Language</string>
-    <string name="lang_dialog_title">Language (needs application\'s restart):</string>
+    <string name="lang_dialog_title">Choose UI language:</string>
     <string name="choose_theme_title">Choose theme</string>
     <string-array name="choose_theme_entries">
         <item>Dark</item>
@@ -334,7 +334,7 @@
 	<string name="ssh_to_longpress_menu_summary">Move \"Send via SSH\" action into the long-press menu available from the video list</string>
 	
     <!-- -->
-	<string name="settings_cat_advanced">Advanced</string>
+	<string name="settings_cat_advanced">System</string>
 	<string name="enable_logging_title">Enable logging</string>
 	<string name="enable_logging_summary">Include YTD\'s messages into the system log. Mandatory for sending a logcat to the developer.</string>
 </resources>

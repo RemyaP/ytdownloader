@@ -116,7 +116,8 @@ public class Utils {
 	}
     
     private static String[] filterLang(String lang) {
-		if (lang.equals("bg_BG") || 
+		if (lang.equals("el_GR") || 
+			lang.equals("bg_BG") || 
 			lang.equals("hu_HU") || 
 			lang.equals("ja_JP") || 
 			lang.equals("pl_PL") ||

@@ -20,7 +20,7 @@ public class FetchGanttFunction {
 	
 	public String doFetch(boolean fallingback, String url) {
         try {
-            return downloadUrl(fallingback, url);
+            return downloadFunctionFromUrl(fallingback, url);
         } catch (IOException e) {
         	Log.e(DEBUG_TAG, "doFetch: " + e.getMessage());
 	    	BugSenseHandler.sendExceptionMessage(DEBUG_TAG + "-> doFetch: ", e.getMessage(), e);
@@ -32,14 +32,14 @@ public class FetchGanttFunction {
         }
     }
 
-    private String downloadUrl(boolean fallingback, String myurl) throws IOException {
+    private String downloadFunctionFromUrl(boolean fallingback, String myurl) throws IOException {
     	HttpClient httpclient = new DefaultHttpClient();
     	HttpGet httpget = new HttpGet(myurl); 
     	ResponseHandler<String> responseHandler = new BasicResponseHandler();    
     	String responseBody = httpclient.execute(httpget, responseHandler);
     	httpclient.getConnectionManager().shutdown();
     	if (!fallingback) {
-        	return fetchDecipheringFunction(responseBody);
+        	return fetchDecipheringFunction(responseBody.replaceAll("(?m)//.*?$", " "));
     	} else {
     		return responseBody;
     	}
@@ -47,20 +47,18 @@ public class FetchGanttFunction {
 
     private String fetchDecipheringFunction(String content) {
     	String function = null;
-    	Pattern pattern = Pattern.compile("function decryptSignature.*?return sig", Pattern.DOTALL);
+    	Pattern pattern = Pattern.compile("function decryptSignature.*?return sig;.*?\\}", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(content);
         if (matcher.find()) {
-        	function = matcher.group() + "; }";
+        	function = matcher.group();
         }
-        function = function.replace("\n", " ");
-        function = function.replace("\t", " ");
-        function = function.replace("\r", " ");
-        function = function.replace("&#39;", "'");
+        
+        function = android.text.Html.fromHtml(function).toString();
 
         if (function == null) {
         	Log.e(DEBUG_TAG, "gantt's function: fetching error");
         } else {
-        	//Log.d(DEBUG_TAG, ShareActivity.ganttFunction);
+        	//Utils.logger("v", function, DEBUG_TAG);
         	Utils.logger("d", "gantt's function: successfully fetched", DEBUG_TAG);
         }
     	return function;

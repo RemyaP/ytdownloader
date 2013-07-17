@@ -1216,7 +1216,7 @@ public class ShareActivity extends Activity {
         			sig = "signature=" + sigMatcher3.group(1);
         			Utils.logger("d", "sig found on step 3 ([[0-9][A-Z]]{39,40})", DEBUG_TAG);
         		} else {
-        			Pattern sigPattern4 = Pattern.compile("s=([[0-9][A-Z]]{40,44}\\.[[0-9][A-Z]]{40,44})");
+        			Pattern sigPattern4 = Pattern.compile("s=([[0-9][A-Z][\\.]]{82,92})");
         			Matcher sigMatcher4 = sigPattern4.matcher(block);
         			if (sigMatcher4.find()) {
         				Utils.logger("d", "sig found on step 4 (s=); length is " + sigMatcher4.group(1).length(), DEBUG_TAG);
@@ -1224,50 +1224,20 @@ public class ShareActivity extends Activity {
         				if (ganttFunction == null) {
         					Utils.logger("i", "gantt's function: Fetching it online...", DEBUG_TAG);
         					
-        					/*String hardcoded = "function decryptSignature(sig) " +
-        							"{ function swap(a,b){var c=a[0];a[0]=a[b%a.length];a[b]=c;return a}; " +
-        							"if (sig.length==88) { var sigA=sig.split(''); sigA=sigA.slice(2);" +
-        							"sigA=swap(sigA,1);sigA=swap(sigA,10); sigA=sigA.reverse();sigA=sigA.slice(2);" +
-        							"sigA=swap(sigA,23); sigA=sigA.slice(3);sigA=swap(sigA,15);sigA=swap(sigA,34); " +
-        							"sig=sigA.join(''); } else if (sig.length==87) { var sigA=sig.substr(44,40)." +
-        							"split('').reverse().join(''); var sigB=sig.substr(3,40).split('').reverse().join(''); " +
-        							"sig=sigA.substr(21,1)+sigA.substr(1,20)+sigA.substr(0,1)+sigB.substr(22,9)+ " +
-        							"sig.substr(0,1)+sigA.substr(32,8)+sig.substr(43,1)+sigB; } else if (sig.length==86) " +
-        							"{ var sigA=sig.substr(2,40); var sigB=sig.substr(43,40); sig=sigA+sig.substr(42,1)+" +
-        							"sigB.substr(0,20)+sigB.substr(39,1)+sigB.substr(21,18)+sigB.substr(20,1); } else if " +
-        							"(sig.length==85) { var sigA=sig.substr(44,40).split('').reverse().join(''); var " +
-        							"sigB=sig.substr(3,40).split('').reverse().join(''); sig=sigA.substr(7,1)+sigA." +
-        							"substr(1,6)+sigA.substr(0,1)+sigA.substr(8,15)+sig.substr(0,1)+ sigA.substr(24,9)+" +
-        							"sig.substr(1,1)+sigA.substr(34,6)+sig.substr(43,1)+sigB; } else if (sig.length==84) " +
-        							"{ var sigA=sig.substr(44,40).split('').reverse().join(''); var sigB=sig.substr(3,40)." +
-        							"split('').reverse().join(''); sig=sigA+sig.substr(43,1)+sigB.substr(0,6)+sig." +
-        							"substr(2,1)+sigB.substr(7,9)+ sigB.substr(39,1)+sigB.substr(17,22)+sigB.substr(16,1);" +
-        							" } else if (sig.length==83) { var sigA=sig.substr(2,40); var sigB=sig.substr(43,40); " +
-        							"sig=sigA.substr(4,1)+sigA.substr(1,3)+sigA.substr(31,1)+sigA.substr(5,17)+ sig." +
-        							"substr(0,1)+sigA.substr(23,8)+sigB.substr(10,1)+sigA.substr(32,8)+ sig.substr(42,1)+" +
-        							"sigB.substr(0,10)+sigA.substr(22,1)+sigB.substr(11,29); } else if (sig.length==82) { " +
-        							"var sigA=sig.substr(34,48).split('').reverse().join(''); var sigB=sig.substr(0,33)." +
-        							"split('').reverse().join(''); sig=sigA.substr(45,1)+sigA.substr(2,12)+sigA.substr(0,1)+" +
-        							"sigA.substr(15,26)+ sig.substr(33,1)+sigA.substr(42,1)+sigA.substr(43,1)+sigA.substr(44,1)+ " +
-        							"sigA.substr(41,1)+sigA.substr(46,1)+sigB.substr(32,1)+sigA.substr(14,1)+ sigB.substr(0,32)+" +
-        							"sigA.substr(47,1); } return sig; }"; */
-        					
         					FetchGanttFunction ff = new FetchGanttFunction();
         					ganttFunction = ff.doFetch(false, "http://userscripts.org/scripts/review/25105");
         					
         					if (ganttFunction == null) {
         						Utils.logger("w", "gantt's function: switching from 'userscripts.org' to 'sourceforge.net'", DEBUG_TAG);
         						ganttFunction = ff.doFetch(true, "http://sourceforge.net/projects/ytdownloader/files/utils/function_decryptSignature/download");
-        					
-        						/*if (ganttFunction == null) {
-        							ganttFunction = hardcoded;
-        						}*/
         					}
         				}
 
         				String decipheredSig = RhinoRunner.decipher(sigMatcher4.group(1), ganttFunction);
+        				
         				sig = "signature=" + decipheredSig;
         			} else {
+        				
         				Log.e(DEBUG_TAG, "sig: " + sig);
         			}
         		}
