@@ -171,8 +171,8 @@ Sie können alle Daten in Ihrer E-Mail einsehen, bevor sie gesendet werden.</str
 	    <item>Kopieren</item>
 	    <item>Verschieben</item>
         <item>Umbenennen</item>
-        <item>Remove from Dashboard</item>
-        <item>Remove and delete file</item>
+        <item>Vom Dashboard entfernen</item>
+        <item>Datei entfernen und löschen</item>
     </string-array>
     
 	<string name="move_error">Fehler beim Verschieben!</string>

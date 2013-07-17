@@ -147,21 +147,21 @@
 	<string name="menu_search">ara&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Open</item>
-	    <item>Extract audio only</item>
+	    <item>Aç</item>
+	    <item>Sadece sesi ayıkla</item>
         <item>Sesi ayıkla ve MP3 olarak kaydet</item>
     </string-array>
     
 	<string-array name="dashboard_click_entries_audio">
-	    <item>Open</item>
-        <item>Encode to mp3</item>
+	    <item>Aç</item>
+        <item>Mp3\'e çevir</item>
     </string-array>
     
 	<string name="ffmpeg_not_enabled_title">FFmpeg yüklü ya da aktif değil:</string>
 	<string name="ffmpeg_not_enabled_msg">Ayarlar açılsın mı?</string>
 	<string name="remove_video">Başarılı ses ayıklama işleminden sonra video dosyasını sil (dikkat: onay istemeden video silinir)</string>
 	<string name="edit_id3_tags">ID3 etiketlerini düzenle</string>
-	<string name="remove_original_audio">Delete audio after conversion (no confirmation!)</string>
+	<string name="remove_original_audio">Çeviri sonrasında sesi sil (onay almaz!)</string>
 	
 	<string name="dashboard_long_click_entry_0">Kopyala</string>
 	<string name="dashboard_long_click_entry_1">Taşı</string>
@@ -171,8 +171,8 @@
 	    <item>Kopyala</item>
 	    <item>Taşı</item>
         <item>Yeniden Adlandır</item>
-        <item>Remove from Dashboard</item>
-        <item>Remove and delete file</item>
+        <item>Panelden Kaldır</item>
+        <item>Dosyayı sil</item>
     </string-array>
     
 	<string name="move_error">Taşıma hatası.</string>
@@ -253,7 +253,7 @@ Onay verildikten sonra video indirme işlemi bittikten sonra ses aıyklama başl
     <string name="settings_cat_advanced">Advanced</string>
     <string name="enable_advanced_features_title">Gelişmiş Özellikleri Aktif et</string>
     <string name="enable_advanced_features_summary">FFmpeg \"eklenti\" indir</string>
-    <string name="mp3_bitrate_title">Mp3 encoding bitrate:</string>
+    <string name="mp3_bitrate_title">Mp3 çeviri kalitesi:</string>
     <string name="audio_extraction_type_title">Çıkarma türü</string>
     <string name="remove_video_title">Video removal</string>
     <string name="remove_video_summary">Başarılı ses ayıklama ardından video dosyasını sil (dikkat: onay istemeden video silinir)</string>

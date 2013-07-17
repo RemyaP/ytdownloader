@@ -62,7 +62,21 @@ text1=`sed -n '/string name="credits_text1"/,/<\/string>/p' dentex.youtube.downl
 echo -e $text1 | sed -e 's/^/    /' -e 's/&#169;/(C)/g' -e 's/<http>//g' -e 's/<\/http>//g' -e 's/\\./`/g' >> $dest
 
 echo "
-     
+    i.e.:
+    *)  FfmpegController.java: GPL-3.0 - Copyright (C) 2009, Nathan Freitas, Orbot / The Guardian Project
+        http://openideals.com/guardian - https://github.com/guardianproject/android-ffmpeg-java
+    *)  Observer.java: reference - https://gist.github.com/shirou/659180
+    *)  SectionedAdapter.java: GPL-3.0 - Copyright (C) 2008-2010 CommonsWare, LLC
+        portions Copyright (C) 2008 Jeffrey Sharkey
+    *)  Utils.getCpuInfo(): http://www.roman10.net/how-to-get-cpu-information-on-android/ - by Liu Feipeng
+    *)  Utils.scanMedia(...): 
+        http://www.grokkingandroid.com/adding-files-to-androids-media-library-using-the-mediascanner/
+        by Wolfram Rittmeyer
+    *)  js-14.jar - Rhino: open-source implementation of JavaScript written entirely in Java; 
+        https://developer.mozilla.org/en-US/docs/Rhino - license: http://www.mozilla.org/MPL/2.0/
+    *)  Javascript function \"decryptSignature\" from the Greasemonkey script 
+        http://userscripts.org/scripts/show/25105 (MIT License) - by Gantt
+
     Furthermore:
     1) the device-framed screenshots in the project's directory have 
     been generated with the \"Device Frame Generator\" Android App by 

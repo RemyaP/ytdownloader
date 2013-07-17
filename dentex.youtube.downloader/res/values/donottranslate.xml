@@ -5,7 +5,23 @@
         \n-----------------------------------
         \n[x] Dashboard for interaction
         \n    with downloaded video
-        \n[x] Greek translation
+        \n
+        \n v2.6 - Jul 17 2013
+        \n-----------------------------------
+        \n[x] fix for exp. signature parsing
+        \n[x] new translations:
+        \n    - Arabic
+        \n    - Danish
+        \n    - Greek
+        \n
+        \n v2.5.2 - Jul 14 2013
+        \n-----------------------------------
+        \n[x] auto-fetch gantt\'s script to
+        \n    parse experimental signatures
+        \n
+        \n v2.5.1 - Jul 12 2013
+        \n-----------------------------------
+        \n[x] experimantal signature patch
         \n
         \n v2.5 - Jul 11 2013
         \n-----------------------------------
@@ -288,7 +304,10 @@
         \n\nSectionedAdapter.java: GPL-3.0 - Copyright &#169; 2008-2010 CommonsWare, LLC - portions Copyright &#169; 2008 Jeffrey Sharkey
         \n\nUtils.getCpuInfo(): http://www.roman10.net/how-to-get-cpu-information-on-android/ - by Liu Feipeng
         \n\nUtils.scanMedia(&#8230;): http://www.grokkingandroid.com/adding-files-to-androids-media-library-using-the-mediascanner/ - by Wolfram Rittmeyer
-        \n\nDashboardAdapter.java &amp; DashboardListItem.java: https://github.com/survivingwithandroid/Surviving-with-android/ - by Francesco Azzola (JFrankie)
+        \n\nDashboardAdapter.java &amp; DashboardListItem.java: code adapted from https://github.com/survivingwithandroid/Surviving-with-android/ - by Francesco Azzola (JFrankie)
+        \n\nNew icons by Sam Plane (http://samplane123.deviantart.com/), released under the CC BY-NC-ND (http://creativecommons.org/licenses/by-nc-nd/3.0/)
+        \n\njs-14.jar - Rhino: open-source implementation of JavaScript written entirely in Java; https://developer.mozilla.org/en-US/docs/Rhino - license: http://www.mozilla.org/MPL/2.0/
+        \n\nJavascript function \"decryptSignature\" from the Greasemonkey script http://userscripts.org/scripts/show/25105 (MIT License) - by Gantt
     </string>
     
     <string name="translators_links">
@@ -393,6 +412,8 @@
     <string-array name="lang_entries">
         <item>Default</item>
         <item>English</item>
+        <item>Arabic</item>
+        <item>Danish</item>
         <item>Dutch</item>
         <item>French</item>
         <item>Hebrew</item>
@@ -416,13 +437,15 @@
     <string-array name="lang_entry_values">
         <item>default</item>
         <item>en</item>
+        <item>ar</item>
+        <item>da</item>
         <item>nl</item>
         <item>fr</item>
         <item>iw</item>
         <item>hu_HU</item>
         <item>it</item>
         <item>de</item>
-        <item>el</item>
+        <item>el_GR</item>
         <item>ko</item>
         <item>pl_PL</item>
         <item>pt_BR</item>

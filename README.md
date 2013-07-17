@@ -7,11 +7,11 @@ Android 3+ App to download videos from YouTube
 
 ################################################################
 
-`versionCode="55"`
+`versionCode="58"`
 
-`versionName="2.5"`
+`versionName="2.6"`
 
-MD5 checksum: `d93bd8dd8d57f9e49d9c3761d6f71545` dentex.youtube.downloader_v2.5.apk
+MD5 checksum: `4546afa056793a4e0e4fc047d2fab15b` dentex.youtube.downloader_v2.6.apk
 
 NOTICE
 ================================================================
@@ -96,9 +96,11 @@ OTHER LICENSES
     *)  Utils.scanMedia(...): 
         http://www.grokkingandroid.com/adding-files-to-androids-media-library-using-the-mediascanner/
         by Wolfram Rittmeyer
-    *)  parseSingleEsSig(...) method: adapted from the Javascript Greasemonkey script 
+    *)  js-14.jar - Rhino: open-source implementation of JavaScript written entirely in Java; 
+        https://developer.mozilla.org/en-US/docs/Rhino - license: http://www.mozilla.org/MPL/2.0/
+    *)  Javascript function "decryptSignature" from the Greasemonkey script 
         http://userscripts.org/scripts/show/25105 (MIT License) - by Gantt
-          
+
     Furthermore:
     1) the device-framed screenshots in the project's directory have 
     been generated with the "Device Frame Generator" Android App by 
@@ -118,6 +120,23 @@ OTHER LICENSES
 CHANGELOG
 ================================================================
     
+     v2.6 - Jul 17 2013 
+    ----------------------------------- 
+    [x] fix for exp. signature parsing 
+    [x] new translations: 
+     - Arabic 
+     - Danish 
+     - Greek 
+     
+     v2.5.2 - Jul 14 2013 
+    ----------------------------------- 
+    [x] auto-fetch gantt\'s script to 
+     parse experimental signatures 
+     
+     v2.5.1 - Jul 12 2013 
+    ----------------------------------- 
+    [x] experimantal signature patch 
+     
      v2.5 - Jul 11 2013 
     ----------------------------------- 
     [x] experimantal signature patch 
@@ -269,8 +288,8 @@ CHANGELOG
      
      v1.5.1 - Feb 24 2013 
     ----------------------------------- 
-    [x] fix crash if no net is avail. 
-    [x] fix crash on bad video list 
+    [x] fixed crash if no net is avail. 
+    [x] fixed crash on bad video list 
      
      v1.5 - Feb 22 2013 
     ----------------------------------- 

@@ -147,21 +147,21 @@
 	<string name="menu_search">بحث&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Open</item>
-	    <item>Extract audio only</item>
+	    <item>فتح</item>
+	    <item>استخراج الصوت فقط</item>
         <item>استخراج وترميز الصوت إلى mp3</item>
     </string-array>
     
 	<string-array name="dashboard_click_entries_audio">
-	    <item>Open</item>
-        <item>Encode to mp3</item>
+	    <item>فتح</item>
+        <item>ترميز إلى mp3</item>
     </string-array>
     
 	<string name="ffmpeg_not_enabled_title">FFmpeg غير مثبته أو معطل:</string>
 	<string name="ffmpeg_not_enabled_msg">فتح الإعدادات؟</string>
 	<string name="remove_video">حذف الفيديو بعد استخراج الصوت بنجاح (بدون تأكيد!)</string>
 	<string name="edit_id3_tags">تحرير وسم ID3</string>
-	<string name="remove_original_audio">Delete audio after conversion (no confirmation!)</string>
+	<string name="remove_original_audio">حذف الصوت بعد التحويل (بدون تأكيد!)</string>
 	
 	<string name="dashboard_long_click_entry_0">نسخ</string>
 	<string name="dashboard_long_click_entry_1">نقل</string>
@@ -171,8 +171,8 @@
 	    <item>نسخ</item>
 	    <item>نقل</item>
         <item>إعادة تسمية</item>
-        <item>Remove from Dashboard</item>
-        <item>Remove and delete file</item>
+        <item>إزالة من لوحة القياس</item>
+        <item>إزالة وحذف ملف</item>
     </string-array>
     
 	<string name="move_error">خطأ خلال النقل.</string>
@@ -253,7 +253,7 @@
     <string name="settings_cat_advanced">متقدم</string>
     <string name="enable_advanced_features_title">تمكين الميزات المتقدمة</string>
     <string name="enable_advanced_features_summary">تنزيل FFmpeg \"plugin\"</string>
-    <string name="mp3_bitrate_title">Mp3 encoding bitrate:</string>
+    <string name="mp3_bitrate_title">معدل البت في الترميز للـ mp3:</string>
     <string name="audio_extraction_type_title">نوع الاستخراج</string>
     <string name="remove_video_title">إزالة الفيديو</string>
     <string name="remove_video_summary">تمكين حذف الفيديو بعد استخراج الصوت بنجاح (تحذير: بدون تأكيد)</string>

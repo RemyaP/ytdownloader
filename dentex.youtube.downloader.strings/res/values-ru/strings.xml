@@ -147,21 +147,21 @@
 	<string name="menu_search">поиск&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Open</item>
-	    <item>Extract audio only</item>
+	    <item>Oткрыть</item>
+	    <item>Только извлечь аудио</item>
         <item>Извлечь и кодировать аудио в mp3</item>
     </string-array>
     
 	<string-array name="dashboard_click_entries_audio">
-	    <item>Open</item>
-        <item>Encode to mp3</item>
+	    <item>Oткрыть</item>
+        <item>Извлечь и кодировать аудио в mp3</item>
     </string-array>
     
 	<string name="ffmpeg_not_enabled_title">FFmpeg не установлен или не включён:</string>
 	<string name="ffmpeg_not_enabled_msg">Открыть настройки?</string>
 	<string name="remove_video">Удалить видео после извлечения аудио (без подтверждения)</string>
 	<string name="edit_id3_tags">Редактировать тэги ID3</string>
-	<string name="remove_original_audio">Delete audio after conversion (no confirmation!)</string>
+	<string name="remove_original_audio">Удалить аудио после конвертирования (без подтверждения!)</string>
 	
 	<string name="dashboard_long_click_entry_0">Копировать</string>
 	<string name="dashboard_long_click_entry_1">Переместить</string>
@@ -171,8 +171,8 @@
 	    <item>Копировать</item>
 	    <item>Переместить</item>
         <item>Переименовать</item>
-        <item>Remove from Dashboard</item>
-        <item>Remove and delete file</item>
+        <item>Убрать из панели инструментов</item>
+        <item>Убрать и удалить файл</item>
     </string-array>
     
 	<string name="move_error">Ошибка при перемещении.</string>
@@ -252,7 +252,7 @@
     <string name="settings_cat_advanced">Дополнительно</string>
     <string name="enable_advanced_features_title">Включить дополнительные функции</string>
     <string name="enable_advanced_features_summary">Скачать \"плагин\" FFmpeg</string>
-    <string name="mp3_bitrate_title">Mp3 encoding bitrate:</string>
+    <string name="mp3_bitrate_title">Битрейт кодирования mp3:</string>
     <string name="audio_extraction_type_title">Тип извлечения</string>
     <string name="remove_video_title">Удаление видео</string>
     <string name="remove_video_summary">Включить удаление видео после успешного извлечения аудио (предупреждение: без подтверждения)</string>

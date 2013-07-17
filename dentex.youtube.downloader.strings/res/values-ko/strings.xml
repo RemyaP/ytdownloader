@@ -146,21 +146,21 @@
 	<string name="menu_search">검색&#8230;</string>
 	
 	<string-array name="dashboard_click_entries">
-	    <item>Open</item>
-	    <item>Extract audio only</item>
+	    <item>열기</item>
+	    <item>오디오만 추출하기</item>
         <item>오디오 추출 후 mp3로 인코드</item>
     </string-array>
     
 	<string-array name="dashboard_click_entries_audio">
-	    <item>Open</item>
-        <item>Encode to mp3</item>
+	    <item>열기</item>
+        <item>mp3로 인코드</item>
     </string-array>
     
 	<string name="ffmpeg_not_enabled_title">FFmpeg 이 설치되지 않았거나 활성화되지 않았습니다:</string>
 	<string name="ffmpeg_not_enabled_msg">설정화면으로 가시겠습니까?</string>
 	<string name="remove_video">오디오 추출이 끝난 후 비디오 파일을 삭제합니다 (별도의 확인 메세지 없음)</string>
 	<string name="edit_id3_tags">ID3 태그 수정</string>
-	<string name="remove_original_audio">Delete audio after conversion (no confirmation!)</string>
+	<string name="remove_original_audio">오디오 추출이 끝난 후 비디오 파일을 삭제 (별도의 확인 메세지 없음)</string>
 	
 	<string name="dashboard_long_click_entry_0">복사</string>
 	<string name="dashboard_long_click_entry_1">이동</string>
@@ -170,8 +170,8 @@
 	    <item>복사</item>
 	    <item>이동</item>
         <item>이름 변경</item>
-        <item>Remove from Dashboard</item>
-        <item>Remove and delete file</item>
+        <item>대시보드에서 삭제</item>
+        <item>파일도 함께 삭제</item>
     </string-array>
     
 	<string name="move_error">이동 중 에러가 발생하였습니다.</string>
@@ -250,7 +250,7 @@
     <string name="settings_cat_advanced">고급설정</string>
     <string name="enable_advanced_features_title">고급 기능 켜기</string>
     <string name="enable_advanced_features_summary">FFmpeg \"플러그인\" 다운로드</string>
-    <string name="mp3_bitrate_title">Mp3 encoding bitrate:</string>
+    <string name="mp3_bitrate_title">mp3 비트레이트:</string>
     <string name="audio_extraction_type_title">오디오 추출 형식</string>
     <string name="remove_video_title">비디오 제거</string>
     <string name="remove_video_summary">오디오 추출이 끝난 후 비디오 파일을 삭제합니다 (주의: 별도의 확인 메세지 없음)</string>
