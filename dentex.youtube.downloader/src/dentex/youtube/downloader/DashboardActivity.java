@@ -52,6 +52,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -318,168 +319,180 @@ public class DashboardActivity extends Activity{
         		currentItem = da.getItem(position); // in order to refer to the filtered item
         		
         		builder.setTitle(currentItem.getFilename());
-        		builder.setItems(R.array.dashboard_long_click_entries, new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface dialog, int which) {
-			    		switch (which) {
-			    			case 0:
-			    				copy(currentItem);
-			    				break;
-			    			case 1:
-			    				move(currentItem);
-			    				break;
-			    			case 2:
-			    				rename(currentItem);
-			    				break;
-			    			case 3:
-			    				removeFromDashboard(currentItem);
-			    				break;
-			    			case 4:
-			    				delete(currentItem);
-			    		}
-
-					}
-
-					private void copy(DashboardListItem currentItem) {
-						Intent intent = new Intent(DashboardActivity.this,  FileChooserActivity.class);
-	                	if (intent != null) {
-		            		intent.putExtra(FileChooserActivity._Rootpath, (Parcelable) new LocalFile(Environment.getExternalStorageDirectory()));
-		            		intent.putExtra(FileChooserActivity._FilterMode, IFileProvider.FilterMode.DirectoriesOnly);
-		            		startActivityForResult(intent, 1);
-	                	}
-					}
-					
-					private void move(DashboardListItem currentItem) {
-						Intent intent = new Intent(DashboardActivity.this,  FileChooserActivity.class);
-	                	if (intent != null) {
-		            		intent.putExtra(FileChooserActivity._Rootpath, (Parcelable) new LocalFile(Environment.getExternalStorageDirectory()));
-		            		intent.putExtra(FileChooserActivity._FilterMode, IFileProvider.FilterMode.DirectoriesOnly);
-		            		startActivityForResult(intent, 2);
-	                	}
-					}
-					
-					private void rename(final DashboardListItem currentItem) {
-						AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
-						LayoutInflater adbInflater = LayoutInflater.from(DashboardActivity.this);
-                	    View inputFilename = adbInflater.inflate(R.layout.dialog_input_filename, null);
-                	    userFilename = (TextView) inputFilename.findViewById(R.id.input_filename);
-                	    userFilename.setText(currentItem.getFilename());
-                	    adb.setView(inputFilename);
-                	    adb.setTitle(getString(R.string.rename_dialog_title));
-                	    //adb.setMessage(getString(R.string.rename_dialog_msg));
-                	    
-                	    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                	    	public void onClick(DialogInterface dialog, int which) {
-                	    		String input = userFilename.getText().toString();
-                	    		File in = new File(currentItem.getPath(), currentItem.getFilename());
-                	    		File renamed = new File(currentItem.getPath(), input);
-                	    		if (in.renameTo(renamed)) {
-                	    			// set new name to the list item
-                	    			currentItem.setFilename(input);
-                	    			
-                	    			// update the JSON file entry
-                	    			Utils.addEntryToJsonFile(
-                							DashboardActivity.this, 
-                							currentItem.getId(), 
-                							currentItem.getType(), 
-                							currentItem.getStatus(), 
-                							currentItem.getPath(), 
-                							input, 
-                							Utils.getFileNameWithoutExt(input), 
-                							currentItem.getAudioExt(), 
-                							currentItem.getSize(),
-                							false);
-                	    			
-                	    			// remove references for the old file
-                	    			String mediaUriString = YTD.videoinfo.getString(in.getAbsolutePath(), "non-ext");
-                	    			Utils.logger("d", "mediaString: " + mediaUriString, DEBUG_TAG);
-                	    			
-                	    			// check if it actually exists (for video on-extSdCard/copied/renamed mediaUriString is not stored)
-                	    			if (mediaUriString.equals("non-ext")) {
-                	    				DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-                	    				long id = Long.parseLong(currentItem.getId());
-                	    				if (dm.remove(id) > 0) {
-                	    					Utils.logger("d", id + " (DownloadManager) removed", DEBUG_TAG);
-                	    					// remove entries from videoinfo shared pref
-                	    					/*YTD.videoinfo.edit()
-	                	    					.remove(id + YTD.VIDEOINFO_FILENAME)
-	                	    					.remove(id + YTD.VIDEOINFO_PATH)
-	                	    					.remove(id + YTD.VIDEOINFO_AUDIO_FILENAME)
-	                	    					.remove(in.getName())
-	                	    					.apply();*/
-                	    				}
-                	    			} else {
-                	    				Uri mediaUri = Uri.parse(mediaUriString);
-                	    				// remove media file reference from MediaStore library via ContentResolver
-                	    				if (getContentResolver().delete(mediaUri, null, null) > 0) {
-                	    					Utils.logger("d", mediaUri.toString() + " (ContentResolver) removed", DEBUG_TAG);
-                	    				} else {
-                	    					Utils.logger("w", mediaUri.toString() + " (ContentResolver) NOT removed", DEBUG_TAG);
-                	    				}
-                	    				// remove entry from videoinfo shared pref (dm video)
-                	    				YTD.videoinfo.edit().remove(in.getAbsolutePath()).apply();
-                	    			}
-                	    			
-                	    			// scan the new file
-                	    			Utils.scanMedia(DashboardActivity.this, 
-                							new String[]{ renamed.getAbsolutePath() }, 
-                							new String[]{ "video/*" });
-                	    			
-                	    			// refresh the dashboard
-                	    			refreshlist(DashboardActivity.this);
-                	    			
-                	    			Utils.logger("d", in.getName() + " _renamed to_ " + input, DEBUG_TAG);
-                	    		} else {
-                	    			Log.e(DEBUG_TAG, in.getName() + " NOT renamed");
-                	    		}
-                	    		
-                	    		// hide keyboard
-                	    		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                	    		imm.hideSoftInputFromWindow(userFilename.getWindowToken(), 0);
-                	    	}
-                	    });
-                	    
-                	    adb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
-            	        	public void onClick(DialogInterface dialog, int which) {
-            	                // cancel
-            	            }
-            	        });
-                	    
-                	    secureShowDialog(adb);
-					}
-					
-					public void  removeFromDashboard(final DashboardListItem currentItem) {
-						Utils.removeEntryFromJsonFile(DashboardActivity.this, currentItem.getId());
-						refreshlist(DashboardActivity.this);
-					}
-
-					public void delete(final DashboardListItem currentItem) {
-						AlertDialog.Builder del = new AlertDialog.Builder(boxThemeContextWrapper);
-			    		del.setTitle(getString(R.string.attention));
-			    		del.setMessage(getString(R.string.delete_video_confirm));
-			    		del.setIcon(android.R.drawable.ic_dialog_alert);
-			    		del.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-							public void onClick(DialogInterface dialog, int which) {
-								final File fileToDel = new File(currentItem.getPath(), currentItem.getFilename());
-								new AsyncDelete().execute(fileToDel);
-			    			}
-			    		});
-			    		
-			    		del.setNegativeButton(R.string.dialogs_negative, new DialogInterface.OnClickListener() {
-			    			public void onClick(DialogInterface dialog, int which) {
-			    				// cancel
-			    			}
-			    		});
-			    		
-			    		secureShowDialog(del);
-					}
-        		});
         		
+        		if (currentItem.getStatus().equals(getString(R.string.json_status_completed))) {
+	        		//builder.setItems(R.array.dashboard_long_click_entries, new DialogInterface.OnClickListener() {
+        			final ArrayAdapter<CharSequence> cla = CustomLongClickAdapter.createFromResource(
+        					boxThemeContextWrapper,
+        		            android.R.layout.simple_list_item_1, 
+        		            true);
+        			builder.setAdapter(cla, new DialogInterface.OnClickListener() {
+	
+						public void onClick(DialogInterface dialog, int which) {
+				    		switch (which) {
+				    			case 0:
+				    				copy(currentItem);
+				    				break;
+				    			case 1:
+				    				move(currentItem);
+				    				break;
+				    			case 2:
+				    				rename(currentItem);
+				    				break;
+				    			case 3:
+				    				removeFromDashboard(currentItem);
+				    				break;
+				    			case 4:
+				    				delete(currentItem);
+				    		}
+	
+						}
+	        		});
+        		} else if (currentItem.getStatus().equals(getString(R.string.json_status_in_progress))) {
+        			
+        		} else if (currentItem.getStatus().equals(getString(R.string.json_status_failed))) {
+        			
+        		}
 	        	secureShowDialog(builder);
 			    return true;
+        		
         	}
     	});
+	}
+	
+	private void copy(DashboardListItem currentItem) {
+		Intent intent = new Intent(DashboardActivity.this,  FileChooserActivity.class);
+    	if (intent != null) {
+    		intent.putExtra(FileChooserActivity._Rootpath, (Parcelable) new LocalFile(Environment.getExternalStorageDirectory()));
+    		intent.putExtra(FileChooserActivity._FilterMode, IFileProvider.FilterMode.DirectoriesOnly);
+    		startActivityForResult(intent, 1);
+    	}
+	}
+	
+	private void move(DashboardListItem currentItem) {
+		Intent intent = new Intent(DashboardActivity.this,  FileChooserActivity.class);
+    	if (intent != null) {
+    		intent.putExtra(FileChooserActivity._Rootpath, (Parcelable) new LocalFile(Environment.getExternalStorageDirectory()));
+    		intent.putExtra(FileChooserActivity._FilterMode, IFileProvider.FilterMode.DirectoriesOnly);
+    		startActivityForResult(intent, 2);
+    	}
+	}
+	
+	private void rename(final DashboardListItem currentItem) {
+		AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
+		LayoutInflater adbInflater = LayoutInflater.from(DashboardActivity.this);
+	    View inputFilename = adbInflater.inflate(R.layout.dialog_input_filename, null);
+	    userFilename = (TextView) inputFilename.findViewById(R.id.input_filename);
+	    userFilename.setText(currentItem.getFilename());
+	    adb.setView(inputFilename);
+	    adb.setTitle(getString(R.string.rename_dialog_title));
+	    //adb.setMessage(getString(R.string.rename_dialog_msg));
+	    
+	    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	    	public void onClick(DialogInterface dialog, int which) {
+	    		String input = userFilename.getText().toString();
+	    		File in = new File(currentItem.getPath(), currentItem.getFilename());
+	    		File renamed = new File(currentItem.getPath(), input);
+	    		if (in.renameTo(renamed)) {
+	    			// set new name to the list item
+	    			currentItem.setFilename(input);
+	    			
+	    			// update the JSON file entry
+	    			Utils.addEntryToJsonFile(
+							DashboardActivity.this, 
+							currentItem.getId(), 
+							currentItem.getType(), 
+							currentItem.getStatus(), 
+							currentItem.getPath(), 
+							input, 
+							Utils.getFileNameWithoutExt(input), 
+							currentItem.getAudioExt(), 
+							currentItem.getSize(),
+							false);
+	    			
+	    			// remove references for the old file
+	    			String mediaUriString = YTD.videoinfo.getString(in.getAbsolutePath(), "non-ext");
+	    			Utils.logger("d", "mediaString: " + mediaUriString, DEBUG_TAG);
+	    			
+	    			// check if it actually exists (for video on-extSdCard/copied/renamed mediaUriString is not stored)
+	    			if (mediaUriString.equals("non-ext")) {
+	    				DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+	    				long id = Long.parseLong(currentItem.getId());
+	    				if (dm.remove(id) > 0) {
+	    					Utils.logger("d", id + " (DownloadManager) removed", DEBUG_TAG);
+	    					// remove entries from videoinfo shared pref
+	    					/*YTD.videoinfo.edit()
+    	    					.remove(id + YTD.VIDEOINFO_FILENAME)
+    	    					.remove(id + YTD.VIDEOINFO_PATH)
+    	    					.remove(id + YTD.VIDEOINFO_AUDIO_FILENAME)
+    	    					.remove(in.getName())
+    	    					.apply();*/
+	    				}
+	    			} else {
+	    				Uri mediaUri = Uri.parse(mediaUriString);
+	    				// remove media file reference from MediaStore library via ContentResolver
+	    				if (getContentResolver().delete(mediaUri, null, null) > 0) {
+	    					Utils.logger("d", mediaUri.toString() + " (ContentResolver) removed", DEBUG_TAG);
+	    				} else {
+	    					Utils.logger("w", mediaUri.toString() + " (ContentResolver) NOT removed", DEBUG_TAG);
+	    				}
+	    				// remove entry from videoinfo shared pref (dm video)
+	    				YTD.videoinfo.edit().remove(in.getAbsolutePath()).apply();
+	    			}
+	    			
+	    			// scan the new file
+	    			Utils.scanMedia(DashboardActivity.this, 
+							new String[]{ renamed.getAbsolutePath() }, 
+							new String[]{ "video/*" });
+	    			
+	    			// refresh the dashboard
+	    			refreshlist(DashboardActivity.this);
+	    			
+	    			Utils.logger("d", in.getName() + " _renamed to_ " + input, DEBUG_TAG);
+	    		} else {
+	    			Log.e(DEBUG_TAG, in.getName() + " NOT renamed");
+	    		}
+	    		
+	    		// hide keyboard
+	    		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+	    		imm.hideSoftInputFromWindow(userFilename.getWindowToken(), 0);
+	    	}
+	    });
+	    
+	    adb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
+        	public void onClick(DialogInterface dialog, int which) {
+                // cancel
+            }
+        });
+	    
+	    secureShowDialog(adb);
+	}
+	
+	public void  removeFromDashboard(final DashboardListItem currentItem) {
+		Utils.removeEntryFromJsonFile(DashboardActivity.this, currentItem.getId());
+		refreshlist(DashboardActivity.this);
+	}
+
+	public void delete(final DashboardListItem currentItem) {
+		AlertDialog.Builder del = new AlertDialog.Builder(boxThemeContextWrapper);
+		del.setTitle(getString(R.string.attention));
+		del.setMessage(getString(R.string.delete_video_confirm));
+		del.setIcon(android.R.drawable.ic_dialog_alert);
+		del.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface dialog, int which) {
+				final File fileToDel = new File(currentItem.getPath(), currentItem.getFilename());
+				new AsyncDelete().execute(fileToDel);
+			}
+		});
+		
+		del.setNegativeButton(R.string.dialogs_negative, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// cancel
+			}
+		});
+		
+		secureShowDialog(del);
 	}
 	
 	@Override
