@@ -65,7 +65,7 @@
     <string name="ffmpeg_ready">FFmpeg готов.</string>
     <string name="confirm_audio_checkbox1">Извлекать аудио после загрузки</string>
     <string name="confirm_audio_checkbox2">\n(как определено в настройках)</string>
-    <string name="login_required">Необходимо войти в YouTube.</string>
+    <string name="login_required">Login to YouTube may be required.</string>
     <string name="login_required_dialog_msg">YTD не может обработать данное видео.</string>
     <string name="no_video_available">Нет доступных видео.</string>
     <string name="retry_button_text">Повторить</string>
@@ -160,8 +160,15 @@
 	<string name="ffmpeg_not_enabled_title">FFmpeg не установлен или не включён:</string>
 	<string name="ffmpeg_not_enabled_msg">Открыть настройки?</string>
 	<string name="remove_video">Удалить видео после извлечения аудио (без подтверждения)</string>
-	<string name="edit_id3_tags">Редактировать тэги ID3</string>
 	<string name="remove_original_audio">Удалить аудио после конвертирования (без подтверждения!)</string>
+	<string name="edit_id3_tags">Редактировать тэги ID3</string>
+	<string name="id3_album">Album</string>
+	<string name="id3_artist">Artist</string>
+	<string name="id3_title">Title</string>
+	<string name="id3_year">Year</string>
+	<string name="id3_genre">Genre</string>
+	
+	<string name="audio_extr_info">Contained audio stream:</string>
 	
 	<string name="dashboard_long_click_entry_0">Копировать</string>
 	<string name="dashboard_long_click_entry_1">Переместить</string>
@@ -181,8 +188,10 @@
     <string name="long_press_warning_title">Операция не выполнена:</string>
     <string name="long_press_warning_msg">Папки источника и назначения совпадают.</string>
     <string name="long_press_warning_msg2">Копия уже существует в этой папке.</string>
+    <string name="audio_extr_warning_msg">Same audio file already extracted.</string>
 
 	<string name="delete_video_confirm">Подтвердить удаление видео?</string>
+	<string name="remove_video_confirm">Confirm you want to remove this video?</string>
 	<string name="delete_video_ok">%1$s успешно удалено.</string>
 	<string name="delete_video_failed">Ошибка: %1$s не удалено.</string>
 	

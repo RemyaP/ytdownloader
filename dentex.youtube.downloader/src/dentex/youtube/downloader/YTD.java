@@ -17,7 +17,7 @@
 	***
 	
 	https://github.com/dentex/ytdownloader/
-    https://sourceforge.net/projects/ytdownloader/
+	https://sourceforge.net/projects/ytdownloader/
 	
 	***
 	
@@ -41,12 +41,15 @@ public class YTD extends Application {
 	
 	static String DEBUG_TAG = "YTD";
 
-	public static String BugsenseApiKey = "00000000";
+	public static String BugsenseApiKey = "440eff2e";
 	
 	public static final String JSON_FILE = "dashboard.json";
 	public static final String JSON_FOLDER = "json";
 	public static final String JSON_DATA_ID = "id";
 	public static final String JSON_DATA_TYPE = "type";
+	public static final String JSON_DATA_TYPE_V = "VIDEO";
+	public static final String JSON_DATA_TYPE_A_E = "AUDIO-EXTR";
+	public static final String JSON_DATA_TYPE_A_M = "AUDIO-MP3";
 	public static final String JSON_DATA_STATUS = "status";
 	public static final String JSON_DATA_STATUS_C = "COMPLETED";
 	public static final String JSON_DATA_STATUS_I = "IN_PROGRESS";
@@ -63,28 +66,19 @@ public class YTD extends Application {
 	public static String PREFS_NAME = "dentex.youtube.downloader_preferences";
 	public static String VIDEOINFO_NAME = "dentex.youtube.downloader_videoinfo";
 	
-	/*public static String VIDEOINFO_FILENAME = "_F";
-	public static String VIDEOINFO_PATH = "_P";
-	public static String VIDEOINFO_AUDIO_FILENAME = "_A";*/
-	
-	/*public static String VIDEOINFO_TITLE = "_T";
-	public static String VIDEOINFO_CODEC = "_C";
-	public static String VIDEOINFO_QUALITY = "_Q";
-	public static String VIDEOINFO_3D = "_3D";*/
-	
 	@Override
-    public void onCreate() {
+	public void onCreate() {
 		Log.d(DEBUG_TAG, "onCreate");
 		
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		videoinfo = getSharedPreferences(VIDEOINFO_NAME, 0);
 		
-        BugSenseHandler.initAndStartSession(getApplicationContext(), BugsenseApiKey);
+		BugSenseHandler.initAndStartSession(getApplicationContext(), BugsenseApiKey);
 		
 		checkDownloadProvider(".apk");
 		checkDownloadProvider("Ui.apk");
-        	
-        super.onCreate();
+			
+		super.onCreate();
 	}
 
 	private void checkDownloadProvider(String suffix) {

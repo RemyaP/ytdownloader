@@ -11,7 +11,10 @@
 
     <!-- ### ShareActivity ### -->
 
-    <string name="tutorial_title">Γενικός οδηγός εφαρμογής</string>
+    <string name="tutorial_title">General App tutorial
+The Who
+Doghouse1@centurylink.net
+</string>
 	<string name="tutorial_msg_new">Τώρα θα δείτε μια λίστα με όλους τους διαθέσιμους κωδικοποιητές και τις ποιότητες του επιλεγμένου βίντεο. Μπορείτε να:
 \n\n*) Επιλέξετε ένα αντικείμενο για τοπική λήψη του βίντεο (στη συσκευή) ή να το στείλετε μέσω SSH σε έναν απομακρυσμένο υπολογιστή.
 \nΑπαιτήσεις συσκευής προορισμού: Bash και Wget. Επιπλέον πληροφορίες SSH στη συνέχεια.
@@ -65,7 +68,7 @@
     <string name="ffmpeg_ready">FFmpeg έτοιμος.</string>
     <string name="confirm_audio_checkbox1">Εξαγωγή ήχου μετά τη λήψη</string>
     <string name="confirm_audio_checkbox2">\n(όπως καθορίστηκε στις ρυθμίσεις)</string>
-    <string name="login_required">Η σύνδεση στο YouTube είναι απαραίτητη.</string>
+    <string name="login_required">Login to YouTube may be required.</string>
     <string name="login_required_dialog_msg">Το YTD δεν μπορεί να διαχειριστεί αυτό το βίντεο.</string>
     <string name="no_video_available">Κανένα βίντεο διαθέσιμο.</string>
     <string name="retry_button_text">Επανάληψη</string>
@@ -160,8 +163,15 @@
 	<string name="ffmpeg_not_enabled_title">Το FFmpeg δεν είναι εγκατεστημένο ή ενεργοποιημένο:</string>
 	<string name="ffmpeg_not_enabled_msg">Άνοιγμα ρυθμίσεων;</string>
 	<string name="remove_video">Διαγραφή βίντεο μετά την εξαγωγή ήχου (χωρίς επιβεβαίωση!)</string>
-	<string name="edit_id3_tags">Τροποποίηση ετικετών ID3</string>
 	<string name="remove_original_audio">Διαγραφή ήχου μετά την μετατροπή (χωρίς επιβεβαίωση!)</string>
+	<string name="edit_id3_tags">Τροποποίηση ετικετών ID3</string>
+	<string name="id3_album">Album</string>
+	<string name="id3_artist">Artist</string>
+	<string name="id3_title">Title</string>
+	<string name="id3_year">Year</string>
+	<string name="id3_genre">Genre</string>
+	
+	<string name="audio_extr_info">Contained audio stream:</string>
 	
 	<string name="dashboard_long_click_entry_0">Αντιγραφή</string>
 	<string name="dashboard_long_click_entry_1">Μετακίνηση</string>
@@ -181,8 +191,10 @@
     <string name="long_press_warning_title">Η διεργασία δεν εκτελέστηκε:</string>
     <string name="long_press_warning_msg">Οι φάκελοι προέλευσης και προορισμού συμπίπτουν.</string>
     <string name="long_press_warning_msg2">Υπάρχει ήδη ένα αντίγραφο σε αυτό το φάκελο.</string>
+    <string name="audio_extr_warning_msg">Same audio file already extracted.</string>
 
 	<string name="delete_video_confirm">Είστε σίγουρος ότι θέλετε να διαγράψετε αυτό το βίντεο;</string>
+	<string name="remove_video_confirm">Confirm you want to remove this video?</string>
 	<string name="delete_video_ok">%1$s διαγράφτηκε επιτυχώς.</string>
 	<string name="delete_video_failed">Σφάλμα: %1$s δε διαγράφτηκε.</string>
 	

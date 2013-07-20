@@ -9,20 +9,23 @@
         android:id="@+id/bitrate_a"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
-        android:padding="20dp">
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/mp3_info_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:text="@string/mp3_bitrate_title" />
+            android:paddingRight="10dp"
+            android:text="@string/mp3_bitrate_title" 
+            android:textAppearance="@android:style/TextAppearance.Widget.TextView"/>
 
         <Spinner
             android:id="@+id/mp3_spinner_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_gravity="right"
             android:entries="@array/mp3_bitrate_entry_values" 
             android:saveEnabled="true"/>
@@ -41,6 +44,8 @@
         android:id="@+id/rem_original_audio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/remove_original_audio"/>
+        android:paddingTop="20dp"
+        android:text="@string/remove_original_audio"
+        android:padding="10dp"/>
 
 </LinearLayout>

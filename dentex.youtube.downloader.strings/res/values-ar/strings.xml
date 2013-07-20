@@ -65,7 +65,7 @@
     <string name="ffmpeg_ready">FFmpeg جاهز</string>
     <string name="confirm_audio_checkbox1">استخراج الصوت بعد التنزيل</string>
     <string name="confirm_audio_checkbox2">\n(كما هو معرّف في الاعدادات)</string>
-    <string name="login_required">يجب تسجيل الدخول إلى اليوتيوب</string>
+    <string name="login_required">Login to YouTube may be required.</string>
     <string name="login_required_dialog_msg">YTD لايمكنه التعامل مع هذا النوع من ملفات الفيديو.</string>
     <string name="no_video_available">لايتوفر أي  فيديو.</string>
     <string name="retry_button_text">إعادة المحاولة</string>
@@ -160,8 +160,15 @@
 	<string name="ffmpeg_not_enabled_title">FFmpeg غير مثبته أو معطل:</string>
 	<string name="ffmpeg_not_enabled_msg">فتح الإعدادات؟</string>
 	<string name="remove_video">حذف الفيديو بعد استخراج الصوت بنجاح (بدون تأكيد!)</string>
-	<string name="edit_id3_tags">تحرير وسم ID3</string>
 	<string name="remove_original_audio">حذف الصوت بعد التحويل (بدون تأكيد!)</string>
+	<string name="edit_id3_tags">تحرير وسم ID3</string>
+	<string name="id3_album">Album</string>
+	<string name="id3_artist">Artist</string>
+	<string name="id3_title">Title</string>
+	<string name="id3_year">Year</string>
+	<string name="id3_genre">Genre</string>
+	
+	<string name="audio_extr_info">Contained audio stream:</string>
 	
 	<string name="dashboard_long_click_entry_0">نسخ</string>
 	<string name="dashboard_long_click_entry_1">نقل</string>
@@ -181,8 +188,10 @@
     <string name="long_press_warning_title">العملية لم تبدأ:</string>
     <string name="long_press_warning_msg">تداخل المجلدات المصدر والوجهة.</string>
     <string name="long_press_warning_msg2">يوجد نسخة بالفعل في هذا المجلد.</string>
+    <string name="audio_extr_warning_msg">Same audio file already extracted.</string>
 
 	<string name="delete_video_confirm">تأكيد الرغبة في حذف هذا الفيديو؟</string>
+	<string name="remove_video_confirm">Confirm you want to remove this video?</string>
 	<string name="delete_video_ok">%1$s تم حذفه بنجاح.</string>
 	<string name="delete_video_failed">خطأ: %1$s  لم يتم حذفه.</string>
 	

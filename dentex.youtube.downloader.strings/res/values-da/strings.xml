@@ -65,7 +65,7 @@ KOPIÈR derefter kommandoen (brug menuknappen) og tryk ENTER.</string>
     <string name="ffmpeg_ready">FFmpeg klar.</string>
     <string name="confirm_audio_checkbox1">Ekstrakt lyd efter download</string>
     <string name="confirm_audio_checkbox2">\n(som defineret i indstillinger)</string>
-    <string name="login_required">Login til YouTube er påkrævet</string>
+    <string name="login_required">Login to YouTube may be required.</string>
     <string name="login_required_dialog_msg">YTD kan ikke håndtere denne video.</string>
     <string name="no_video_available">Ingen video tilgængelig.</string>
     <string name="retry_button_text">Forsøg igen</string>
@@ -160,8 +160,15 @@ KOPIÈR derefter kommandoen (brug menuknappen) og tryk ENTER.</string>
 	<string name="ffmpeg_not_enabled_title">FFmpeg er ikke installeret eller aktiveret:</string>
 	<string name="ffmpeg_not_enabled_msg">Åbn indstillinger?</string>
 	<string name="remove_video">Slet video efter lydekstration (ingen bekræftelse!)</string>
-	<string name="edit_id3_tags">Slet ID3-tags</string>
 	<string name="remove_original_audio">Delete audio after conversion (no confirmation!)</string>
+	<string name="edit_id3_tags">Slet ID3-tags</string>
+	<string name="id3_album">Album</string>
+	<string name="id3_artist">Artist</string>
+	<string name="id3_title">Title</string>
+	<string name="id3_year">Year</string>
+	<string name="id3_genre">Genre</string>
+	
+	<string name="audio_extr_info">Contained audio stream:</string>
 	
 	<string name="dashboard_long_click_entry_0">Kopier</string>
 	<string name="dashboard_long_click_entry_1">Flyt</string>
@@ -181,8 +188,10 @@ KOPIÈR derefter kommandoen (brug menuknappen) og tryk ENTER.</string>
     <string name="long_press_warning_title">Handlingen er ikke udført:</string>
     <string name="long_press_warning_msg">Overlapning af kilde- og placeringsmapper.</string>
     <string name="long_press_warning_msg2">En kopi eksisterer allerede i denne mappe.</string>
+    <string name="audio_extr_warning_msg">Same audio file already extracted.</string>
 
 	<string name="delete_video_confirm">Bekræft, at du vil slette denne video.</string>
+	<string name="remove_video_confirm">Confirm you want to remove this video?</string>
 	<string name="delete_video_ok">%1$s succesfuldt slettet.</string>
 	<string name="delete_video_failed">Fejl: %1$s er ikke slettet.</string>
 	

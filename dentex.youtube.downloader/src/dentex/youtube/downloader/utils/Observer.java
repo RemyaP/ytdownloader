@@ -81,8 +81,9 @@ public class Observer {
 					Utils.logger("d", TAG + "Retrieved ID: " +  id, DEBUG_TAG);
 					try {
 						DownloadsService.removeIdUpdateNotification(id);
+						//YTD.videoinfo.edit().remove(path).apply();
 					} catch (NullPointerException e) {
-						Log.e(DEBUG_TAG, "Nothing to update into notification. ", e.getCause());
+						Log.e(DEBUG_TAG, "Error updating YTD notification. ", e.getCause());
 					}
 				}
 			}

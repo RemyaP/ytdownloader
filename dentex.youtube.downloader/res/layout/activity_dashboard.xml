@@ -9,6 +9,7 @@
     
     <!-- <EditText
 		android:id="@+id/search_txt"
+		android:inputType="textNoSuggestions"
 		android:hint="@string/menu_search"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"

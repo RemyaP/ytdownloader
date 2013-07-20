@@ -11,13 +11,13 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/id3_tv_author"
+            android:id="@+id/id3_tv_artist"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
-            android:text="@string/id3_author" />
+            android:text="@string/id3_artist" />
 
         <EditText
-            android:id="@+id/id3_et_author"
+            android:id="@+id/id3_et_artist"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -65,28 +65,7 @@
             android:inputType="textCapWords|textNoSuggestions" />
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:padding="5dp">
-
-        <TextView
-            android:id="@+id/id3_tv_year"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:text="@string/id3_year" />
-
-        <EditText
-            android:id="@+id/id3_et_year"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="number" />
-
-    </LinearLayout>
-
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
@@ -105,6 +84,27 @@
             android:layout_weight="1"
             android:ems="10" 
             android:inputType="textCapWords|textNoSuggestions"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/id3_tv_year"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="@string/id3_year" />
+
+        <EditText
+            android:id="@+id/id3_et_year"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="number|textNoSuggestions" />
 
     </LinearLayout>
 

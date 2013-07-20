@@ -135,8 +135,6 @@ public class ShareActivity extends Activity {
 	public CheckBox showAgain2;
 	public CheckBox showAgain3;
 	public TextView userFilename;
-	//public static SharedPreferences settings = YTD.settings;
-	//public static SharedPreferences videoinfo = YTD.videoinfo;
 	public static final File dir_Downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 	public static final File dir_DCIM = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
 	public static final File dir_Movies = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
@@ -166,17 +164,14 @@ public class ShareActivity extends Activity {
 	public static List<Long> sequence = new ArrayList<Long>();
 	String audioFilename = "audio";
 	public static String audioCodec = "";
-	//private boolean audioExtractionEnabled;
 	public static Context mContext;
 	boolean showSizesInVideoList;
 	boolean showSingleSize;
 	ContextThemeWrapper boxThemeContextWrapper = new ContextThemeWrapper(this, R.style.BoxTheme);
 	public int count;
-	//public String acodec = "";
 	public String extrType;
 	public String aquality;
 	public boolean audioExtrEnabled = false;
-	//public CheckBox audioConfirm;
 	public String ganttFunction = null;
 
 	@Override
@@ -307,11 +302,7 @@ public class ShareActivity extends Activity {
     @Override
 	public void onBackPressed() {
     	super.onBackPressed();
-    	/*
-    	 * The next call is here onBackPressed(), and NOT in onStop() because 
-    	 * I want to cancel the asyncDownload task only on back button pressed,
-    	 * and not when switching to Preferences or D.M. from this activity.
-    	 */
+    	// To cancel the asyncDownload task only on back button pressed (not when switching to other activities)
     	if (isAsyncDownloadRunning) {
     		asyncDownload.cancel(true);
     	}
@@ -375,8 +366,6 @@ public class ShareActivity extends Activity {
     	    showAgain1.setChecked(true);
     	    adb.setView(generalInfo);
     	    adb.setTitle(getString(R.string.tutorial_title));    	    
-    	    //adb.setMessage(getString(R.string.tutorial_msg));
-
     	    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
     	    	public void onClick(DialogInterface dialog, int which) {
     	    		if (!showAgain1.isChecked()) {
@@ -520,16 +509,12 @@ public class ShareActivity extends Activity {
 					
 					assignPath();
 					
-                    //Utils.createLogFile(sdcard, "ytd_FINAL_LINK.txt", links.get(position));
-					
                     pos = position;     
                     //pos = 45;		// to test IndexOutOfBound Exception...
                     
                 	helpBuilder = new AlertDialog.Builder(boxThemeContextWrapper);
                     helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
                     helpBuilder.setTitle(getString(R.string.list_click_dialog_title));
-                    
-                    //insertAudioConfirmation();
                     
                     if (showSizesInVideoList) {
                     	showSingleSize = true;
@@ -575,7 +560,6 @@ public class ShareActivity extends Activity {
 		                    	    	public void onClick(DialogInterface dialog, int which) {
 		                    	    		basename = userFilename.getText().toString();
 		                    	    		vFilename = composeVideoFilename();
-		                    	    		//manageAudioFeature();
 											callDownloadManager(links.get(pos));
 		                    	    	}
 		                    	    });
@@ -591,22 +575,12 @@ public class ShareActivity extends Activity {
 		                    	    }
 	                            } else {
 	                            	vFilename = composeVideoFilename();
-	                            	//manageAudioFeature();
 	                            	callDownloadManager(links.get(pos));
 	                            }
                         	} catch (IndexOutOfBoundsException e) {
     							Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
     						}
                         }
-
-						/*public void manageAudioFeature() {
-							audioExtractionEnabled = YTD.settings.getBoolean("enable_advanced_features", false);
-							if (audioExtractionEnabled == true) {
-								audioCodec = findAudioCodec();
-								YTD.settings.edit().putString(composedVideoFilename + "FFext", audioCodec).apply();
-							}
-							YTD.settings.edit().putString(composedVideoFilename + "FFbase", title).apply();
-						}*/
                     });
 					
                     // show central button for SSH send if enabled in prefs
@@ -695,19 +669,6 @@ public class ShareActivity extends Activity {
 			ClipboardManager cb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 			cb.setPrimaryClip(cmd);
 		}
-		
-		/*private void insertAudioConfirmation() {
-			boolean fromPrefs = YTD.settings.getBoolean("enable_advanced_features", false);
-			if (fromPrefs) {
-				LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
-				View handleAudio = adbInflater.inflate(R.layout.dialog_confirm_download, null);
-				audioConfirm = (CheckBox) handleAudio.findViewById(R.id.audioConfirm);
-				String text = getString(R.string.confirm_audio_checkbox1) + getString(R.string.confirm_audio_checkbox2);
-				audioConfirm.setText(text);
-				audioConfirm.setChecked(false);
-				helpBuilder.setView(handleAudio);
-			}
-		}*/
         
 		private boolean useQualitySuffix() {
         	boolean enabled = YTD.settings.getBoolean("enable_q_suffix", true);
@@ -757,7 +718,7 @@ public class ShareActivity extends Activity {
     	        });
     	        cb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
     	        	public void onClick(DialogInterface dialog, int which) {
-    	                // Do nothing but close the dialog
+    	                // cancel
     	            }
     	        });
 
@@ -861,13 +822,6 @@ public class ShareActivity extends Activity {
     	
     	Intent intent1 = new Intent(ShareActivity.this, DownloadsService.class);
     	intent1.putExtra("COPY", false);
-    	
-    	/*audioExtrEnabled = YTD.settings.getBoolean("enable_advanced_features", false);
-    	if (audioExtractionEnabled && audioConfirm.isChecked()) {
-    		intent1.putExtra("AUDIO", extrType);
-    	} else {
-    		intent1.putExtra("AUDIO", "none");
-    	}*/
 
 		try {
 			try {
@@ -895,14 +849,10 @@ public class ShareActivity extends Activity {
 		
 		String aExt = findAudioCodec();
 		
-		/*YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_FILENAME, composedVideoFilename).apply();
-		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_PATH, path.getAbsolutePath()).apply();
-		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_AUDIO_FILENAME, title + acodec).apply();*/
-		
 		Utils.addEntryToJsonFile(
 				mContext, 
 				String.valueOf(enqueue), 
-				getString(R.string.json_type_video), 
+				YTD.JSON_DATA_TYPE_V, 
 				YTD.JSON_DATA_STATUS_I, 
 				path.getAbsolutePath(), 
 				vFilename, 
@@ -910,11 +860,6 @@ public class ShareActivity extends Activity {
 				aExt, 
 				"-", 
 				false);
-		
-		/*YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_TITLE , title).apply();
-		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_CODEC, codecs.get(pos)).apply();
-		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_QUALITY, qualities.get(pos)).apply();
-		YTD.videoinfo.edit().putString(String.valueOf(enqueue) + YTD.VIDEOINFO_3D, stereo.get(pos)).apply();*/
     	
 		sequence.add(enqueue);
 		YTD.videoinfo.edit().putLong(vFilename, enqueue).apply();
@@ -925,33 +870,19 @@ public class ShareActivity extends Activity {
 			videoFileObserver = new Observer.YtdFileObserver(path.getAbsolutePath());
 		}
 		videoFileObserver.startWatching();
-		
-		//NotificationHelper();
     }
     
     private String findAudioCodec() {
-    	//CODEC [file EXTENSION]
-    	/*extrType = YTD.settings.getString("audio_extraction_type", "extr");
-		if (extrType.equals("conv")) {
-			acodec = ".mp3";
-		} else {*/
     	String aExt = null;
     	
-			if (codecs.get(pos).equals("webm")) aExt = ".ogg";
-		    if (codecs.get(pos).equals("mp4")) aExt = ".aac";
-		    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("small")) aExt = ".mp3";
-		    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("medium")) aExt = ".aac";
-		    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("large")) aExt = ".aac";
-		    if (codecs.get(pos).equals("3gpp")) aExt = ".aac";
-		/*}
-		//QUALITY
-    	if (extrType.equals("conv")) {
-    		aquality = "_" + YTD.settings.getString("mp3_bitrate", "192k");
-    	} else { 
-    		aquality = "";
-    	}*/
-    	//FINALLY
-    	return /*aquality + */aExt;
+		if (codecs.get(pos).equals("webm")) aExt = ".ogg";
+	    if (codecs.get(pos).equals("mp4")) aExt = ".aac";
+	    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("small")) aExt = ".mp3";
+	    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("medium")) aExt = ".aac";
+	    if (codecs.get(pos).equals("flv") && qualities.get(pos).equals("large")) aExt = ".aac";
+	    if (codecs.get(pos).equals("3gpp")) aExt = ".aac";
+
+    	return aExt;
     }
     
     private String generateThumbUrl() {
@@ -1123,13 +1054,6 @@ public class ShareActivity extends Activity {
             } else {
             	Utils.logger("d", "asyncDownload cancelled @ 'findCodecAndQualityAndLinks' match", DEBUG_TAG);
             } 
-            
-            /*
-			Utils.createLogFile(sdcard, "ytd_links.txt", Arrays.toString(links.toArray()));
-			Utils.createLogFile(sdcard, "ytd_codecs.txt", Arrays.toString(codecs.toArray()));
-	        Utils.createLogFile(sdcard, "ytd_qualities.txt", Arrays.toString(qualities.toArray()));
-			*/
-            
             return "Match!";
         } else {
             return "No Match";

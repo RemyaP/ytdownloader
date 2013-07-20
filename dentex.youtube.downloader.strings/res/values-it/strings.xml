@@ -65,7 +65,7 @@
     <string name="ffmpeg_ready">FFmpeg pronto.</string>
     <string name="confirm_audio_checkbox1">Estrai l\'audio dopo il download</string>
     <string name="confirm_audio_checkbox2">\n(come definito nelle opzioni)</string>
-    <string name="login_required">E\' richiesto il login a YouTube</string>
+    <string name="login_required">Potrebbe essere richiesto il login a YouTube.</string>
     <string name="login_required_dialog_msg">YTD non può gestire questo video.</string>
     <string name="no_video_available">Nessun video disponibile.</string>
     <string name="retry_button_text">Riprova</string>
@@ -160,8 +160,15 @@
 	<string name="ffmpeg_not_enabled_title">FFmpeg non installallato o abilitato:</string>
 	<string name="ffmpeg_not_enabled_msg">Aprire le preferenze?</string>
 	<string name="remove_video">Cancella il video dopo aver estratto l\'audio (nessuna conferma!)</string>
-	<string name="edit_id3_tags">Modifica le tag ID3</string>
 	<string name="remove_original_audio">Cancella l\'audio dopo la conversione (nessuna conferma!)</string>
+	<string name="edit_id3_tags">Modifica le tag ID3</string>
+	<string name="id3_album">Album</string>
+	<string name="id3_artist">Artista</string>
+	<string name="id3_title">Titolo</string>
+	<string name="id3_year">Anno</string>
+	<string name="id3_genre">Genere</string>
+	
+	<string name="audio_extr_info">Flusso audio contenuto:</string>
 	
 	<string name="dashboard_long_click_entry_0">Copia</string>
 	<string name="dashboard_long_click_entry_1">Sposta</string>
@@ -181,8 +188,10 @@
     <string name="long_press_warning_title">Operazione non eseguita:</string>
     <string name="long_press_warning_msg">Le cartelle di origine e destinazione coincidono.</string>
     <string name="long_press_warning_msg2">Esiste già una copia in questa cartella.</string>
+    <string name="audio_extr_warning_msg">Lo stesso file audio già esiste.</string>
 
 	<string name="delete_video_confirm">Confermi che vuoi cancellare questo video?</string>
+	<string name="remove_video_confirm">Confermi che vuoi rimuovere questo video?</string>
 	<string name="delete_video_ok">%1$s cancellato con successo.</string>
 	<string name="delete_video_failed">Errore: %1$s non cancellato.</string>
 	

@@ -57,8 +57,6 @@ import dentex.youtube.downloader.utils.Utils;
 public class DownloadsService extends Service {
 	
 	private final static String DEBUG_TAG = "DownloadsService";
-	//private SharedPreferences settings = YTD.settings;
-	//private SharedPreferences videoinfo = YTD.videoinfo;
 	public static boolean copyEnabled;
 	public static Context nContext;
 
@@ -111,24 +109,21 @@ public class DownloadsService extends Service {
     		Utils.logger("d", "downloadComplete: onReceive CALLED", DEBUG_TAG);
     		long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
     		int ID = (int) id;
-    		/*String vfilename = YTD.videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_FILENAME, "video");
-    		String path = YTD.videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_PATH, ShareActivity.path.getAbsolutePath());
-    		String afilename = YTD.videoinfo.getString(String.valueOf(id) + YTD.VIDEOINFO_AUDIO_FILENAME, "audio");*/
     		
     		String previousJson = Utils.parseJsonDashboardFile(context);
     		JSONObject mO = null;
     		try {
     			mO = new JSONObject(previousJson);
     			JSONObject obj = mO.optJSONObject(String.valueOf(id));
-    			
-    			absolutePath = obj.getString(YTD.JSON_DATA_PATH);
-    			vFilename = obj.getString(YTD.JSON_DATA_FILENAME);
-    			basename = obj.getString(YTD.JSON_DATA_BASENAME);
-    			aExt = obj.getString(YTD.JSON_DATA_AUDIO_EXT);
+    			if (obj != null) {
+    				absolutePath = obj.getString(YTD.JSON_DATA_PATH);
+    				vFilename = obj.getString(YTD.JSON_DATA_FILENAME);
+    				basename = obj.getString(YTD.JSON_DATA_BASENAME);
+    				aExt = obj.getString(YTD.JSON_DATA_AUDIO_EXT);
+    			}
     		} catch (JSONException e1) {
     			Log.e(DEBUG_TAG, e1.getMessage());
     		}
-    		
     		
 			Query query = new Query();
 			query.setFilterById(id);
@@ -225,7 +220,7 @@ public class DownloadsService extends Service {
 					Utils.addEntryToJsonFile(
 							nContext, 
 							String.valueOf(id), 
-							getString(R.string.json_type_video), 
+							YTD.JSON_DATA_TYPE_V, 
 							YTD.JSON_DATA_STATUS_C, 
 							absolutePath, 
 							vFilename, 
@@ -247,7 +242,7 @@ public class DownloadsService extends Service {
 					Utils.addEntryToJsonFile(
 							nContext, 
 							String.valueOf(id), 
-							getString(R.string.json_type_video), 
+							YTD.JSON_DATA_TYPE_V, 
 							YTD.JSON_DATA_STATUS_F, 
 							absolutePath, 
 							vFilename, 
@@ -282,7 +277,7 @@ public class DownloadsService extends Service {
 				Utils.logger("d", "_ID " + id + " Already REMOVED from Notification", DEBUG_TAG);
 			}
 		} else {
-			Log.e(DEBUG_TAG, "_ID  not found!");
+			Utils.logger("w", "_ID  not found!", DEBUG_TAG);
 		}
 		
 		if (!copyEnabled) Utils.setNotificationDefaults(ShareActivity.mBuilder);

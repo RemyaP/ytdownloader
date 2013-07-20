@@ -64,7 +64,7 @@
     <string name="ffmpeg_ready">FFmpeg 이 준비됨</string>
     <string name="confirm_audio_checkbox1">다운로드 후 오디오 추출</string>
     <string name="confirm_audio_checkbox2">\n(세부 사항은 추출 설정을 따릅니다)</string>
-    <string name="login_required">유튜브에 로그인해야 합니다.</string>
+    <string name="login_required">Login to YouTube may be required.</string>
     <string name="login_required_dialog_msg">YTD가 이 비디오를 처리할 수 없습니다.</string>
     <string name="no_video_available">비디오가 없습니다.</string>
     <string name="retry_button_text">재시도</string>
@@ -159,8 +159,15 @@
 	<string name="ffmpeg_not_enabled_title">FFmpeg 이 설치되지 않았거나 활성화되지 않았습니다:</string>
 	<string name="ffmpeg_not_enabled_msg">설정화면으로 가시겠습니까?</string>
 	<string name="remove_video">오디오 추출이 끝난 후 비디오 파일을 삭제합니다 (별도의 확인 메세지 없음)</string>
-	<string name="edit_id3_tags">ID3 태그 수정</string>
 	<string name="remove_original_audio">오디오 추출이 끝난 후 비디오 파일을 삭제 (별도의 확인 메세지 없음)</string>
+	<string name="edit_id3_tags">ID3 태그 수정</string>
+	<string name="id3_album">Album</string>
+	<string name="id3_artist">Artist</string>
+	<string name="id3_title">Title</string>
+	<string name="id3_year">Year</string>
+	<string name="id3_genre">Genre</string>
+	
+	<string name="audio_extr_info">Contained audio stream:</string>
 	
 	<string name="dashboard_long_click_entry_0">복사</string>
 	<string name="dashboard_long_click_entry_1">이동</string>
@@ -180,8 +187,10 @@
     <string name="long_press_warning_title">명령 실행 불가:</string>
     <string name="long_press_warning_msg">소스 폴더와 목적 폴더가 겹칩니다.</string>
     <string name="long_press_warning_msg2">복사본이 이미 이 폴더에 있습니다.</string>
+    <string name="audio_extr_warning_msg">Same audio file already extracted.</string>
 
 	<string name="delete_video_confirm">이 비디오를 삭제하시겠습니까?</string>
+	<string name="remove_video_confirm">Confirm you want to remove this video?</string>
 	<string name="delete_video_ok">%1$s 이(가) 성공적으로 삭제되었습니다.</string>
 	<string name="delete_video_failed">에러: %1$s 을(를) 삭제 실패하였습니다.</string>
 	

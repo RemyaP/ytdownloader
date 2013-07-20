@@ -6,16 +6,19 @@
     android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/temp"
+            android:id="@+id/audio_extr_info"
+            android:textIsSelectable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:text="---temp---" />
+            android:textAppearance="@android:style/TextAppearance.Widget.TextView"
+            android:padding="10dp"/>
         
     <CheckBox
         android:id="@+id/rem_video_0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/remove_original_audio"/>
+        android:text="@string/remove_original_audio"
+        android:padding="10dp"/>
 
 </LinearLayout>
