@@ -65,7 +65,7 @@ Verzeichnis, füge den Befehl ein (verwende den Menü-Knopf) und drücke ENTER.<
     <string name="ffmpeg_ready">FFmpeg bereit.</string>
     <string name="confirm_audio_checkbox1">Extrahiere Tonspur nach dem Download</string>
     <string name="confirm_audio_checkbox2">\n(wie in den Einstellungen definiert)</string>
-    <string name="login_required">Login to YouTube may be required.</string>
+    <string name="login_required">Das Einloggen bei YouTube könnte erforderlich sein.</string>
     <string name="login_required_dialog_msg">YTD kann dieses Video nicht wiedergegebe!</string>
     <string name="no_video_available">Video nicht verfügbar!</string>
     <string name="retry_button_text">Wiederholen</string>
@@ -163,12 +163,12 @@ Sie können alle Daten in Ihrer E-Mail einsehen, bevor sie gesendet werden.</str
 	<string name="remove_original_audio">Audiodatei-Löschung nach Umwandlung (Ohne Bestätigung!)</string>
 	<string name="edit_id3_tags">ID3-Tags bearbeiten</string>
 	<string name="id3_album">Album</string>
-	<string name="id3_artist">Artist</string>
-	<string name="id3_title">Title</string>
-	<string name="id3_year">Year</string>
+	<string name="id3_artist">Künstler</string>
+	<string name="id3_title">Titel</string>
+	<string name="id3_year">Jahr</string>
 	<string name="id3_genre">Genre</string>
 	
-	<string name="audio_extr_info">Contained audio stream:</string>
+	<string name="audio_extr_info">Beinhaltender Audio Stream:</string>
 	
 	<string name="dashboard_long_click_entry_0">Kopieren</string>
 	<string name="dashboard_long_click_entry_1">Verschieben</string>
@@ -188,10 +188,10 @@ Sie können alle Daten in Ihrer E-Mail einsehen, bevor sie gesendet werden.</str
     <string name="long_press_warning_title">Nicht ausgeführt:</string>
     <string name="long_press_warning_msg">Quelle- &amp; Zielordner sind gleich!</string>
     <string name="long_press_warning_msg2">Datei in diesem Ordner bereits vorhanden!</string>
-    <string name="audio_extr_warning_msg">Same audio file already extracted.</string>
+    <string name="audio_extr_warning_msg">Diese Audio Datei existiert bereits.</string>
 
 	<string name="delete_video_confirm">Möchten Sie das Video wirklich löschen?</string>
-	<string name="remove_video_confirm">Confirm you want to remove this video?</string>
+	<string name="remove_video_confirm">Möchten Sie das Video wirklich löschen?</string>
 	<string name="delete_video_ok">%1$s erfolgreich gelöscht!</string>
 	<string name="delete_video_failed">Fehler: %1$s nicht gelöscht!</string>
 	
@@ -217,8 +217,8 @@ Sie können alle Daten in Ihrer E-Mail einsehen, bevor sie gesendet werden.</str
     <string name="quick_start_summ">Starte kurze Einführung</string>
     <string name="quick_start_text">Hier finden Sie nur die Einstellungen für \'YouTube Downloader\'.
 \n\nDie eigentliche App kann über den Share Button in der YouTube App aufgerufen werden, während das Video läuft.
-\n\nDann \'YouTube Downloader\' wählen und du erhältst weitere Benutzerhilfe.
-\n\nDu kannst auch jeden YouTube Klartext Link über jede App teilen, z.B. deinen Browser.</string>
+\n\nDann \'YouTube Downloader\' wählen und Sie erhalten weitere Benutzerhilfe.
+\n\nSie können auch jeden YouTube Klartext Link über jede App teilen, z.B. einen Browser.</string>
     <string name="general_info_title">Aktiviere Allgemeine Anleitung</string>
     <string name="general_info_summary">Starte allgemeine Anleitung beim öffnen</string>
     <string name="show_again_checkbox">Nächstes Mal nochmal anzeigen.</string>
