@@ -256,6 +256,8 @@
     <string name="show_size_list_summary">Fetch the file sizes for every item in the list of available video (much slower)</string>
     <string name="show_thumb_title">Show preview image</string>
     <string name="show_thumb_summary">Download a preview image together with the video list</string>
+    <string name="show_resolutions_title">Show video resolutions</string>
+    <string name="show_resolutions_summary">Replace the quality with the numerical resolution for each video</string>
     
     <!-- -->
     <string name="settings_cat_advanced">Advanced</string>

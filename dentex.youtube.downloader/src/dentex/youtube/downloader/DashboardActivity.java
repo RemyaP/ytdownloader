@@ -30,6 +30,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.TrafficStats;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -121,6 +122,10 @@ public class DashboardActivity extends Activity{
 	private boolean newClick;
 	
 	public static Activity sDashboard;
+	
+	long BeforeTime = System.currentTimeMillis();
+	long TotalRxBeforeTest = TrafficStats.getTotalTxBytes();
+	long TotalTxBeforeTest = TrafficStats.getTotalRxBytes();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -1427,4 +1432,5 @@ public class DashboardActivity extends Activity{
 		
 		secureShowDialog(adb);
 	}
+
 }

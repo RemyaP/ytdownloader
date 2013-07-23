@@ -7,11 +7,23 @@ Android 3+ App to download videos from YouTube
 
 ################################################################
 
-`versionCode="58"`
+`versionCode="59"`
 
-`versionName="2.6"`
+`versionName="3.0-dev"`
 
-MD5 checksum: `4546afa056793a4e0e4fc047d2fab15b` dentex.youtube.downloader_v2.6.apk
+MD5 checksum: `057041dadf6d515f96d2d0cf6e0d438b` dentex.youtube.downloader_v3.0_BETA.apk
+
+BETA VERSION
+================================================================
+
+	Unstable version.
+	Possibly something will not work as intended.
+	Use at your own risk.
+    
+     v3.0 BETA - Jul 22 2013 
+    ----------------------------------- 
+    [x] Dashboard for interaction 
+     with downloaded video 
 
 NOTICE
 ================================================================
@@ -115,245 +127,3 @@ OTHER LICENSES
     license (CC BY-NC-ND).
 
     For further details, <http://creativecommons.org/licenses/>.
-
-
-CHANGELOG
-================================================================
-    
-     v2.6 - Jul 17 2013 
-    ----------------------------------- 
-    [x] fix for exp. signature parsing 
-    [x] new translations: 
-     - Arabic 
-     - Danish 
-     - Greek 
-     
-     v2.5.2 - Jul 14 2013 
-    ----------------------------------- 
-    [x] auto-fetch gantt\'s script to 
-     parse experimental signatures 
-     
-     v2.5.1 - Jul 12 2013 
-    ----------------------------------- 
-    [x] experimantal signature patch 
-     
-     v2.5 - Jul 11 2013 
-    ----------------------------------- 
-    [x] experimantal signature patch 
-     (yes, again) 
-    [x] other small bugs fixed 
-     
-     v2.4 - Jul 02 2013 
-    ----------------------------------- 
-    [x] new launcher and notification 
-     icons by Sam Plane 
-     
-     v2.3.2 - Jun 28 2013 
-    ----------------------------------- 
-    [x] small bugs fixed 
-     
-     v2.3.1 - Jun 27 2013 
-    ----------------------------------- 
-    [x] experimantal signature patch 
-     
-     v2.3 - Jun 25 2013 
-    ----------------------------------- 
-    [x] experimantal signature support 
-     (thanks Gantt@userscripts.org) 
-    [x] other bug/stability fixes 
-     
-     v2.2 - May 12 2013 
-    ----------------------------------- 
-    [x] fixed a bunch of BUUUUUGS !!! 
-    [x] handles direct link clicks 
-     (use of Intent.ACTION_VIEW) 
-     
-     v2.1 - May 11 2013 
-    ----------------------------------- 
-    [x] code optimizations 
-    [x] mediaScanner bug fix 
-     (thanks Wolfram!) 
-    [x] new translations: 
-     - Chinese (China) 
-     - Chinese (Hong Kong) 
-     
-     v2.0.6 - May 09 2013 
-    ----------------------------------- 
-    [x] dialog/toast when Downloads 
-     system app is not found 
-    [x] Chinese (Taiwan) translation 
-     
-     v2.0.5 - May 09 2013 
-    ----------------------------------- 
-    [x] bug fix (FC when Downloads 
-     system app is not found)(3) 
-     
-     v2.0.4 - May 08 2013 
-    ----------------------------------- 
-    [x] bug fix (FC when Downloads 
-     system app is not found)(2) 
-    [x] Hungarian translation 
-     
-     v2.0.3 - May 08 2013 
-    ----------------------------------- 
-    [x] bug fix (FC when Downloads 
-     system app is not found) 
-     
-     v2.0.2 - May 07 2013 
-    ----------------------------------- 
-    [x] bug fix 
-     
-     v2.0.1 - May 06 2013 
-    ----------------------------------- 
-    [x] bug fix 
-     
-     v2.0 - May 06 2013 
-    ----------------------------------- 
-    [x] audio extraction from 
-     downloaded video with optional 
-     conversion to mp3 (with FFmpeg) 
-    [x] PayPal donation menu 
-    [x] BugSense integration 
-    [x] on the fly language switch 
-    [x] fixed locale change to default 
-    [x] 3 new option on SSH: 
-     - use other ConnectBot forks 
-     - use link inside same LAN 
-     - SSH-send to long-press menu 
-    [x] up-navigation for ativities 
-    [x] nice translators list 
-    [x] new translations: 
-     - German 
-     - Hebrew 
-     - Polish (Poland) 
-     - Portuguese (Brazil) 
-     - Russian 
-     - Spanish 
-     - Western Farsi (Iran) 
-     
-     v1.9 - Mar 23 2013 
-    ----------------------------------- 
-    [x] YT web page parsing improved 
-    [x] fixed notif. error when remove 
-     downloads not yet started 
-    [x] 4K and 3D video support 
-    [x] re-organized menus 
-    [x] on the fly theme switch 
-    [x] progress bar for video list 
-    [x] option to enable logging 
-    [x] Korean translation 
-     
-     v1.8.2 - Mar 15 2013 
-    ----------------------------------- 
-    [x] dark/light theme switcher 
-    [x] option to show all the file 
-     sizes into the video list 
-    [x] French translation 
-     
-     v1.8.1 - Mar 14 2013 
-    ----------------------------------- 
-    [x] notification bug fix 
-     
-     v1.8 - Mar 12 2013 
-    ----------------------------------- 
-    [x] extSdCard support 
-    [x] long-press on video list item: 
-     menu to copy/share link 
-    [x] auto update-check once a day 
-    [x] new notification icon 
-    [x] landscape orientation support 
-    [x] YT video thumbnail preview 
-    [x] entire row in v.list clickable 
-    [x] Turkish translation 
-    [x] Dutch translation 
-     
-     v1.7 - Mar 03 2012 
-    ----------------------------------- 
-    [x] Italian translation 
-    [x] Portuguese (Portugal) transl. 
-    [x] option to force the locale 
-     
-     v1.6 - Mar 01 2013 
-    ----------------------------------- 
-    [x] own YTD notification bar 
-    [x] options for own and sys notif. 
-    [x] added some credits 
-     
-     v1.5.2 - Feb 25 2013 
-    ----------------------------------- 
-    [x] better fix on bad video list 
-    [x] remove stop download on click 
-    [x] open DM on notif. bar click 
-     (still not working in CM ROM) 
-     
-     v1.5.1 - Feb 24 2013 
-    ----------------------------------- 
-    [x] fixed crash if no net is avail. 
-    [x] fixed crash on bad video list 
-     
-     v1.5 - Feb 22 2013 
-    ----------------------------------- 
-    [x] online update check 
-    [x] option to fetch filesizes 
-    [x] stop download on click 
-     (maybe not working in CM 10.1) 
-    [x] DownloadManager quick links 
-    [x] settings and DM overflow menu 
-    [x] reordered preferences 
-    [x] small fixes 
-     
-     v1.4 - Jan 29 2013 
-    ----------------------------------- 
-    [x] licenses and code links 
-    [x] Share this App option 
-     
-     v1.3.1 - Jan 19 2013 
-    ----------------------------------- 
-    [x] handle again http|https links 
-     (thanks Reiner!) 
-     
-     v1.3 - Jan 18 2013 
-    ----------------------------------- 
-    [x] share via mobile links support 
-     
-     v1.2 - Dec 25 2012 
-    ----------------------------------- 
-    [x] fix for YouTube webpage changes 
-     
-     v1.1.1 - Dec 16 2012 
-    ----------------------------------- 
-    [x] preferences fix 
-     
-     v1.1 - Dec 13 2012 
-    ----------------------------------- 
-    [x] all text strings exported 
-    [x] preferences modification 
-    [x] quick start tutorial 
-     
-     v1.0.1 - Dec 11 2012 
-    ----------------------------------- 
-    [x] bad typo fixed 
-    [x] file-chooser new folder icons 
-     
-     v1.0 - Dec 11 2012 
-    ----------------------------------- 
-    [x] FIRST PUBLIC RELEASE 
-    [x] send download via SSH 
-    [x] JB compatibility 
-    [x] SSH send how-to dialog 
-    [x] standard download locations 
-    [x] file-chooser for download dest. 
-    [x] add quality suffix options 
-    [x] file renaming options
-
-TO-DO LIST
-================================================================
-
-    [v] downloads dashboard (WIP)
-    [ ] default format/filter selection for video download
-    [ ] handle SourceForge servers down; fallback on GitHub for apk download:
-	    page: https://github.com/dentex/ytdownloader
-	    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v.*.apk?raw=true
-    [ ] use icon/logo to identify codecs available
-	[ ] use resolutions to identify qualities
-    [ ] make the App tablet friendly

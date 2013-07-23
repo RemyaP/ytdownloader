@@ -117,6 +117,7 @@ public class ShareActivity extends Activity {
     List<String> qualities = new ArrayList<String>();
     List<String> stereo = new ArrayList<String>();
     List<String> sizes = new ArrayList<String>();
+    List<String> itags = new ArrayList<String>();
     List<String> listEntries = new ArrayList<String>();
     private String titleRaw;
     private String basename;
@@ -1046,6 +1047,7 @@ public class ShareActivity extends Activity {
                     codecMatcher(CQS[index], index);
                     qualityMatcher(CQS[index], index);
                     stereoMatcher(CQS[index], index);
+                    resolutionMatcher(CQS[index], index);
                     linkComposer(CQS[index], index);
                     Utils.logger("v", "block " + index + ": " + CQS[index], DEBUG_TAG);
                     index++;
@@ -1078,27 +1080,34 @@ public class ShareActivity extends Activity {
         Iterator<String> qualitiesIter = qualities.iterator();
         Iterator<String> stereoIter = stereo.iterator();
         Iterator<String> sizesIter = sizes.iterator();
+        Iterator<String> itagsIter = itags.iterator();
         
-    	if (YTD.settings.getBoolean("show_size_list", false)) {
-	        while (codecsIter.hasNext()) {
-	        	try {
-	        		listEntries.add(codecsIter.next().toUpperCase(Locale.ENGLISH).replace("WEBM", "WebM") + 
-	        				" - " + qualitiesIter.next() + stereoIter.next() + " - " + sizesIter.next());
-	        	} catch (NoSuchElementException e) {
-	        		listEntries.add("//");
-	        	}
-	        }
-    	} else {
-            while (codecsIter.hasNext()) {
-            	try {
-                	listEntries.add(codecsIter.next().toUpperCase(Locale.ENGLISH).replace("WEBM", "WebM") + 
-                			" - " + qualitiesIter.next() + stereoIter.next());
-            	} catch (NoSuchElementException e) {
-	        		listEntries.add("//");
-	        	}	
-            }
-            
-    	}
+        boolean showSize = YTD.settings.getBoolean("show_size_list", false);
+        boolean showRes = YTD.settings.getBoolean("show_resolutions", false);
+    	
+        while (codecsIter.hasNext()) {
+        	String size;
+        	
+			if (showSize) {
+        		size = " - " + sizesIter.next();
+        	} else {
+        		size = "";
+        	}
+        	
+        	String res;
+			if (showRes) {
+        		res = itagsIter.next();
+        	} else {
+        		res = qualitiesIter.next();
+        	}
+        	
+        	try {
+				listEntries.add(codecsIter.next().toUpperCase(Locale.ENGLISH).replace("WEBM", "WebM") + 
+						" - " + res + stereoIter.next() + size);
+        	} catch (NoSuchElementException e) {
+        		listEntries.add("//");
+        	}
+        }
     }
     
     private void linkComposer(String block, int i) {
@@ -1265,11 +1274,89 @@ public class ShareActivity extends Activity {
         Matcher qualityMatcher = qualityPattern.matcher(currentCQ);
         if (qualityMatcher.find()) {
             stereo.add(qualityMatcher.group().replace("stereo3d=1", "_3D"));
-            
         } else {
             stereo.add("");
         }
         //Utils.logger("d", "CQ index: " + i + ", Quality: " + qualities.get(i), DEBUG_TAG);
+    }
+    
+    private void resolutionMatcher(String currentCQ, int i) {
+    	Pattern itagPattern = Pattern.compile("itag=([0-9]{1,3})&");
+    	Matcher itagMatcher = itagPattern.matcher(currentCQ);
+    	if (itagMatcher.find()) {
+    		String itag = itagMatcher.group(1);
+    		String res = "";
+    		switch (Integer.parseInt(itag)) {
+    		case 5:
+    			res = "240p";
+    			break;
+    		case 6:
+    			res = "270p";
+    			break;
+    		case 17:
+    			res = "144p";
+				break;
+    		case 18:
+    			res = "270p/360p";
+				break;
+    		case 22:
+				res = "720p";
+				break;
+    		case 34:
+				res = "360p";
+				break;
+    		case 35:
+				res = "480p";
+				break;
+    		case 36:
+				res = "240p";
+				break;
+    		case 37:
+				res = "1080p";
+				break;
+    		case 38:
+				res = "3072p";
+				break;
+    		case 43:
+				res = "360p";
+				break;
+    		case 44:
+				res = "480p";
+				break;
+    		case 45:
+				res = "720p";
+				break;
+    		case 46:
+				res = "1080p";
+				break;
+    		case 82:
+				res = "360p";
+				break;
+    		case 83:
+				res = "240p";
+				break;
+    		case 84:
+				res = "720p";
+				break;
+    		case 85:
+				res = "520p";
+				break;
+    		case 100:
+				res = "360p";
+				break;
+    		case 101:
+				res = "360p";
+				break;
+    		case 102:
+				res = "720p";
+				break;
+    		}
+    		
+			itags.add(res);
+    	} else {
+    		itags.add("");
+        }
+        Utils.logger("d", "CQ index: " + i + ", itag: " + itags.get(i), DEBUG_TAG);
     }
     
     private void downloadThumbnail(String fileUrl) {

@@ -41,7 +41,7 @@ public class YTD extends Application {
 	
 	static String DEBUG_TAG = "YTD";
 
-	public static String BugsenseApiKey = "000000";
+	public static String BugsenseApiKey = "00000000";
 	
 	public static final String JSON_FILE = "dashboard.json";
 	public static final String JSON_FOLDER = "json";

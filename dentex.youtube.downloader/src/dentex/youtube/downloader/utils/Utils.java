@@ -176,30 +176,35 @@ public class Utils {
     
     public static void setNotificationDefaults(NotificationCompat.Builder aBuilder) {
     	String def = YTD.settings.getString("notification_defaults", "0");
-    	if (def.equals("0")) {
-    		aBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
-    	}
-    	if (def.equals("1")) {
-    		aBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS);
-    	}
-    	if (def.equals("2")) {
-    		aBuilder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
-    	}
-    	if (def.equals("3")) {
-    		aBuilder.setDefaults(Notification.DEFAULT_ALL);
-    	}
-    	if (def.equals("4")) {
-    		aBuilder.setDefaults(Notification.DEFAULT_SOUND);
-    	}
-    	if (def.equals("5")) { 
-    		aBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
-    	}
-    	if (def.equals("6")) {
-    		aBuilder.setDefaults(Notification.DEFAULT_LIGHTS);
-    	}
-    	if (def.equals("7")) {
-    		// nothing...
-    	}
+    	if (aBuilder != null) {
+			if (def.equals("0")) {
+				aBuilder.setDefaults(Notification.DEFAULT_SOUND
+						| Notification.DEFAULT_VIBRATE);
+			}
+			if (def.equals("1")) {
+				aBuilder.setDefaults(Notification.DEFAULT_SOUND
+						| Notification.DEFAULT_LIGHTS);
+			}
+			if (def.equals("2")) {
+				aBuilder.setDefaults(Notification.DEFAULT_LIGHTS
+						| Notification.DEFAULT_VIBRATE);
+			}
+			if (def.equals("3")) {
+				aBuilder.setDefaults(Notification.DEFAULT_ALL);
+			}
+			if (def.equals("4")) {
+				aBuilder.setDefaults(Notification.DEFAULT_SOUND);
+			}
+			if (def.equals("5")) {
+				aBuilder.setDefaults(Notification.DEFAULT_VIBRATE);
+			}
+			if (def.equals("6")) {
+				aBuilder.setDefaults(Notification.DEFAULT_LIGHTS);
+			}
+			if (def.equals("7")) {
+				// nothing...
+			}
+		}
     }
     
     public static void addEntryToJsonFile(Context context, String id, String type, String status, 
