@@ -7,11 +7,11 @@ Android 3+ App to download videos from YouTube
 
 ################################################################
 
-`versionCode="58"`
+`versionCode="59"`
 
-`versionName="2.6"`
+`versionName="2.6.1"`
 
-MD5 checksum: `4546afa056793a4e0e4fc047d2fab15b` dentex.youtube.downloader_v2.6.apk
+MD5 checksum: `fe41574aed91ea2c00cdbf90a21cc4e8` dentex.youtube.downloader_v2.6.1.apk
 
 NOTICE
 ================================================================
@@ -85,7 +85,7 @@ OTHER LICENSES
     (see http://creativecommons.org/licenses/by-sa/3.0). 
     
      For more details, look for comments in YTD`s Java code.
-     
+
     i.e.:
     *)  FfmpegController.java: GPL-3.0 - Copyright (C) 2009, Nathan Freitas, Orbot / The Guardian Project
         http://openideals.com/guardian - https://github.com/guardianproject/android-ffmpeg-java
@@ -120,6 +120,12 @@ OTHER LICENSES
 CHANGELOG
 ================================================================
     
+     v2.6.1 - Jul 26 2013 
+    ----------------------------------- 
+    [x] option to show resolutions 
+     into the video list 
+    [x] experimantal signature patch 
+     
      v2.6 - Jul 17 2013 
     ----------------------------------- 
     [x] fix for exp. signature parsing 
@@ -355,5 +361,4 @@ TO-DO LIST
 	    page: https://github.com/dentex/ytdownloader
 	    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v.*.apk?raw=true
     [ ] use icon/logo to identify codecs available
-	[ ] use resolutions to identify qualities
     [ ] make the App tablet friendly

@@ -5,5 +5,4 @@
 	    page: https://github.com/dentex/ytdownloader
 	    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v.*.apk?raw=true
     [ ] use icon/logo to identify codecs available
-	[ ] use resolutions to identify qualities
     [ ] make the App tablet friendly

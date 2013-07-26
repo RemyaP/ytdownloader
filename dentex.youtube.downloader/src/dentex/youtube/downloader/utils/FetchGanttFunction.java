@@ -47,7 +47,7 @@ public class FetchGanttFunction {
 
     private String fetchDecipheringFunction(String content) {
     	String function = null;
-    	Pattern pattern = Pattern.compile("function decryptSignature.*?return sig;.*?\\}", Pattern.DOTALL);
+    	Pattern pattern = Pattern.compile("function isString.*?return sig;.*?\\}", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(content);
         if (matcher.find()) {
         	function = matcher.group();

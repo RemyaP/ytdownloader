@@ -119,6 +119,7 @@ public class ShareActivity extends Activity {
     List<String> qualities = new ArrayList<String>();
     List<String> stereo = new ArrayList<String>();
     List<String> sizes = new ArrayList<String>();
+    List<String> itags = new ArrayList<String>();
     List<String> listEntries = new ArrayList<String>();
     private String titleRaw;
     private String title;
@@ -317,11 +318,7 @@ public class ShareActivity extends Activity {
     @Override
 	public void onBackPressed() {
     	super.onBackPressed();
-    	/*
-    	 * The next call is here onBackPressed(), and NOT in onStop() because 
-    	 * I want to cancel the asyncDownload task only on back button pressed,
-    	 * and not when switching to Preferences or D.M. from this activity.
-    	 */
+    	// To cancel the asyncDownload task only on back button pressed (not when switching to other activities)
     	if (isAsyncDownloadRunning) {
     		asyncDownload.cancel(true);
     	}
@@ -1116,6 +1113,7 @@ public class ShareActivity extends Activity {
                     codecMatcher(CQS[index], index);
                     qualityMatcher(CQS[index], index);
                     stereoMatcher(CQS[index], index);
+                    resolutionMatcher(CQS[index], index);
                     linkComposer(CQS[index], index);
                     Utils.logger("v", "block " + index + ": " + CQS[index], DEBUG_TAG);
                     index++;
@@ -1124,13 +1122,6 @@ public class ShareActivity extends Activity {
             } else {
             	Utils.logger("d", "asyncDownload cancelled @ 'findCodecAndQualityAndLinks' match", DEBUG_TAG);
             } 
-            
-            /*
-			Utils.createLogFile(sdcard, "ytd_links.txt", Arrays.toString(links.toArray()));
-			Utils.createLogFile(sdcard, "ytd_codecs.txt", Arrays.toString(codecs.toArray()));
-	        Utils.createLogFile(sdcard, "ytd_qualities.txt", Arrays.toString(qualities.toArray()));
-			*/
-            
             return "Match!";
         } else {
             return "No Match";
@@ -1141,11 +1132,8 @@ public class ShareActivity extends Activity {
         Pattern titlePattern = Pattern.compile("<title>(.*?)</title>");
         Matcher titleMatcher = titlePattern.matcher(content);
         if (titleMatcher.find()) {
-            titleRaw = titleMatcher.group()
-            		.replaceAll("(<| - YouTube</)title>", "")
-            		.replaceAll("&quot;", "\"")
-            		.replaceAll("&amp;", "&")
-            		.replaceAll("&#39;", "'");
+            titleRaw = titleMatcher.group().replaceAll("(<| - YouTube</)title>", "");
+            titleRaw = android.text.Html.fromHtml(titleRaw).toString();
             title = titleRaw.replaceAll("\\W", "_");
         } else {
             title = "Youtube Video";
@@ -1158,27 +1146,34 @@ public class ShareActivity extends Activity {
         Iterator<String> qualitiesIter = qualities.iterator();
         Iterator<String> stereoIter = stereo.iterator();
         Iterator<String> sizesIter = sizes.iterator();
+        Iterator<String> itagsIter = itags.iterator();
         
-    	if (settings.getBoolean("show_size_list", false)) {
-	        while (codecsIter.hasNext()) {
-	        	try {
-	        		listEntries.add(codecsIter.next().toUpperCase(Locale.ENGLISH).replace("WEBM", "WebM") + 
-	        				" - " + qualitiesIter.next() + stereoIter.next() + " - " + sizesIter.next());
-	        	} catch (NoSuchElementException e) {
-	        		listEntries.add("//");
-	        	}
-	        }
-    	} else {
-            while (codecsIter.hasNext()) {
-            	try {
-                	listEntries.add(codecsIter.next().toUpperCase(Locale.ENGLISH).replace("WEBM", "WebM") + 
-                			" - " + qualitiesIter.next() + stereoIter.next());
-            	} catch (NoSuchElementException e) {
-	        		listEntries.add("//");
-	        	}	
-            }
-            
-    	}
+        boolean showSize = YTD.settings.getBoolean("show_size_list", false);
+        boolean showRes = YTD.settings.getBoolean("show_resolutions", false);
+    	
+        while (codecsIter.hasNext()) {
+        	String size;
+        	
+			if (showSize) {
+        		size = " - " + sizesIter.next();
+        	} else {
+        		size = "";
+        	}
+        	
+        	String res;
+			if (showRes) {
+        		res = itagsIter.next();
+        	} else {
+        		res = qualitiesIter.next();
+        	}
+        	
+        	try {
+				listEntries.add(codecsIter.next().toUpperCase(Locale.ENGLISH).replace("WEBM", "WebM") + 
+						" - " + res + stereoIter.next() + size);
+        	} catch (NoSuchElementException e) {
+        		listEntries.add("//");
+        	}
+        }
     }
     
     private void linkComposer(String block, int i) {
@@ -1196,49 +1191,50 @@ public class ShareActivity extends Activity {
         		Log.e(DEBUG_TAG, "url: " + url);
         	}
     	}
-    		
+
+		String sig = null;
 		Pattern sigPattern = Pattern.compile("sig=(.+?)\\\\u0026");
     	Matcher sigMatcher = sigPattern.matcher(block);
-    	String sig = null;
 		if (sigMatcher.find()) {
     		sig = "signature=" + sigMatcher.group(1);
-    		Utils.logger("d", "sig found on step 1 (\u0026)", DEBUG_TAG);
+    		Utils.logger("d", "non-ecrypted signature found on step 1", DEBUG_TAG);
     	} else {
     		Pattern sigPattern2 = Pattern.compile("sig=(.+?)$");
     		Matcher sigMatcher2 = sigPattern2.matcher(block);
     		if (sigMatcher2.find()) {
     			sig = "signature=" + sigMatcher2.group(1);
-    			Utils.logger("d", "sig found on step 2 ($)", DEBUG_TAG);
+    			Utils.logger("d", "non-ecrypted signature found on step 2", DEBUG_TAG);
         	} else {
         		Pattern sigPattern3 = Pattern.compile("sig=([[0-9][A-Z]]{39,40}\\.[[0-9][A-Z]]{39,40})");
         		Matcher sigMatcher3 = sigPattern3.matcher(block);
         		if (sigMatcher3.find()) {
         			sig = "signature=" + sigMatcher3.group(1);
-        			Utils.logger("d", "sig found on step 3 ([[0-9][A-Z]]{39,40})", DEBUG_TAG);
+        			Utils.logger("d", "non-ecrypted signature found on step 3", DEBUG_TAG);
         		} else {
-        			Pattern sigPattern4 = Pattern.compile("s=([[0-9][A-Z][\\.]]{82,92})");
+        			Pattern sigPattern4 = Pattern.compile("^s=(.+?)\\\\u0026");
         			Matcher sigMatcher4 = sigPattern4.matcher(block);
         			if (sigMatcher4.find()) {
-        				Utils.logger("d", "sig found on step 4 (s=); length is " + sigMatcher4.group(1).length(), DEBUG_TAG);
-
-        				if (ganttFunction == null) {
-        					Utils.logger("i", "gantt's function: Fetching it online...", DEBUG_TAG);
-        					
-        					FetchGanttFunction ff = new FetchGanttFunction();
-        					ganttFunction = ff.doFetch(false, "http://userscripts.org/scripts/review/25105");
-        					
-        					if (ganttFunction == null) {
-        						Utils.logger("w", "gantt's function: switching from 'userscripts.org' to 'sourceforge.net'", DEBUG_TAG);
-        						ganttFunction = ff.doFetch(true, "http://sourceforge.net/projects/ytdownloader/files/utils/function_decryptSignature/download");
-        					}
-        				}
-
-        				String decipheredSig = RhinoRunner.decipher(sigMatcher4.group(1), ganttFunction);
-        				
-        				sig = "signature=" + decipheredSig;
+        				Utils.logger("d", "encrypted signature found on step 1; length is " + sigMatcher4.group(1).length(), DEBUG_TAG);
+        				loadGanttFunction();
+        				sig = "signature=" + RhinoRunner.decipher(sigMatcher4.group(1), ganttFunction);
         			} else {
-        				
-        				Log.e(DEBUG_TAG, "sig: " + sig);
+        				Pattern sigPattern5 = Pattern.compile("\\\\u0026s=(.+?)\\\\u0026");
+        	    		Matcher sigMatcher5 = sigPattern5.matcher(block);
+        	    		if (sigMatcher5.find()) {
+        	    			Utils.logger("d", "ecrypted signature found on step 2; length is " + sigMatcher5.group(1).length(), DEBUG_TAG);
+        	    			loadGanttFunction();
+        	    			sig = "signature=" + RhinoRunner.decipher(sigMatcher5.group(1), ganttFunction);
+        	    		} else {
+        	    			Pattern sigPattern6 = Pattern.compile("\\\\u0026s=(.+?)$");
+                			Matcher sigMatcher6 = sigPattern6.matcher(block);
+                			if (sigMatcher6.find()) {
+                				Utils.logger("d", "encrypted signature found on step 3; length is " + sigMatcher6.group(1).length(), DEBUG_TAG);
+                				loadGanttFunction();
+		        				sig = "signature=" + RhinoRunner.decipher(sigMatcher6.group(1), ganttFunction);
+		        			} else {
+		        				Log.e(DEBUG_TAG, "sig: " + sig);
+		        			}
+        	    		}
         			}
         		}
         	}
@@ -1257,6 +1253,20 @@ public class ShareActivity extends Activity {
         	Utils.logger("d", "size " + i + ": " + size, DEBUG_TAG);
 		}
 	}
+    
+    private void loadGanttFunction() {
+	    if (ganttFunction == null) {
+			Utils.logger("i", "gantt's function: Fetching it online...", DEBUG_TAG);
+			
+			FetchGanttFunction ff = new FetchGanttFunction();
+			ganttFunction = ff.doFetch(false, "http://userscripts.org/scripts/review/25105");
+			
+			if (ganttFunction == null) {
+				Utils.logger("w", "gantt's function: switching from 'userscripts.org' to 'sourceforge.net'", DEBUG_TAG);
+				ganttFunction = ff.doFetch(true, "http://sourceforge.net/projects/ytdownloader/files/utils/function_decryptSignature/download");
+			}
+		}
+    }
 
 	private class AsyncSizeQuery extends AsyncTask<String, Void, String> {
     	
@@ -1345,7 +1355,7 @@ public class ShareActivity extends Activity {
         Pattern codecPattern = Pattern.compile("(webm|mp4|flv|3gpp)");
         Matcher codecMatcher = codecPattern.matcher(currentCQ);
         if (codecMatcher.find()) {
-            codecs.add(codecMatcher.group());
+            codecs.add(codecMatcher.group().toUpperCase(Locale.ENGLISH).replace("WEBM", "WebM"));
         } else {
             codecs.add("NoMatch");
         }
@@ -1368,11 +1378,89 @@ public class ShareActivity extends Activity {
         Matcher qualityMatcher = qualityPattern.matcher(currentCQ);
         if (qualityMatcher.find()) {
             stereo.add(qualityMatcher.group().replace("stereo3d=1", "_3D"));
-            
         } else {
             stereo.add("");
         }
         //Utils.logger("d", "CQ index: " + i + ", Quality: " + qualities.get(i), DEBUG_TAG);
+    }
+    
+    private void resolutionMatcher(String currentCQ, int i) {
+    	Pattern itagPattern = Pattern.compile("itag=([0-9]{1,3})&|$");
+    	Matcher itagMatcher = itagPattern.matcher(currentCQ);
+    	if (itagMatcher.find()) {
+    		String itag = itagMatcher.group(1);
+    		String res = "";
+    		switch (Integer.parseInt(itag)) {
+    		case 5:
+    			res = "240p";
+    			break;
+    		case 6:
+    			res = "270p";
+    			break;
+    		case 17:
+    			res = "144p";
+				break;
+    		case 18:
+    			res = "270p/360p";
+				break;
+    		case 22:
+				res = "720p";
+				break;
+    		case 34:
+				res = "360p";
+				break;
+    		case 35:
+				res = "480p";
+				break;
+    		case 36:
+				res = "240p";
+				break;
+    		case 37:
+				res = "1080p";
+				break;
+    		case 38:
+				res = "3072p";
+				break;
+    		case 43:
+				res = "360p";
+				break;
+    		case 44:
+				res = "480p";
+				break;
+    		case 45:
+				res = "720p";
+				break;
+    		case 46:
+				res = "1080p";
+				break;
+    		case 82:
+				res = "360p";
+				break;
+    		case 83:
+				res = "240p";
+				break;
+    		case 84:
+				res = "720p";
+				break;
+    		case 85:
+				res = "520p";
+				break;
+    		case 100:
+				res = "360p";
+				break;
+    		case 101:
+				res = "360p";
+				break;
+    		case 102:
+				res = "720p";
+				break;
+    		}
+    		
+			itags.add(res);
+    	} else {
+    		itags.add("");
+        }
+        Utils.logger("d", "CQ index: " + i + ", itag: " + itags.get(i), DEBUG_TAG);
     }
     
     private void downloadThumbnail(String fileUrl) {

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v2.6.1 - Jul 26 2013
+        \n-----------------------------------
+        \n[x] option to show resolutions
+        \n    into the video list
+        \n[x] experimantal signature patch
+        \n
         \n v2.6 - Jul 17 2013
         \n-----------------------------------
         \n[x] fix for exp. signature parsing

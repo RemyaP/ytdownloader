@@ -2,7 +2,6 @@ package dentex.youtube.downloader.utils;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
-import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
 public class RhinoRunner {
@@ -28,10 +27,14 @@ public class RhinoRunner {
 		rhino.setOptimizationLevel(-1);
 		try {
 		    ScriptableObject scope = rhino.initStandardObjects();
-		    Scriptable that = rhino.newObject(scope);
-		    Function fct = rhino.compileFunction(scope, function, "script", 1, null);
 		    
-		    Object result = fct.call(rhino, scope, that, new Object[] {S});
+		    /*Scriptable that = rhino.newObject(scope);
+		    Function fct = rhino.compileFunction(scope, function, "script", 1, null);*/
+		    
+		    rhino.evaluateString(scope, function, "script", 1, null);
+		    Function fct = (Function)scope.get("decryptSignature", scope);
+		    
+		    Object result = fct.call(rhino, scope, scope, new Object[] {S});
 		    
 		    return (String) Context.jsToJava(result, String.class);
 		    
